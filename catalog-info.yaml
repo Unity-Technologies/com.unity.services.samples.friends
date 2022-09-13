@@ -1,0 +1,14 @@
+# For more information about the available options please visit: http://go/backstage (VPN required)
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  annotations:
+    github.com/project-slug: Unity-Technologies/com.unity.services.samples.relationships
+  name: com.unity.services.samples.relationships
+  description: "A Friends service sample project, to be published to the asset store."
+  labels:
+    costcenter: "5111"
+spec:
+  type: other
+  lifecycle: pre-production
+  owner: unity-technologies/mps-persistent-worlds
