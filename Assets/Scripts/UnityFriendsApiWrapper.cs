@@ -12,86 +12,86 @@ namespace UnityGamingServicesUsesCases
     {
         public class UnityFriendsApiWrapper
         {
-            public async void AddAsync(string playerID, Action<string> callback, string eventSource = null)
+            public async void AddAsync(string playerId, Action<string> callback, string eventSource = null)
             {
                 try
                 {
-                    await Friends.Instance.AddFriendAsync(playerID, eventSource);
-                    callback?.Invoke(playerID);
+                    await Friends.Instance.AddFriendAsync(playerId, eventSource);
+                    callback?.Invoke(playerId);
                 }
                 catch (FriendsServiceException e)
                 {
-                    Debug.Log($"Failed to add {playerID}.");
+                    Debug.Log($"Failed to add {playerId}.");
                     Debug.LogError(e);
                 }
             }
 
-            public async void RemoveAsync(string playerID, Action<string> callback)
+            public async void RemoveAsync(string playerId, Action<string> callback)
             {
                 try
                 {
-                    await Friends.Instance.RemoveFriendAsync(playerID);
-                    callback?.Invoke(playerID);
+                    await Friends.Instance.RemoveFriendAsync(playerId);
+                    callback?.Invoke(playerId);
                 }
                 catch (FriendsServiceException e)
                 {
-                    Debug.Log($"Failed to remove {playerID}.");
+                    Debug.Log($"Failed to remove {playerId}.");
                     Debug.LogError(e);
                 }
             }
 
-            public async void BlockAsync(string playerID, Action<string> callback, string eventSource = null)
+            public async void BlockAsync(string playerId, Action<string> callback, string eventSource = null)
             {
                 try
                 {
-                    await Friends.Instance.BlockAsync(playerID, eventSource);
-                    callback?.Invoke(playerID);
+                    await Friends.Instance.BlockAsync(playerId, eventSource);
+                    callback?.Invoke(playerId);
                 }
                 catch (FriendsServiceException e)
                 {
-                    Debug.Log($"Failed to block {playerID}.");
+                    Debug.Log($"Failed to block {playerId}.");
                     Debug.LogError(e);
                 }
             }
 
-            public async void UnblockAsync(string playerID, Action<string> callback)
+            public async void UnblockAsync(string playerId, Action<string> callback)
             {
                 try
                 {
-                    await Friends.Instance.UnblockAsync(playerID);
-                    callback?.Invoke(playerID);
+                    await Friends.Instance.UnblockAsync(playerId);
+                    callback?.Invoke(playerId);
                 }
                 catch (FriendsServiceException e)
                 {
-                    Debug.Log($"Failed to unblock {playerID}.");
+                    Debug.Log($"Failed to unblock {playerId}.");
                     Debug.LogError(e);
                 }
             }
 
-            public async void AcceptRequestAsync(string playerID, Action<string> callback)
+            public async void AcceptRequestAsync(string playerId, Action<string> callback)
             {
                 try
                 {
-                    await Friends.Instance.ConsentFriendRequestAsync(playerID);
-                    callback?.Invoke(playerID);
+                    await Friends.Instance.ConsentFriendRequestAsync(playerId);
+                    callback?.Invoke(playerId);
                 }
                 catch (FriendsServiceException e)
                 {
-                    Debug.Log($"Failed to accept request from {playerID}.");
+                    Debug.Log($"Failed to accept request from {playerId}.");
                     Debug.LogError(e);
                 }
             }
 
-            public async void DeclineRequestAsync(string playerID, Action<string> callback)
+            public async void DeclineRequestAsync(string playerId, Action<string> callback)
             {
                 try
                 {
-                    await Friends.Instance.IgnoreFriendRequestAsync(playerID);
-                    callback?.Invoke(playerID);
+                    await Friends.Instance.IgnoreFriendRequestAsync(playerId);
+                    callback?.Invoke(playerId);
                 }
                 catch (FriendsServiceException e)
                 {
-                    Debug.Log($"Failed to decline request from {playerID}.");
+                    Debug.Log($"Failed to decline request from {playerId}.");
                     Debug.LogError(e);
                 }
             }
