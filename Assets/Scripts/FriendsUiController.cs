@@ -108,7 +108,7 @@ namespace UnityGamingServicesUsesCases
                 {
                     var availability = presence.Presence.GetAvailability();
                     var activity = presence.Presence.GetActivity();
-                    Debug.LogError($"{presence.Player.Id} availability :  {availability} and activity : {activity}");
+                    Debug.Log($"{presence.Player.Id} availability :  {availability} and activity : {activity}");
                 }
             }
 
