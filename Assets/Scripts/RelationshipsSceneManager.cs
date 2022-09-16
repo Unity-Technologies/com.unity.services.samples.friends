@@ -1,7 +1,11 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Unity.Services.Authentication;
 using Unity.Services.Core;
+using Unity.Services.Friends;
+using Unity.Services.Friends.Exceptions;
 using Unity.Services.Friends.Models;
+using Unity.Services.Friends.Options;
 using UnityEngine;
 
 namespace UnityGamingServicesUsesCases
@@ -10,8 +14,6 @@ namespace UnityGamingServicesUsesCases
     {
         public class RelationshipsSceneManager : MonoBehaviour
         {
-            private RelationshipsApiWrapper m_RelationshipsApiWrapper = null;
-
             async void Start()
             {
                 await UnityServices.InitializeAsync();
@@ -21,114 +23,145 @@ namespace UnityGamingServicesUsesCases
 
                 Debug.Log("Authenticated as " + AuthenticationService.Instance.PlayerId);
                 Debug.Log("Token " + AuthenticationService.Instance.AccessToken);
-                
-                m_RelationshipsApiWrapper = new RelationshipsApiWrapper();
-                
             }
 
-            #region API Calls
-
-            private void AddFriendById(string playerId, string eventSource)
+            private async Task AddFriendById(string playerId, string eventSource)
             {
-                m_RelationshipsApiWrapper.AddAsync(playerId, OnFriendAdded, eventSource);
-            }
+                try
+                {
+                    await Friends.Instance.AddFriendAsync(playerId, eventSource);
+                }
+                catch (FriendsServiceException e)
+                {
+                    Debug.Log($"Failed to add {playerId}.");
+                    Debug.LogError(e);
+                }
 
-            private void RemoveFriendById(string playerId)
-            {
-                m_RelationshipsApiWrapper.RemoveAsync(playerId, OnFriendRemoved);
-            }
-
-            private void BlockFriendById(string playerId, string eventSource)
-            {
-                m_RelationshipsApiWrapper.BlockAsync(playerId, OnFriendBlocked, eventSource);
-            }
-
-            private void UnblockFriendById(string playerId)
-            {
-                m_RelationshipsApiWrapper.UnblockAsync(playerId, OnFriendUnblocked);
-            }
-
-            private void AcceptFriendRequest(string playerId)
-            {
-                m_RelationshipsApiWrapper.AcceptRequestAsync(playerId, OnFriendRequestAccepted);
-            }
-
-            private void DeclineFriendRequest(string playerId)
-            {
-                m_RelationshipsApiWrapper.DeclineRequestAsync(playerId, OnFriendRequestDeclined);
-            }
-
-            private void GetFriendsWithoutPresence()
-            {
-                m_RelationshipsApiWrapper.GetFriendsWithoutPresenceAsync(OnFriendsWithoutPresenceListReceived);
-            }
-
-            private void GetFriendsWithPresence()
-            {
-                m_RelationshipsApiWrapper.GetFriendsWithPresenceAsync(OnFriendsWithPresenceListReceived);
-            }
-
-            private void SetPresence(PresenceAvailabilityOptions presenceAvailabilityOptions, string activityStatus)
-            {
-                var activity = new Activity { Status = activityStatus };
-                var presence = new Presence<Activity>(presenceAvailabilityOptions, activity);
-                m_RelationshipsApiWrapper.SetPresenceAsync(presence, OnPresenceSet);
-            }
-
-            #endregion
-
-            #region Callbacks
-
-            private void OnFriendAdded(string playerId)
-            {
                 Debug.Log($"{playerId} was added to the friends list.");
             }
 
-            private void OnFriendRemoved(string playerId)
+            private async Task RemoveFriendById(string playerId)
             {
+                try
+                {
+                    await Friends.Instance.RemoveFriendAsync(playerId);
+                }
+                catch (FriendsServiceException e)
+                {
+                    Debug.Log($"Failed to remove {playerId}.");
+                    Debug.LogError(e);
+                }
+
                 Debug.Log($"{playerId} was added to the friends list.");
             }
 
-            private void OnFriendBlocked(string playerId)
+            private async Task BlockFriend(string playerId, string eventSource = null)
             {
+                try
+                {
+                    await Friends.Instance.BlockAsync(playerId, eventSource);
+                }
+                catch (FriendsServiceException e)
+                {
+                    Debug.Log($"Failed to block {playerId}.");
+                    Debug.LogError(e);
+                }
+
                 Debug.Log($"{playerId} was blocked.");
             }
 
-            private void OnFriendUnblocked(string playerId)
+            private async Task UnblockFriend(string playerId)
             {
+                try
+                {
+                    await Friends.Instance.UnblockAsync(playerId);
+                }
+                catch (FriendsServiceException e)
+                {
+                    Debug.Log($"Failed to unblock {playerId}.");
+                    Debug.LogError(e);
+                }
+
                 Debug.Log($"{playerId} was unblocked.");
             }
 
-            private void OnFriendRequestAccepted(string playerId)
+            private async Task AcceptRequest(string playerId)
             {
+                try
+                {
+                    await Friends.Instance.ConsentFriendRequestAsync(playerId);
+                }
+                catch (FriendsServiceException e)
+                {
+                    Debug.Log($"Failed to accept request from {playerId}.");
+                    Debug.LogError(e);
+                }
+
                 Debug.Log($"Friend request from {playerId} was accepted.");
             }
 
-            private void OnFriendRequestDeclined(string playerId)
+            private async Task DeclineRequest(string playerId)
             {
+                try
+                {
+                    await Friends.Instance.IgnoreFriendRequestAsync(playerId);
+                }
+                catch (FriendsServiceException e)
+                {
+                    Debug.Log($"Failed to decline request from {playerId}.");
+                    Debug.LogError(e);
+                }
+
                 Debug.Log($"Friend request from {playerId} was declined.");
             }
 
-            private void OnFriendsWithoutPresenceListReceived(List<Player> friendsList)
+            private async Task<List<Player>> GetFriendsWithoutPresence()
             {
+                try
+                {
+                    var friends = await Friends.Instance.GetFriendsAsync(new PaginationOptions());
+                    return friends;
+                }
+                catch (FriendsServiceException e)
+                {
+                    Debug.Log("Failed to retrieve the friend list.");
+                    Debug.LogError(e);
+                }
+
+                return null;
             }
 
-            private void OnFriendsWithPresenceListReceived(List<PlayerPresence<Activity>> friendsList)
+            private async Task<List<PlayerPresence<Activity>>> GetFriendsWithPresence()
             {
-                foreach (var presence in friendsList)
+                try
                 {
-                    var availability = presence.Presence.GetAvailability();
-                    var activity = presence.Presence.GetActivity();
-                    Debug.Log($"{presence.Player.Id} availability :  {availability} and activity : {activity}");
+                    var friends = await Friends.Instance.GetFriendsAsync<Activity>(new PaginationOptions());
+                    return friends;
+                }
+                catch (FriendsServiceException e)
+                {
+                    Debug.Log("Failed to retrieve the friend list.");
+                    Debug.LogError(e);
+                }
+
+                return null;
+            }
+
+            private async Task SetPresence(PresenceAvailabilityOptions presenceAvailabilityOptions, string activityStatus)
+            {
+                var activity = new Activity { Status = activityStatus };
+                var presence = new Presence<Activity>(presenceAvailabilityOptions, activity);
+
+                try
+                {
+                    await Friends.Instance.SetPresenceAsync(presence);
+                }
+                catch (FriendsServiceException e)
+                {
+                    Debug.Log($"Failed to set the presence to {presence.GetAvailability()}");
+                    Debug.LogError(e);
                 }
             }
-
-            private void OnPresenceSet()
-            {
-                Debug.Log("Presence set.");
-            }
-
-            #endregion
         }
     }
 }
