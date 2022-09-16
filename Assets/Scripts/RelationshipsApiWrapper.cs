@@ -10,7 +10,7 @@ namespace UnityGamingServicesUsesCases
 {
     namespace Relationships
     {
-        public class UnityFriendsApiWrapper
+        public class RelationshipsApiWrapper
         {
             public async void AddAsync(string playerId, Action<string> callback, string eventSource = null)
             {
