@@ -16,28 +16,23 @@ namespace UnityGamingServicesUsesCases
         {
             [SerializeField] private PlayerIdsGenerator m_PlayerIdGenerator = null;
             [SerializeField] private AddFriendView m_AddFriendView = null;
-                
-            async void Start()
+
+
+            public void Init()
             {
-
                 m_AddFriendView.OnAddFriendRequested += AddFriendByIdVoid;
-                
-                PlayerPrefs.DeleteAll();
-                await UnityServices.InitializeAsync();
-                AuthenticationService.Instance.ClearSessionToken();
-                // await AuthenticationService.Instance.SignInAnonymouslyAsync();
-                //Debug.Log("Token " + AuthenticationService.Instance.AccessToken);
-                
-                await m_PlayerIdGenerator.Generate();
-                Debug.Log("Authenticated as " + AuthenticationService.Instance.PlayerId);
+                Print();
+            }
 
-                var friends =await GetFriendsWithoutPresence();
+            private async void Print()
+            {
+                var friends = await GetFriendsWithoutPresence();
                 foreach (var player in friends)
                 {
                     Debug.Log(player.Id);
                 }
             }
-            
+
             private async void AddFriendByIdVoid(string id)
             {
                 await AddFriendById(id, "button");
