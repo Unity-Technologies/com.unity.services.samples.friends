@@ -8,16 +8,16 @@ namespace UnityGamingServicesUsesCases.Relationships
 {
     public class PlayerIdsGenerator : MonoBehaviour
     {
-        [SerializeField] private RelationshipsSceneManager m_RelationshipsSceneManager = null;
-        [SerializeField] private int m_Amount = 5;
-        [SerializeField] private PlayerIdsData m_PlayerIdsData = null;
+        [SerializeField] private RelationshipsSceneManager _relationshipsSceneManager = null;
+        [SerializeField] private int _amount = 5;
+        [SerializeField] private PlayerIdsData _playerIdsData = null;
 
         private const string PlayerNamePrefix ="Player_";
         
         private async void Start()
         {
             //Editor Player will be the last profile created.
-            var playerName = $"{PlayerNamePrefix}{m_Amount - 1}";
+            var playerName = $"{PlayerNamePrefix}{_amount - 1}";
             var hasGeneratedPlayerIds = PlayerPrefs.GetString(playerName) != "";
             if (hasGeneratedPlayerIds)
             {
@@ -25,12 +25,12 @@ namespace UnityGamingServicesUsesCases.Relationships
             }
             else
             {
-                await GeneratePlayerIds(m_Amount);
+                await GeneratePlayerIds(_amount);
             }
 
             Debug.Log($"Authenticated <b>{playerName}</b> with Id: <b>{AuthenticationService.Instance.PlayerId}</b>");
 
-            m_RelationshipsSceneManager.Init();
+            _relationshipsSceneManager.Init();
         }
 
         private async Task LogIn(string playerName)
@@ -47,7 +47,7 @@ namespace UnityGamingServicesUsesCases.Relationships
             await UnityServices.InitializeAsync();
             await AuthenticationService.Instance.SignInAnonymouslyAsync();
             
-            m_PlayerIdsData.Clear();
+            _playerIdsData.Clear();
 
             for (int i = 0; i < amount; i++)
             {
@@ -61,7 +61,7 @@ namespace UnityGamingServicesUsesCases.Relationships
             var playerName = $"{PlayerNamePrefix}{i}";
             AuthenticationService.Instance.SwitchProfile(name);
             await LogIn(playerName);
-            m_PlayerIdsData.Add(AuthenticationService.Instance.PlayerId);
+            _playerIdsData.Add(AuthenticationService.Instance.PlayerId);
         }
     }
 }

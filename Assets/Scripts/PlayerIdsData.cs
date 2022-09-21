@@ -7,25 +7,25 @@ namespace UnityGamingServicesUsesCases.Relationships
     [CreateAssetMenu(fileName = "playerIds_data", menuName = "Data/PlayerIds")]
     public class PlayerIdsData : ScriptableObject
     {
-        [SerializeField] private List<string> m_PlayerIds = new List<string>();
+        [SerializeField] private List<string> _playerIds = new List<string>();
         
         public string this[int i]
         {
-            get => m_PlayerIds[i];
-            set => m_PlayerIds[i] = value;
+            get => _playerIds[i];
+            set => _playerIds[i] = value;
         }
 
         public void Add(string id)
         {
-            if (m_PlayerIds.Contains(id))
+            if (_playerIds.Contains(id))
                 return;
-            m_PlayerIds.Add(id);
+            _playerIds.Add(id);
             PlayerPrefs.SetString(name,id);
         }
 
         public void Clear()
         {
-            m_PlayerIds.Clear();
+            _playerIds.Clear();
             PlayerPrefs.DeleteAll();
         }
     }

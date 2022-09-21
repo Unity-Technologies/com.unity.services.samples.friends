@@ -8,12 +8,12 @@ namespace UnityGamingServicesUsesCases.Relationships
     {
         public Action<string> OnAddFriendRequested;
 
-        [SerializeField] private Button m_Button = null;
-        [SerializeField] private PlayerIdsData m_PlayerData = null;
+        [SerializeField] private Button _button = null;
+        [SerializeField] private PlayerIdsData _playerData = null;
 
         private void Awake()
         {
-            m_Button.onClick.AddListener(() => OnAddFriendRequested?.Invoke(m_PlayerData[0]));
+            _button.onClick.AddListener(() => OnAddFriendRequested?.Invoke(_playerData[0]));
         }
     }
 }

@@ -11,12 +11,12 @@ namespace UnityGamingServicesUsesCases.Relationships
 {
     public class RelationshipsSceneManager : MonoBehaviour
     {
-        [SerializeField] private AddFriendView m_AddFriendView = null;
-
+        [SerializeField] private AddFriendView _addFriendView = null;
+      
 
         public void Init()
         {
-            m_AddFriendView.OnAddFriendRequested += AddFriendByIdVoid;
+            _addFriendView.OnAddFriendRequested += AddFriendByIdVoid;
         }
 
         private async void AddFriendByIdVoid(string id)

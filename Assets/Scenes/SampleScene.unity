@@ -481,8 +481,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfd52f67a09f0ba4f93f78261f3ffa25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Button: {fileID: 1143520934}
-  m_PlayerData: {fileID: 11400000, guid: 00410ffe8fe6f5947bd53cbaf3663362, type: 2}
+  _button: {fileID: 1143520934}
+  _playerData: {fileID: 11400000, guid: 00410ffe8fe6f5947bd53cbaf3663362, type: 2}
 --- !u!1 &1624191784
 GameObject:
   m_ObjectHideFlags: 0
@@ -513,7 +513,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccfb7ac78d6755d4d84969716b7a2f54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_AddFriendView: {fileID: 1143520937}
+  _addFriendView: {fileID: 1143520937}
 --- !u!4 &1624191786
 Transform:
   m_ObjectHideFlags: 0
@@ -541,9 +541,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb5c2b14141c0774795c97400bc6728c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_PlayerIdsData: {fileID: 11400000, guid: 00410ffe8fe6f5947bd53cbaf3663362, type: 2}
-  m_Amount: 5
-  m_RelationshipsSceneManager: {fileID: 1624191785}
+  _relationshipsSceneManager: {fileID: 1624191785}
+  _amount: 5
+  _playerIdsData: {fileID: 11400000, guid: 00410ffe8fe6f5947bd53cbaf3663362, type: 2}
 --- !u!1 &1896553550
 GameObject:
   m_ObjectHideFlags: 0
