@@ -1,0 +1,11 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:Template name="PlayerIconLayout" src="project://database/Assets/UI/RelationshipsUI/PlayerIconLayout.uxml?fileID=9197481963319205126&amp;guid=6b58ff1506aff4120b934c3a6f061819&amp;type=3#PlayerIconLayout" />
+    <Style src="project://database/Assets/UI/RelationshipsUI/RelationshipsStyle.uss?fileID=7433441132597879392&amp;guid=947b3ef19af094ccca809ccb7e4ad0b2&amp;type=3#RelationshipsStyle" />
+    <ui:VisualElement name="playerTab-background" picking-mode="Ignore" class="player-panel" style="left: auto; align-items: center; width: 430px; height: 120px; flex-direction: row; padding-left: 50px; padding-top: 20px; padding-bottom: 20px; padding-right: 10px;">
+        <ui:Instance template="PlayerIconLayout" name="PlayerIconLayout" style="width: 80px; height: 80px; border-top-left-radius: 20px; border-bottom-left-radius: 20px; border-top-right-radius: 20px; border-bottom-right-radius: 20px; -unity-background-scale-mode: scale-and-crop;" />
+        <ui:VisualElement name="playerInfo-layout" style="flex-shrink: 1; flex-grow: 1; flex-direction: column; align-items: flex-start; padding-left: 0; margin-left: 10px; padding-right: 0; padding-top: 0; padding-bottom: 0;">
+            <ui:Label text="PlayerName" display-tooltip-when-elided="true" name="playerName-label" class="playerName-label player-name-label" />
+            <ui:Label text="Player  Activity" display-tooltip-when-elided="true" name="playerActivity-label" enable-rich-text="false" class="playerActivity-label player-activity-label" style="flex-wrap: nowrap; white-space: normal;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
