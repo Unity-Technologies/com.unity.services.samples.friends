@@ -492,8 +492,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1624191786}
-  - component: {fileID: 1624191785}
   - component: {fileID: 1624191787}
+  - component: {fileID: 1624191785}
   m_Layer: 0
   m_Name: RelationshipsSample
   m_TagString: Untagged
@@ -513,7 +513,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccfb7ac78d6755d4d84969716b7a2f54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_PlayerIdGenerator: {fileID: 1624191787}
   m_AddFriendView: {fileID: 1143520937}
 --- !u!4 &1624191786
 Transform:

@@ -2,15 +2,18 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class AddFriendView : MonoBehaviour
+namespace UnityGamingServicesUsesCases.Relationships
 {
-    public Action<string> OnAddFriendRequested;
-
-    [SerializeField] private Button m_Button = null;
-    [SerializeField] private PlayerIdsData m_PlayerData = null;
-    private void Awake()
+    public class AddFriendView : MonoBehaviour
     {
-        m_Button.onClick.AddListener(()=>OnAddFriendRequested?.Invoke(m_PlayerData[0]));
-    }
+        public Action<string> OnAddFriendRequested;
 
+        [SerializeField] private Button m_Button = null;
+        [SerializeField] private PlayerIdsData m_PlayerData = null;
+
+        private void Awake()
+        {
+            m_Button.onClick.AddListener(() => OnAddFriendRequested?.Invoke(m_PlayerData[0]));
+        }
+    }
 }

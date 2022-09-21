@@ -1,71 +1,67 @@
-using System.Collections;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Unity.Services.Authentication;
 using Unity.Services.Core;
 using UnityEngine;
-using UnityGamingServicesUsesCases.Relationships;
 
-public class PlayerIdsGenerator : MonoBehaviour
+
+namespace UnityGamingServicesUsesCases.Relationships
 {
-    [SerializeField] private PlayerIdsData m_PlayerIdsData = null;
-    [SerializeField] private int m_Amount = 5;
-
-    [SerializeField] private RelationshipsSceneManager m_RelationshipsSceneManager = null;
-
-    private async void Start()
+    public class PlayerIdsGenerator : MonoBehaviour
     {
-        var playerName =$"Player_{m_Amount-1}";
-        var hasGeneratedPlayerIds = PlayerPrefs.GetString(playerName) != "";
-        if (hasGeneratedPlayerIds)
+        [SerializeField] private RelationshipsSceneManager m_RelationshipsSceneManager = null;
+        [SerializeField] private int m_Amount = 5;
+        [SerializeField] private PlayerIdsData m_PlayerIdsData = null;
+
+        private const string PlayerNamePrefix ="Player_";
+        
+        private async void Start()
+        {
+            //Editor Player will be the last profile created.
+            var playerName = $"{PlayerNamePrefix}{m_Amount - 1}";
+            var hasGeneratedPlayerIds = PlayerPrefs.GetString(playerName) != "";
+            if (hasGeneratedPlayerIds)
+            {
+                await LogIn(playerName);
+            }
+            else
+            {
+                await GeneratePlayerIds(m_Amount);
+            }
+
+            Debug.Log($"Authenticated <b>{playerName}</b> with Id: <b>{AuthenticationService.Instance.PlayerId}</b>");
+
+            m_RelationshipsSceneManager.Init();
+        }
+
+        private async Task LogIn(string playerName)
         {
             var options = new InitializationOptions();
             var option = options.SetProfile(playerName);
             await UnityServices.InitializeAsync(option);
             await AuthenticationService.Instance.SignInAnonymouslyAsync();
         }
-        else
+
+        private async Task GeneratePlayerIds(int amount)
         {
-            await Generate();
+            //Need to initialize before doing anything.
+            await UnityServices.InitializeAsync();
+            await AuthenticationService.Instance.SignInAnonymouslyAsync();
+            
+            m_PlayerIdsData.Clear();
+
+            for (int i = 0; i < amount; i++)
+            {
+                await GenerateSinglePlayerId(i);
+            }
         }
 
-        Debug.Log($"Authentified as {playerName} : " + AuthenticationService.Instance.PlayerId);
-
-        m_RelationshipsSceneManager.Init();
-    }
-
-    public async Task Generate()
-    {
-        await UnityServices.InitializeAsync();
-        await AuthenticationService.Instance.SignInAnonymouslyAsync();
-        PlayerPrefs.DeleteAll();
-        m_PlayerIdsData.PlayerIds.Clear();
-
-        for (int i = 0; i < m_Amount; i++)
+        private async Task GenerateSinglePlayerId(int i)
         {
             AuthenticationService.Instance.SignOut();
-            var name = $"Player_{i}";
+            var playerName = $"{PlayerNamePrefix}{i}";
             AuthenticationService.Instance.SwitchProfile(name);
-            var options = new InitializationOptions();
-            var option = options.SetProfile(name);
-            await UnityServices.InitializeAsync(option);
-            await AuthenticationService.Instance.SignInAnonymouslyAsync();
-
+            await LogIn(playerName);
             m_PlayerIdsData.Add(AuthenticationService.Instance.PlayerId);
-            //Debug.Log("Saved player : " + AuthenticationService.Instance.PlayerId);
-            PlayerPrefs.SetString(name, AuthenticationService.Instance.PlayerId);
-        }
-    }
-
-
-    [ContextMenu("Print Player Prefs")]
-    public void Print()
-    {
-        for (int i = 0; i < m_Amount; i++)
-        {
-            var name = $"Player_{i}";
-            var id = PlayerPrefs.GetString(name);
-            Debug.Log($"{name} has ID: {id}");
         }
     }
 }

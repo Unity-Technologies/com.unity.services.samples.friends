@@ -2,24 +2,31 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "playerIds_data" ,menuName = "Data/PlayerIds")]
-public class PlayerIdsData : ScriptableObject
+namespace UnityGamingServicesUsesCases.Relationships
 {
-    [SerializeField] private List<string> m_PlayerIds = new List<string>();
-
-
-    public List<string> PlayerIds => m_PlayerIds;
-
-    public string this[int i]
+    [CreateAssetMenu(fileName = "playerIds_data", menuName = "Data/PlayerIds")]
+    public class PlayerIdsData : ScriptableObject
     {
-        get => m_PlayerIds[i];
-        set => m_PlayerIds[i] = value;
-    }
+        [SerializeField] private List<string> m_PlayerIds = new List<string>();
+        
+        public string this[int i]
+        {
+            get => m_PlayerIds[i];
+            set => m_PlayerIds[i] = value;
+        }
 
-    public void Add(string id)
-    {
-        if (m_PlayerIds.Contains(id))
-            return;
-        m_PlayerIds.Add(id);
+        public void Add(string id)
+        {
+            if (m_PlayerIds.Contains(id))
+                return;
+            m_PlayerIds.Add(id);
+            PlayerPrefs.SetString(name,id);
+        }
+
+        public void Clear()
+        {
+            m_PlayerIds.Clear();
+            PlayerPrefs.DeleteAll();
+        }
     }
 }
