@@ -6,39 +6,42 @@ using UnityEngine;
 namespace UnityGamingServicesUsesCases.Relationships
 {
     [CreateAssetMenu(fileName = "playerIds_data", menuName = "Data/PlayerIds")]
-    public class PlayerIdsData : ScriptableObject, IEnumerable<PlayerData>
+    public class PlayerProfilesData : ScriptableObject, IEnumerable<PlayerProfile>
     {
-        [SerializeField] private List<PlayerData> _playerDatas = new List<PlayerData>();
-        //[SerializeField] private Dictionary<string, string> _playerMap = new Dictionary<string, string>();
-        
-        public PlayerData this[int i]
+        [SerializeField] private List<PlayerProfile> _playerProfiles = new List<PlayerProfile>();
+       
+        public PlayerProfile this[int i]
         {
-            get => _playerDatas[i];
-            set => _playerDatas[i] = value;
+            get => _playerProfiles[i];
+            set => _playerProfiles[i] = value;
         }
 
         public void Add(string playerName, string id)
         {
-            var playerData = new PlayerData { Name = playerName, Id = id };
-            _playerDatas.Add(playerData);
+            var playerData = new PlayerProfile { Name = playerName, Id = id };
+            _playerProfiles.Add(playerData);
             PlayerPrefs.SetString(playerName,id);
         }
 
         public void Clear()
         {
-            _playerDatas.Clear();
+            _playerProfiles.Clear();
             PlayerPrefs.DeleteAll();
         }
 
         public string GetId(string playerName)
         {
-            Debug.Log(playerName);
-            return _playerDatas.First(x => x.Name == playerName).Id;
+            return _playerProfiles.First(x => x.Name == playerName).Id;
+        }
+        
+        public string GetName(string id)
+        {
+            return _playerProfiles.First(x => x.Id == id).Name;
         }
 
-        public IEnumerator<PlayerData> GetEnumerator()
+        public IEnumerator<PlayerProfile> GetEnumerator()
         {
-            return _playerDatas.GetEnumerator();
+            return _playerProfiles.GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
@@ -48,7 +51,7 @@ namespace UnityGamingServicesUsesCases.Relationships
     }
 
     [System.Serializable]
-    public class PlayerData
+    public class PlayerProfile
     {
         [field: SerializeField] public string Name;
         [field: SerializeField] public string Id;

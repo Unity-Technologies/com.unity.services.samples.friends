@@ -10,7 +10,7 @@ namespace UnityGamingServicesUsesCases.Relationships
     {
         [SerializeField] private RelationshipsSceneManager _relationshipsSceneManager = null;
         [SerializeField] private int _amount = 5;
-        [SerializeField] private PlayerIdsData _playerIdsData = null;
+        [SerializeField] private PlayerProfilesData playerProfilesData = null;
 
         private const string PlayerNamePrefix ="Player_";
         
@@ -30,7 +30,7 @@ namespace UnityGamingServicesUsesCases.Relationships
 
             Debug.Log($"Authenticated <b>{playerName}</b> with Id: <b>{AuthenticationService.Instance.PlayerId}</b>");
 
-            _relationshipsSceneManager.Init();
+            await _relationshipsSceneManager.Init(playerName);
         }
 
         private async Task LogIn(string playerName)
@@ -47,7 +47,7 @@ namespace UnityGamingServicesUsesCases.Relationships
             await UnityServices.InitializeAsync();
             await AuthenticationService.Instance.SignInAnonymouslyAsync();
             
-            _playerIdsData.Clear();
+            playerProfilesData.Clear();
 
             for (int i = 0; i < amount; i++)
             {
@@ -61,7 +61,7 @@ namespace UnityGamingServicesUsesCases.Relationships
             var playerName = $"{PlayerNamePrefix}{i}";
             AuthenticationService.Instance.SwitchProfile(playerName);
             await LogIn(playerName);
-            _playerIdsData.Add(playerName, AuthenticationService.Instance.PlayerId);
+            playerProfilesData.Add(playerName, AuthenticationService.Instance.PlayerId);
             Debug.Log($"Generated <b>{playerName}</b> with Id: <b>{AuthenticationService.Instance.PlayerId}</b>");
         }
     }

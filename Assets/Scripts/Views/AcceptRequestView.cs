@@ -9,11 +9,11 @@ namespace UnityGamingServicesUsesCases.Relationships
         public Action<string> OnRequestAccepted;
 
         [SerializeField] private Button _button = null;
-        [SerializeField] private PlayerIdsData _playerData = null;
+        [SerializeField] private PlayerProfilesData _playerData = null;
 
         private void Awake()
         {
-            //_button.onClick.AddListener(() => OnRequestAccepted?.Invoke(_playerData[4]));
+            _button.onClick.AddListener(() => OnRequestAccepted?.Invoke(_playerData.GetId("Player_4")));
         }
     }
 }
