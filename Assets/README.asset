@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62a5fe105f77b486da23c7efc53dbf29, type: 3}
+  m_Name: README
+  m_EditorClassIdentifier: 
+  header:
+    title: Relationships UI
+    icon: {fileID: 0}
+  sections:
+  - subHeader1: A Friends service front-end for managing your friends!
+    subHeader2: 
+    subHeader3: 
+    body: Open this Readme ScriptableObject in debug mode to edit.
+    bodyFormat: 0
+    boxCallout: 
+    bulletList: []
+    linkList: []
