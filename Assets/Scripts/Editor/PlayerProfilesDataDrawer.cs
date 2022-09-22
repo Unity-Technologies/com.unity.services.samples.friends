@@ -11,8 +11,8 @@ public class PlayerProfilesDataDrawer : Editor
         GUILayout.FlexibleSpace();
         if (GUILayout.Button("Clear",  GUILayout.Height(35)))
         {
-            var casted = (PlayerProfilesData)target;
-            casted.Clear();
+            var playerProfilesData = (PlayerProfilesData)target;
+            playerProfilesData.Clear();
         }
     }
 }
