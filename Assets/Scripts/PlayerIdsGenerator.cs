@@ -61,7 +61,7 @@ namespace UnityGamingServicesUsesCases.Relationships
             var playerName = $"{PlayerNamePrefix}{i}";
             AuthenticationService.Instance.SwitchProfile(playerName);
             await LogIn(playerName);
-            _playerIdsData.Add(AuthenticationService.Instance.PlayerId);
+            _playerIdsData.Add(playerName, AuthenticationService.Instance.PlayerId);
             Debug.Log($"Generated <b>{playerName}</b> with Id: <b>{AuthenticationService.Instance.PlayerId}</b>");
         }
     }

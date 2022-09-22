@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Unity.Services.Authentication;
+using Unity.Services.Core;
 using Unity.Services.Friends;
 using Unity.Services.Friends.Exceptions;
 using Unity.Services.Friends.Models;
@@ -12,17 +14,55 @@ namespace UnityGamingServicesUsesCases.Relationships
     public class RelationshipsSceneManager : MonoBehaviour
     {
         [SerializeField] private AddFriendView _addFriendView = null;
+        [SerializeField] private LogInView _logInView = null;
+        [SerializeField] private AcceptRequestView _acceptRequestView = null;
       
 
         public void Init()
         {
-            _addFriendView.OnAddFriendRequested += AddFriendByIdVoid;
+            _addFriendView.Init();
+            _addFriendView.OnAddFriend += OnAddFriend;
+            _logInView.OnLogIn += LogInVoid;
+            _acceptRequestView.OnRequestAccepted += AcceptRequestVoid;
         }
 
-        private async void AddFriendByIdVoid(string id)
+        private async void OnAddFriend(string id)
         {
             await AddFriendById(id, "button");
         }
+
+        private async void LogInVoid(int playerId)
+        {
+            await SwitchUser(playerId);
+        }
+        
+        private async void AcceptRequestVoid(string id)
+        {
+            await AcceptRequest(id);
+        }
+        
+        private async Task SwitchUser(int playerId)
+        {
+            AuthenticationService.Instance.SignOut();
+            var playerName = $"Player_{playerId}";
+            AuthenticationService.Instance.SwitchProfile(playerName);
+            var options = new InitializationOptions();
+            var option = options.SetProfile(playerName);
+            await UnityServices.InitializeAsync(option);
+            await AuthenticationService.Instance.SignInAnonymouslyAsync();
+            Debug.Log($"Logged in as {playerName} id: {AuthenticationService.Instance.PlayerId}");
+        }
+
+        [ContextMenu("print")]
+        public async void Print()
+        {
+            var friends = await GetFriendsWithoutPresence();
+            foreach (var friend in friends)
+            {
+                Debug.Log(friend.Id);
+            }
+        }
+
 
         private async Task AddFriendById(string playerId, string eventSource)
         {

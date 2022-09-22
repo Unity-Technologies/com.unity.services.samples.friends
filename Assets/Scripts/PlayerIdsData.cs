@@ -1,32 +1,61 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace UnityGamingServicesUsesCases.Relationships
 {
     [CreateAssetMenu(fileName = "playerIds_data", menuName = "Data/PlayerIds")]
-    public class PlayerIdsData : ScriptableObject
+    public class PlayerIdsData : ScriptableObject, IEnumerable<PlayerData>
     {
-        [SerializeField] private List<string> _playerIds = new List<string>();
+        [SerializeField] private List<PlayerData> _playerDatas = new List<PlayerData>();
+        //[SerializeField] private Dictionary<string, string> _playerMap = new Dictionary<string, string>();
         
-        public string this[int i]
+        public PlayerData this[int i]
         {
-            get => _playerIds[i];
-            set => _playerIds[i] = value;
+            get => _playerDatas[i];
+            set => _playerDatas[i] = value;
         }
 
-        public void Add(string id)
+        public void Add(string playerName, string id)
         {
-            if (_playerIds.Contains(id))
-                return;
-            _playerIds.Add(id);
-            PlayerPrefs.SetString(name,id);
+            var playerData = new PlayerData { Name = playerName, Id = id };
+            _playerDatas.Add(playerData);
+            PlayerPrefs.SetString(playerName,id);
         }
 
         public void Clear()
         {
-            _playerIds.Clear();
+            _playerDatas.Clear();
             PlayerPrefs.DeleteAll();
+        }
+
+        public string GetId(string playerName)
+        {
+            Debug.Log(playerName);
+            return _playerDatas.First(x => x.Name == playerName).Id;
+        }
+
+        public IEnumerator<PlayerData> GetEnumerator()
+        {
+            return _playerDatas.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+    }
+
+    [System.Serializable]
+    public class PlayerData
+    {
+        [field: SerializeField] public string Name;
+        [field: SerializeField] public string Id;
+
+        public override string ToString()
+        {
+            return $"{Name} : {Id}";
         }
     }
 }
