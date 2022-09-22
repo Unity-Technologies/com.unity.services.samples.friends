@@ -8,28 +8,33 @@ namespace UnityGamingServicesUsesCases.Relationships
     [CreateAssetMenu(fileName = "playerIds_data", menuName = "Data/PlayerIds")]
     public class PlayerProfilesData : ScriptableObject, IEnumerable<PlayerProfile>
     {
-        [SerializeField] private List<PlayerProfile> _playerProfiles = new List<PlayerProfile>();
+        [SerializeField] private List<PlayerProfile> m_PlayerProfiles = new List<PlayerProfile>();
         
         public void Add(string playerName, string id)
         {
             var playerProfile = new PlayerProfile { Name = playerName, Id = id };
-            _playerProfiles.Add(playerProfile);
+            m_PlayerProfiles.Add(playerProfile);
             Debug.Log($"Added: {playerProfile}");
+        }
+
+        public void Clear()
+        {
+            m_PlayerProfiles.Clear();
         }
 
         public string GetId(string playerName)
         {
-            return _playerProfiles.First(x => x.Name == playerName).Id;
+            return m_PlayerProfiles.First(x => x.Name == playerName).Id;
         }
         
         public string GetName(string id)
         {
-            return _playerProfiles.First(x => x.Id == id).Name;
+            return m_PlayerProfiles.First(x => x.Id == id).Name;
         }
 
         public IEnumerator<PlayerProfile> GetEnumerator()
         {
-            return _playerProfiles.GetEnumerator();
+            return m_PlayerProfiles.GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
