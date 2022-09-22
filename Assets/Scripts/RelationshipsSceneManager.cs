@@ -22,7 +22,8 @@ namespace UnityGamingServicesUsesCases.Relationships
         [SerializeField] private RequestsView m_RequestsView = null;
         [SerializeField] private BlocksView m_BlocksView = null;
 
-        [Header("Debug")] [SerializeField] private PlayerProfilesData _playerProfilesData = null;
+        [Header("Data")]
+        [SerializeField] private PlayerProfilesData _playerProfilesData = null;
 
         private string m_LoggedPlayerName;
         private string LoggedPlayerId => AuthenticationService.Instance.PlayerId;
@@ -88,7 +89,6 @@ namespace UnityGamingServicesUsesCases.Relationships
             await DeclineRequest(id);
             await RefreshPlayerView();
         }
-        
 
         private async Task RefreshPlayerView()
         {
@@ -105,13 +105,12 @@ namespace UnityGamingServicesUsesCases.Relationships
 
             //Requests
             var requests = await GetRequests();
-            var requestProfile = new List<PlayerProfile>();
+            var requestsProfile = new List<PlayerProfile>();
             foreach (var request in requests)
             {
-                requestProfile.Add(
-                    new PlayerProfile { Id = request.Id, Name = _playerProfilesData.GetName(request.Id) });
+                requestsProfile.Add(new PlayerProfile { Id = request.Id, Name = _playerProfilesData.GetName(request.Id) });
             }
-            m_RequestsView.Refresh(requestProfile);
+            m_RequestsView.Refresh(requestsProfile);
 
             //Blocks
             var blocks = await GetBlocks();

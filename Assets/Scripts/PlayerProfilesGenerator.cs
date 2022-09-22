@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace UnityGamingServicesUsesCases.Relationships
 {
-    public class PlayerIdsGenerator : MonoBehaviour
+    public class PlayerProfilesGenerator : MonoBehaviour
     {
         [SerializeField] private RelationshipsSceneManager _relationshipsSceneManager = null;
         [SerializeField] private int _amount = 5;
