@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace UnityGamingServicesUsesCases.Relationships
 {
-    public class BlockedView : MonoBehaviour
+    public class BlocksView : MonoBehaviour
     {
         public Action<string> OnFriendUnblock = null;
         

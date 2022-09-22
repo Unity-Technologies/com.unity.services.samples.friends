@@ -313,7 +313,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6041617984865741953, guid: bd6d57e277fe69946ad95e48f21b65e7, type: 3}
       propertyPath: m_Name
-      value: BlockedView
+      value: BlocksView
       objectReference: {fileID: 0}
     - target: {fileID: 7816571367036962610, guid: bd6d57e277fe69946ad95e48f21b65e7, type: 3}
       propertyPath: m_Pivot.x
@@ -3183,7 +3183,7 @@ MonoBehaviour:
   _playerInfoView: {fileID: 601537658}
   m_FriendsView: {fileID: 543665512}
   m_RequestsView: {fileID: 1794537882}
-  m_BlockedView: {fileID: 310980878}
+  m_BlocksView: {fileID: 310980878}
   _playerProfilesData: {fileID: 11400000, guid: 00410ffe8fe6f5947bd53cbaf3663362, type: 2}
 --- !u!4 &1624191786
 Transform:
