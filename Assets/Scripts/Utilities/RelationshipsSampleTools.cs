@@ -25,5 +25,6 @@ namespace UnityGamingServicesUsesCases.Relationships
             PlayerPrefs.DeleteAll();
             Debug.Log($"All Player Prefs Deleted");
         }
+        
     }
 }

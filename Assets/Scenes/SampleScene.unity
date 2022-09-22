@@ -3214,7 +3214,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _relationshipsSceneManager: {fileID: 1624191785}
   _amount: 5
-  playerProfilesData: {fileID: 11400000, guid: 00410ffe8fe6f5947bd53cbaf3663362, type: 2}
+  m_PlayerProfilesData: {fileID: 11400000, guid: 00410ffe8fe6f5947bd53cbaf3663362, type: 2}
 --- !u!1 &1783548816
 GameObject:
   m_ObjectHideFlags: 0

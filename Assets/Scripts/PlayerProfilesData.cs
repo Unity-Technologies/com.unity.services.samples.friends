@@ -9,24 +9,12 @@ namespace UnityGamingServicesUsesCases.Relationships
     public class PlayerProfilesData : ScriptableObject, IEnumerable<PlayerProfile>
     {
         [SerializeField] private List<PlayerProfile> _playerProfiles = new List<PlayerProfile>();
-       
-        public PlayerProfile this[int i]
-        {
-            get => _playerProfiles[i];
-            set => _playerProfiles[i] = value;
-        }
-
+        
         public void Add(string playerName, string id)
         {
-            var playerData = new PlayerProfile { Name = playerName, Id = id };
-            _playerProfiles.Add(playerData);
-            PlayerPrefs.SetString(playerName,id);
-        }
-
-        public void Clear()
-        {
-            _playerProfiles.Clear();
-            PlayerPrefs.DeleteAll();
+            var playerProfile = new PlayerProfile { Name = playerName, Id = id };
+            _playerProfiles.Add(playerProfile);
+            Debug.Log($"Added: {playerProfile}");
         }
 
         public string GetId(string playerName)
@@ -58,7 +46,7 @@ namespace UnityGamingServicesUsesCases.Relationships
 
         public override string ToString()
         {
-            return $"{Name} : {Id}";
+            return $"{Name} , Id :{Id}";
         }
     }
 }

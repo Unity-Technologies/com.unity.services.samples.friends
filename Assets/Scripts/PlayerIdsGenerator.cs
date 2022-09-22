@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Threading.Tasks;
 using Unity.Services.Authentication;
 using Unity.Services.Core;
@@ -10,22 +11,22 @@ namespace UnityGamingServicesUsesCases.Relationships
     {
         [SerializeField] private RelationshipsSceneManager _relationshipsSceneManager = null;
         [SerializeField] private int _amount = 5;
-        [SerializeField] private PlayerProfilesData playerProfilesData = null;
+        [SerializeField] private PlayerProfilesData m_PlayerProfilesData = null;
 
         private const string PlayerNamePrefix ="Player_";
         
         private async void Start()
         {
-            //Editor Player will be the last profile created.
+            //The default logged in Player will be the last profile created.
             var playerName = $"{PlayerNamePrefix}{_amount - 1}";
-            var hasGeneratedPlayerIds = PlayerPrefs.GetString(playerName) != "";
+            var hasGeneratedPlayerIds = m_PlayerProfilesData.Any();
             if (hasGeneratedPlayerIds)
             {
-                await LogIn(playerName);
+                await UASUtils.LogIn(playerName);
             }
             else
             {
-                await GeneratePlayerIds(_amount);
+                await GeneratePlayerProfiles(_amount);
             }
 
             Debug.Log($"Authenticated <b>{playerName}</b> with Id: <b>{AuthenticationService.Instance.PlayerId}</b>");
@@ -33,36 +34,24 @@ namespace UnityGamingServicesUsesCases.Relationships
             await _relationshipsSceneManager.Init(playerName);
         }
 
-        private async Task LogIn(string playerName)
-        {
-            var options = new InitializationOptions();
-            var option = options.SetProfile(playerName);
-            await UnityServices.InitializeAsync(option);
-            await AuthenticationService.Instance.SignInAnonymouslyAsync();
-        }
+       
 
-        private async Task GeneratePlayerIds(int amount)
+        private async Task GeneratePlayerProfiles(int amount)
         {
             //Need to initialize before doing anything.
             await UnityServices.InitializeAsync();
             await AuthenticationService.Instance.SignInAnonymouslyAsync();
-            
-            playerProfilesData.Clear();
-
             for (int i = 0; i < amount; i++)
             {
-                await GenerateSinglePlayerId(i);
+                await GeneratePlayerProfile(i);
             }
         }
 
-        private async Task GenerateSinglePlayerId(int i)
+        private async Task GeneratePlayerProfile(int i)
         {
-            AuthenticationService.Instance.SignOut();
             var playerName = $"{PlayerNamePrefix}{i}";
-            AuthenticationService.Instance.SwitchProfile(playerName);
-            await LogIn(playerName);
-            playerProfilesData.Add(playerName, AuthenticationService.Instance.PlayerId);
-            Debug.Log($"Generated <b>{playerName}</b> with Id: <b>{AuthenticationService.Instance.PlayerId}</b>");
+            await UASUtils.SwitchUser(playerName);
+            m_PlayerProfilesData.Add(playerName, AuthenticationService.Instance.PlayerId);
         }
     }
 }

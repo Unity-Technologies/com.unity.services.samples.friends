@@ -70,8 +70,10 @@ namespace UnityGamingServicesUsesCases.Relationships
 
         private async void LogIn(string playerName)
         {
-            await SwitchUser(playerName);
+            await UASUtils.SwitchUser(playerName);
+            _currentPlayerName = playerName;
             await RefreshPlayerView();
+            Debug.Log($"Logged in as {playerName} id: {AuthenticationService.Instance.PlayerId}");
         }
 
         private async void AcceptRequestAsync(string id)
@@ -85,18 +87,7 @@ namespace UnityGamingServicesUsesCases.Relationships
             await DeclineRequest(id);
             await RefreshPlayerView();
         }
-
-        private async Task SwitchUser(string playerName)
-        {
-            AuthenticationService.Instance.SignOut();
-            AuthenticationService.Instance.SwitchProfile(playerName);
-            var options = new InitializationOptions();
-            var option = options.SetProfile(playerName);
-            await UnityServices.InitializeAsync(option);
-            await AuthenticationService.Instance.SignInAnonymouslyAsync();
-            Debug.Log($"Logged in as {playerName} id: {AuthenticationService.Instance.PlayerId}");
-            _currentPlayerName = playerName;
-        }
+        
 
         private async Task RefreshPlayerView()
         {
