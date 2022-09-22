@@ -24,7 +24,8 @@ namespace UnityGamingServicesUsesCases.Relationships
 
         [Header("Debug")] [SerializeField] private PlayerProfilesData _playerProfilesData = null;
 
-        private string _currentPlayerName;
+        private string m_LoggedPlayerName;
+        private string LoggedPlayerId => AuthenticationService.Instance.PlayerId;
 
         public async Task Init(string currentPlayerName)
         {
@@ -41,7 +42,7 @@ namespace UnityGamingServicesUsesCases.Relationships
             m_RequestsView.OnRequestDeclined += DeclineRequestAsync;
             m_BlocksView.OnFriendUnblock += UnblockFriendAsync;
 
-            _currentPlayerName = currentPlayerName;
+            m_LoggedPlayerName = currentPlayerName;
             await RefreshPlayerView();
         }
 
@@ -71,9 +72,9 @@ namespace UnityGamingServicesUsesCases.Relationships
         private async void LogIn(string playerName)
         {
             await UASUtils.SwitchUser(playerName);
-            _currentPlayerName = playerName;
+            m_LoggedPlayerName = playerName;
             await RefreshPlayerView();
-            Debug.Log($"Logged in as {playerName} id: {AuthenticationService.Instance.PlayerId}");
+            Debug.Log($"Logged in as {playerName} id: {LoggedPlayerId}");
         }
 
         private async void AcceptRequestAsync(string id)
@@ -91,7 +92,7 @@ namespace UnityGamingServicesUsesCases.Relationships
 
         private async Task RefreshPlayerView()
         {
-            _playerInfoView.Refresh(_currentPlayerName);
+            _playerInfoView.Refresh(m_LoggedPlayerName,LoggedPlayerId);
             
             //Friends
             var friends = await GetFriendsWithoutPresence();
