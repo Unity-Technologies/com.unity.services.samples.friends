@@ -35,3 +35,31 @@
     color: rgba(255, 255, 255, 255);
     font-size: 14px;
 }
+
+.list-panel {
+}
+
+.list-label {
+    color: rgba(255, 255, 255, 255);
+}
+
+.add-friend-button {
+    background-color: rgba(253, 198, 107, 255);
+    border-top-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+
+.social-toggle {
+    color: rgba(0, 0, 0, 255);
+}
+
+.social-toggle .unity-text-element {
+    color: rgba(255, 255, 255, 255);
+    -unity-font-style: bold;
+}
+
+.social-toggle .unity-toggle #unity-checkmark {
+    color: rgb(255, 255, 255);
+    -unity-font-style: normal;
+    -unity-background-image-tint-color: rgba(255, 255, 255, 255);
+}
