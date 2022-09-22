@@ -124,4 +124,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ParentTransform: {fileID: 5344982451938211855}
-  m_BlockedEntryViewPrefab: {fileID: 3784936978384758378, guid: 2ba2911a394d7eb4eab287e1f21a12b1, type: 3}
+  m_BlockedEntryViewPrefab: {fileID: 8301012665481449289, guid: 9e17a493c0c98c84aa6e190de35de663, type: 3}

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,7 +11,7 @@ namespace UnityGamingServicesUsesCases.Relationships
         public Action<string> OnAddFriend;
 
         [SerializeField] private Button _button = null;
-        [SerializeField] private Dropdown _dropdown = null;
+        [SerializeField] private TMP_Dropdown _dropdown = null;
         [SerializeField] private PlayerProfilesData playerProfilesData = null;
 
         private string _selectedPlayerName = string.Empty;

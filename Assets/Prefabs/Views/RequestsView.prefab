@@ -119,7 +119,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ParentTransform: {fileID: 8574771109791878959}
-  m_RequestEntryViewPrefab: {fileID: 3784936978384758378, guid: 2ba2911a394d7eb4eab287e1f21a12b1, type: 3}
+  m_RequestEntryViewPrefab: {fileID: 8096351880289900734, guid: 3d0b02f152f60cc418c44472e7415e45, type: 3}
 --- !u!224 &8574771109791878959 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3500842071915547135, guid: 99f276fd68647374e8e0c3d1cd6cb0fe, type: 3}

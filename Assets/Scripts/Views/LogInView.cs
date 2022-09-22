@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,7 +12,7 @@ namespace UnityGamingServicesUsesCases.Relationships
         public Action<string> OnLogIn;
 
         [SerializeField] private Button _button = null;
-        [SerializeField] private Dropdown _dropdown = null;
+        [SerializeField] private TMP_Dropdown _dropdown = null;
         [SerializeField] private PlayerProfilesData playerProfilesData = null;
 
         private int _playerId;

@@ -15,10 +15,7 @@ namespace UnityGamingServicesUsesCases.Relationships
     {
         [Header("View's References")] [SerializeField]
         private AddFriendView _addFriendView = null;
-
         [SerializeField] private LogInView _logInView = null;
-
-        //[SerializeField] private AcceptRequestView _acceptRequestView = null;
         [SerializeField] private PlayerInfoView _playerInfoView = null;
         [SerializeField] private FriendsView m_FriendsView = null;
         [SerializeField] private RequestsView m_RequestsView = null;
@@ -30,20 +27,20 @@ namespace UnityGamingServicesUsesCases.Relationships
 
         public async Task Init(string currentPlayerName)
         {
+            //Bind Debug 
             _addFriendView.Init();
-            _addFriendView.OnAddFriend += OnAddFriend;
+            _addFriendView.OnAddFriend += AddFriend;
             _logInView.Init();
             _logInView.OnLogIn += LogInVoid;
-            //_acceptRequestView.OnRequestAccepted += AcceptRequestVoid;
 
-            _currentPlayerName = currentPlayerName;
-
+            //Bind Views
             m_FriendsView.OnFriendRemove += OnFriendRemove;
             m_FriendsView.OnFriendBlock += OnFriendBlocked;
             m_RequestsView.OnRequestAccepted += OnRequestAccepted;
             m_RequestsView.OnRequestDeclined += OnRequestDeclined;
             m_BlockedView.OnFriendUnblock += OnFriendUnblocked;
 
+            _currentPlayerName = currentPlayerName;
             await RefreshPlayerView();
         }
 
@@ -65,7 +62,7 @@ namespace UnityGamingServicesUsesCases.Relationships
             await RefreshPlayerView();
         }
 
-        private async void OnAddFriend(string id)
+        private async void AddFriend(string id)
         {
             await AddFriendById(id, "button");
         }
