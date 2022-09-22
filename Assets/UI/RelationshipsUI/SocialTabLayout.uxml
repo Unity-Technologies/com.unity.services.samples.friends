@@ -1,0 +1,12 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/RelationshipsUI/RelationshipsStyle.uss?fileID=7433441132597879392&amp;guid=947b3ef19af094ccca809ccb7e4ad0b2&amp;type=3#RelationshipsStyle" />
+    <ui:VisualElement name="social-tab-bg" picking-mode="Ignore" class="menu-panel" style="flex-grow: 0; flex-basis: 90px; justify-content: space-between;">
+        <ui:VisualElement name="social-layout" style="flex-direction: row; width: 100%; height: 120px; align-items: center; justify-content: space-around;">
+            <ui:Button text="+ ADD FRIEND" display-tooltip-when-elided="true" name="add-friend-button" class="add-friend-button" style="position: absolute; align-items: center; justify-content: space-around; right: 10px; top: 37px; -unity-font-style: bold;" />
+            <ui:Foldout text="Foldout" name="social-foldout" class="social-toggle" />
+        </ui:VisualElement>
+        <ui:GroupBox name="friends-group" picking-mode="Ignore">
+            <ui:ListView focusable="true" />
+        </ui:GroupBox>
+    </ui:VisualElement>
+</ui:UXML>

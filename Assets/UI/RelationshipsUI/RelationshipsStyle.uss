@@ -1,0 +1,65 @@
+.menu-panel {
+    background-color: rgba(26, 21, 147, 255);
+    -unity-background-scale-mode: scale-and-crop;
+    border-left-color: rgba(200, 117, 193, 255);
+    border-right-color: rgba(200, 117, 193, 255);
+    border-top-color: rgba(200, 117, 193, 255);
+    border-bottom-color: rgba(200, 117, 193, 255);
+    border-left-width: 2px;
+    border-right-width: 2px;
+    border-top-width: 2px;
+    border-bottom-width: 2px;
+    border-top-left-radius: 50px;
+}
+
+.player-panel {
+}
+
+.player-settings-button {
+    color: rgba(255, 255, 255, 255);
+    background-color: rgba(0, 0, 0, 0);
+    letter-spacing: 10px;
+    -unity-text-align: middle-center;
+    -unity-font-style: bold;
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+}
+
+.player-activity-label {
+    color: rgba(0, 255, 10, 255);
+}
+
+.player-name-label {
+    color: rgba(255, 255, 255, 255);
+    font-size: 14px;
+}
+
+.list-panel {
+}
+
+.list-label {
+    color: rgba(255, 255, 255, 255);
+}
+
+.add-friend-button {
+    background-color: rgba(253, 198, 107, 255);
+    border-top-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+
+.social-toggle {
+    color: rgba(0, 0, 0, 255);
+}
+
+.social-toggle .unity-text-element {
+    color: rgba(255, 255, 255, 255);
+    -unity-font-style: bold;
+}
+
+.social-toggle .unity-toggle #unity-checkmark {
+    color: rgb(255, 255, 255);
+    -unity-font-style: normal;
+    -unity-background-image-tint-color: rgba(255, 255, 255, 255);
+}
