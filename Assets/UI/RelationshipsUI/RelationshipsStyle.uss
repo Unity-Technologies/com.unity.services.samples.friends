@@ -74,34 +74,6 @@
     border-bottom-right-radius: 15px;
 }
 
-.social-toggle {
-    color: rgb(0, 0, 0);
-}
-
-.social-toggle .unity-text-element {
-    color: rgb(255, 255, 255);
-    -unity-font-style: bold;
-}
-
-.social-toggle .unity-toggle__checkmark {
-    color: rgb(255, 255, 255);
-    -unity-font-style: normal;
-    -unity-background-image-tint-color: rgb(255, 255, 255);
-    background-image: url('project://database/Assets/Art/custom-foldout-arrow.png?fileID=21300000&guid=24f08e889fdb80547af9716a8ff92bba&type=3#custom-foldout-arrow');
-    -unity-slice-left: 0;
-    -unity-slice-top: 0;
-    -unity-slice-right: 0;
-    -unity-slice-bottom: 0;
-    -unity-background-scale-mode: scale-to-fit;
-    flex-grow: 1;
-    max-width: 10px;
-    max-height: 10px;
-    bottom: -3px;
-    rotate: -90deg;
-    transform-origin: center;
-    translate: 1px -1px;
-}
-
 .social-tab-button {
     background-color: rgb(26, 21, 147);
     border-left-color: rgb(255, 170, 248);
@@ -126,6 +98,7 @@
     padding-top: 0;
     padding-bottom: 0;
     height: 100%;
+    color: rgba(255, 255, 255, 255);
 }
 
 .social-tab-button :active {
@@ -199,4 +172,63 @@
     background-color: rgba(0, 0, 0, 0);
     -unity-background-image-tint-color: rgb(212, 141, 53);
     -unity-background-scale-mode: stretch-to-fill;
+}
+
+.social-toggle {
+    color: rgb(0, 0, 0);
+}
+
+.social-toggle .unity-label {
+    color: rgb(255, 255, 255);
+    -unity-font-style: bold;
+    justify-content: center;
+    align-items: center;
+    -unity-text-align: middle-left;
+}
+
+.social-toggle .unity-label :focus {
+    color: rgb(255, 49, 49);
+    -unity-font-style: bold;
+    justify-content: center;
+    align-items: center;
+    -unity-text-align: middle-left;
+    -unity-background-image-tint-color: rgba(154, 154, 154, 255);
+}
+
+.social-toggle .unity-toggle__checkmark {
+    color: rgb(255, 255, 255);
+    -unity-font-style: normal;
+    -unity-background-image-tint-color: rgb(255, 255, 255);
+    background-image: url('project://database/Assets/Art/foldout.png?fileID=21300000&guid=24f08e889fdb80547af9716a8ff92bba&type=3#foldout');
+    -unity-slice-left: 0;
+    -unity-slice-top: 0;
+    -unity-slice-right: 0;
+    -unity-slice-bottom: 0;
+    -unity-background-scale-mode: scale-to-fit;
+    flex-grow: 1;
+    max-width: 10px;
+    max-height: 10px;
+    bottom: -3px;
+    rotate: -90deg;
+    transform-origin: center;
+    translate: 1px -1px;
+}
+
+.social-toggle .unity-toggle__checkmark :hover {
+    color: rgb(255, 255, 255);
+    -unity-font-style: normal;
+    -unity-background-image-tint-color: rgb(255, 255, 255);
+    background-image: url('project://database/Assets/Art/foldout.png?fileID=21300000&guid=24f08e889fdb80547af9716a8ff92bba&type=3#foldout');
+    -unity-slice-left: 0;
+    -unity-slice-top: 0;
+    -unity-slice-right: 0;
+    -unity-slice-bottom: 0;
+    -unity-background-scale-mode: scale-to-fit;
+    flex-grow: 1;
+    max-width: 10px;
+    max-height: 10px;
+    bottom: -3px;
+    rotate: 0;
+    transform-origin: center;
+    translate: 1px -1px;
 }
