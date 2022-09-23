@@ -8,11 +8,11 @@ namespace UnityGamingServicesUsesCases.Relationships
     [CreateAssetMenu(fileName = "playerIds_data", menuName = "Data/PlayerIds")]
     public class PlayerProfilesData : ScriptableObject, IEnumerable<PlayerProfile>
     {
-        [SerializeField] private List<PlayerProfile> m_PlayerProfiles = new ();
+        [SerializeField] private List<PlayerProfile> m_PlayerProfiles = new();
 
         public void Add(string playerName, string id)
         {
-            var playerProfile = new PlayerProfile { Name = playerName, Id = id };
+            var playerProfile = new PlayerProfile(playerName, id);
             m_PlayerProfiles.Add(playerProfile);
             Debug.Log($"Added: {playerProfile}");
         }
@@ -54,8 +54,14 @@ namespace UnityGamingServicesUsesCases.Relationships
     [System.Serializable]
     public class PlayerProfile
     {
-        [field: SerializeField] public string Name;
-        [field: SerializeField] public string Id;
+        [field: SerializeField] public string Name { get; private set; }
+        [field: SerializeField] public string Id { get; private set; }
+
+        public PlayerProfile(string name, string id)
+        {
+            Name = name;
+            Id = id;
+        }
 
         public override string ToString()
         {

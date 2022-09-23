@@ -107,8 +107,7 @@ namespace UnityGamingServicesUsesCases.Relationships
             var friendProfiles = new List<PlayerProfile>();
             foreach (var friend in friends)
             {
-                friendProfiles.Add(new PlayerProfile
-                    { Id = friend.Id, Name = m_PlayerProfilesData.GetName(friend.Id) });
+                friendProfiles.Add(new PlayerProfile(friend.Id, m_PlayerProfilesData.GetName(friend.Id)));
             }
 
             m_FriendsView.Refresh(friendProfiles);
@@ -118,8 +117,7 @@ namespace UnityGamingServicesUsesCases.Relationships
             var requestsProfile = new List<PlayerProfile>();
             foreach (var request in requests)
             {
-                requestsProfile.Add(new PlayerProfile
-                    { Id = request.Id, Name = m_PlayerProfilesData.GetName(request.Id) });
+                requestsProfile.Add(new PlayerProfile(request.Id, m_PlayerProfilesData.GetName(request.Id)));
             }
 
             m_RequestsView.Refresh(requestsProfile);
@@ -129,7 +127,7 @@ namespace UnityGamingServicesUsesCases.Relationships
             var blocksProfiles = new List<PlayerProfile>();
             foreach (var block in blocks)
             {
-                blocksProfiles.Add(new PlayerProfile { Id = block.Id, Name = m_PlayerProfilesData.GetName(block.Id) });
+                blocksProfiles.Add(new PlayerProfile(block.Id, m_PlayerProfilesData.GetName(block.Id)));
             }
 
             m_BlocksView.Refresh(blocksProfiles);
