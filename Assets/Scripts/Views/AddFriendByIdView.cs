@@ -14,9 +14,9 @@ namespace UnityGamingServicesUsesCases.Relationships
 
         public void Init()
         {
-            var playerName = string.Empty;
-            m_InputField.onValueChanged.AddListener((value) => { playerName = value; });
-            m_Button.onClick.AddListener(() => OnAddFriend?.Invoke(playerName));
+            var playerId = string.Empty;
+            m_InputField.onValueChanged.AddListener((value) => { playerId = value; });
+            m_Button.onClick.AddListener(() => OnAddFriend?.Invoke(playerId));
         }
     }
 }
