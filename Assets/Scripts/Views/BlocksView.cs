@@ -7,12 +7,11 @@ namespace UnityGamingServicesUsesCases.Relationships
     public class BlocksView : MonoBehaviour
     {
         public Action<string> OnFriendUnblock = null;
-        
-        
+
         [SerializeField]private RectTransform m_ParentTransform = null;
         [SerializeField]private GenericEntryView m_BlockedEntryViewPrefab = null;
 
-        private List<GenericEntryView> m_Blocked = new List<GenericEntryView>();
+        private List<GenericEntryView> m_Blocked = new ();
 
         public void Refresh(List<PlayerProfile> playerProfiles)
         {

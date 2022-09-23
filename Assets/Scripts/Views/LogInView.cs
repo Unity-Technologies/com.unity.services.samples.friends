@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,29 +10,23 @@ namespace UnityGamingServicesUsesCases.Relationships
     {
         public Action<string> OnLogIn;
 
-        [SerializeField] private Button _button = null;
-        [SerializeField] private TMP_Dropdown _dropdown = null;
-        [SerializeField] private PlayerProfilesData playerProfilesData = null;
-
-        private int _playerId;
-
+        [SerializeField] private Button m_Button = null;
+        [SerializeField] private TMP_Dropdown m_Dropdown = null;
+        [SerializeField] private PlayerProfilesData m_PlayerProfilesData = null;
+        
         public void Init()
         {
             var names = new List<string>();
-            foreach (var playerData in playerProfilesData)
+            foreach (var playerData in m_PlayerProfilesData)
             {
                 names.Add(playerData.Name);
             }
-            _dropdown.AddOptions(names);
-            var selectedPlayerName = string.Empty;
-            _dropdown.onValueChanged.AddListener((value) => { selectedPlayerName = names[value]; });
-            selectedPlayerName = names[0];
-            
-            _button.onClick.AddListener(() => OnLogIn?.Invoke(selectedPlayerName));
+
+            m_Dropdown.AddOptions(names);
+            var playerName = names[0];
+            m_Dropdown.onValueChanged.AddListener((value) => { playerName = names[value]; });
+
+            m_Button.onClick.AddListener(() => OnLogIn?.Invoke(playerName));
         }
-
-      
-
-       
     }
 }

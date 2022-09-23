@@ -10,24 +10,23 @@ namespace UnityGamingServicesUsesCases.Relationships
     {
         public Action<string> OnAddFriend;
 
-        [SerializeField] private Button _button = null;
-        [SerializeField] private TMP_Dropdown _dropdown = null;
-        [SerializeField] private PlayerProfilesData playerProfilesData = null;
+        [SerializeField] private Button m_Button = null;
+        [SerializeField] private TMP_Dropdown m_Dropdown = null;
+        [SerializeField] private PlayerProfilesData m_PlayerProfilesData = null;
 
-        private string _selectedPlayerName = string.Empty;
         public void Init()
         {
             var names = new List<string>();
-            foreach (var playerData in playerProfilesData)
+            foreach (var playerData in m_PlayerProfilesData)
             {
                 names.Add(playerData.Name);
             }
-            
-            _dropdown.AddOptions(names);
-            _dropdown.onValueChanged.AddListener((value) => { _selectedPlayerName = names[value]; });
-            _selectedPlayerName = names[0];
 
-            _button.onClick.AddListener(() => OnAddFriend?.Invoke(playerProfilesData.GetId(_selectedPlayerName)));
+            var playerName = names[0];
+            m_Dropdown.AddOptions(names);
+            m_Dropdown.onValueChanged.AddListener((value) => { playerName = names[value]; });
+
+            m_Button.onClick.AddListener(() => OnAddFriend?.Invoke(m_PlayerProfilesData.GetId(playerName)));
         }
     }
 }
