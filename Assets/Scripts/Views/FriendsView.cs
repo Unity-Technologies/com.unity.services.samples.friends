@@ -13,7 +13,7 @@ namespace UnityGamingServicesUsesCases.Relationships
         [SerializeField]private RectTransform m_ParentTransform = null;
         [SerializeField]private GenericEntryView m_GenericEntryViewPrefab = null;
 
-        private List<GenericEntryView> m_Friends = new List<GenericEntryView>();
+        private List<GenericEntryView> m_Friends = new ();
 
         public void Refresh(List<PlayerProfile> playerProfiles)
         {

@@ -1,40 +1,43 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Unity.Services.Authentication;
-using Unity.Services.Core;
 using Unity.Services.Friends;
 using Unity.Services.Friends.Exceptions;
 using Unity.Services.Friends.Models;
 using Unity.Services.Friends.Options;
 using UnityEngine;
 
-
 namespace UnityGamingServicesUsesCases.Relationships
 {
     public class RelationshipsSceneManager : MonoBehaviour
     {
-        [Header("View's References")] [SerializeField]
-        private AddFriendView _addFriendView = null;
-
-        [SerializeField] private LogInView _logInView = null;
-        [SerializeField] private PlayerInfoView _playerInfoView = null;
-        [SerializeField] private FriendsView m_FriendsView = null;
-        [SerializeField] private RequestsView m_RequestsView = null;
-        [SerializeField] private BlocksView m_BlocksView = null;
+        [Header("View's References")] 
+        [SerializeField] private AddFriendView m_AddFriendView;
+        [SerializeField] private AddFriendByIdView m_AddFriendByIdView;
+        [SerializeField] private LogInView m_LogInView;
+        [SerializeField] private PlayerInfoView m_PlayerInfoView;
+        [SerializeField] private RefreshView m_RefreshView;
+        [SerializeField] private FriendsView m_FriendsView;
+        [SerializeField] private RequestsView m_RequestsView;
+        [SerializeField] private BlocksView m_BlocksView;
 
         [Header("Data")]
-        [SerializeField] private PlayerProfilesData _playerProfilesData = null;
+        [SerializeField] private PlayerProfilesData m_PlayerProfilesData = null;
 
         private string m_LoggedPlayerName;
         private string LoggedPlayerId => AuthenticationService.Instance.PlayerId;
 
         public async Task Init(string currentPlayerName)
         {
-            //Bind Debug 
-            _addFriendView.Init();
-            _addFriendView.OnAddFriend += AddFriendAsync;
-            _logInView.Init();
-            _logInView.OnLogIn += LogIn;
+            //Bind Actionable 
+            m_AddFriendView.Init();
+            m_AddFriendView.OnAddFriend += AddFriendAsync;
+            m_AddFriendByIdView.Init();
+            m_AddFriendByIdView.OnAddFriend += AddFriendAsync;
+            m_LogInView.Init();
+            m_LogInView.OnLogIn += LogIn;
+            m_RefreshView.Init();
+            m_RefreshView.OnRefresh += RefreshAsync;
 
             //Bind Views
             m_FriendsView.OnFriendRemove += RemoveFriendAsync;
@@ -44,25 +47,25 @@ namespace UnityGamingServicesUsesCases.Relationships
             m_BlocksView.OnFriendUnblock += UnblockFriendAsync;
 
             m_LoggedPlayerName = currentPlayerName;
-            await RefreshPlayerView();
+            await RefreshViews();
         }
 
         private async void BlockFriendAsync(string id)
         {
             await BlockFriend(id);
-            await RefreshPlayerView();
+            await RefreshViews();
         }
 
         private async void UnblockFriendAsync(string id)
         {
             await UnblockFriend(id);
-            await RefreshPlayerView();
+            await RefreshViews();
         }
 
         private async void RemoveFriendAsync(string id)
         {
             await RemoveFriend(id);
-            await RefreshPlayerView();
+            await RefreshViews();
         }
 
         private async void AddFriendAsync(string id)
@@ -74,33 +77,39 @@ namespace UnityGamingServicesUsesCases.Relationships
         {
             await UASUtils.SwitchUser(playerName);
             m_LoggedPlayerName = playerName;
-            await RefreshPlayerView();
+            await RefreshViews();
             Debug.Log($"Logged in as {playerName} id: {LoggedPlayerId}");
         }
 
         private async void AcceptRequestAsync(string id)
         {
             await AcceptRequest(id);
-            await RefreshPlayerView();
+            await RefreshViews();
         }
 
         private async void DeclineRequestAsync(string id)
         {
             await DeclineRequest(id);
-            await RefreshPlayerView();
+            await RefreshViews();
         }
 
-        private async Task RefreshPlayerView()
+        private async void RefreshAsync()
         {
-            _playerInfoView.Refresh(m_LoggedPlayerName,LoggedPlayerId);
-            
+            await RefreshViews();
+        }
+
+        private async Task RefreshViews()
+        {
+            m_PlayerInfoView.Refresh(m_LoggedPlayerName, LoggedPlayerId);
+
             //Friends
             var friends = await GetFriendsWithoutPresence();
             var friendProfiles = new List<PlayerProfile>();
             foreach (var friend in friends)
             {
-                friendProfiles.Add(new PlayerProfile { Id = friend.Id, Name = _playerProfilesData.GetName(friend.Id) });
+                friendProfiles.Add(new PlayerProfile(m_PlayerProfilesData.GetName(friend.Id),friend.Id));
             }
+
             m_FriendsView.Refresh(friendProfiles);
 
             //Requests
@@ -108,8 +117,9 @@ namespace UnityGamingServicesUsesCases.Relationships
             var requestsProfile = new List<PlayerProfile>();
             foreach (var request in requests)
             {
-                requestsProfile.Add(new PlayerProfile { Id = request.Id, Name = _playerProfilesData.GetName(request.Id) });
+                requestsProfile.Add(new PlayerProfile(m_PlayerProfilesData.GetName(request.Id),request.Id));
             }
+
             m_RequestsView.Refresh(requestsProfile);
 
             //Blocks
@@ -117,7 +127,7 @@ namespace UnityGamingServicesUsesCases.Relationships
             var blocksProfiles = new List<PlayerProfile>();
             foreach (var block in blocks)
             {
-                blocksProfiles.Add(new PlayerProfile { Id = block.Id, Name = _playerProfilesData.GetName(block.Id) });
+                blocksProfiles.Add(new PlayerProfile( m_PlayerProfilesData.GetName(block.Id),block.Id));
             }
 
             m_BlocksView.Refresh(blocksProfiles);
@@ -128,7 +138,7 @@ namespace UnityGamingServicesUsesCases.Relationships
             try
             {
                 await Friends.Instance.AddFriendAsync(playerId, eventSource);
-                Debug.Log($"{playerId} was added to the friends list.");
+                Debug.Log($"{playerId} friend request sent.");
             }
             catch (FriendsServiceException e)
             {
@@ -142,7 +152,7 @@ namespace UnityGamingServicesUsesCases.Relationships
             try
             {
                 await Friends.Instance.RemoveFriendAsync(playerId);
-                Debug.Log($"{playerId} was removed to the friends list.");
+                Debug.Log($"{playerId} was removed from the friends list.");
             }
             catch (FriendsServiceException e)
             {
@@ -178,7 +188,6 @@ namespace UnityGamingServicesUsesCases.Relationships
                 Debug.LogError(e);
             }
         }
-
 
         private async Task AcceptRequest(string playerId)
         {

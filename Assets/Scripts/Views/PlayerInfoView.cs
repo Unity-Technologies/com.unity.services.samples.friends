@@ -6,14 +6,13 @@ namespace UnityGamingServicesUsesCases.Relationships
 {
     public class PlayerInfoView : MonoBehaviour
     {
-        [SerializeField] private TextMeshProUGUI _text = null;
-        [SerializeField] private TMP_InputField _inputField = null;
+        [SerializeField] private TextMeshProUGUI m_Text = null;
+        [SerializeField] private TMP_InputField m_InputField = null;
 
-
-        public void Refresh(string name,string id)
+        public void Refresh(string name, string id)
         {
-            _text.text = name;
-            _inputField.text = id;
+            m_Text.text = name;
+            m_InputField.text = id;
         }
     }
 }

@@ -9,16 +9,16 @@ namespace UnityGamingServicesUsesCases.Relationships
 {
     public class PlayerProfilesGenerator : MonoBehaviour
     {
-        [SerializeField] private RelationshipsSceneManager _relationshipsSceneManager = null;
-        [SerializeField] private int _amount = 5;
+        [SerializeField] private RelationshipsSceneManager m_RelationshipsSceneManager = null;
         [SerializeField] private PlayerProfilesData m_PlayerProfilesData = null;
+        [SerializeField] private int m_Amount = 5;
 
-        private const string PlayerNamePrefix ="Player_";
-        
+        private const string k_PlayerNamePrefix = "Player_";
+
         private async void Start()
         {
             //The default logged in Player will be the last profile created.
-            var playerName = $"{PlayerNamePrefix}{_amount - 1}";
+            var playerName = $"{k_PlayerNamePrefix}{m_Amount - 1}";
             var hasGeneratedPlayerIds = m_PlayerProfilesData.Any();
             if (hasGeneratedPlayerIds)
             {
@@ -26,15 +26,13 @@ namespace UnityGamingServicesUsesCases.Relationships
             }
             else
             {
-                await GeneratePlayerProfiles(_amount);
+                await GeneratePlayerProfiles(m_Amount);
             }
 
             Debug.Log($"Authenticated <b>{playerName}</b> with Id: <b>{AuthenticationService.Instance.PlayerId}</b>");
 
-            await _relationshipsSceneManager.Init(playerName);
+            await m_RelationshipsSceneManager.Init(playerName);
         }
-
-       
 
         private async Task GeneratePlayerProfiles(int amount)
         {
@@ -49,7 +47,7 @@ namespace UnityGamingServicesUsesCases.Relationships
 
         private async Task GeneratePlayerProfile(int i)
         {
-            var playerName = $"{PlayerNamePrefix}{i}";
+            var playerName = $"{k_PlayerNamePrefix}{i}";
             await UASUtils.SwitchUser(playerName);
             m_PlayerProfilesData.Add(playerName, AuthenticationService.Instance.PlayerId);
         }
