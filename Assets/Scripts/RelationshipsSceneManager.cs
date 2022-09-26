@@ -1,57 +1,164 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Unity.Services.Authentication;
 using Unity.Services.Friends;
 using Unity.Services.Friends.Exceptions;
 using Unity.Services.Friends.Models;
 using Unity.Services.Friends.Options;
 using UnityEngine;
 
-
 namespace UnityGamingServicesUsesCases.Relationships
 {
     public class RelationshipsSceneManager : MonoBehaviour
     {
-        [SerializeField] private AddFriendView _addFriendView = null;
-      
+        [Header("View's References")] 
+        [SerializeField] private AddFriendView m_AddFriendView;
+        [SerializeField] private AddFriendByIdView m_AddFriendByIdView;
+        [SerializeField] private LogInView m_LogInView;
+        [SerializeField] private PlayerInfoView m_PlayerInfoView;
+        [SerializeField] private RefreshView m_RefreshView;
+        [SerializeField] private FriendsView m_FriendsView;
+        [SerializeField] private RequestsView m_RequestsView;
+        [SerializeField] private BlocksView m_BlocksView;
 
-        public void Init()
+        [Header("Data")]
+        [SerializeField] private PlayerProfilesData m_PlayerProfilesData = null;
+
+        private string m_LoggedPlayerName;
+        private string LoggedPlayerId => AuthenticationService.Instance.PlayerId;
+
+        public async Task Init(string currentPlayerName)
         {
-            _addFriendView.OnAddFriendRequested += AddFriendByIdVoid;
+            //Bind Actionable 
+            m_AddFriendView.Init();
+            m_AddFriendView.OnAddFriend += AddFriendAsync;
+            m_AddFriendByIdView.Init();
+            m_AddFriendByIdView.OnAddFriend += AddFriendAsync;
+            m_LogInView.Init();
+            m_LogInView.OnLogIn += LogIn;
+            m_RefreshView.Init();
+            m_RefreshView.OnRefresh += RefreshAsync;
+
+            //Bind Views
+            m_FriendsView.OnFriendRemove += RemoveFriendAsync;
+            m_FriendsView.OnFriendBlock += BlockFriendAsync;
+            m_RequestsView.OnRequestAccepted += AcceptRequestAsync;
+            m_RequestsView.OnRequestDeclined += DeclineRequestAsync;
+            m_BlocksView.OnFriendUnblock += UnblockFriendAsync;
+
+            m_LoggedPlayerName = currentPlayerName;
+            await RefreshViews();
         }
 
-        private async void AddFriendByIdVoid(string id)
+        private async void BlockFriendAsync(string id)
         {
-            await AddFriendById(id, "button");
+            await BlockFriend(id);
+            await RefreshViews();
         }
 
-        private async Task AddFriendById(string playerId, string eventSource)
+        private async void UnblockFriendAsync(string id)
+        {
+            await UnblockFriend(id);
+            await RefreshViews();
+        }
+
+        private async void RemoveFriendAsync(string id)
+        {
+            await RemoveFriend(id);
+            await RefreshViews();
+        }
+
+        private async void AddFriendAsync(string id)
+        {
+            await AddFriend(id, "button");
+        }
+
+        private async void LogIn(string playerName)
+        {
+            await UASUtils.SwitchUser(playerName);
+            m_LoggedPlayerName = playerName;
+            await RefreshViews();
+            Debug.Log($"Logged in as {playerName} id: {LoggedPlayerId}");
+        }
+
+        private async void AcceptRequestAsync(string id)
+        {
+            await AcceptRequest(id);
+            await RefreshViews();
+        }
+
+        private async void DeclineRequestAsync(string id)
+        {
+            await DeclineRequest(id);
+            await RefreshViews();
+        }
+
+        private async void RefreshAsync()
+        {
+            await RefreshViews();
+        }
+
+        private async Task RefreshViews()
+        {
+            m_PlayerInfoView.Refresh(m_LoggedPlayerName, LoggedPlayerId);
+
+            //Friends
+            var friends = await GetFriendsWithoutPresence();
+            var friendProfiles = new List<PlayerProfile>();
+            foreach (var friend in friends)
+            {
+                friendProfiles.Add(new PlayerProfile(m_PlayerProfilesData.GetName(friend.Id),friend.Id));
+            }
+
+            m_FriendsView.Refresh(friendProfiles);
+
+            //Requests
+            var requests = await GetRequests();
+            var requestsProfile = new List<PlayerProfile>();
+            foreach (var request in requests)
+            {
+                requestsProfile.Add(new PlayerProfile(m_PlayerProfilesData.GetName(request.Id),request.Id));
+            }
+
+            m_RequestsView.Refresh(requestsProfile);
+
+            //Blocks
+            var blocks = await GetBlocks();
+            var blocksProfiles = new List<PlayerProfile>();
+            foreach (var block in blocks)
+            {
+                blocksProfiles.Add(new PlayerProfile( m_PlayerProfilesData.GetName(block.Id),block.Id));
+            }
+
+            m_BlocksView.Refresh(blocksProfiles);
+        }
+
+        private async Task AddFriend(string playerId, string eventSource)
         {
             try
             {
                 await Friends.Instance.AddFriendAsync(playerId, eventSource);
+                Debug.Log($"{playerId} friend request sent.");
             }
             catch (FriendsServiceException e)
             {
                 Debug.Log($"Failed to add {playerId}.");
                 Debug.LogError(e);
             }
-
-            Debug.Log($"{playerId} was added to the friends list.");
         }
 
-        private async Task RemoveFriendById(string playerId)
+        private async Task RemoveFriend(string playerId)
         {
             try
             {
                 await Friends.Instance.RemoveFriendAsync(playerId);
+                Debug.Log($"{playerId} was removed from the friends list.");
             }
             catch (FriendsServiceException e)
             {
                 Debug.Log($"Failed to remove {playerId}.");
                 Debug.LogError(e);
             }
-
-            Debug.Log($"{playerId} was added to the friends list.");
         }
 
         private async Task BlockFriend(string playerId, string eventSource = null)
@@ -59,14 +166,13 @@ namespace UnityGamingServicesUsesCases.Relationships
             try
             {
                 await Friends.Instance.BlockAsync(playerId, eventSource);
+                Debug.Log($"{playerId} was blocked.");
             }
             catch (FriendsServiceException e)
             {
                 Debug.Log($"Failed to block {playerId}.");
                 Debug.LogError(e);
             }
-
-            Debug.Log($"{playerId} was blocked.");
         }
 
         private async Task UnblockFriend(string playerId)
@@ -74,14 +180,13 @@ namespace UnityGamingServicesUsesCases.Relationships
             try
             {
                 await Friends.Instance.UnblockAsync(playerId);
+                Debug.Log($"{playerId} was unblocked.");
             }
             catch (FriendsServiceException e)
             {
                 Debug.Log($"Failed to unblock {playerId}.");
                 Debug.LogError(e);
             }
-
-            Debug.Log($"{playerId} was unblocked.");
         }
 
         private async Task AcceptRequest(string playerId)
@@ -89,14 +194,13 @@ namespace UnityGamingServicesUsesCases.Relationships
             try
             {
                 await Friends.Instance.ConsentFriendRequestAsync(playerId);
+                Debug.Log($"Friend request from {playerId} was accepted.");
             }
             catch (FriendsServiceException e)
             {
                 Debug.Log($"Failed to accept request from {playerId}.");
                 Debug.LogError(e);
             }
-
-            Debug.Log($"Friend request from {playerId} was accepted.");
         }
 
         private async Task DeclineRequest(string playerId)
@@ -104,14 +208,13 @@ namespace UnityGamingServicesUsesCases.Relationships
             try
             {
                 await Friends.Instance.IgnoreFriendRequestAsync(playerId);
+                Debug.Log($"Friend request from {playerId} was declined.");
             }
             catch (FriendsServiceException e)
             {
                 Debug.Log($"Failed to decline request from {playerId}.");
                 Debug.LogError(e);
             }
-
-            Debug.Log($"Friend request from {playerId} was declined.");
         }
 
         private async Task<List<Player>> GetFriendsWithoutPresence()
@@ -140,6 +243,38 @@ namespace UnityGamingServicesUsesCases.Relationships
             catch (FriendsServiceException e)
             {
                 Debug.Log("Failed to retrieve the friend list.");
+                Debug.LogError(e);
+            }
+
+            return null;
+        }
+
+        private async Task<List<Player>> GetRequests()
+        {
+            try
+            {
+                var requests = await Friends.Instance.GetInboxAsync(new PaginationOptions());
+                return requests;
+            }
+            catch (FriendsServiceException e)
+            {
+                Debug.Log("Failed to retrieve the requests list.");
+                Debug.LogError(e);
+            }
+
+            return null;
+        }
+
+        private async Task<List<Player>> GetBlocks()
+        {
+            try
+            {
+                var requests = await Friends.Instance.GetBlocksAsync(new PaginationOptions());
+                return requests;
+            }
+            catch (FriendsServiceException e)
+            {
+                Debug.Log("Failed to retrieve the blocks list.");
                 Debug.LogError(e);
             }
 

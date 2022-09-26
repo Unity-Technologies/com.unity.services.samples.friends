@@ -185,6 +185,16 @@
       },
       "url": "https://artifactory.prd.it.unity3d.com/artifactory/api/npm/upm-candidates"
     },
+    "com.unity.toolchain.win-x86_64-linux-x86_64": {
+      "version": "2.0.2",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.sysroot": "2.0.3",
+        "com.unity.sysroot.linux-x86_64": "2.0.2"
+      },
+      "url": "https://artifactory.prd.it.unity3d.com/artifactory/api/npm/upm-candidates"
+    },
     "com.unity.ugui": {
       "version": "1.0.0",
       "depth": 0,

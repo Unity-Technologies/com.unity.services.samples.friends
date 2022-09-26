@@ -1,0 +1,10 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:Template name="PlayerTabLayout" src="project://database/Assets/UI/RelationshipsUI/BasePlayerEntryLayout.uxml?fileID=9197481963319205126&amp;guid=2e16355644bc145c496372991d4fac4c&amp;type=3#BasePlayerEntryLayout" />
+    <Style src="project://database/Assets/UI/RelationshipsUI/RelationshipsStyle.uss?fileID=7433441132597879392&amp;guid=947b3ef19af094ccca809ccb7e4ad0b2&amp;type=3#RelationshipsStyle" />
+    <ui:VisualElement picking-mode="Ignore" name="localPlayer-bg" class="menu-panel" style="flex-direction: row; width: 430px; height: 120px; justify-content: space-between; align-items: center;">
+        <ui:Instance template="PlayerTabLayout" name="BasePlayerEntryLayout" />
+        <ui:VisualElement name="settingsButton-layout" style="align-items: center; justify-content: flex-start; padding-right: 15px; margin-top: 10px; height: 100%;">
+            <ui:Button text="..." display-tooltip-when-elided="true" name="settings-button" class="player-settings-button" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
