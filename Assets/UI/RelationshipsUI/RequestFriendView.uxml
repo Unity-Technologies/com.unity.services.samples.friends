@@ -1,0 +1,11 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/RelationshipsUI/RelationshipsStyle.uss?fileID=7433441132597879392&amp;guid=947b3ef19af094ccca809ccb7e4ad0b2&amp;type=3#RelationshipsStyle" />
+    <ui:VisualElement name="request-panel-bg" picking-mode="Ignore" class="list-panel" style="width: 500px; height: 200px; padding-left: 15px; padding-right: 15px; padding-top: 15px; padding-bottom: 15px; align-items: center; border-top-width: 1px;">
+        <ui:Label text="ADD A FRIEND" display-tooltip-when-elided="true" name="add-friend-title" class="list-label" style="align-items: stretch; -unity-text-align: upper-center; -unity-font-style: bold;" />
+        <ui:Label text="Search and add new friends to your list" display-tooltip-when-elided="true" name="add-friend-subtitle" class="list-label" style="-unity-text-align: upper-center; font-size: 12px;" />
+        <ui:VisualElement name="entry-group" style="flex-direction: row; align-items: stretch; justify-content: space-around; width: 100%;">
+            <ui:TextField text="Search by name or id" name="search-field" style="width: 70%; color: rgba(111, 111, 111, 255);" />
+            <ui:Button text="SEARCH" display-tooltip-when-elided="true" name="search-button" class="add-friend-button" style="-unity-font-style: bold;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

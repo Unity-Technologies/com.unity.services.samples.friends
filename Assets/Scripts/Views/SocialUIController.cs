@@ -11,9 +11,4 @@ public class SocialUIController : MonoBehaviour
 
 
 
-
-    void Start()
-    {
-
-    }
 }

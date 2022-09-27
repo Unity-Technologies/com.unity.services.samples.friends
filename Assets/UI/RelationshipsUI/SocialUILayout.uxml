@@ -1,9 +1,0 @@
-<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <ui:Template name="LocalPlayerTabLayout" src="project://database/Assets/UI/RelationshipsUI/LocalPlayerTabLayout.uxml?fileID=9197481963319205126&amp;guid=569feef4c4ff04a1bafe96bb29b7f5ea&amp;type=3#LocalPlayerTabLayout" />
-    <ui:Template name="SocialTabLayout" src="project://database/Assets/UI/RelationshipsUI/SocialTabLayout.uxml?fileID=9197481963319205126&amp;guid=2ea60cb6f283c4c0d818f542f2867f47&amp;type=3#SocialTabLayout" />
-    <Style src="project://database/Assets/UI/RelationshipsUI/RelationshipsStyle.uss?fileID=7433441132597879392&amp;guid=947b3ef19af094ccca809ccb7e4ad0b2&amp;type=3#RelationshipsStyle" />
-    <ui:VisualElement name="social-ui-group" style="align-items: flex-end; width: 430px; flex-grow: 0; flex-shrink: 0; justify-content: flex-start; height: auto; top: 0; right: 0; position: absolute;">
-        <ui:Instance template="LocalPlayerTabLayout" name="LocalPlayerTabLayout" style="border-bottom-width: 15px; margin-left: 0; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0;" />
-        <ui:Instance template="SocialTabLayout" name="SocialTabLayout" style="width: 100%;" />
-    </ui:VisualElement>
-</ui:UXML>
