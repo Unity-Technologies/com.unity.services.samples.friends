@@ -1,18 +1,27 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class LocalUserView : UIBaseView
 {
-    // Start is called before the first frame update
-    void Start()
-    {
+    public override string ViewName => "LocalUserView";
 
+    BasePlayerEntry m_LocalPlayerEntry;
+    public LocalUserView(VisualElement viewRoot)
+        : base(viewRoot)
+    {
+        m_LocalPlayerEntry = new BasePlayerEntry(viewRoot.Q("BasePlayerEntry"));
     }
 
-    // Update is called once per frame
-    void Update()
-    {
 
+
+
+    protected override void SetVisualElements()
+    {
+    }
+
+    protected override void RegisterButtonCallbacks()
+    {
+        throw new System.NotImplementedException();
     }
 }
+

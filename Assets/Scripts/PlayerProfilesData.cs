@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.Services.Friends.Models;
 using UnityEngine;
 
 namespace UnityGamingServicesUsesCases.Relationships
@@ -51,9 +52,11 @@ namespace UnityGamingServicesUsesCases.Relationships
         }
     }
 
+
     [System.Serializable]
     public class PlayerProfile
     {
+
         [field: SerializeField] public string Name { get; private set; }
         [field: SerializeField] public string Id { get; private set; }
 

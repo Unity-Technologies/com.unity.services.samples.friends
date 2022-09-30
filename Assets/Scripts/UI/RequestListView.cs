@@ -1,18 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class RequestListView : UIBaseView
 {
     // Start is called before the first frame update
-    void Start()
-    {
+    public override string ViewName => "RequestListView";
+    public RequestListView(VisualElement viewRoot)
+        : base(viewRoot) { }
 
+    protected override void SetVisualElements()
+    {
     }
 
-    // Update is called once per frame
-    void Update()
+    protected override void RegisterButtonCallbacks()
     {
-
     }
 }

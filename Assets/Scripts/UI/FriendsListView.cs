@@ -1,18 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class FriendsListView : UIBaseView
 {
-    // Start is called before the first frame update
-    void Start()
-    {
+    public override string ViewName => "FriendsListView";
 
+    public FriendsListView(VisualElement viewRoot)
+        : base(viewRoot) { }
+
+    protected override void SetVisualElements()
+    {
+        throw new System.NotImplementedException();
     }
 
-    // Update is called once per frame
-    void Update()
+    protected override void RegisterButtonCallbacks()
     {
-
+        throw new System.NotImplementedException();
     }
 }

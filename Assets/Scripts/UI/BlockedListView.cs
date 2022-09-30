@@ -1,18 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class BlockedListView : UIBaseView
 {
-    // Start is called before the first frame update
-    void Start()
-    {
+    public override string ViewName => "BlockedListView";
+    public BlockedListView(VisualElement viewRoot)
+        : base(viewRoot) { }
 
+    protected override void SetVisualElements()
+    {
+        throw new System.NotImplementedException();
     }
 
-    // Update is called once per frame
-    void Update()
+    protected override void RegisterButtonCallbacks()
     {
-
+        throw new System.NotImplementedException();
     }
 }

@@ -1,18 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class SocialBarView : UIBaseView
 {
-    // Start is called before the first frame update
-    void Start()
-    {
+    public override string ViewName => "SocialBarView";
 
-    }
+    public SocialBarView(VisualElement viewRoot)
+        : base(viewRoot) { }
 
-    // Update is called once per frame
-    void Update()
-    {
+    protected override void SetVisualElements() { }
 
-    }
+    protected override void RegisterButtonCallbacks() { }
 }
