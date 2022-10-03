@@ -45,8 +45,10 @@ namespace UnityGamingServicesUsesCases.Relationships
             m_RequestsView.OnRequestAccepted += AcceptRequestAsync;
             m_RequestsView.OnRequestDeclined += DeclineRequestAsync;
             m_BlocksView.OnFriendUnblock += UnblockFriendAsync;
+            m_PlayerInfoView.OnPresenceChanged += SetPresenceAsync;
 
             m_LoggedPlayerName = currentPlayerName;
+            m_PlayerInfoView.Refresh(m_LoggedPlayerName,LoggedPlayerId,PresenceAvailabilityOptions.ONLINE);
             await RefreshViews();
         }
 
@@ -77,6 +79,7 @@ namespace UnityGamingServicesUsesCases.Relationships
         {
             await UASUtils.SwitchUser(playerName);
             m_LoggedPlayerName = playerName;
+            m_PlayerInfoView.Refresh(m_LoggedPlayerName, LoggedPlayerId, PresenceAvailabilityOptions.ONLINE);
             await RefreshViews();
             Debug.Log($"Logged in as {playerName} id: {LoggedPlayerId}");
         }
@@ -98,10 +101,13 @@ namespace UnityGamingServicesUsesCases.Relationships
             await RefreshViews();
         }
 
+        private async void SetPresenceAsync(PresenceAvailabilityOptions presenceAvailabilityOptions)
+        {
+            await SetPresence(presenceAvailabilityOptions, string.Empty);
+        }
+
         private async Task RefreshViews()
         {
-            m_PlayerInfoView.Refresh(m_LoggedPlayerName, LoggedPlayerId);
-
             //Friends
             var friends = await GetFriendsWithoutPresence();
             var friendProfiles = new List<PlayerProfile>();
@@ -290,6 +296,7 @@ namespace UnityGamingServicesUsesCases.Relationships
             try
             {
                 await Friends.Instance.SetPresenceAsync(presence);
+                Debug.Log($"Presence changed to {presence.GetAvailability()}.");
             }
             catch (FriendsServiceException e)
             {
