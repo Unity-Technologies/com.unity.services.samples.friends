@@ -63,9 +63,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   socialUIDoc: {fileID: 4731960708539505841}
-  friendEntryTemplate: {fileID: 0}
-  requestEntryTemplate: {fileID: 0}
-  blockEntryTemplate: {fileID: 0}
+  friendEntryTemplate: {fileID: 9197481963319205126, guid: 7464d6b4c4e6c49c39d1d09516907fc1, type: 3}
+  requestEntryTemplate: {fileID: 9197481963319205126, guid: 2718900bbbae9584ba9a986fa03931fb, type: 3}
+  blockEntryTemplate: {fileID: 9197481963319205126, guid: 32a106e9152e3994089bf3426ad2951b, type: 3}
 --- !u!114 &4731960708932582860
 MonoBehaviour:
   m_ObjectHideFlags: 0

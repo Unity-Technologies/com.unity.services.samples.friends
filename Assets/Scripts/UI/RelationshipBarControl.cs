@@ -1,10 +1,9 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Unity.Services.Friends.Models;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
+
 namespace UnityGamingServicesUsesCases.Relationships.UI
 {
     public enum ShowListState
@@ -14,6 +13,7 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
         Blocked = 2,
         None = 3
     }
+
     public class RelationshipBarControl : UIBaseControl
     {
         public override string ViewRootName => "relationship-bar-view";
@@ -22,6 +22,12 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
         public Action onRequestListPressed;
         public Action onBlockedListPressed;
         public Action onAddFriendPressed;
+
+        public Action<string> onAcceptFriend;
+        public Action<string> onDenyFriend;
+        public Action<string> onRemoveFriend;
+        public Action<string> onBlockUser;
+        public Action<string> onUnblockuser;
 
         Button m_FriendsListButton;
         Button m_RequestListButton;
@@ -33,6 +39,7 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
         VisualTreeAsset m_FriendEntryTemplate;
         VisualTreeAsset m_RequestEntryTemplate;
         VisualTreeAsset m_BlockEntryTemplate;
+        ShowListState m_PreviousState = ShowListState.None;
 
         List<PlayerProfile> m_FriendsList = new List<PlayerProfile>();
         List<PlayerProfile> m_RequestList = new List<PlayerProfile>();
@@ -47,6 +54,21 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
             m_FriendEntryTemplate = friendEntryTemplate;
             m_RequestEntryTemplate = requestEntryTemplate;
             m_BlockEntryTemplate = blockEntryTemplate;
+        }
+
+        public void SetFriendsListReference(List<PlayerProfile> friendProfiles)
+        {
+            m_FriendsList = friendProfiles;
+        }
+
+        public void SetRequestListReference(List<PlayerProfile> requestProfiles)
+        {
+            m_RequestList = requestProfiles;
+        }
+
+        public void SetBlockedListReference(List<PlayerProfile> blockedProfiles)
+        {
+            m_BlockedList = blockedProfiles;
         }
 
         protected override void SetVisualElements()
@@ -87,75 +109,111 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
         void SwitchView(ShowListState listToView)
         {
             m_RelationshipListView.Clear();
-
             switch (listToView)
             {
                 case ShowListState.Friends:
-                    m_RelationshipListView.makeItem = CreateFriendListEntry;
-                    
-                    m_RelationshipListView.bindItem = (item, index) =>
-                    {
-                        (item.userData as FriendEntryControl)?.playerEntryControl.SetPlayer(m_FriendsList[index]);
-                    };
-                    m_RelationshipListView.fixedItemHeight = 70;
-                    m_RelationshipListView.itemsSource = m_FriendsList;
-                    Debug.Log($"Switched to show Data: {m_FriendsList.Count} UI:{m_RelationshipListView.Children().Count()} List");
+                    SetupFriendsList();
                     break;
                 case ShowListState.Requests:
-
+                    SetupRequestList();
                     break;
                 case ShowListState.Blocked:
-
+                    SetupBlockList();
                     break;
                 case ShowListState.None:
-
                     m_RelationshipListView.itemsSource = new List<PlayerProfile>();
                     break;
-
             }
+
+            m_RelationshipListView.RefreshItems();
         }
 
-        public void SetFriendsListReference(List<PlayerProfile> friendProfiles)
+        void SetupFriendsList()
         {
-            m_FriendsList = friendProfiles;
+            m_RelationshipListView.makeItem = () =>
+            {
+                var newListEntry = m_FriendEntryTemplate.Instantiate();
+                var newListEntryLogic = new FriendEntryControl(newListEntry.contentContainer);
+                newListEntry.userData = newListEntryLogic;
+                return newListEntry;
+            };
+
+            m_RelationshipListView.bindItem = (item, index) =>
+            {
+                var friendControl = item.userData as FriendEntryControl;
+                var userProfile = m_FriendsList[index];
+                friendControl.playerEntryControl.SetName(userProfile.Name);
+                friendControl.playerEntryControl.SetActivity("TODO"); //TODO Get Actual Profile activity
+                friendControl.playerEntryControl.SetStatus(
+                    PresenceAvailabilityOptions.ONLINE); // TODO Get Actual Profile Status
+
+                friendControl.onRemoveFriendPressed += () =>
+                {
+                    onRemoveFriend.Invoke(userProfile.Id);
+                };
+                friendControl.onBlockFriendPressed = () =>
+                {
+                    onBlockUser.Invoke(userProfile.Id);
+                };
+            };
+            m_RelationshipListView.itemsSource = m_FriendsList;
         }
 
-        public void SetRequestListReference(List<PlayerProfile> requestProfiles)
+        void SetupRequestList()
         {
-            m_RequestList = requestProfiles;
+            m_RelationshipListView.makeItem = () =>
+            {
+                var newListEntry = m_RequestEntryTemplate.Instantiate();
+                var newListEntryLogic = new RequestEntryControl(newListEntry.contentContainer);
+                newListEntry.userData = newListEntryLogic;
+                return newListEntry;
+            };
+
+            m_RelationshipListView.bindItem = (item, index) =>
+            {
+                var requestControl = item.userData as RequestEntryControl;
+                var userProfile = m_RequestList[index];
+                requestControl.playerEntryControl.SetName(userProfile.Name);
+
+                requestControl.onAcceptPressed += () =>
+                {
+                    onAcceptFriend?.Invoke(userProfile.Id);
+                };
+                requestControl.onDenyPressed += () =>
+                {
+                    onDenyFriend?.Invoke(userProfile.Id);
+                };
+                requestControl.onBlockFriendPressed += () =>
+                {
+                    onBlockUser?.Invoke(userProfile.Id);
+                };
+            };
+
+            m_RelationshipListView.itemsSource = m_RequestList;
         }
-        public void SetBlockedListReference(List<PlayerProfile> blockedProfiles)
+
+        void SetupBlockList()
         {
-            m_BlockedList = blockedProfiles;
+            m_RelationshipListView.makeItem = () =>
+            {
+                var newListEntry = m_BlockEntryTemplate.Instantiate();
+                var newListEntryLogic = new BlockedEntryControl(newListEntry.contentContainer);
+                newListEntry.userData = newListEntryLogic;
+                return newListEntry;
+            };
+
+            m_RelationshipListView.bindItem = (item, index) =>
+            {
+                var blockedEntryControl = item.userData as BlockedEntryControl;
+                var userProfile = m_BlockedList[index];
+                blockedEntryControl.playerEntryControl.SetName(userProfile.Name);
+
+                blockedEntryControl.onUnblockPressed += () =>
+                {
+                    onUnblockuser?.Invoke(userProfile.Id);
+                };
+            };
+            m_RelationshipListView.itemsSource = m_BlockedList;
         }
-
-
-        VisualElement CreateFriendListEntry()
-        {
-            var newListEntry = m_FriendEntryTemplate.Instantiate();
-            var newListEntryLogic = new FriendEntryControl(newListEntry.contentContainer);
-            newListEntry.userData = newListEntryLogic;
-            return newListEntry;
-
-        }
-
-        VisualElement CreateRequestListEntry()
-        {
-            var newListEntry = m_RequestEntryTemplate.Instantiate();
-            var newListEntryLogic = new FriendEntryControl(newListEntry);
-            newListEntry.userData = newListEntryLogic;
-            return newListEntry;
-
-        }
-
-        VisualElement CreateBlockListEntry()
-        {
-            var newListEntry = m_BlockEntryTemplate.Instantiate();
-            var newListEntryLogic = new FriendEntryControl(newListEntry);
-            newListEntry.userData = newListEntryLogic;
-            return newListEntry;
-
-        }
-
     }
 }

@@ -208,12 +208,10 @@
     color: rgb(115, 115, 115);
 }
 
-.add-friend-button {
-    color: rgb(60, 52, 152);
-    background-color: rgb(247, 194, 89);
-    -unity-background-image-tint-color: rgb(247, 182, 89);
-    border-left-color: rgba(255, 255, 255, 0);
-    border-right-color: rgba(255, 255, 255, 0);
-    border-top-color: rgba(255, 255, 255, 0);
-    border-bottom-color: rgba(255, 255, 255, 0);
+.blocked-player-panel #player-activity-status-bg {
+    display: none;
+}
+
+.requests-player-panel #player-activity-status-bg {
+    display: none;
 }

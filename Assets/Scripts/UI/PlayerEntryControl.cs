@@ -5,29 +5,33 @@ using UnityEngine.UIElements;
 
 namespace UnityGamingServicesUsesCases.Relationships.UI
 {
-
     public class PlayerEntryControl : UIBaseControl
     {
-        public override string ViewRootName => "base-player-entry";
-        public string Id { get; private set; }
-
-        Label m_PlayerName;
-        public Label PlayerActivity { get; private set; }
+        const string k_playerEntryRootName = "base-player-entry";
         public DropdownField PlayerStatusDropDown { get; private set; }
+
+        public string Id { get; private set; }
+        Label m_PlayerName;
+        Label PlayerActivity { get; set; }
         Label m_PlayerStatusLabel;
         VisualElement m_PlayerStatusCircle;
-
 
         public void SetPlayer(PlayerProfile playerProfile)
         {
             Id = playerProfile.Id;
-            SetName(playerProfile.Id);
+            SetName(playerProfile.Name);
+
             //TODO Set Status
             //TODO Set Activity
+        }
+
+        public PlayerEntryControl(VisualElement documentParent)
+            : base(documentParent)
+        {
 
         }
 
-        public PlayerEntryControl(VisualElement documentParent) : base(documentParent) {}
+        public override string ViewRootName => k_playerEntryRootName;
 
         protected override void SetVisualElements()
         {
@@ -36,15 +40,11 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
             m_PlayerStatusLabel = GetElementByName<Label>("player-status-label");
             m_PlayerStatusCircle = GetElementByName<VisualElement>("player-status-circle");
             PlayerActivity = GetElementByName<Label>("player-activity-label");
-
             SetStatus(PresenceAvailabilityOptions.OFFLINE);
-
         }
-
 
         protected override void RegisterButtonCallbacks()
         {
-
             //Take care to make sure the Dropdown Element in the UI has exact string name matches with the PresenceAvailabilityOptions
             PlayerStatusDropDown.RegisterValueChangedCallback(status =>
             {
@@ -69,6 +69,7 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
             PlayerStatusDropDown.SetValueWithoutNotify(status.ToString());
             SetStatusColor(status);
         }
+
         void SetStatusColor(PresenceAvailabilityOptions status)
         {
             //Shifted to adapt the PresenceAvailabilityOptions enum-integers
@@ -88,7 +89,5 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
             new Color(.4f, .4f, .4f), //OFFLINE
             new Color(1f, .4f, 1f) //UNKNOWN
         };
-
-
     }
 }

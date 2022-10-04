@@ -1,39 +1,34 @@
 using System;
-
 using UnityEngine.UIElements;
 
 namespace UnityGamingServicesUsesCases.Relationships.UI
 {
-    public class FriendEntryControl : UIBaseControl
+    public class FriendEntryControl
     {
-        public override string ViewRootName => "friend-entry-view";
+        const string k_FriendEntryRootName = "friend-entry-view";
+        VisualElement m_FriendEntryRoot;
 
-        public Action<string> onRemoveFriendPressed;
-        public Action<string> onBlockFriendPressed;
+        public Action onRemoveFriendPressed;
+        public Action onBlockFriendPressed;
 
         public PlayerEntryControl playerEntryControl;
         Button m_RemoveFriendButton;
         Button m_BlockFriendButton;
 
-        public FriendEntryControl(VisualElement documentParent) : base(documentParent) {}
-        protected override void SetVisualElements()
+        public FriendEntryControl(VisualElement documentParent)
         {
-            playerEntryControl = new PlayerEntryControl(m_ViewRoot);
-            m_RemoveFriendButton = GetElementByName<Button>("remove-button");
-            m_BlockFriendButton = GetElementByName<Button>("block-button");
-
-        }
-        protected override void RegisterButtonCallbacks()
-        {
-            m_RemoveFriendButton.RegisterCallback<ClickEvent>((clickEvent) =>
+            m_FriendEntryRoot = documentParent.Q(k_FriendEntryRootName);
+            playerEntryControl = new PlayerEntryControl(m_FriendEntryRoot);
+            m_RemoveFriendButton = m_FriendEntryRoot.Q<Button>("remove-button");
+            m_RemoveFriendButton.RegisterCallback<ClickEvent>(_ =>
             {
-                onRemoveFriendPressed?.Invoke(playerEntryControl.Id);
+                onRemoveFriendPressed?.Invoke();
             });
-            m_BlockFriendButton.RegisterCallback<ClickEvent>((clickEvent) =>
+            m_BlockFriendButton = m_FriendEntryRoot.Q<Button>("block-button");
+            m_BlockFriendButton.RegisterCallback<ClickEvent>(_ =>
             {
-                onBlockFriendPressed?.Invoke(playerEntryControl.Id);
+                onBlockFriendPressed?.Invoke();
             });
         }
     }
-
 }

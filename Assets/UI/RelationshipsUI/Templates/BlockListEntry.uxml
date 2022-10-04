@@ -2,7 +2,7 @@
     <ui:Template name="BasePlayerEntryLayout" src="project://database/Assets/UI/RelationshipsUI/BasePlayerEntry.uxml?fileID=9197481963319205126&amp;guid=2e16355644bc145c496372991d4fac4c&amp;type=3#BasePlayerEntry" />
     <Style src="project://database/Assets/UI/RelationshipsUI/RelationshipsStyle.uss?fileID=7433441132597879392&amp;guid=947b3ef19af094ccca809ccb7e4ad0b2&amp;type=3#RelationshipsStyle" />
     <ui:VisualElement name="block-entry-view" picking-mode="Ignore" class="player-panel" style="flex-direction: row; justify-content: space-between; align-items: flex-end; min-width: 450px;">
-        <ui:Instance template="BasePlayerEntryLayout" name="BasePlayerEntry" style="width: 100%;" />
-        <ui:Button display-tooltip-when-elided="true" name="unblock-button" class="player-action-button" style="background-image: url(&apos;project://database/Assets/Art/unblock.png?fileID=2800000&amp;guid=1d043fc1563c4a84f9c420988843f683&amp;type=3#unblock&apos;); height: 40px; overflow: hidden; margin-right: 25px; margin-bottom: 15px;" />
+        <ui:Instance template="BasePlayerEntryLayout" name="BasePlayerEntry" class="blocked-player-panel" style="width: 50%;" />
+        <ui:Button display-tooltip-when-elided="true" name="unblock-button" class="player-action-button" style="background-image: url(&apos;project://database/Assets/Art/unblock.png?fileID=2800000&amp;guid=1d043fc1563c4a84f9c420988843f683&amp;type=3#unblock&apos;); height: 40px; overflow: hidden; margin-right: 60px; margin-bottom: 15px;" />
     </ui:VisualElement>
 </ui:UXML>

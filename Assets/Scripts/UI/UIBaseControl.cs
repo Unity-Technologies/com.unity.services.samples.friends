@@ -50,7 +50,6 @@ public abstract class UIBaseControl
     {
         if (visualElement == null)
             return;
-
         visualElement.style.display = (state) ? DisplayStyle.Flex : DisplayStyle.None;
     }
 
@@ -58,7 +57,6 @@ public abstract class UIBaseControl
     {
         if (string.IsNullOrEmpty(elementName) || m_ViewRoot == null)
             return default;
-
         // query and return the element
         return m_ViewRoot.Q<T>(elementName);
     }
