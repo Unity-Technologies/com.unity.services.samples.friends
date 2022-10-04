@@ -22,7 +22,8 @@ namespace UnityGamingServicesUsesCases.Relationships
                 PresenceAvailabilityOptions.ONLINE.ToString(),
                 PresenceAvailabilityOptions.BUSY.ToString(),
                 PresenceAvailabilityOptions.AWAY.ToString(),
-                PresenceAvailabilityOptions.INVISIBLE.ToString()
+                //Not working for now :(. test after update to 0.2.0
+                //PresenceAvailabilityOptions.INVISIBLE.ToString()
             };
 
             m_PresenceDropdown.AddOptions(names);
