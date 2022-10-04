@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Unity.Services.Authentication;
@@ -49,7 +50,13 @@ namespace UnityGamingServicesUsesCases.Relationships
 
             m_LoggedPlayerName = currentPlayerName;
             m_PlayerInfoView.Refresh(m_LoggedPlayerName,LoggedPlayerId,PresenceAvailabilityOptions.ONLINE);
+            await SetPresence(PresenceAvailabilityOptions.ONLINE,"");
             await RefreshViews();
+        }
+
+        private void OnDestroy()
+        {
+            Friends.Instance.Dispose(); //set the player status to OFFLINE
         }
 
         private async void BlockFriendAsync(string id)
@@ -79,6 +86,7 @@ namespace UnityGamingServicesUsesCases.Relationships
         {
             await UASUtils.SwitchUser(playerName);
             m_LoggedPlayerName = playerName;
+            await SetPresence(PresenceAvailabilityOptions.ONLINE,"");
             m_PlayerInfoView.Refresh(m_LoggedPlayerName, LoggedPlayerId, PresenceAvailabilityOptions.ONLINE);
             await RefreshViews();
             Debug.Log($"Logged in as {playerName} id: {LoggedPlayerId}");
@@ -109,14 +117,25 @@ namespace UnityGamingServicesUsesCases.Relationships
         private async Task RefreshViews()
         {
             //Friends
-            var friends = await GetFriendsWithoutPresence();
-            var friendProfiles = new List<PlayerProfile>();
+            var friends = await GetFriendsWithPresence();
+            var infos = new List<(string, string, string)>();
             foreach (var friend in friends)
             {
-                friendProfiles.Add(new PlayerProfile(m_PlayerProfilesData.GetName(friend.Id),friend.Id));
+                string availabilityText;
+                if (friend.Presence.GetAvailability() == PresenceAvailabilityOptions.OFFLINE ||
+                    friend.Presence.GetAvailability() == PresenceAvailabilityOptions.INVISIBLE)
+                {
+                    availabilityText = friend.LastSeen.ToShortDateString() + " "  + friend.LastSeen.ToLongTimeString();
+                }
+                else
+                {
+                    availabilityText = friend.Presence.GetAvailability().ToString();
+                }
+                var info = (friend.Player.Id, m_PlayerProfilesData.GetName(friend.Player.Id),availabilityText);
+                infos.Add(info);
             }
 
-            m_FriendsView.Refresh(friendProfiles);
+            m_FriendsView.Refresh(infos);
 
             //Requests
             var requests = await GetRequests();
@@ -304,5 +323,6 @@ namespace UnityGamingServicesUsesCases.Relationships
                 Debug.LogError(e);
             }
         }
+        
     }
 }

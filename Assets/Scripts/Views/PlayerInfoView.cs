@@ -25,7 +25,6 @@ namespace UnityGamingServicesUsesCases.Relationships
             };
 
             m_PresenceDropdown.AddOptions(names);
-            
             m_PresenceDropdown.onValueChanged.AddListener((value) =>
             {
                 var presence = (PresenceAvailabilityOptions) Enum.Parse(typeof(PresenceAvailabilityOptions),

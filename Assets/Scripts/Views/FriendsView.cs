@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Services.Friends.Models;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace UnityGamingServicesUsesCases.Relationships
 {
@@ -11,11 +13,11 @@ namespace UnityGamingServicesUsesCases.Relationships
         public Action<string> OnFriendBlock = null;
         
         [SerializeField]private RectTransform m_ParentTransform = null;
-        [SerializeField]private GenericEntryView m_GenericEntryViewPrefab = null;
+        [SerializeField]private FriendsEntryView m_FriendEntryViewPrefab = null;
 
-        private List<GenericEntryView> m_Friends = new ();
+        private List<FriendsEntryView> m_Friends = new ();
 
-        public void Refresh(List<PlayerProfile> playerProfiles)
+        public void Refresh(List<(string,string,string)> playerPresences)
         {
             foreach (var entry in m_Friends)
             {
@@ -23,17 +25,17 @@ namespace UnityGamingServicesUsesCases.Relationships
             }
             m_Friends.Clear();
 
-            foreach (var playerProfile in playerProfiles)
+            foreach (var playerPresence in playerPresences)
             {
-                var entry = Instantiate(m_GenericEntryViewPrefab, m_ParentTransform);
-                entry.Init(playerProfile.Name);
+                var entry = Instantiate(m_FriendEntryViewPrefab, m_ParentTransform);
+                entry.Init(playerPresence.Item2,playerPresence.Item3);
                 entry.button1.onClick.AddListener(() =>
                 {
-                    OnFriendRemove?.Invoke(playerProfile.Id);
+                    OnFriendRemove?.Invoke(playerPresence.Item1);
                 });
                 entry.button2.onClick.AddListener(() =>
                 {
-                    OnFriendBlock?.Invoke(playerProfile.Id);
+                    OnFriendBlock?.Invoke(playerPresence.Item1);
                 });
                 m_Friends.Add(entry);
             }
