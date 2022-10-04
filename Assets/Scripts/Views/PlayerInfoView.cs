@@ -8,10 +8,11 @@ namespace UnityGamingServicesUsesCases.Relationships
 {
     public class PlayerInfoView : MonoBehaviour
     {
-        public Action<PresenceAvailabilityOptions> OnPresenceChanged;
+        public Action<(PresenceAvailabilityOptions,string)> OnPresenceChanged;
 
         [SerializeField] private TextMeshProUGUI m_Text = null;
-        [SerializeField] private TMP_InputField m_InputField = null;
+        [SerializeField] private TMP_InputField m_IdInputField = null;
+        [SerializeField] private TMP_InputField m_ActivityInputField = null;
         [SerializeField] private TMP_Dropdown m_PresenceDropdown = null;
 
         private void Awake()
@@ -27,19 +28,29 @@ namespace UnityGamingServicesUsesCases.Relationships
             m_PresenceDropdown.AddOptions(names);
             m_PresenceDropdown.onValueChanged.AddListener((value) =>
             {
-                var presence = (PresenceAvailabilityOptions) Enum.Parse(typeof(PresenceAvailabilityOptions),
-                    m_PresenceDropdown.options[value].text, true);
-                
-                OnPresenceChanged?.Invoke(presence);
+                OnStatusChanged(value,m_ActivityInputField.text);
             });
+            m_ActivityInputField.onEndEdit.AddListener((value) =>
+            {
+                OnStatusChanged(m_PresenceDropdown.value,value);
+            });
+        }
+
+        private void OnStatusChanged(int value, string activity)
+        {
+            var presence = (PresenceAvailabilityOptions) Enum.Parse(typeof(PresenceAvailabilityOptions),
+                m_PresenceDropdown.options[value].text, true);
+                
+            OnPresenceChanged?.Invoke((presence,activity));
         }
 
         public void Refresh(string name, string id,PresenceAvailabilityOptions presence)
         {
             m_Text.text = name;
-            m_InputField.text = id;
+            m_IdInputField.text = id;
             var index = (int)presence - 1;
             m_PresenceDropdown.SetValueWithoutNotify(index);
+            m_ActivityInputField.text = string.Empty;
         }
     }
 }

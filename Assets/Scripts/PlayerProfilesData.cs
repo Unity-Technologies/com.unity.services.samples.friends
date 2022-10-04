@@ -35,9 +35,8 @@ namespace UnityGamingServicesUsesCases.Relationships
                 if (id == playerProfile.Id)
                     return playerProfile.Name;
             }
-
-            var rand = Random.Range(0, 100);
-            return $"ExternalPlayer_{rand}";
+            
+            return $"Friend_{id}";
         }
 
         public IEnumerator<PlayerProfile> GetEnumerator()

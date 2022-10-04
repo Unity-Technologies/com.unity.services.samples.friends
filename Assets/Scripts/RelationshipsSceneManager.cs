@@ -53,12 +53,7 @@ namespace UnityGamingServicesUsesCases.Relationships
             await SetPresence(PresenceAvailabilityOptions.ONLINE,"");
             await RefreshViews();
         }
-
-        private void OnDestroy()
-        {
-            Friends.Instance.Dispose(); //set the player status to OFFLINE
-        }
-
+        
         private async void BlockFriendAsync(string id)
         {
             await BlockFriend(id);
@@ -109,16 +104,16 @@ namespace UnityGamingServicesUsesCases.Relationships
             await RefreshViews();
         }
 
-        private async void SetPresenceAsync(PresenceAvailabilityOptions presenceAvailabilityOptions)
+        private async void SetPresenceAsync((PresenceAvailabilityOptions presence, string activity) status)
         {
-            await SetPresence(presenceAvailabilityOptions, string.Empty);
+            await SetPresence(status.presence, status.activity);
         }
 
         private async Task RefreshViews()
         {
             //Friends
             var friends = await GetFriendsWithPresence();
-            var infos = new List<(string, string, string)>();
+            var infos = new List<FriendsEntryData>();
             foreach (var friend in friends)
             {
                 string availabilityText;
@@ -131,7 +126,14 @@ namespace UnityGamingServicesUsesCases.Relationships
                 {
                     availabilityText = friend.Presence.GetAvailability().ToString();
                 }
-                var info = (friend.Player.Id, m_PlayerProfilesData.GetName(friend.Player.Id),availabilityText);
+
+                var info = new FriendsEntryData
+                {
+                    Name = m_PlayerProfilesData.GetName(friend.Player.Id),
+                    Id = friend.Player.Id,
+                    Presence = availabilityText,
+                    Activity = friend.Presence.GetActivity().Status
+                };
                 infos.Add(info);
             }
 

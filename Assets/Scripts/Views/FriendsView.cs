@@ -17,7 +17,7 @@ namespace UnityGamingServicesUsesCases.Relationships
 
         private List<FriendsEntryView> m_Friends = new ();
 
-        public void Refresh(List<(string,string,string)> playerPresences)
+        public void Refresh(List<FriendsEntryData> friendsEntryDatas)
         {
             foreach (var entry in m_Friends)
             {
@@ -25,17 +25,17 @@ namespace UnityGamingServicesUsesCases.Relationships
             }
             m_Friends.Clear();
 
-            foreach (var playerPresence in playerPresences)
+            foreach (var friendsEntryData in friendsEntryDatas)
             {
                 var entry = Instantiate(m_FriendEntryViewPrefab, m_ParentTransform);
-                entry.Init(playerPresence.Item2,playerPresence.Item3);
+                entry.Init(friendsEntryData.Name,friendsEntryData.Presence,friendsEntryData.Activity);
                 entry.button1.onClick.AddListener(() =>
                 {
-                    OnFriendRemove?.Invoke(playerPresence.Item1);
+                    OnFriendRemove?.Invoke(friendsEntryData.Id);
                 });
                 entry.button2.onClick.AddListener(() =>
                 {
-                    OnFriendBlock?.Invoke(playerPresence.Item1);
+                    OnFriendBlock?.Invoke(friendsEntryData.Id);
                 });
                 m_Friends.Add(entry);
             }
