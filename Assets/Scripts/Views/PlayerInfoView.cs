@@ -44,13 +44,13 @@ namespace UnityGamingServicesUsesCases.Relationships
             OnPresenceChanged?.Invoke((presence,activity));
         }
 
-        public void Refresh(string name, string id,PresenceAvailabilityOptions presence)
+        public void Init(string name, string id, PresenceAvailabilityOptions presence, string activity = "")
         {
             m_Text.text = name;
             m_IdInputField.text = id;
             var index = (int)presence - 1;
             m_PresenceDropdown.SetValueWithoutNotify(index);
-            m_ActivityInputField.text = string.Empty;
+            m_ActivityInputField.text = activity;
         }
     }
 }

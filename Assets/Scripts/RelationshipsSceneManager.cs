@@ -49,8 +49,8 @@ namespace UnityGamingServicesUsesCases.Relationships
             m_PlayerInfoView.OnPresenceChanged += SetPresenceAsync;
 
             m_LoggedPlayerName = currentPlayerName;
-            m_PlayerInfoView.Refresh(m_LoggedPlayerName,LoggedPlayerId,PresenceAvailabilityOptions.ONLINE);
-            await SetPresence(PresenceAvailabilityOptions.ONLINE,"");
+            m_PlayerInfoView.Init(m_LoggedPlayerName, LoggedPlayerId, PresenceAvailabilityOptions.ONLINE);
+            await SetPresence(PresenceAvailabilityOptions.ONLINE);
             await RefreshViews();
         }
         
@@ -81,8 +81,8 @@ namespace UnityGamingServicesUsesCases.Relationships
         {
             await UASUtils.SwitchUser(playerName);
             m_LoggedPlayerName = playerName;
-            await SetPresence(PresenceAvailabilityOptions.ONLINE,"");
-            m_PlayerInfoView.Refresh(m_LoggedPlayerName, LoggedPlayerId, PresenceAvailabilityOptions.ONLINE);
+            await SetPresence(PresenceAvailabilityOptions.ONLINE);
+            m_PlayerInfoView.Init(m_LoggedPlayerName, LoggedPlayerId, PresenceAvailabilityOptions.ONLINE);
             await RefreshViews();
             Debug.Log($"Logged in as {playerName} id: {LoggedPlayerId}");
         }
@@ -309,7 +309,7 @@ namespace UnityGamingServicesUsesCases.Relationships
         }
 
         private async Task SetPresence(PresenceAvailabilityOptions presenceAvailabilityOptions,
-            string activityStatus)
+            string activityStatus = "")
         {
             var activity = new Activity { Status = activityStatus };
             var presence = new Presence<Activity>(presenceAvailabilityOptions, activity);
