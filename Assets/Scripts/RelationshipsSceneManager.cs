@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Unity.Services.Authentication;
@@ -120,7 +119,7 @@ namespace UnityGamingServicesUsesCases.Relationships
                 if (friend.Presence.GetAvailability() == PresenceAvailabilityOptions.OFFLINE ||
                     friend.Presence.GetAvailability() == PresenceAvailabilityOptions.INVISIBLE)
                 {
-                    availabilityText = friend.LastSeen.ToShortDateString() + " "  + friend.LastSeen.ToLongTimeString();
+                    availabilityText = friend.LastSeen.ToShortDateString() + " " + friend.LastSeen.ToLongTimeString();
                 }
                 else
                 {
