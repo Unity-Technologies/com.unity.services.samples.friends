@@ -1,23 +1,32 @@
 using System;
 using UnityEngine;
 using UnityEngine.UIElements;
+/// <summary>
+/// Inherit from this class to create a control pairing to your UIToolkit views,
+/// Set the ViewName to the top-level ViewElement in the template or UI document you wish to query from.
+/// </summary>
+[System.Serializable]
 
-public abstract class UIBaseView
+public abstract class UIBaseControl
 {
     // visual elements
     protected VisualElement m_ViewRoot;
 
-    public event Action ScreenStarted;
-    public event Action ScreenEnded;
+    public event Action OnScreenStarted;
+    public event Action OnScreenEnded;
 
     /// <summary>
     /// Should be set to the name of the top level viewRoot we are looking for
     /// </summary>
-    public abstract string ViewName { get; }
+    public abstract string ViewRootName { get; }
 
-    public UIBaseView(VisualElement viewRoot)
+    /// <summary>
+    /// Base Concstructor for the UI Control Classes
+    /// </summary>
+    /// <param name="documentParent">The top level root you want to query for elements within.</param>
+    protected UIBaseControl(VisualElement documentParent)
     {
-        m_ViewRoot = viewRoot;
+        m_ViewRoot = documentParent.Q(ViewRootName);
         SetVisualElements();
         RegisterButtonCallbacks();
     }
@@ -57,7 +66,7 @@ public abstract class UIBaseView
     public virtual void ShowScreen()
     {
         ShowVisualElement(m_ViewRoot, true);
-        ScreenStarted?.Invoke();
+        OnScreenStarted?.Invoke();
     }
 
     public virtual void HideScreen()
@@ -65,7 +74,7 @@ public abstract class UIBaseView
         if (IsVisible())
         {
             ShowVisualElement(m_ViewRoot, false);
-            ScreenEnded?.Invoke();
+            OnScreenEnded?.Invoke();
         }
     }
 }

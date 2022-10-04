@@ -73,8 +73,8 @@
 }
 
 .add-friend-button {
-    color: rgba(60, 52, 152, 255);
-    background-color: rgb(247, 182, 89);
+    color: rgb(60, 52, 152);
+    background-color: rgb(247, 194, 89);
     -unity-background-image-tint-color: rgb(247, 182, 89);
     border-left-color: rgba(255, 255, 255, 0);
     border-right-color: rgba(255, 255, 255, 0);
@@ -83,7 +83,7 @@
 }
 
 .add-friend-button :hover {
-    -unity-background-image-tint-color: rgba(255, 193, 54, 255);
+    -unity-background-image-tint-color: rgb(255, 193, 54);
 }
 
 .add-friend-button :focus {
@@ -124,8 +124,8 @@
 }
 
 .social-tab-button :focus {
-    -unity-background-image-tint-color: rgba(255, 205, 109, 255);
-    background-color: rgba(75, 67, 160, 255);
+    -unity-background-image-tint-color: rgb(255, 205, 109);
+    background-color: rgb(75, 67, 160);
     border-left-color: rgba(0, 0, 0, 0);
     border-right-color: rgba(0, 0, 0, 0);
     border-top-color: rgba(0, 0, 0, 0);
@@ -181,11 +181,11 @@
 
 .social-font {
     -unity-font: url('project://database/Assets/UI/UnityDefaultRuntimeTheme.tss?fileID=2230732570650464555&guid=c7cbc177b8336244ca5e1b9ddc4f158c&type=3#NotInter-Regular');
-    color: rgba(255, 255, 255, 255);
+    color: rgb(255, 255, 255);
 }
 
 .social-input-field {
-    color: rgba(115, 115, 115, 255);
+    color: rgb(115, 115, 115);
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
     border-top-right-radius: 0;
@@ -197,7 +197,7 @@
     border-bottom-left-radius: 0;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
-    color: rgba(120, 120, 120, 255);
+    color: rgb(120, 120, 120);
 }
 
 .social-input-field TextField #unity-text-input {
@@ -205,5 +205,15 @@
     border-right-color: rgba(0, 0, 0, 0);
     border-top-color: rgba(0, 0, 0, 0);
     border-bottom-color: rgba(0, 0, 0, 0);
-    color: rgba(115, 115, 115, 255);
+    color: rgb(115, 115, 115);
+}
+
+.add-friend-button {
+    color: rgb(60, 52, 152);
+    background-color: rgb(247, 194, 89);
+    -unity-background-image-tint-color: rgb(247, 182, 89);
+    border-left-color: rgba(255, 255, 255, 0);
+    border-right-color: rgba(255, 255, 255, 0);
+    border-top-color: rgba(255, 255, 255, 0);
+    border-bottom-color: rgba(255, 255, 255, 0);
 }

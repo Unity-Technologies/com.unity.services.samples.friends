@@ -5312,7 +5312,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_UiScaleMode: 0
   m_ReferencePixelsPerUnit: 100
-  m_ScaleFactor: 1
+  m_ScaleFactor: 1.05
   m_ReferenceResolution: {x: 800, y: 600}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
@@ -5725,7 +5725,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4731960708539505840, guid: bdf76d60d7b60e8458820e42886e5041, type: 3}
       propertyPath: m_Name
-      value: SocialUI
+      value: RelationshipUI
       objectReference: {fileID: 0}
     - target: {fileID: 4731960708539505846, guid: bdf76d60d7b60e8458820e42886e5041, type: 3}
       propertyPath: m_RootOrder
@@ -5770,6 +5770,30 @@ PrefabInstance:
     - target: {fileID: 4731960708539505846, guid: bdf76d60d7b60e8458820e42886e5041, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4731960708539505847, guid: bdf76d60d7b60e8458820e42886e5041, type: 3}
+      propertyPath: friendEntryTemplate
+      value: 
+      objectReference: {fileID: 9197481963319205126, guid: 7464d6b4c4e6c49c39d1d09516907fc1, type: 3}
+    - target: {fileID: 4731960708932582860, guid: bdf76d60d7b60e8458820e42886e5041, type: 3}
+      propertyPath: m_FriendsList.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4731960708932582860, guid: bdf76d60d7b60e8458820e42886e5041, type: 3}
+      propertyPath: m_FriendsList.Array.data[2].<Id>k__BackingField
+      value: 132e12
+      objectReference: {fileID: 0}
+    - target: {fileID: 4731960708932582860, guid: bdf76d60d7b60e8458820e42886e5041, type: 3}
+      propertyPath: m_FriendsList.Array.data[3].<Id>k__BackingField
+      value: asda
+      objectReference: {fileID: 0}
+    - target: {fileID: 4731960708932582860, guid: bdf76d60d7b60e8458820e42886e5041, type: 3}
+      propertyPath: m_FriendsList.Array.data[2].<Name>k__BackingField
+      value: Checko
+      objectReference: {fileID: 0}
+    - target: {fileID: 4731960708932582860, guid: bdf76d60d7b60e8458820e42886e5041, type: 3}
+      propertyPath: m_FriendsList.Array.data[3].<Name>k__BackingField
+      value: Killa
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bdf76d60d7b60e8458820e42886e5041, type: 3}

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4731960708539505846}
   - component: {fileID: 4731960708539505841}
   - component: {fileID: 4731960708539505847}
+  - component: {fileID: 4731960708932582860}
   m_Layer: 0
   m_Name: SocialUI
   m_TagString: Untagged
@@ -61,4 +62,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd12e676dd9140048959d137ea632e65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_SocialUIDoc: {fileID: 4731960708539505841}
+  socialUIDoc: {fileID: 4731960708539505841}
+  friendEntryTemplate: {fileID: 0}
+  requestEntryTemplate: {fileID: 0}
+  blockEntryTemplate: {fileID: 0}
+--- !u!114 &4731960708932582860
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4731960708539505840}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0d9b65a54af543e7a9e8507e877b4cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Controller: {fileID: 4731960708539505847}
+  m_FriendsList:
+  - <Name>k__BackingField: Joh
+    <Id>k__BackingField: 1298he1809h
+  - <Name>k__BackingField: Sweeny
+    <Id>k__BackingField: asjdhf0a9
+  m_RequestList: []
+  m_BlockedList: []
