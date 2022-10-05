@@ -6,24 +6,19 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
 {
     public class BlockedEntryControl
     {
-        const string k_BlockEntryRootName = "block-entry-view";
+        const string k_BlockEntryViewName = "block-entry-view";
 
         public Action onUnblockPressed;
 
         public PlayerEntryControl playerEntryControl;
 
-        Button m_BlockButton;
-
-
-        VisualElement m_BlockEntryRoot;
-
-        public BlockedEntryControl(VisualElement documentParent)
+        public BlockedEntryControl(VisualElement viewParent)
         {
-            m_BlockEntryRoot = documentParent.Q(k_BlockEntryRootName);
-            playerEntryControl = new PlayerEntryControl(m_BlockEntryRoot);
+            var blockedEntryRoot = viewParent.Q(k_BlockEntryViewName);
+            playerEntryControl = new PlayerEntryControl(blockedEntryRoot);
 
-            m_BlockButton = m_BlockEntryRoot.Q<Button>("unblock-button");
-            m_BlockButton.RegisterCallback<ClickEvent>(_ =>
+            var blockButton = blockedEntryRoot.Q<Button>("unblock-button");
+            blockButton.RegisterCallback<ClickEvent>(_ =>
             {
                 onUnblockPressed?.Invoke();
             });

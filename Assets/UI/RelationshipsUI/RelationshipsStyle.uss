@@ -80,14 +80,28 @@
     border-right-color: rgba(255, 255, 255, 0);
     border-top-color: rgba(255, 255, 255, 0);
     border-bottom-color: rgba(255, 255, 255, 0);
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom-width: 0;
+    overflow: visible;
+    transition-property: opacity;
+    transition-duration: 1s;
 }
 
-.add-friend-button :hover {
-    -unity-background-image-tint-color: rgb(255, 193, 54);
+.add-friend-button .unity-button :hover {
+    -unity-background-image-tint-color: rgb(0, 255, 194);
+    transition-property: opacity;
 }
 
-.add-friend-button :focus {
-    -unity-background-image-tint-color: rgb(194, 191, 221);
+.add-friend-button .unity-button :active {
+    -unity-background-image-tint-color: rgb(45, 27, 212);
+    transition-property: opacity;
+    transition-duration: 1s;
 }
 
 .social-tab-button {

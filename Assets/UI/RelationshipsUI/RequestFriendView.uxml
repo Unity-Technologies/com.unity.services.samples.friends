@@ -4,13 +4,12 @@
         <ui:VisualElement name="add-friend-bg" style="flex-grow: 0; justify-content: space-around; width: 100%; align-items: flex-start; padding-left: 15px; border-bottom-width: 1px; border-bottom-color: rgb(56, 49, 137); margin-bottom: 10px;">
             <ui:Label text="ADD FRIEND" display-tooltip-when-elided="true" name="add-friend-title" class="list-label social-font" style="align-items: stretch; -unity-text-align: upper-center; -unity-font-style: bold; color: rgb(247, 182, 89);" />
         </ui:VisualElement>
-        <ui:VisualElement name="entry-group" style="flex-direction: row; align-items: stretch; justify-content: space-around; width: 100%; height: 35px;">
+        <ui:VisualElement name="entry-group" style="flex-direction: row; align-items: stretch; justify-content: space-around; width: 100%; height: 35px; margin-bottom: 10px;">
             <ui:VisualElement name="input-id-field" style="justify-content: space-around; width: 70%;">
-                <ui:TextField text="Search by name or id" name="search-field" class="social-input-field" style="background-color: rgba(0, 0, 0, 0); margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; border-top-left-radius: 0; border-bottom-left-radius: 0; border-top-right-radius: 0; border-bottom-right-radius: 0;" />
+                <ui:TextField text="Add Friend by ID" name="search-field" is-delayed="true" class="social-input-field" style="background-color: rgba(0, 0, 0, 0); margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; border-top-left-radius: 0; border-bottom-left-radius: 0; border-top-right-radius: 0; border-bottom-right-radius: 0;" />
             </ui:VisualElement>
-            <ui:VisualElement name="add-bg" class="add-friend-button">
-                <ui:Button text="Add" display-tooltip-when-elided="true" name="search-button" class="add-friend-button" style="-unity-font-style: bold; background-color: rgba(247, 182, 89, 0);" />
-            </ui:VisualElement>
+            <ui:Button text="Add" display-tooltip-when-elided="true" name="add-button" class="add-friend-button" style="-unity-font-style: bold; overflow: visible;" />
         </ui:VisualElement>
+        <ui:Label text="No Friend by that ID." display-tooltip-when-elided="true" name="warning-label" style="transition-property: opacity; transition-duration: 1s; transition-timing-function: ease-out; transition-delay: 0s; opacity: 0; color: rgb(255, 114, 114); margin-left: 25px;" />
     </ui:VisualElement>
 </ui:UXML>

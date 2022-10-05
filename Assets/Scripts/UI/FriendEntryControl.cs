@@ -5,8 +5,8 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
 {
     public class FriendEntryControl
     {
-        const string k_FriendEntryRootName = "friend-entry-view";
-        VisualElement m_FriendEntryRoot;
+        const string k_FriendEntryViewName = "friend-entry-view";
+        VisualElement m_FriendEntryView;
 
         public Action onRemoveFriendPressed;
         public Action onBlockFriendPressed;
@@ -17,14 +17,14 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
 
         public FriendEntryControl(VisualElement documentParent)
         {
-            m_FriendEntryRoot = documentParent.Q(k_FriendEntryRootName);
-            playerEntryControl = new PlayerEntryControl(m_FriendEntryRoot);
-            m_RemoveFriendButton = m_FriendEntryRoot.Q<Button>("remove-button");
+            m_FriendEntryView = documentParent.Q(k_FriendEntryViewName);
+            playerEntryControl = new PlayerEntryControl(m_FriendEntryView);
+            m_RemoveFriendButton = m_FriendEntryView.Q<Button>("remove-button");
             m_RemoveFriendButton.RegisterCallback<ClickEvent>(_ =>
             {
                 onRemoveFriendPressed?.Invoke();
             });
-            m_BlockFriendButton = m_FriendEntryRoot.Q<Button>("block-button");
+            m_BlockFriendButton = m_FriendEntryView.Q<Button>("block-button");
             m_BlockFriendButton.RegisterCallback<ClickEvent>(_ =>
             {
                 onBlockFriendPressed?.Invoke();

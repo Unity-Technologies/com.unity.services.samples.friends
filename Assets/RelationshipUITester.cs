@@ -1,11 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Services.Friends.Models;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace UnityGamingServicesUsesCases.Relationships.UI
 {
     public class RelationshipUITester : MonoBehaviour
     {
+        [SerializeField]
+        PlayerProfile m_LocalPlayerProfile;
+
         [SerializeField]
         RelationshipUIController m_Controller;
 
@@ -20,14 +25,45 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
 
         void Start()
         {
-            m_Controller.RelationshipBarControl.SetFriendsListReference(m_FriendsList);
-            m_Controller.RelationshipBarControl.SetRequestListReference(m_RequestList);
-            m_Controller.RelationshipBarControl.SetBlockedListReference(m_BlockedList);
-            m_Controller.RelationshipBarControl.onAcceptFriend += TestAccept;
-            m_Controller.RelationshipBarControl.onDenyFriend += TestDeny;
-            m_Controller.RelationshipBarControl.onBlockUser += TestBlock;
-            m_Controller.RelationshipBarControl.onRemoveFriend += TestRemove;
-            m_Controller.RelationshipBarControl.onUnblockuser += TestUnblock;
+            TestLogin();
+
+            m_Controller.friendsListControl.BindList(m_FriendsList);
+            m_Controller.friendsListControl.onRemoveFriend += TestRemove;
+            m_Controller.friendsListControl.onBlockFriend += TestBlock;
+
+            m_Controller.requestListControl.BindList(m_RequestList);
+            m_Controller.requestListControl.onAcceptUser += TestAccept;
+            m_Controller.requestListControl.onDenyUser += TestDeny;
+            m_Controller.requestListControl.onBlockUser += TestBlock;
+
+            m_Controller.blockedListControl.BindList(m_BlockedList);
+            m_Controller.blockedListControl.onUnBlockuser += TestUnblock;
+
+            m_Controller.requestFriendPopupControl.tryRequestFriend += TestRequestFriend;
+        }
+
+        void TestLogin()
+        {
+            m_Controller.localPlayerControl.SetName(m_LocalPlayerProfile.Name);
+            m_Controller.localPlayerControl.SetActivity("Activities!");
+
+            m_Controller.localPlayerControl.SetStatus(PresenceAvailabilityOptions.ONLINE);
+        }
+
+        int tryTimes = 0;
+
+        void TestRequestFriend(string inputID)
+        {
+            if (tryTimes > 3)
+            {
+                m_Controller.requestFriendPopupControl.Show(false);
+                tryTimes = 0;
+                return;
+            }
+
+            Debug.Log($"Requested Friend: {inputID}");
+            tryTimes++;
+            m_Controller.requestFriendPopupControl.ShowWarning();
         }
 
         void TestAccept(string id)

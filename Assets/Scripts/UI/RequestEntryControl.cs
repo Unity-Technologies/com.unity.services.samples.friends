@@ -6,7 +6,7 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
 {
     public class RequestEntryControl
     {
-        const string k_RequestEntryRootName = "request-friend-view";
+        const string k_RequestEntryViewName = "request-friend-view";
 
         public Action onAcceptPressed;
         public Action onDenyPressed;
@@ -14,32 +14,25 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
 
         public PlayerEntryControl playerEntryControl;
 
-        Button m_AcceptButton { get; }
-        Button m_DenyButton { get; }
-        Button m_BlockButton { get; }
-
-
-        VisualElement m_RequestEntryRoot;
-
-        public RequestEntryControl(VisualElement documentParent)
+        public RequestEntryControl(VisualElement viewParent)
         {
-            m_RequestEntryRoot = documentParent.Q(k_RequestEntryRootName);
-            playerEntryControl = new PlayerEntryControl(m_RequestEntryRoot);
-            m_AcceptButton = m_RequestEntryRoot.Q<Button>("accept-button");
+            var requestEntryView = viewParent.Q(k_RequestEntryViewName);
+            playerEntryControl = new PlayerEntryControl(requestEntryView);
+            var acceptButton = requestEntryView.Q<Button>("accept-button");
 
-            m_AcceptButton.RegisterCallback<ClickEvent>(_ =>
+            acceptButton.RegisterCallback<ClickEvent>(_ =>
             {
                 onAcceptPressed?.Invoke();
             });
 
-            m_DenyButton = m_RequestEntryRoot.Q<Button>("remove-button");
-            m_DenyButton.RegisterCallback<ClickEvent>(_ =>
+            var denyButton = requestEntryView.Q<Button>("remove-button");
+            denyButton.RegisterCallback<ClickEvent>(_ =>
             {
                 onDenyPressed?.Invoke();
             });
 
-            m_BlockButton = m_RequestEntryRoot.Q<Button>("block-button");
-            m_BlockButton.RegisterCallback<ClickEvent>(_ =>
+            var blockButton = requestEntryView.Q<Button>("block-button");
+            blockButton.RegisterCallback<ClickEvent>(_ =>
             {
                 onBlockFriendPressed?.Invoke();
             });

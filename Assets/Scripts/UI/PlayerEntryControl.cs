@@ -5,52 +5,37 @@ using UnityEngine.UIElements;
 
 namespace UnityGamingServicesUsesCases.Relationships.UI
 {
-    public class PlayerEntryControl : UIBaseControl
+    public class PlayerEntryControl
     {
-        const string k_playerEntryRootName = "base-player-entry";
-        public DropdownField PlayerStatusDropDown { get; private set; }
+        const string k_PlayerEntryRootName = "base-player-entry";
 
-        public string Id { get; private set; }
+        public Action<PresenceAvailabilityOptions> onStatusChanged;
+        public Action<string> onActivityChanged;
+
         Label m_PlayerName;
-        Label PlayerActivity { get; set; }
+        Label m_PlayerActivity;
         Label m_PlayerStatusLabel;
         VisualElement m_PlayerStatusCircle;
+        DropdownField m_PlayerStatusDropDown;
 
-        public void SetPlayer(PlayerProfile playerProfile)
+        public PlayerEntryControl(VisualElement viewParent)
         {
-            Id = playerProfile.Id;
-            SetName(playerProfile.Name);
-
-            //TODO Set Status
-            //TODO Set Activity
-        }
-
-        public PlayerEntryControl(VisualElement documentParent)
-            : base(documentParent)
-        {
-
-        }
-
-        public override string ViewRootName => k_playerEntryRootName;
-
-        protected override void SetVisualElements()
-        {
-            m_PlayerName = GetElementByName<Label>("player-name-label");
-            PlayerStatusDropDown = GetElementByName<DropdownField>("player-status-dropdown");
-            m_PlayerStatusLabel = GetElementByName<Label>("player-status-label");
-            m_PlayerStatusCircle = GetElementByName<VisualElement>("player-status-circle");
-            PlayerActivity = GetElementByName<Label>("player-activity-label");
+            var playerEntryView = viewParent.Q(k_PlayerEntryRootName);
+            m_PlayerName = playerEntryView.Q<Label>("player-name-label");
+            m_PlayerStatusDropDown = playerEntryView.Q<DropdownField>("player-status-dropdown");
+            m_PlayerStatusLabel = playerEntryView.Q<Label>("player-status-label");
+            m_PlayerStatusCircle = playerEntryView.Q<VisualElement>("player-status-circle");
+            m_PlayerActivity = playerEntryView.Q<Label>("player-activity-label");
             SetStatus(PresenceAvailabilityOptions.OFFLINE);
-        }
 
-        protected override void RegisterButtonCallbacks()
-        {
-            //Take care to make sure the Dropdown Element in the UI has exact string name matches with the PresenceAvailabilityOptions
-            PlayerStatusDropDown.RegisterValueChangedCallback(status =>
+            m_PlayerStatusDropDown.RegisterValueChangedCallback(status =>
             {
                 var capsValue = status.newValue.ToUpper();
                 if (Enum.TryParse(capsValue, out PresenceAvailabilityOptions result))
+                {
+                    onStatusChanged?.Invoke(result);
                     SetStatusColor(result);
+                }
             });
         }
 
@@ -61,12 +46,12 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
 
         public void SetActivity(string activity)
         {
-            PlayerActivity.text = activity;
+            m_PlayerActivity.text = activity;
         }
 
         public void SetStatus(PresenceAvailabilityOptions status)
         {
-            PlayerStatusDropDown.SetValueWithoutNotify(status.ToString());
+            m_PlayerStatusDropDown.SetValueWithoutNotify(status.ToString());
             SetStatusColor(status);
         }
 
@@ -76,7 +61,7 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
             var validColor = m_PresenceUIColors[(int)status - 1];
             m_PlayerStatusLabel.style.color = validColor;
             m_PlayerStatusCircle.style.backgroundColor = validColor;
-            PlayerStatusDropDown.style.color = validColor;
+            m_PlayerStatusDropDown.style.color = validColor;
         }
 
         //Mapping of colors to PresenceAvailabilityOptions

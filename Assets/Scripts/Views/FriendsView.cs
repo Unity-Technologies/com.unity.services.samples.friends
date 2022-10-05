@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,7 +8,7 @@ namespace UnityGamingServicesUsesCases.Relationships
     {
         public Action<string> OnFriendRemove = null;
         public Action<string> OnFriendBlock = null;
-        
+
         [SerializeField]private RectTransform m_ParentTransform = null;
         [SerializeField]private GenericEntryView m_GenericEntryViewPrefab = null;
 
