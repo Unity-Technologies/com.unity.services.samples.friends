@@ -5784,6 +5784,14 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4731960708932582860, guid: bdf76d60d7b60e8458820e42886e5041, type: 3}
+      propertyPath: m_LocalPlayerProfile.<Id>k__BackingField
+      value: playerplayer
+      objectReference: {fileID: 0}
+    - target: {fileID: 4731960708932582860, guid: bdf76d60d7b60e8458820e42886e5041, type: 3}
+      propertyPath: m_LocalPlayerProfile.<Name>k__BackingField
+      value: Local Player!
+      objectReference: {fileID: 0}
+    - target: {fileID: 4731960708932582860, guid: bdf76d60d7b60e8458820e42886e5041, type: 3}
       propertyPath: m_BlockedList.Array.data[0].<Id>k__BackingField
       value: block
       objectReference: {fileID: 0}

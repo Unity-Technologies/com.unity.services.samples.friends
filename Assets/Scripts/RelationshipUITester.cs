@@ -50,6 +50,16 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
             m_Controller.localPlayerControl.SetStatus(PresenceAvailabilityOptions.ONLINE);
         }
 
+        void TestUserChangedPresence(PresenceAvailabilityOptions presence)
+        {
+            Debug.Log($"User Switch presence to {presence}");
+        }
+
+        void TestUserChangedActivity(string activity)
+        {
+            Debug.Log($"User Switch activity to {activity}");
+        }
+
         int tryTimes = 0;
 
         void TestRequestFriend(string inputID)

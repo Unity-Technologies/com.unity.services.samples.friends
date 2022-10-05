@@ -37,7 +37,7 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
 
             var localPlayerControlView = m_Root.Q(k_LocalPlayerViewName);
 
-            localPlayerControl = new PlayerEntryControl(localPlayerControlView);
+            localPlayerControl = new PlayerEntryControl(localPlayerControlView,true);
             requestFriendPopupControl = new RequestFriendPopupControl(m_Root);
             friendsListControl = new FriendsListControl(m_Root, friendEntryTemplate);
             requestListControl = new RequestListControl(m_Root, requestEntryTemplate);

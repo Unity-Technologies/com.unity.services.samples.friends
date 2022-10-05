@@ -196,6 +196,7 @@
 .social-font {
     -unity-font: url('project://database/Assets/UI/UnityDefaultRuntimeTheme.tss?fileID=2230732570650464555&guid=c7cbc177b8336244ca5e1b9ddc4f158c&type=3#NotInter-Regular');
     color: rgb(255, 255, 255);
+    font-size: 16px;
 }
 
 .social-input-field {
@@ -227,5 +228,13 @@
 }
 
 .requests-player-panel #player-activity-status-bg {
+    display: none;
+}
+
+.requests-player-panel #player-status-circle {
+    display: none;
+}
+
+.blocked-player-panel #player-status-circle {
     display: none;
 }

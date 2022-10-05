@@ -11,7 +11,7 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
         public Action<string> onDenyUser;
         public Action<string> onBlockUser;
 
-        const string k_RequestListViewName = "friends-list";
+        const string k_RequestListViewName = "request-list";
 
         ListView m_RequestListView;
 
