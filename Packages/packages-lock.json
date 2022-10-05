@@ -100,13 +100,25 @@
       "url": "https://artifactory.prd.it.unity3d.com/artifactory/api/npm/upm-candidates"
     },
     "com.unity.services.friends": {
-      "version": "0.1.0-preview.54",
+      "version": "0.2.0-preview.1",
       "depth": 0,
       "source": "registry",
       "dependencies": {
         "com.unity.nuget.newtonsoft-json": "3.0.2",
         "com.unity.services.core": "1.4.2",
-        "com.unity.services.authentication": "2.1.1"
+        "com.unity.services.authentication": "2.1.1",
+        "com.unity.services.wire": "1.0.1"
+      },
+      "url": "https://artifactory.prd.it.unity3d.com/artifactory/api/npm/upm-candidates"
+    },
+    "com.unity.services.wire": {
+      "version": "1.0.1",
+      "depth": 1,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.services.core": "1.4.1",
+        "com.unity.nuget.newtonsoft-json": "3.0.2",
+        "com.unity.services.authentication": "2.0.0"
       },
       "url": "https://artifactory.prd.it.unity3d.com/artifactory/api/npm/upm-candidates"
     },
