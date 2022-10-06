@@ -44,8 +44,8 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
             blockedListControl = new BlockedListControl(m_Root, blockedEntryTemplate);
 
             relationshipBarControl = new RelationshipBarControl(m_Root);
-            relationshipBarControl.onListButtonClicked += SwitchView;
-            relationshipBarControl.onAddFriendPressed += ShowAddFriendPopup;
+            relationshipBarControl.onListButton += SwitchView;
+            relationshipBarControl.onAddFriend += ShowAddFriendPopup;
             requestFriendPopupControl.Show(false);
         }
 

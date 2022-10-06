@@ -40,7 +40,7 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
             });
         }
 
-        public async void ShowWarning()
+        public async void ShowAddFriendFailedWarning()
         {
             m_WarningLabel.style.opacity = 1;
             await Task.Delay(2000);

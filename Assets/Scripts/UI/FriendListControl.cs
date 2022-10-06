@@ -45,11 +45,11 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
                 friendControl.playerEntryControl.SetStatus(
                     PresenceAvailabilityOptions.ONLINE); // TODO Get Actual Profile Status
 
-                friendControl.onRemoveFriendPressed += () =>
+                friendControl.onRemoveFriend = () =>
                 {
                     onRemoveFriend?.Invoke(userProfile.Id);
                 };
-                friendControl.onBlockFriendPressed = () =>
+                friendControl.onBlockFriend = () =>
                 {
                     onBlockFriend?.Invoke(userProfile.Id);
                 };

@@ -49,15 +49,11 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
 
         public void SetName(string name)
         {
-            if (m_PlayerName.text == name)
-                return;
             m_PlayerName.text = name;
         }
 
         public void SetActivity(string activity)
         {
-            if (m_PlayerActivity.text == activity)
-                return;
             m_PlayerActivity.text = activity;
         }
 

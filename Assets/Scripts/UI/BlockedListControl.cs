@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace UnityGamingServicesUsesCases.Relationships.UI
@@ -9,7 +8,7 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
     {
         const string k_BlockedListViewName = "blocked-list";
 
-        public Action<string> onUnBlockuser;
+        public Action<string> onUnBlock;
 
         ListView m_BlockedListView;
 
@@ -36,13 +35,12 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
         {
             m_BlockedListView.bindItem = (item, index) =>
             {
-                var requestControl = item.userData as BlockedEntryControl;
+                var blockedEntryControl = item.userData as BlockedEntryControl;
                 var userProfile = blockedListToBind[index];
-                requestControl.playerEntryControl.SetName(userProfile.Name);
-
-                requestControl.onUnblockPressed += () =>
+                blockedEntryControl.playerEntryControl.SetName(userProfile.Name);
+                blockedEntryControl.onUnblock = () =>
                 {
-                    onUnBlockuser?.Invoke(userProfile.Id);
+                    onUnBlock?.Invoke(userProfile.Id);
                 };
             };
 

@@ -42,15 +42,15 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
                 var userProfile = listToBind[index];
                 requestControl.playerEntryControl.SetName(userProfile.Name);
 
-                requestControl.onAcceptPressed += () =>
+                requestControl.onAccept = () =>
                 {
                     onAcceptUser?.Invoke(userProfile.Id);
                 };
-                requestControl.onDenyPressed += () =>
+                requestControl.onDeny = () =>
                 {
                     onDenyUser?.Invoke(userProfile.Id);
                 };
-                requestControl.onBlockFriendPressed += () =>
+                requestControl.onBlockFriend = () =>
                 {
                     onBlockUser?.Invoke(userProfile.Id);
                 };

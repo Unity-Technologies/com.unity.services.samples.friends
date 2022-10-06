@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.Services.Friends.Models;
 using UnityEngine;
 
 namespace UnityGamingServicesUsesCases.Relationships

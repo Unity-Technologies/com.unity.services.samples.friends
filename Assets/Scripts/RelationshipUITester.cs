@@ -37,7 +37,7 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
             m_Controller.requestListControl.onBlockUser += TestBlock;
 
             m_Controller.blockedListControl.BindList(m_BlockedList);
-            m_Controller.blockedListControl.onUnBlockuser += TestUnblock;
+            m_Controller.blockedListControl.onUnBlock += TestUnblock;
 
             m_Controller.requestFriendPopupControl.tryRequestFriend += TestRequestFriend;
         }
@@ -73,7 +73,7 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
 
             Debug.Log($"Requested Friend: {inputID}");
             tryTimes++;
-            m_Controller.requestFriendPopupControl.ShowWarning();
+            m_Controller.requestFriendPopupControl.ShowAddFriendFailedWarning();
         }
 
         void TestAccept(string id)

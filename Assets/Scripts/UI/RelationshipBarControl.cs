@@ -16,8 +16,8 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
     {
         const string k_RelationshipsBarViewName = "relationship-bar-view";
 
-        public Action<ShowListState> onListButtonClicked;
-        public Action onAddFriendPressed;
+        public Action<ShowListState> onListButton;
+        public Action onAddFriend;
 
         public RelationshipBarControl(VisualElement viewParent)
         {
@@ -29,19 +29,19 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
 
             friendsListButton.RegisterCallback<ClickEvent>((_) =>
             {
-                onListButtonClicked?.Invoke(ShowListState.Friends);
+                onListButton?.Invoke(ShowListState.Friends);
             });
             requestListButton.RegisterCallback<ClickEvent>((_) =>
             {
-                onListButtonClicked?.Invoke(ShowListState.Requests);
+                onListButton?.Invoke(ShowListState.Requests);
             });
             blockedListButton.RegisterCallback<ClickEvent>((_) =>
             {
-                onListButtonClicked?.Invoke(ShowListState.Blocked);
+                onListButton?.Invoke(ShowListState.Blocked);
             });
             addFriendButton.RegisterCallback<ClickEvent>((_) =>
             {
-                onAddFriendPressed?.Invoke();
+                onAddFriend?.Invoke();
             });
         }
     }

@@ -8,7 +8,7 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
     {
         const string k_BlockEntryViewName = "block-entry-view";
 
-        public Action onUnblockPressed;
+        public Action onUnblock;
 
         public PlayerEntryControl playerEntryControl;
 
@@ -20,7 +20,7 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
             var blockButton = blockedEntryRoot.Q<Button>("unblock-button");
             blockButton.RegisterCallback<ClickEvent>(_ =>
             {
-                onUnblockPressed?.Invoke();
+                onUnblock?.Invoke();
             });
         }
     }

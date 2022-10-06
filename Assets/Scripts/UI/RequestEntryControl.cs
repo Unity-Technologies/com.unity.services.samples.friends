@@ -1,5 +1,4 @@
 using System;
-using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace UnityGamingServicesUsesCases.Relationships.UI
@@ -8,9 +7,9 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
     {
         const string k_RequestEntryViewName = "request-friend-view";
 
-        public Action onAcceptPressed;
-        public Action onDenyPressed;
-        public Action onBlockFriendPressed;
+        public Action onAccept;
+        public Action onDeny;
+        public Action onBlockFriend;
 
         public PlayerEntryControl playerEntryControl;
 
@@ -22,19 +21,19 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
 
             acceptButton.RegisterCallback<ClickEvent>(_ =>
             {
-                onAcceptPressed?.Invoke();
+                onAccept?.Invoke();
             });
 
             var denyButton = requestEntryView.Q<Button>("remove-button");
             denyButton.RegisterCallback<ClickEvent>(_ =>
             {
-                onDenyPressed?.Invoke();
+                onDeny?.Invoke();
             });
 
             var blockButton = requestEntryView.Q<Button>("block-button");
             blockButton.RegisterCallback<ClickEvent>(_ =>
             {
-                onBlockFriendPressed?.Invoke();
+                onBlockFriend?.Invoke();
             });
         }
     }
