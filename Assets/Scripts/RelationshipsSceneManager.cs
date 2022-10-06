@@ -348,27 +348,33 @@ namespace UnityGamingServicesUsesCases.Relationships
                 var callbacks = new FriendsEventCallbacks<Activity>();
                 callbacks.FriendsEventConnectionStateChanged += (e) =>
                 {
-                    RefreshAsync();
+                    //RefreshAsync();
+                    //Debug.Log($"error {e}");
                 };
                 callbacks.FriendAdded += (e) =>
                 {
                     RefreshAsync();
+                    Debug.Log("FriendAdded EventReceived");
                 };
                 callbacks.FriendRequestReceived += (e) =>
                 {
                     RefreshAsync();
+                    Debug.Log("FriendRequestReceived EventReceived");
                 };
                 callbacks.Blocked += (e) =>
                 {
                     RefreshAsync();
+                    Debug.Log("Blocked EventReceived");
                 };
                 callbacks.PresenceUpdated += (e) =>
                 {
                     RefreshAsync();
+                    Debug.Log("PresenceUpdated EventReceived");
                 };
                 callbacks.FriendRemoved += (e) =>
                 {
                     RefreshAsync();
+                    Debug.Log("FriendRemoved EventReceived");
                 };
                 await Friends.Instance.SubscribeToFriendsEventsAsync(callbacks);
             }
