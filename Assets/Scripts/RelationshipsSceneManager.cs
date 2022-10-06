@@ -6,7 +6,6 @@ using Unity.Services.Friends.Exceptions;
 using Unity.Services.Friends.Models;
 using Unity.Services.Friends.Notifications;
 using Unity.Services.Friends.Options;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
