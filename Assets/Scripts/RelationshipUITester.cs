@@ -27,27 +27,27 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
         {
             TestLogin();
 
-            m_Controller.friendsListControl.BindList(m_FriendsList);
-            m_Controller.friendsListControl.onRemoveFriend += TestRemove;
-            m_Controller.friendsListControl.onBlockFriend += TestBlock;
+            m_Controller.friendsListView.BindList(m_FriendsList);
+            m_Controller.friendsListView.onRemoveFriend += TestRemove;
+            m_Controller.friendsListView.onBlockFriend += TestBlock;
 
-            m_Controller.requestListControl.BindList(m_RequestList);
-            m_Controller.requestListControl.onAcceptUser += TestAccept;
-            m_Controller.requestListControl.onDenyUser += TestDeny;
-            m_Controller.requestListControl.onBlockUser += TestBlock;
+            m_Controller.requestListView.BindList(m_RequestList);
+            m_Controller.requestListView.onAcceptUser += TestAccept;
+            m_Controller.requestListView.onDenyUser += TestDeny;
+            m_Controller.requestListView.onBlockUser += TestBlock;
 
-            m_Controller.blockedListControl.BindList(m_BlockedList);
-            m_Controller.blockedListControl.onUnBlock += TestUnblock;
+            m_Controller.blockedListView.BindList(m_BlockedList);
+            m_Controller.blockedListView.onUnBlock += TestUnblock;
 
-            m_Controller.requestFriendPopupControl.tryRequestFriend += TestRequestFriend;
+            m_Controller.requestFriendPopupView.tryRequestFriend += TestRequestFriend;
         }
 
         void TestLogin()
         {
-            m_Controller.localPlayerControl.SetName(m_LocalPlayerProfile.Name);
-            m_Controller.localPlayerControl.SetActivity("Activities!");
+            m_Controller.localLocalPlayerView.SetName(m_LocalPlayerProfile.Name);
+            m_Controller.localLocalPlayerView.SetActivity("Activities!");
 
-            m_Controller.localPlayerControl.SetStatus(PresenceAvailabilityOptions.ONLINE);
+            m_Controller.localLocalPlayerView.SetStatus(PresenceAvailabilityOptions.ONLINE);
         }
 
         void TestUserChangedPresence(PresenceAvailabilityOptions presence)
@@ -66,14 +66,14 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
         {
             if (tryTimes > 3)
             {
-                m_Controller.requestFriendPopupControl.Show(false);
+                m_Controller.requestFriendPopupView.Show(false);
                 tryTimes = 0;
                 return;
             }
 
             Debug.Log($"Requested Friend: {inputID}");
             tryTimes++;
-            m_Controller.requestFriendPopupControl.ShowAddFriendFailedWarning();
+            m_Controller.requestFriendPopupView.ShowAddFriendFailedWarning();
         }
 
         void TestAccept(string id)

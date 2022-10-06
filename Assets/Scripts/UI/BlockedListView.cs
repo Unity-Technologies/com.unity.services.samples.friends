@@ -4,7 +4,7 @@ using UnityEngine.UIElements;
 
 namespace UnityGamingServicesUsesCases.Relationships.UI
 {
-    public class BlockedListControl
+    public class BlockedListView
     {
         const string k_BlockedListViewName = "blocked-list";
 
@@ -18,14 +18,14 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
         /// <param name="viewParent">One of the parents of the friends-list (In RelationShipBarView.uxml)</param>
         /// <param name="blockFriendTemplate">The Friends Template (FriendListEntry.uxml) </param>
         /// <param name="boundBlockedProfiles">The List of users we bind the listview to.</param>
-        public BlockedListControl(VisualElement viewParent, VisualTreeAsset blockFriendTemplate)
+        public BlockedListView(VisualElement viewParent, VisualTreeAsset blockFriendTemplate)
         {
             m_BlockedListView = viewParent.Q<ListView>(k_BlockedListViewName);
 
             m_BlockedListView.makeItem = () =>
             {
                 var newListEntry = blockFriendTemplate.Instantiate();
-                var newListEntryLogic = new BlockedEntryControl(newListEntry.contentContainer);
+                var newListEntryLogic = new BlockedEntryView(newListEntry.contentContainer);
                 newListEntry.userData = newListEntryLogic;
                 return newListEntry;
             };
@@ -35,9 +35,9 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
         {
             m_BlockedListView.bindItem = (item, index) =>
             {
-                var blockedEntryControl = item.userData as BlockedEntryControl;
+                var blockedEntryControl = item.userData as BlockedEntryView;
                 var userProfile = blockedListToBind[index];
-                blockedEntryControl.playerEntryControl.SetName(userProfile.Name);
+                blockedEntryControl.localPlayerView.SetName(userProfile.Name);
                 blockedEntryControl.onUnblock = () =>
                 {
                     onUnBlock?.Invoke(userProfile.Id);

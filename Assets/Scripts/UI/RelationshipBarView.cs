@@ -12,14 +12,14 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
         None = 3
     }
 
-    public class RelationshipBarControl
+    public class RelationshipBarView
     {
         const string k_RelationshipsBarViewName = "relationship-bar-view";
 
         public Action<ShowListState> onListButton;
         public Action onAddFriend;
 
-        public RelationshipBarControl(VisualElement viewParent)
+        public RelationshipBarView(VisualElement viewParent)
         {
             var relationshipsBarView = viewParent.Q(k_RelationshipsBarViewName);
             var friendsListButton = relationshipsBarView.Q<Button>("friends-button");

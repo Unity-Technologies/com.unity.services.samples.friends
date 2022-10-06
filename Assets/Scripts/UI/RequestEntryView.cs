@@ -3,7 +3,7 @@ using UnityEngine.UIElements;
 
 namespace UnityGamingServicesUsesCases.Relationships.UI
 {
-    public class RequestEntryControl
+    public class RequestEntryView
     {
         const string k_RequestEntryViewName = "request-friend-view";
 
@@ -11,12 +11,12 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
         public Action onDeny;
         public Action onBlockFriend;
 
-        public PlayerEntryControl playerEntryControl;
+        public LocalPlayerView localPlayerView;
 
-        public RequestEntryControl(VisualElement viewParent)
+        public RequestEntryView(VisualElement viewParent)
         {
             var requestEntryView = viewParent.Q(k_RequestEntryViewName);
-            playerEntryControl = new PlayerEntryControl(requestEntryView);
+            localPlayerView = new LocalPlayerView(requestEntryView);
             var acceptButton = requestEntryView.Q<Button>("accept-button");
 
             acceptButton.RegisterCallback<ClickEvent>(_ =>

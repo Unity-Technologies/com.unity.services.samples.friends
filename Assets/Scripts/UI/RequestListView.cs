@@ -5,7 +5,7 @@ using UnityEngine.UIElements;
 
 namespace UnityGamingServicesUsesCases.Relationships.UI
 {
-    public class RequestListControl
+    public class RequestListView
     {
         public Action<string> onAcceptUser;
         public Action<string> onDenyUser;
@@ -21,14 +21,14 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
         /// <param name="viewParent">One of the parents of the friends-list (In RelationShipBarView.uxml)</param>
         /// <param name="requestEntryTemplate">The Friends Template (FriendListEntry.uxml) </param>
         /// <param name="boundRequestProfiles">The List of users we bind the listview to.</param>
-        public RequestListControl(VisualElement viewParent, VisualTreeAsset requestEntryTemplate)
+        public RequestListView(VisualElement viewParent, VisualTreeAsset requestEntryTemplate)
         {
             m_RequestListView = viewParent.Q<ListView>(k_RequestListViewName);
 
             m_RequestListView.makeItem = () =>
             {
                 var newListEntry = requestEntryTemplate.Instantiate();
-                var newListEntryLogic = new RequestEntryControl(newListEntry.contentContainer);
+                var newListEntryLogic = new RequestEntryView(newListEntry.contentContainer);
                 newListEntry.userData = newListEntryLogic;
                 return newListEntry;
             };
@@ -38,9 +38,9 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
         {
             m_RequestListView.bindItem = (item, index) =>
             {
-                var requestControl = item.userData as RequestEntryControl;
+                var requestControl = item.userData as RequestEntryView;
                 var userProfile = listToBind[index];
-                requestControl.playerEntryControl.SetName(userProfile.Name);
+                requestControl.localPlayerView.SetName(userProfile.Name);
 
                 requestControl.onAccept = () =>
                 {

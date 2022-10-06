@@ -6,7 +6,7 @@ using UnityEngine.UIElements;
 
 namespace UnityGamingServicesUsesCases.Relationships.UI
 {
-    public class FriendsListControl
+    public class FriendsListView
     {
         public Action<string> onRemoveFriend;
         public Action<string> onBlockFriend;
@@ -21,14 +21,14 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
         /// <param name="viewParent">One of the parents of the friends-list (In RelationShipBarView.uxml)</param>
         /// <param name="friendEntryTemplate">The Friends Template (FriendListEntry.uxml) </param>
         /// <param name="boundFriendProfiles">The List of users we bind the listview to.</param>
-        public FriendsListControl(VisualElement viewParent, VisualTreeAsset friendEntryTemplate)
+        public FriendsListView(VisualElement viewParent, VisualTreeAsset friendEntryTemplate)
         {
             m_FriendListView = viewParent.Q<ListView>(k_FriendsListViewName);
 
             m_FriendListView.makeItem = () =>
             {
                 var newListEntry = friendEntryTemplate.Instantiate();
-                var newListEntryLogic = new FriendEntryControl(newListEntry.contentContainer);
+                var newListEntryLogic = new FriendEntryView(newListEntry.contentContainer);
                 newListEntry.userData = newListEntryLogic;
                 return newListEntry;
             };
@@ -38,11 +38,11 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
         {
             m_FriendListView.bindItem = (item, index) =>
             {
-                var friendControl = item.userData as FriendEntryControl;
+                var friendControl = item.userData as FriendEntryView;
                 var userProfile = listToBind[index];
-                friendControl.playerEntryControl.SetName(userProfile.Name);
-                friendControl.playerEntryControl.SetActivity("TODO"); //TODO Get Actual Profile activity
-                friendControl.playerEntryControl.SetStatus(
+                friendControl.localPlayerView.SetName(userProfile.Name);
+                friendControl.localPlayerView.SetActivity("TODO"); //TODO Get Actual Profile activity
+                friendControl.localPlayerView.SetStatus(
                     PresenceAvailabilityOptions.ONLINE); // TODO Get Actual Profile Status
 
                 friendControl.onRemoveFriend = () =>

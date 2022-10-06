@@ -4,18 +4,18 @@ using UnityEngine.UIElements;
 
 namespace UnityGamingServicesUsesCases.Relationships.UI
 {
-    public class BlockedEntryControl
+    public class BlockedEntryView
     {
         const string k_BlockEntryViewName = "block-entry-view";
 
         public Action onUnblock;
 
-        public PlayerEntryControl playerEntryControl;
+        public LocalPlayerView localPlayerView;
 
-        public BlockedEntryControl(VisualElement viewParent)
+        public BlockedEntryView(VisualElement viewParent)
         {
             var blockedEntryRoot = viewParent.Q(k_BlockEntryViewName);
-            playerEntryControl = new PlayerEntryControl(blockedEntryRoot);
+            localPlayerView = new LocalPlayerView(blockedEntryRoot);
 
             var blockButton = blockedEntryRoot.Q<Button>("unblock-button");
             blockButton.RegisterCallback<ClickEvent>(_ =>

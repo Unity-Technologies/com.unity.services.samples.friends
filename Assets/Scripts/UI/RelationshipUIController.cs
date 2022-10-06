@@ -21,12 +21,12 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
         [SerializeField]
         VisualTreeAsset blockedEntryTemplate;
 
-        public PlayerEntryControl localPlayerControl { get; private set; }
-        public RelationshipBarControl relationshipBarControl { get; private set; }
-        public RequestFriendPopupControl requestFriendPopupControl { get; private set; }
-        public FriendsListControl friendsListControl { get; private set; }
-        public RequestListControl requestListControl { get; private set; }
-        public BlockedListControl blockedListControl { get; private set; }
+        public LocalPlayerView localLocalPlayerView { get; private set; }
+        public RelationshipBarView relationshipBarView { get; private set; }
+        public RequestFriendPopupView requestFriendPopupView { get; private set; }
+        public FriendsListView friendsListView { get; private set; }
+        public RequestListView requestListView { get; private set; }
+        public BlockedListView blockedListView { get; private set; }
 
         VisualElement m_Root;
         const string k_LocalPlayerViewName = "local-player-entry";
@@ -37,30 +37,30 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
 
             var localPlayerControlView = m_Root.Q(k_LocalPlayerViewName);
 
-            localPlayerControl = new PlayerEntryControl(localPlayerControlView,true);
-            requestFriendPopupControl = new RequestFriendPopupControl(m_Root);
-            friendsListControl = new FriendsListControl(m_Root, friendEntryTemplate);
-            requestListControl = new RequestListControl(m_Root, requestEntryTemplate);
-            blockedListControl = new BlockedListControl(m_Root, blockedEntryTemplate);
+            localLocalPlayerView = new LocalPlayerView(localPlayerControlView,true);
+            requestFriendPopupView = new RequestFriendPopupView(m_Root);
+            friendsListView = new FriendsListView(m_Root, friendEntryTemplate);
+            requestListView = new RequestListView(m_Root, requestEntryTemplate);
+            blockedListView = new BlockedListView(m_Root, blockedEntryTemplate);
 
-            relationshipBarControl = new RelationshipBarControl(m_Root);
-            relationshipBarControl.onListButton += SwitchView;
-            relationshipBarControl.onAddFriend += ShowAddFriendPopup;
-            requestFriendPopupControl.Show(false);
+            relationshipBarView = new RelationshipBarView(m_Root);
+            relationshipBarView.onListButton += SwitchView;
+            relationshipBarView.onAddFriend += ShowAddFriendPopup;
+            requestFriendPopupView.Show(false);
         }
 
         void SwitchView(ShowListState listToView)
         {
             Debug.Log($"Switching View to {listToView}");
-            friendsListControl.Show(listToView == ShowListState.Friends);
-            requestListControl.Show(listToView == ShowListState.Requests);
-            blockedListControl.Show(listToView == ShowListState.Blocked);
+            friendsListView.Show(listToView == ShowListState.Friends);
+            requestListView.Show(listToView == ShowListState.Requests);
+            blockedListView.Show(listToView == ShowListState.Blocked);
         }
 
         void ShowAddFriendPopup()
         {
             Debug.Log("Show Friend!");
-            requestFriendPopupControl.Show(true);
+            requestFriendPopupView.Show(true);
         }
     }
 }

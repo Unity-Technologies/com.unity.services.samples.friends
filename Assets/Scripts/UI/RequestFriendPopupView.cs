@@ -1,14 +1,12 @@
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.UIElements;
 using Button = UnityEngine.UIElements.Button;
 
 namespace UnityGamingServicesUsesCases.Relationships.UI
 {
-    public class RequestFriendPopupControl
+    public class RequestFriendPopupView
     {
         const string k_RequestFriendViewName = "request-friend-view";
         public Action<string> tryRequestFriend;
@@ -17,7 +15,7 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
         VisualElement m_RequestFriendView;
         Label m_WarningLabel;
 
-        public RequestFriendPopupControl(VisualElement viewParent)
+        public RequestFriendPopupView(VisualElement viewParent)
         {
             m_RequestFriendView = viewParent.Q(k_RequestFriendViewName);
 

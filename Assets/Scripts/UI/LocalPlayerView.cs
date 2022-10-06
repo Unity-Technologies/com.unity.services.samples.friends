@@ -1,15 +1,13 @@
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using Unity.Services.Friends.Models;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace UnityGamingServicesUsesCases.Relationships.UI
 {
-    public class PlayerEntryControl
+    public class LocalPlayerView
     {
         const string k_PlayerEntryRootName = "base-player-entry";
         Label m_PlayerName;
@@ -18,7 +16,7 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
         VisualElement m_PlayerStatusCircle;
         DropdownField m_PlayerStatusDropDown;
 
-        public PlayerEntryControl(VisualElement viewParent, bool localPlayerEntry = false)
+        public LocalPlayerView(VisualElement viewParent, bool localPlayerEntry = false)
         {
             var playerEntryView = viewParent.Q(k_PlayerEntryRootName);
             m_PlayerName = playerEntryView.Q<Label>("player-name-label");

@@ -3,21 +3,21 @@ using UnityEngine.UIElements;
 
 namespace UnityGamingServicesUsesCases.Relationships.UI
 {
-    public class FriendEntryControl
+    public class FriendEntryView
     {
         const string k_FriendEntryViewName = "friend-entry-view";
 
         public Action onRemoveFriend;
         public Action onBlockFriend;
 
-        public PlayerEntryControl playerEntryControl;
+        public LocalPlayerView localPlayerView;
         Button m_RemoveFriendButton;
         Button m_BlockFriendButton;
 
-        public FriendEntryControl(VisualElement documentParent)
+        public FriendEntryView(VisualElement documentParent)
         {
             var friendEntryView = documentParent.Q(k_FriendEntryViewName);
-            playerEntryControl = new PlayerEntryControl(friendEntryView);
+            localPlayerView = new LocalPlayerView(friendEntryView);
             m_RemoveFriendButton = friendEntryView.Q<Button>("remove-button");
             m_RemoveFriendButton.RegisterCallback<ClickEvent>(_ =>
             {
