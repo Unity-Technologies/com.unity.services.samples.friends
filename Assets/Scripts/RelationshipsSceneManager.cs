@@ -45,11 +45,14 @@ namespace UnityGamingServicesUsesCases.Relationships
             m_RequestsView.OnRequestAccepted += AcceptRequestAsync;
             m_RequestsView.OnRequestDeclined += DeclineRequestAsync;
             m_BlocksView.OnFriendUnblock += UnblockFriendAsync;
+            m_PlayerInfoView.OnPresenceChanged += SetPresenceAsync;
 
             m_LoggedPlayerName = currentPlayerName;
+            m_PlayerInfoView.Init(m_LoggedPlayerName, LoggedPlayerId, PresenceAvailabilityOptions.ONLINE);
+            await SetPresence(PresenceAvailabilityOptions.ONLINE);
             await RefreshViews();
         }
-
+        
         private async void BlockFriendAsync(string id)
         {
             await BlockFriend(id);
@@ -77,6 +80,8 @@ namespace UnityGamingServicesUsesCases.Relationships
         {
             await UASUtils.SwitchUser(playerName);
             m_LoggedPlayerName = playerName;
+            await SetPresence(PresenceAvailabilityOptions.ONLINE);
+            m_PlayerInfoView.Init(m_LoggedPlayerName, LoggedPlayerId, PresenceAvailabilityOptions.ONLINE);
             await RefreshViews();
             Debug.Log($"Logged in as {playerName} id: {LoggedPlayerId}");
         }
@@ -98,19 +103,40 @@ namespace UnityGamingServicesUsesCases.Relationships
             await RefreshViews();
         }
 
+        private async void SetPresenceAsync((PresenceAvailabilityOptions presence, string activity) status)
+        {
+            await SetPresence(status.presence, status.activity);
+        }
+
         private async Task RefreshViews()
         {
-            m_PlayerInfoView.Refresh(m_LoggedPlayerName, LoggedPlayerId);
-
             //Friends
-            var friends = await GetFriendsWithoutPresence();
-            var friendProfiles = new List<PlayerProfile>();
+            var friends = await GetFriendsWithPresence();
+            var infos = new List<FriendsEntryData>();
             foreach (var friend in friends)
             {
-                friendProfiles.Add(new PlayerProfile(m_PlayerProfilesData.GetName(friend.Id),friend.Id));
+                string availabilityText;
+                if (friend.Presence.GetAvailability() == PresenceAvailabilityOptions.OFFLINE ||
+                    friend.Presence.GetAvailability() == PresenceAvailabilityOptions.INVISIBLE)
+                {
+                    availabilityText = friend.LastSeen.ToShortDateString() + " " + friend.LastSeen.ToLongTimeString();
+                }
+                else
+                {
+                    availabilityText = friend.Presence.GetAvailability().ToString();
+                }
+
+                var info = new FriendsEntryData
+                {
+                    Name = m_PlayerProfilesData.GetName(friend.Player.Id),
+                    Id = friend.Player.Id,
+                    Presence = availabilityText,
+                    Activity = friend.Presence.GetActivity().Status
+                };
+                infos.Add(info);
             }
 
-            m_FriendsView.Refresh(friendProfiles);
+            m_FriendsView.Refresh(infos);
 
             //Requests
             var requests = await GetRequests();
@@ -282,7 +308,7 @@ namespace UnityGamingServicesUsesCases.Relationships
         }
 
         private async Task SetPresence(PresenceAvailabilityOptions presenceAvailabilityOptions,
-            string activityStatus)
+            string activityStatus = "")
         {
             var activity = new Activity { Status = activityStatus };
             var presence = new Presence<Activity>(presenceAvailabilityOptions, activity);
@@ -290,6 +316,7 @@ namespace UnityGamingServicesUsesCases.Relationships
             try
             {
                 await Friends.Instance.SetPresenceAsync(presence);
+                Debug.Log($"Presence changed to {presence.GetAvailability()}.");
             }
             catch (FriendsServiceException e)
             {
@@ -297,5 +324,6 @@ namespace UnityGamingServicesUsesCases.Relationships
                 Debug.LogError(e);
             }
         }
+        
     }
 }

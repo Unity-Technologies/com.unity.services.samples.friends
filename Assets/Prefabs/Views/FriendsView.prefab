@@ -120,4 +120,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ParentTransform: {fileID: 7994070634913106152}
-  m_GenericEntryViewPrefab: {fileID: 5302883656450281016, guid: c51b92c99ba58854d8a0827a40bf7f5c, type: 3}
+  m_FriendEntryViewPrefab: {fileID: 2498492212596595491, guid: c51b92c99ba58854d8a0827a40bf7f5c, type: 3}
