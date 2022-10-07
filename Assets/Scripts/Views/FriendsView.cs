@@ -8,7 +8,7 @@ namespace UnityGamingServicesUsesCases.Relationships
     {
         public Action<string> OnFriendRemove = null;
         public Action<string> OnFriendBlock = null;
-        
+
         [SerializeField]private RectTransform m_ParentTransform = null;
         [SerializeField]private FriendsEntryView m_FriendEntryViewPrefab = null;
 

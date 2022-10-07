@@ -1,9 +1,0 @@
-<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <ui:Template name="BasePlayerEntryLayout" src="project://database/Assets/UI/RelationshipsUI/BasePlayerEntryLayout.uxml?fileID=9197481963319205126&amp;guid=2e16355644bc145c496372991d4fac4c&amp;type=3#BasePlayerEntryLayout" />
-    <Style src="project://database/Assets/UI/RelationshipsUI/RelationshipsStyle.uss?fileID=7433441132597879392&amp;guid=947b3ef19af094ccca809ccb7e4ad0b2&amp;type=3#RelationshipsStyle" />
-    <ui:VisualElement name="friend-list-bg" picking-mode="Ignore" class="player-panel" style="flex-direction: row; justify-content: space-between; align-items: center; min-width: 320px;">
-        <ui:Instance template="BasePlayerEntryLayout" name="friend-list-data" style="width: 100%;" />
-        <ui:Button display-tooltip-when-elided="true" name="remove-button" class="player-action-button" style="background-image: url(&apos;project://database/Assets/Art/remove%20friend.png?fileID=2800000&amp;guid=041def34940dd244998858d20c1ca9be&amp;type=3#remove friend&apos;); height: 40px; overflow: hidden;" />
-        <ui:Button text="&#10;" display-tooltip-when-elided="true" name="block-button" class="player-action-button" style="background-image: url(&apos;project://database/Assets/Art/block.png?fileID=2800000&amp;guid=614aa4dbae70b0e47bed53d35f7d0f9f&amp;type=3#block&apos;); height: 40px;" />
-    </ui:VisualElement>
-</ui:UXML>

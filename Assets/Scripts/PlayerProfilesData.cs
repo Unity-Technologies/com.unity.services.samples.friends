@@ -50,9 +50,11 @@ namespace UnityGamingServicesUsesCases.Relationships
         }
     }
 
+
     [System.Serializable]
     public class PlayerProfile
     {
+
         [field: SerializeField] public string Name { get; private set; }
         [field: SerializeField] public string Id { get; private set; }
 
