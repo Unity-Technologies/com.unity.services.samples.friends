@@ -9,8 +9,8 @@
         <ui:VisualElement name="player-info-bg" style="flex-direction: column; align-items: flex-start; margin-left: 10px; flex-grow: 1;">
             <ui:Label text="PlayerName" display-tooltip-when-elided="true" name="player-name-label" class="playerName-label player-name-label social-font" style="color: rgb(255, 255, 255); font-size: 16px; -unity-font-style: bold;" />
             <ui:VisualElement name="player-activity-status-bg" style="flex-direction: row;">
-                <ui:Label text="Online" display-tooltip-when-elided="true" name="player-status-label" class="playerName-label player-name-label social-font" style="color: rgb(5, 255, 0); display: flex; -unity-font-style: bold;" />
-                <ui:DropdownField index="0" choices="Online,Busy,Away,Invisible" name="player-status-dropdown" class="player-settings-button" style="background-color: rgba(81, 73, 171, 0); display: none;" />
+                <ui:Label text="Online" display-tooltip-when-elided="true" name="player-status-label" class="social-font" style="color: rgb(5, 255, 0); -unity-font-style: bold; justify-content: center; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; -unity-text-align: middle-center;" />
+                <ui:DropdownField index="0" choices="Online,Busy,Away,Invisible" name="player-status-dropdown" class="player-settings-button" style="background-color: rgba(81, 73, 171, 0);" />
                 <ui:Label text="Player Activity" display-tooltip-when-elided="true" name="player-activity-label" enable-rich-text="false" class="playerActivity-label player-activity-label social-font" style="flex-wrap: nowrap; white-space: normal; color: rgb(255, 255, 255); -unity-text-align: middle-center; -unity-font-style: normal; margin-left: 15px;" />
             </ui:VisualElement>
         </ui:VisualElement>

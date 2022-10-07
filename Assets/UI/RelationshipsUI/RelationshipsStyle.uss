@@ -32,6 +32,7 @@
 }
 
 .player-panel {
+    display: flex;
 }
 
 .player-settings-button {
@@ -237,4 +238,25 @@
 
 .blocked-player-panel #player-status-circle {
     display: none;
+}
+
+.friends-player-panel #player-status-dropdown {
+    display: none;
+    visibility: visible;
+}
+
+.friends-player-panel #player-status-label {
+    display: flex;
+    visibility: visible;
+}
+
+.local-player-panel #player-status-dropdown {
+    display: flex;
+    visibility: visible;
+}
+
+.local-player-panel #player-status-label {
+    visibility: visible;
+    display: none;
+    overflow: hidden;
 }

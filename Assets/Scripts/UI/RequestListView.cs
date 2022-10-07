@@ -8,7 +8,7 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
     public class RequestListView
     {
         public Action<string> onAcceptUser;
-        public Action<string> onDenyUser;
+        public Action<string> onDeclineUser;
         public Action<string> onBlockUser;
 
         const string k_RequestListViewName = "request-list";
@@ -40,16 +40,18 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
             {
                 var requestControl = item.userData as RequestEntryView;
                 var userProfile = listToBind[index];
-                requestControl.localPlayerView.SetName(userProfile.Name);
+                requestControl.Refresh(userProfile.Name);
 
                 requestControl.onAccept = () =>
                 {
                     onAcceptUser?.Invoke(userProfile.Id);
                 };
-                requestControl.onDeny = () =>
+
+                requestControl.onDecline = () =>
                 {
-                    onDenyUser?.Invoke(userProfile.Id);
+                    onDeclineUser?.Invoke(userProfile.Id);
                 };
+
                 requestControl.onBlockFriend = () =>
                 {
                     onBlockUser?.Invoke(userProfile.Id);

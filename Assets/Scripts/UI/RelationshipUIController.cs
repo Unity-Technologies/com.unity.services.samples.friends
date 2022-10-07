@@ -1,7 +1,5 @@
 using System;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UIElements;
 
 namespace UnityGamingServicesUsesCases.Relationships.UI
@@ -37,7 +35,8 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
 
             var localPlayerControlView = m_Root.Q(k_LocalPlayerViewName);
 
-            localLocalPlayerView = new LocalPlayerView(localPlayerControlView,true);
+            localLocalPlayerView = new LocalPlayerView(localPlayerControlView);
+
             requestFriendPopupView = new RequestFriendPopupView(m_Root);
             friendsListView = new FriendsListView(m_Root, friendEntryTemplate);
             requestListView = new RequestListView(m_Root, requestEntryTemplate);
@@ -51,7 +50,6 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
 
         void SwitchView(ShowListState listToView)
         {
-            Debug.Log($"Switching View to {listToView}");
             friendsListView.Show(listToView == ShowListState.Friends);
             requestListView.Show(listToView == ShowListState.Requests);
             blockedListView.Show(listToView == ShowListState.Blocked);
@@ -59,7 +57,6 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
 
         void ShowAddFriendPopup()
         {
-            Debug.Log("Show Friend!");
             requestFriendPopupView.Show(true);
         }
     }

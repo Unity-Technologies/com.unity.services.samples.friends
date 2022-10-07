@@ -25,7 +25,7 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
             var friendsListButton = relationshipsBarView.Q<Button>("friends-button");
             var requestListButton = relationshipsBarView.Q<Button>("requests-button");
             var blockedListButton = relationshipsBarView.Q<Button>("blocked-button");
-            var addFriendButton = relationshipsBarView.Q<Button>("add-friend-button");
+            var addFriendButton   = relationshipsBarView.Q<Button>("add-friend-button");
 
             friendsListButton.RegisterCallback<ClickEvent>((_) =>
             {

@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using Unity.Services.Friends.Models;
 using UnityEngine;
@@ -10,86 +9,61 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
     public class LocalPlayerView
     {
         const string k_PlayerEntryRootName = "base-player-entry";
+
+        //We dont support the player selecting OFFLINE or UNKNOWN with the UI
+        static readonly string[] k_LocalPlayerChoices = { "ONLINE", "BUSY", "AWAY", "INVISIBLE" };
+
+        public Action<PresenceAvailabilityOptions> onPresenceChanged;
+        //TODO With Presence PR Input fields for Names and Activities
+
+        DropdownField m_PlayerStatusDropDown;
         Label m_PlayerName;
         Label m_PlayerActivity;
-        Label m_PlayerStatusLabel;
         VisualElement m_PlayerStatusCircle;
-        DropdownField m_PlayerStatusDropDown;
 
-        public LocalPlayerView(VisualElement viewParent, bool localPlayerEntry = false)
+        public LocalPlayerView(VisualElement viewParent)
         {
             var playerEntryView = viewParent.Q(k_PlayerEntryRootName);
-            m_PlayerName = playerEntryView.Q<Label>("player-name-label");
             m_PlayerStatusDropDown = playerEntryView.Q<DropdownField>("player-status-dropdown");
-            m_PlayerStatusLabel = playerEntryView.Q<Label>("player-status-label");
+            m_PlayerName = playerEntryView.Q<Label>("player-name-label");
             m_PlayerStatusCircle = playerEntryView.Q<VisualElement>("player-status-circle");
             m_PlayerActivity = playerEntryView.Q<Label>("player-activity-label");
 
-            //Set dropdown choices to the available presence enums
-            m_PlayerStatusDropDown.choices = Enum.GetNames(typeof(PresenceAvailabilityOptions)).ToList();
+            m_PlayerStatusDropDown.choices = k_LocalPlayerChoices.ToList();
 
-            //Remove the "Unknown" choice for the local player, callback for changing the status color
-            if (localPlayerEntry)
+            m_PlayerStatusDropDown.RegisterValueChangedCallback(choice =>
             {
-                m_PlayerStatusLabel.style.display = DisplayStyle.None;
-                m_PlayerStatusDropDown.style.display = DisplayStyle.Flex;
-                m_PlayerStatusDropDown.choices.Remove(m_PlayerStatusDropDown.choices.Last());
-                m_PlayerStatusDropDown.RegisterValueChangedCallback(choice =>
-                {
-                    var choiceInt = m_PlayerStatusDropDown.choices.IndexOf(choice.newValue);
-                    SetStatusColor(choiceInt);
-                });
-            }
+                var choiceInt = m_PlayerStatusDropDown.choices.IndexOf(choice.newValue);
+                SetPresenceColor((PresenceAvailabilityOptions)choiceInt + 1);
 
-            SetStatus(PresenceAvailabilityOptions.OFFLINE);
+                if (Enum.TryParse(choice.newValue, out PresenceAvailabilityOptions optionChoice))
+                    onPresenceChanged?.Invoke(optionChoice);
+            });
+
+            SetPresence(PresenceAvailabilityOptions.INVISIBLE);
         }
 
+        //Keeping these setters seperate in case we wan to support name and activity changes
 
-        public void SetName(string name)
+        public void Refresh(string name, string activity, PresenceAvailabilityOptions presenceAvailabilityOptions)
         {
             m_PlayerName.text = name;
-        }
-
-        public void SetActivity(string activity)
-        {
             m_PlayerActivity.text = activity;
+            SetPresence(presenceAvailabilityOptions);
         }
 
-        /// <summary>
-        /// Since the SDK status integers start at 1, we need to shift them over to use our arrays/
-        /// </summary>
-        public void SetStatus(PresenceAvailabilityOptions presenceStatus)
+        public void SetPresence(PresenceAvailabilityOptions presenceStatus)
         {
-            //Clamp my choice to the choices available to the dropdown element
-            var statusIntToIndex = GetChoiceIndex(presenceStatus);
-            var dropDownChoice = m_PlayerStatusDropDown.choices[statusIntToIndex];
+            var clampedStatusIndex = Mathf.Clamp((int)presenceStatus - 1, 0, k_LocalPlayerChoices.Length - 1);
+            var dropDownChoice = m_PlayerStatusDropDown.choices[clampedStatusIndex];
             m_PlayerStatusDropDown.SetValueWithoutNotify(dropDownChoice);
-            SetStatusColor(statusIntToIndex);
         }
 
-        void SetStatusColor(int statusIndex)
+        void SetPresenceColor(PresenceAvailabilityOptions presenceStatus)
         {
-            var validColor = m_PresenceUIColors[statusIndex];
-            m_PlayerStatusLabel.style.color = validColor;
-            m_PlayerStatusCircle.style.backgroundColor = validColor;
-            m_PlayerStatusDropDown.style.color = validColor;
+            var presenceColor = UIUtils.GetPresenceColor(presenceStatus);
+            m_PlayerStatusCircle.style.backgroundColor = presenceColor;
+            m_PlayerStatusDropDown.style.color = presenceColor;
         }
-
-        int GetChoiceIndex(PresenceAvailabilityOptions presenceStatus)
-        {
-            return Mathf.Clamp((int)presenceStatus - 1, 0, m_PlayerStatusDropDown.choices.Count);
-        }
-
-
-        //Mapping of colors to PresenceAvailabilityOptions
-        Color[] m_PresenceUIColors =
-        {
-            new Color(.1f, .8f, .1f), //ONLINE
-            new Color(.8f, .7f, .2f), //BUSY
-            new Color(.7f, .2f, .1f), //AWAY
-            new Color(.4f, .1f, .6f), //INVISIBLE
-            new Color(.4f, .4f, .4f), //OFFLINE
-            new Color(1f, .4f, 1f) //UNKNOWN
-        };
     }
 }

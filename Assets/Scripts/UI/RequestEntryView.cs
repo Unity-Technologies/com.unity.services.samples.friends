@@ -8,15 +8,15 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
         const string k_RequestEntryViewName = "request-friend-view";
 
         public Action onAccept;
-        public Action onDeny;
+        public Action onDecline;
         public Action onBlockFriend;
 
-        public LocalPlayerView localPlayerView;
+        Label m_PlayerName;
 
         public RequestEntryView(VisualElement viewParent)
         {
             var requestEntryView = viewParent.Q(k_RequestEntryViewName);
-            localPlayerView = new LocalPlayerView(requestEntryView);
+            m_PlayerName = requestEntryView.Q<Label>("player-name-label");
             var acceptButton = requestEntryView.Q<Button>("accept-button");
 
             acceptButton.RegisterCallback<ClickEvent>(_ =>
@@ -27,7 +27,7 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
             var denyButton = requestEntryView.Q<Button>("remove-button");
             denyButton.RegisterCallback<ClickEvent>(_ =>
             {
-                onDeny?.Invoke();
+                onDecline?.Invoke();
             });
 
             var blockButton = requestEntryView.Q<Button>("block-button");
@@ -35,6 +35,11 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
             {
                 onBlockFriend?.Invoke();
             });
+        }
+
+        public void Refresh(string name)
+        {
+            m_PlayerName.text = name;
         }
     }
 }

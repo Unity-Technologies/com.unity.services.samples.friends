@@ -37,8 +37,8 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
             {
                 var blockedEntryControl = item.userData as BlockedEntryView;
                 var userProfile = blockedListToBind[index];
-                blockedEntryControl.localPlayerView.SetName(userProfile.Name);
-                blockedEntryControl.onUnblock = () =>
+                blockedEntryControl.Refresh(userProfile.Name);
+                blockedEntryControl.onUnBlock = () =>
                 {
                     onUnBlock?.Invoke(userProfile.Id);
                 };

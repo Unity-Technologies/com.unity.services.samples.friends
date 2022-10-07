@@ -40,15 +40,13 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
             {
                 var friendControl = item.userData as FriendEntryView;
                 var userProfile = listToBind[index];
-                friendControl.localPlayerView.SetName(userProfile.Name);
-                friendControl.localPlayerView.SetActivity("TODO"); //TODO Get Actual Profile activity
-                friendControl.localPlayerView.SetStatus(
-                    PresenceAvailabilityOptions.ONLINE); // TODO Get Actual Profile Status
+                friendControl.Refresh(userProfile.Name, "TODO", PresenceAvailabilityOptions.ONLINE);
 
                 friendControl.onRemoveFriend = () =>
                 {
                     onRemoveFriend?.Invoke(userProfile.Id);
                 };
+
                 friendControl.onBlockFriend = () =>
                 {
                     onBlockFriend?.Invoke(userProfile.Id);

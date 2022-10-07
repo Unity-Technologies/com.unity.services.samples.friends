@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.Services.Friends.Models;
 using UnityEngine;
 using UnityEngine.Serialization;
+using UnityEngine.UIElements;
 
 namespace UnityGamingServicesUsesCases.Relationships.UI
 {
@@ -33,7 +34,7 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
 
             m_Controller.requestListView.BindList(m_RequestList);
             m_Controller.requestListView.onAcceptUser += TestAccept;
-            m_Controller.requestListView.onDenyUser += TestDeny;
+            m_Controller.requestListView.onDeclineUser += TestDeny;
             m_Controller.requestListView.onBlockUser += TestBlock;
 
             m_Controller.blockedListView.BindList(m_BlockedList);
@@ -44,20 +45,14 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
 
         void TestLogin()
         {
-            m_Controller.localLocalPlayerView.SetName(m_LocalPlayerProfile.Name);
-            m_Controller.localLocalPlayerView.SetActivity("Activities!");
+            m_Controller.localLocalPlayerView.Refresh("LocalTester", "Playing", PresenceAvailabilityOptions.ONLINE);
 
-            m_Controller.localLocalPlayerView.SetStatus(PresenceAvailabilityOptions.ONLINE);
+            m_Controller.localLocalPlayerView.onPresenceChanged = TestUserChangedPresence;
         }
 
         void TestUserChangedPresence(PresenceAvailabilityOptions presence)
         {
             Debug.Log($"User Switch presence to {presence}");
-        }
-
-        void TestUserChangedActivity(string activity)
-        {
-            Debug.Log($"User Switch activity to {activity}");
         }
 
         int tryTimes = 0;
