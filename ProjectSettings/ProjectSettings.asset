@@ -662,7 +662,7 @@ PlayerSettings:
   webGLThreadsSupport: 0
   webGLDecompressionFallback: 0
   scriptingDefineSymbols:
-    Standalone: 
+    Standalone: WIRE_STAGING
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend: {}
