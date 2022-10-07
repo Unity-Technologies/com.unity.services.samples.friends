@@ -41,7 +41,6 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
                 var requestControl = item.userData as RequestEntryView;
                 var userProfile = listToBind[index];
                 requestControl.Refresh(userProfile.Name);
-
                 requestControl.onAccept = () =>
                 {
                     onAcceptUser?.Invoke(userProfile.Id);
@@ -62,9 +61,14 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
             Refresh();
         }
 
-        public void Show(bool show)
+        public void Show()
         {
-            m_RequestListView.style.display = show ? DisplayStyle.Flex : DisplayStyle.None;
+            m_RequestListView.style.display = DisplayStyle.Flex;
+        }
+
+        public void Hide()
+        {
+            m_RequestListView.style.display = DisplayStyle.None;
         }
 
         /// <summary>

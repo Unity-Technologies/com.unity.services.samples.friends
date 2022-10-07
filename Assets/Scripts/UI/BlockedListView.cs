@@ -48,9 +48,14 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
             Refresh();
         }
 
-        public void Show(bool show)
+        public void Show()
         {
-            m_BlockedListView.style.display = show ? DisplayStyle.Flex : DisplayStyle.None;
+            m_BlockedListView.style.display = DisplayStyle.Flex;
+        }
+
+        public void Hide()
+        {
+            m_BlockedListView.style.display = DisplayStyle.None;
         }
 
         /// <summary>

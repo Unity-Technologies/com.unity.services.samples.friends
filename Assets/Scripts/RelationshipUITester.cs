@@ -37,8 +37,8 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
             m_Controller.requestListView.onDeclineUser += TestDeny;
             m_Controller.requestListView.onBlockUser += TestBlock;
 
-            m_Controller.blockedListView.BindList(m_BlockedList);
-            m_Controller.blockedListView.onUnBlock += TestUnblock;
+            m_Controller.blockList.BindList(m_BlockedList);
+            m_Controller.blockList.onUnBlock += TestUnblock;
 
             m_Controller.requestFriendPopupView.tryRequestFriend += TestRequestFriend;
         }

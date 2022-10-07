@@ -41,7 +41,6 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
                 var friendControl = item.userData as FriendEntryView;
                 var userProfile = listToBind[index];
                 friendControl.Refresh(userProfile.Name, "TODO", PresenceAvailabilityOptions.ONLINE);
-
                 friendControl.onRemoveFriend = () =>
                 {
                     onRemoveFriend?.Invoke(userProfile.Id);
@@ -56,9 +55,14 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
             Refresh();
         }
 
-        public void Show(bool show)
+        public void Show()
         {
-            m_FriendListView.style.display = show ? DisplayStyle.Flex : DisplayStyle.None;
+            m_FriendListView.style.display = DisplayStyle.Flex;
+        }
+
+        public void Hide()
+        {
+            m_FriendListView.style.display = DisplayStyle.None;
         }
 
         /// <summary>

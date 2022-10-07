@@ -24,7 +24,7 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
         public RequestFriendPopupView requestFriendPopupView { get; private set; }
         public FriendsListView friendsListView { get; private set; }
         public RequestListView requestListView { get; private set; }
-        public BlockedListView blockedListView { get; private set; }
+        public BlockedListView blockList { get; private set; }
 
         VisualElement m_Root;
         const string k_LocalPlayerViewName = "local-player-entry";
@@ -40,19 +40,35 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
             requestFriendPopupView = new RequestFriendPopupView(m_Root);
             friendsListView = new FriendsListView(m_Root, friendEntryTemplate);
             requestListView = new RequestListView(m_Root, requestEntryTemplate);
-            blockedListView = new BlockedListView(m_Root, blockedEntryTemplate);
+            blockList = new BlockedListView(m_Root, blockedEntryTemplate);
 
             relationshipBarView = new RelationshipBarView(m_Root);
-            relationshipBarView.onListButton += SwitchView;
+            relationshipBarView.onFriends = OnFriendList;
+            relationshipBarView.onRequests = OnRequestList;
+            relationshipBarView.onBlocks = OnBlockList;
             relationshipBarView.onAddFriend += ShowAddFriendPopup;
             requestFriendPopupView.Show(false);
         }
 
-        void SwitchView(ShowListState listToView)
+        void OnFriendList()
         {
-            friendsListView.Show(listToView == ShowListState.Friends);
-            requestListView.Show(listToView == ShowListState.Requests);
-            blockedListView.Show(listToView == ShowListState.Blocked);
+            friendsListView.Show();
+            requestListView.Hide();
+            blockList.Hide();
+        }
+
+        void OnRequestList()
+        {
+            requestListView.Show();
+            friendsListView.Hide();
+            blockList.Hide();
+        }
+
+        void OnBlockList()
+        {
+            blockList.Show();
+            requestListView.Hide();
+            friendsListView.Hide();
         }
 
         void ShowAddFriendPopup()
