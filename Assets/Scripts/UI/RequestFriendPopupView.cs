@@ -9,7 +9,7 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
     public class RequestFriendPopupView
     {
         const string k_RequestFriendViewName = "request-friend-view";
-        public Action<string> tryRequestFriend;
+        public Action<string> tryAddFriend;
 
         TextField m_RequestFriendField;
         VisualElement m_RequestFriendView;
@@ -28,13 +28,13 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
                 {
                     if (evt.keyCode == KeyCode.Return || evt.keyCode == KeyCode.KeypadEnter)
                     {
-                        tryRequestFriend?.Invoke(m_RequestFriendField.text);
+                        tryAddFriend?.Invoke(m_RequestFriendField.text);
                     }
                 });
             var addFriendButton = m_RequestFriendView.Q<Button>("add-button");
             addFriendButton.RegisterCallback<ClickEvent>(_ =>
             {
-                tryRequestFriend?.Invoke(m_RequestFriendField.text);
+                tryAddFriend?.Invoke(m_RequestFriendField.text);
             });
         }
 
@@ -45,9 +45,13 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
             m_WarningLabel.style.opacity = 0;
         }
 
-        public void Show(bool show)
+        public void Show()
         {
-            m_RequestFriendView.style.display = show ? DisplayStyle.Flex : DisplayStyle.None;
+            m_RequestFriendView.style.display = DisplayStyle.Flex;
+        }
+        public void Hide()
+        {
+            m_RequestFriendView.style.display = DisplayStyle.None;
         }
     }
 }

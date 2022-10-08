@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Unity.Services.Friends.Models;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -34,21 +33,21 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
             };
         }
 
-        public void BindList(List<PlayerProfile> listToBind)
+        public void BindList(List<FriendsEntryData> listToBind)
         {
             m_FriendListView.bindItem = (item, index) =>
             {
                 var friendControl = item.userData as FriendEntryView;
-                var userProfile = listToBind[index];
-                friendControl.Refresh(userProfile.Name, "TODO", PresenceAvailabilityOptions.ONLINE);
+                var friendData = listToBind[index];
+                friendControl.Refresh(friendData.Name, friendData.Activity, friendData.Availability);
                 friendControl.onRemoveFriend = () =>
                 {
-                    onRemoveFriend?.Invoke(userProfile.Id);
+                    onRemoveFriend?.Invoke(friendData.Id);
                 };
 
                 friendControl.onBlockFriend = () =>
                 {
-                    onBlockFriend?.Invoke(userProfile.Id);
+                    onBlockFriend?.Invoke(friendData.Id);
                 };
             };
             m_FriendListView.itemsSource = listToBind;

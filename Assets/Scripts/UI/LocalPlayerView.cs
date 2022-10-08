@@ -8,17 +8,19 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
 {
     public class LocalPlayerView
     {
-        const string k_PlayerEntryRootName = "base-player-entry";
+        const string k_PlayerEntryRootName = "local-player-entry";
 
         //We dont support the player selecting OFFLINE or UNKNOWN with the UI
         static readonly string[] k_LocalPlayerChoices = { "ONLINE", "BUSY", "AWAY", "INVISIBLE" };
 
-        public Action<PresenceAvailabilityOptions> onPresenceChanged;
-        //TODO With Presence PR Input fields for Names and Activities
+        public Action<(PresenceAvailabilityOptions, string)> onPresenceChanged;
+
+        //TODO Add Editable Activity Field?
 
         DropdownField m_PlayerStatusDropDown;
         Label m_PlayerName;
         Label m_PlayerActivity;
+        TextField m_PlayerId;
         VisualElement m_PlayerStatusCircle;
 
         public LocalPlayerView(VisualElement viewParent)
@@ -26,6 +28,8 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
             var playerEntryView = viewParent.Q(k_PlayerEntryRootName);
             m_PlayerStatusDropDown = playerEntryView.Q<DropdownField>("player-status-dropdown");
             m_PlayerName = playerEntryView.Q<Label>("player-name-label");
+            m_PlayerId = playerEntryView.Q<TextField>("id-field");
+
             m_PlayerStatusCircle = playerEntryView.Q<VisualElement>("player-status-circle");
             m_PlayerActivity = playerEntryView.Q<Label>("player-activity-label");
 
@@ -35,9 +39,10 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
             {
                 var choiceInt = m_PlayerStatusDropDown.choices.IndexOf(choice.newValue);
                 SetPresenceColor((PresenceAvailabilityOptions)choiceInt + 1);
-
-                if (Enum.TryParse(choice.newValue, out PresenceAvailabilityOptions optionChoice))
-                    onPresenceChanged?.Invoke(optionChoice);
+                PresenceAvailabilityOptions option = PresenceAvailabilityOptions.UNKNOWN;
+                if (Enum.TryParse(choice.newValue, out PresenceAvailabilityOptions parsedOption))
+                    option = parsedOption;
+                onPresenceChanged?.Invoke((option, m_PlayerActivity.text));
             });
 
             SetPresence(PresenceAvailabilityOptions.INVISIBLE);
@@ -45,14 +50,16 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
 
         //Keeping these setters seperate in case we wan to support name and activity changes
 
-        public void Refresh(string name, string activity, PresenceAvailabilityOptions presenceAvailabilityOptions)
+        public void Refresh(string name, string id, string activity,
+            PresenceAvailabilityOptions presenceAvailabilityOptions)
         {
             m_PlayerName.text = name;
+            m_PlayerId.SetValueWithoutNotify(id);
             m_PlayerActivity.text = activity;
             SetPresence(presenceAvailabilityOptions);
         }
 
-        public void SetPresence(PresenceAvailabilityOptions presenceStatus)
+        void SetPresence(PresenceAvailabilityOptions presenceStatus)
         {
             var clampedStatusIndex = Mathf.Clamp((int)presenceStatus - 1, 0, k_LocalPlayerChoices.Length - 1);
             var dropDownChoice = m_PlayerStatusDropDown.choices[clampedStatusIndex];

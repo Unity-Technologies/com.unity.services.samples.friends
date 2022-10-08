@@ -25,7 +25,7 @@ namespace UnityGamingServicesUsesCases.Relationships
             foreach (var friendsEntryData in friendsEntryDatas)
             {
                 var entry = Instantiate(m_FriendEntryViewPrefab, m_ParentTransform);
-                entry.Init(friendsEntryData.Name,friendsEntryData.Presence,friendsEntryData.Activity);
+                entry.Init(friendsEntryData.Name,friendsEntryData.Availability.ToString(), friendsEntryData.Activity);
                 entry.button1.onClick.AddListener(() =>
                 {
                     OnFriendRemove?.Invoke(friendsEntryData.Id);
