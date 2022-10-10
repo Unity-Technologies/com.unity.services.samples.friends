@@ -148,14 +148,14 @@
 }
 
 .social-tab-button :active {
-    -unity-background-image-tint-color: rgba(255, 189, 85, 255);
+    -unity-background-image-tint-color: rgb(255, 189, 85);
 }
 
 .player-action-button {
-    border-left-color: rgb(255, 170, 248);
-    border-right-color: rgb(255, 170, 248);
-    border-top-color: rgb(255, 170, 248);
-    border-bottom-color: rgb(255, 170, 248);
+    border-left-color: rgba(255, 170, 248, 0);
+    border-right-color: rgba(255, 170, 248, 0);
+    border-top-color: rgba(255, 170, 248, 0);
+    border-bottom-color: rgba(255, 170, 248, 0);
     width: 40px;
     height: 40px;
     background-color: rgba(0, 0, 0, 0);

@@ -8,6 +8,6 @@
             <ui:Instance template="LocalPlayerTabLayout" name="LocalUserView" style="margin-left: 0; padding-bottom: 15px;" />
             <ui:Instance template="SocialTabLayout" name="RelationshipBarView" style="width: 100%;" />
         </ui:VisualElement>
-        <ui:Instance template="RequestFriendLayout" name="RequestFriendView" picking-mode="Ignore" style="height: 200px; align-items: center; justify-content: center; flex-shrink: 1; display: flex; width: 350px;" />
+        <ui:Instance template="RequestFriendLayout" name="RequestFriendView" picking-mode="Ignore" style="height: 200px; align-items: center; justify-content: center; display: flex; width: 350px;" />
     </ui:VisualElement>
 </ui:UXML>
