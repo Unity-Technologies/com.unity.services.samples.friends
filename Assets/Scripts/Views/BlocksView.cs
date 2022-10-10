@@ -11,7 +11,7 @@ namespace UnityGamingServicesUsesCases.Relationships
         [SerializeField]private RectTransform m_ParentTransform = null;
         [SerializeField]private GenericEntryView m_BlockedEntryViewPrefab = null;
 
-        private List<GenericEntryView> m_Blocked = new ();
+        List<GenericEntryView> m_Blocked = new List<GenericEntryView>();
 
         public void Refresh(List<PlayerProfile> playerProfiles)
         {

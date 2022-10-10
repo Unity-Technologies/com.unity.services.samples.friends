@@ -90,19 +90,15 @@
     border-top-width: 0;
     border-bottom-width: 0;
     overflow: visible;
-    transition-property: opacity;
-    transition-duration: 1s;
+
 }
 
 .add-friend-button .unity-button :hover {
     -unity-background-image-tint-color: rgb(0, 255, 194);
-    transition-property: opacity;
 }
 
 .add-friend-button .unity-button :active {
     -unity-background-image-tint-color: rgb(45, 27, 212);
-    transition-property: opacity;
-    transition-duration: 1s;
 }
 
 .social-tab-button {
@@ -199,7 +195,6 @@
 }
 
 .social-font {
-    -unity-font: url('project://database/Assets/UI/UnityDefaultRuntimeTheme.tss?fileID=2230732570650464555&guid=c7cbc177b8336244ca5e1b9ddc4f158c&type=3#NotInter-Regular');
     color: rgb(255, 255, 255);
     font-size: 16px;
 }

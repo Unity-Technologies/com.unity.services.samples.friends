@@ -69,7 +69,11 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
         /// </summary>
         public void Refresh()
         {
+            #if UNITY_2020
+            m_FriendListView.Refresh();
+            #elif UNITY_2021
             m_FriendListView.RefreshItems();
+            #endif
         }
     }
 }

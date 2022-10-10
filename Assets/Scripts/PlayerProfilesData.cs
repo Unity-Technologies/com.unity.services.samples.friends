@@ -8,7 +8,8 @@ namespace UnityGamingServicesUsesCases.Relationships
     [CreateAssetMenu(fileName = "playerIds_data", menuName = "Data/PlayerIds")]
     public class PlayerProfilesData : ScriptableObject, IEnumerable<PlayerProfile>
     {
-        [SerializeField] private List<PlayerProfile> m_PlayerProfiles = new();
+        [SerializeField]
+        List<PlayerProfile> m_PlayerProfiles = new List<PlayerProfile>();
 
         public void Add(string playerName, string id)
         {

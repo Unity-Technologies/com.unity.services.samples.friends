@@ -1,8 +1,9 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <ui:Template name="LocalPlayerTabLayout" src="project://database/Assets/UI/RelationshipsUI/LocalPlayerView.uxml?fileID=9197481963319205126&amp;guid=569feef4c4ff04a1bafe96bb29b7f5ea&amp;type=3#LocalPlayerView" />
-    <ui:Template name="SocialTabLayout" src="project://database/Assets/UI/RelationshipsUI/RelationshipBarView.uxml?fileID=9197481963319205126&amp;guid=2ea60cb6f283c4c0d818f542f2867f47&amp;type=3#RelationshipBarView" />
-    <ui:Template name="RequestFriendLayout" src="project://database/Assets/UI/RelationshipsUI/RequestFriendView.uxml?fileID=9197481963319205126&amp;guid=c17420b0e46527642ab34a5dd9003346&amp;type=3#RequestFriendView" />
-    <Style src="project://database/Assets/UI/RelationshipsUI/RelationshipsStyle.uss?fileID=7433441132597879392&amp;guid=947b3ef19af094ccca809ccb7e4ad0b2&amp;type=3#RelationshipsStyle" />
+    <ui:Template name="LocalPlayerTabLayout" src="LocalPlayerView.uxml" />
+    <ui:Template name="SocialTabLayout" src="RelationshipBarView.uxml" />
+    <ui:Template name="RequestFriendLayout" src="RequestFriendView.uxml" />
+    <Style src="RelationshipsStyle.uss" />
+    <Style src="2020RelationshipStyle.uss" />
     <ui:VisualElement name="full-screen" style="align-items: center; flex-grow: 1; justify-content: center;">
         <ui:VisualElement name="social-ui-group" style="align-items: stretch; width: 650px; flex-grow: 0; flex-shrink: 0; justify-content: space-between; height: auto; top: 0; right: 0; position: absolute; padding-left: 15px; padding-right: 15px; padding-top: 15px; padding-bottom: 15px;">
             <ui:Instance template="LocalPlayerTabLayout" name="LocalUserView" style="margin-left: 0; padding-bottom: 15px;" />
