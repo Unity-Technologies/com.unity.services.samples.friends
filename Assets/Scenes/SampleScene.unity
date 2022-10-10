@@ -5271,27 +5271,5 @@ PrefabInstance:
       propertyPath: m_AddFriendView
       value: 
       objectReference: {fileID: 1421278917}
-    m_RemovedComponents:
-    - {fileID: 1767759168784490996, guid: 9fdc3765655b72d4888932030e95072a, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9fdc3765655b72d4888932030e95072a, type: 3}
---- !u!1 &8088031084538109611 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8088031084014022018, guid: 9fdc3765655b72d4888932030e95072a, type: 3}
-  m_PrefabInstance: {fileID: 8088031084538109610}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &8088031084538109612
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8088031084538109611}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f21c074d86024caca2a0034ce4f53f73, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_PanelSettings: {fileID: 11400000, guid: 3b4a2ce4536334b6c86bdb898782efab, type: 2}
-  m_ParentUI: {fileID: 0}
-  sourceAsset: {fileID: 9197481963319205126, guid: 1abea08df882b13429a1122d5b20ae73, type: 3}
-  m_SortingOrder: 0

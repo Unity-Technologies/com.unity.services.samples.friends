@@ -36,7 +36,6 @@
 }
 
 .player-settings-button {
-    color: rgb(255, 255, 255);
     letter-spacing: 10px;
     -unity-text-align: middle-center;
     -unity-font-style: bold;
@@ -49,7 +48,6 @@
 }
 
 .player-settings-button .unity-base-field__input {
-    color: rgb(255, 255, 255);
     letter-spacing: 10px;
     -unity-text-align: middle-center;
     -unity-font-style: bold;
@@ -57,11 +55,10 @@
     border-right-color: rgba(0, 0, 0, 0);
     border-top-color: rgba(0, 0, 0, 0);
     border-bottom-color: rgba(0, 0, 0, 0);
-    background-color: rgba(81, 73, 171, 0);
+    background-color: rgba(0, 0, 0, 0);
 }
 
 .player-settings-button .unity-base-popup-field__arrow {
-    color: rgb(255, 255, 255);
     letter-spacing: 10px;
     -unity-text-align: middle-center;
     -unity-font-style: bold;
@@ -69,8 +66,8 @@
     border-right-color: rgba(0, 0, 0, 0);
     border-top-color: rgba(0, 0, 0, 0);
     border-bottom-color: rgba(0, 0, 0, 0);
-    background-color: rgba(81, 73, 171, 0);
     -unity-background-image-tint-color: rgb(255, 255, 255);
+    color: rgba(61, 255, 0, 255);
 }
 
 .add-friend-button {
@@ -90,7 +87,6 @@
     border-top-width: 0;
     border-bottom-width: 0;
     overflow: visible;
-
 }
 
 .add-friend-button .unity-button :hover {
@@ -144,14 +140,14 @@
 }
 
 .social-tab-button :active {
-    -unity-background-image-tint-color: rgba(255, 189, 85, 255);
+    -unity-background-image-tint-color: rgb(255, 189, 85);
 }
 
 .player-action-button {
-    border-left-color: rgb(255, 170, 248);
-    border-right-color: rgb(255, 170, 248);
-    border-top-color: rgb(255, 170, 248);
-    border-bottom-color: rgb(255, 170, 248);
+    border-left-color: rgba(255, 170, 248, 0);
+    border-right-color: rgba(255, 170, 248, 0);
+    border-top-color: rgba(255, 170, 248, 0);
+    border-bottom-color: rgba(255, 170, 248, 0);
     width: 40px;
     height: 40px;
     background-color: rgba(0, 0, 0, 0);
@@ -333,4 +329,14 @@
 
 .friend-list .unity-list-view__empty-label {
     display: none;
+}
+
+.player-settings-button PopupTextElement {
+    -unity-text-align: middle-center;
+    -unity-font-style: bold;
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+    color: rgba(70, 255, 0, 255);
 }
