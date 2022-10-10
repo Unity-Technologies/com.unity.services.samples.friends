@@ -125,31 +125,8 @@ namespace UnityGamingServicesUsesCases.Relationships
             m_LogInView.OnLogIn += LogIn;
 
             m_RefreshView.Init();
-            m_RefreshView.OnRefresh += RefreshLists;
+            m_RefreshView.OnRefresh += RefreshAll;
             m_QuitButton.onClick.AddListener(QuitAsync);
-        }
-
-        private async void BlockFriendAsync(string id)
-        {
-            await BlockFriend(id);
-            await RefreshBlocks();
-        }
-
-        private async void UnblockFriendAsync(string id)
-        {
-            await UnblockFriend(id);
-            await RefreshBlocks();
-        }
-
-        private async void RemoveFriendAsync(string id)
-        {
-            await RemoveFriend(id);
-            await RefreshFriends();
-        }
-
-        private async void RequestFriendAsync(string id)
-        {
-            await RequestFriend(id, "button");
         }
 
         private async void LogIn(string playerName)
@@ -159,14 +136,37 @@ namespace UnityGamingServicesUsesCases.Relationships
             await SetPresence(PresenceAvailabilityOptions.ONLINE);
             m_LocalPlayerView.Refresh(m_LoggedPlayerName, LoggedPlayerId, "In Friends Menu",
                 PresenceAvailabilityOptions.ONLINE);
+            RefreshAll();
             Debug.Log($"Logged in as {playerName} id: {LoggedPlayerId}");
             Debug.Log($"Token ID{AuthenticationService.Instance.AccessToken}");
+        }
+
+        private async void BlockFriendAsync(string id)
+        {
+            await BlockFriend(id);
+            await RefreshFriends();
+            await RefreshRequests();
+            await RefreshBlocks();
+        }
+
+        private async void UnblockFriendAsync(string id)
+        {
+            await UnblockFriend(id);
+            await RefreshBlocks();
+            await RefreshFriends();
+        }
+
+        private async void RemoveFriendAsync(string id)
+        {
+            await RemoveFriend(id);
+            await RefreshFriends();
         }
 
         private async void AcceptRequestAsync(string id)
         {
             await AcceptRequest(id);
             await RefreshRequests();
+            await RefreshFriends();
         }
 
         private async void DeclineRequestAsync(string id)
@@ -187,7 +187,13 @@ namespace UnityGamingServicesUsesCases.Relationships
             await SetPresence(status.presence, status.activity);
         }
 
-        async void RefreshLists()
+
+        private async void RequestFriendAsync(string id)
+        {
+            await RequestFriend(id, "button");
+        }
+
+        async void RefreshAll()
         {
             await RefreshFriends();
             await RefreshRequests();
@@ -281,7 +287,10 @@ namespace UnityGamingServicesUsesCases.Relationships
 
         void ShowAddFriendPopup()
         {
-            m_RequestFriendPopupView.Show();
+            if(m_RequestFriendPopupView.IsShowing)
+                m_RequestFriendPopupView.Hide();
+            else
+                m_RequestFriendPopupView.Show();
         }
 
         private async Task RequestFriend(string playerId, string eventSource)

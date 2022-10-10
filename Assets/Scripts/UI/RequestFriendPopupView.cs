@@ -10,6 +10,7 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
     {
         const string k_RequestFriendViewName = "request-friend-view";
         public Action<string> tryAddFriend;
+        public bool IsShowing { get; private set; }
 
         TextField m_RequestFriendField;
         VisualElement m_RequestFriendView;
@@ -19,6 +20,11 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
         {
             m_RequestFriendView = viewParent.Q(k_RequestFriendViewName);
 
+            var exitButton =  m_RequestFriendView.Q<Button>("exit-button");
+            exitButton.RegisterCallback<ClickEvent>((e) =>
+            {
+                Hide();
+            });
             m_WarningLabel = m_RequestFriendView.Q<Label>("warning-label");
             m_RequestFriendField = m_RequestFriendView.Q<TextField>("search-field");
 
@@ -48,10 +54,13 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
         public void Show()
         {
             m_RequestFriendView.style.display = DisplayStyle.Flex;
+            IsShowing = true;
         }
         public void Hide()
         {
             m_RequestFriendView.style.display = DisplayStyle.None;
+            IsShowing = false;
+
         }
     }
 }

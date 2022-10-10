@@ -9,8 +9,8 @@
             </ui:VisualElement>
             <ui:Button name="add-friend-button" text="Add Friend" focusable="false" class="add-friend-button" style="position: relative; align-items: center; justify-content: space-around; -unity-font-style: bold; width: 100px; height: 25px; font-size: 11px; border-left-color: rgba(255, 255, 255, 0); border-right-color: rgba(255, 255, 255, 0); border-top-color: rgba(255, 255, 255, 0); border-bottom-color: rgba(255, 255, 255, 0); overflow: visible; margin-right: 20px;" />
         </ui:VisualElement>
-        <ui:ListView focusable="true" name="friends-list" fixed-item-height="70" virtualization-method="DynamicHeight" show-border="true" selection-type="None" style="justify-content: flex-start; display: none; min-height: 0;" />
-        <ui:ListView focusable="true" name="request-list" fixed-item-height="70" virtualization-method="DynamicHeight" show-border="true" selection-type="None" style="justify-content: flex-start; display: none; min-height: 0;" />
-        <ui:ListView focusable="true" name="blocked-list" fixed-item-height="70" virtualization-method="DynamicHeight" show-border="true" selection-type="None" style="justify-content: flex-start; display: none; min-height: 0;" />
+        <ui:ListView focusable="true" name="friends-list" fixed-item-height="70" virtualization-method="DynamicHeight" show-border="true" selection-type="None" header-title="Friends" show-foldout-header="false" show-add-remove-footer="false" class="friend-list" style="justify-content: flex-start; min-height: 0;" />
+        <ui:ListView focusable="true" name="request-list" fixed-item-height="70" virtualization-method="DynamicHeight" show-border="true" selection-type="None" header-title="Requests" style="justify-content: flex-start; display: none; min-height: 0;" />
+        <ui:ListView focusable="true" name="blocked-list" fixed-item-height="70" virtualization-method="DynamicHeight" show-border="true" selection-type="None" header-title="Blocked" style="justify-content: flex-start; display: none; min-height: 0;" />
     </ui:VisualElement>
 </ui:UXML>
