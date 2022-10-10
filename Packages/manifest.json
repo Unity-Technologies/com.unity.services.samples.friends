@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "com.unity.collab-proxy": "1.17.1",
-    "com.unity.ide.rider": "3.0.16",
+    "com.unity.ide.rider": "3.0.15",
     "com.unity.ide.visualstudio": "2.0.16",
     "com.unity.ide.vscode": "1.2.5",
     "com.unity.services.friends": "0.2.0-preview.1",
@@ -46,6 +46,14 @@
     "com.unity.modules.wind": "1.0.0",
     "com.unity.modules.xr": "1.0.0"
   },
-  "testables": [],
-  "registry": "https://artifactory.prd.it.unity3d.com/artifactory/api/npm/upm-candidates"
+  "scopedRegistries": [
+    {
+      "name": "Artifactory",
+      "url": "https://artifactory.prd.it.unity3d.com/artifactory/api/npm/upm-candidates",
+      "scopes": [
+        "com.unity.services.friends",
+        "com.unity.services.wire"
+      ]
+    }
+  ]
 }

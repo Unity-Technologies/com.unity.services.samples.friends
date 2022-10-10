@@ -3,7 +3,6 @@ using UnityEngine.UIElements;
 
 namespace UnityGamingServicesUsesCases.Relationships.UI
 {
-    [RequireComponent(typeof(UIDocument))]
     public class RelationshipUIController : MonoBehaviour
     {
         [SerializeField]

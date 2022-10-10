@@ -48,7 +48,7 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
             SetPresence(PresenceAvailabilityOptions.INVISIBLE);
         }
 
-        //Keeping these setters seperate in case we wan to support name and activity changes
+        //Keeping these setters seperate in case we wan to support name and activity changesxwx`
 
         public void Refresh(string name, string id, string activity,
             PresenceAvailabilityOptions presenceAvailabilityOptions)
