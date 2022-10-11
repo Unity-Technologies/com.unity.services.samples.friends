@@ -58,7 +58,6 @@ namespace UnityGamingServicesUsesCases.Relationships
         List<PlayerProfile> m_BlockEntryDatas = new List<PlayerProfile>();
         BlockedListView m_BlockListView;
         FriendsListView m_FriendsListView;
-
         LocalPlayerView m_LocalPlayerView;
 
         string m_LoggedPlayerName;
