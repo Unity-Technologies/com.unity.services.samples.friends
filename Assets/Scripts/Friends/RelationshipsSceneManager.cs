@@ -22,6 +22,10 @@ namespace UnityGamingServicesUsesCases.Relationships
         PlayerProfilesData m_PlayerProfilesData;
 
         [Header("UI")]
+
+        [SerializeField]
+        IRelationshipsUIController m_UIController;
+
         [SerializeField]
         UIDocument m_SocialUIDoc;
         [SerializeField]
@@ -58,7 +62,7 @@ namespace UnityGamingServicesUsesCases.Relationships
         List<PlayerProfile> m_BlockEntryDatas = new List<PlayerProfile>();
         BlockedListView m_BlockListView;
         FriendsListView m_FriendsListView;
-        LocalPlayerView m_LocalPlayerView;
+        ILocalPlayerView m_LocalPlayerView;
 
         string m_LoggedPlayerName;
         RelationshipBarView m_RelationshipBarView;
@@ -80,11 +84,12 @@ namespace UnityGamingServicesUsesCases.Relationships
 
         void UISetup()
         {
+            m_UIController.Init();
             var root = m_SocialUIDoc.rootVisualElement;
 
             //Init UI Controllers
             var localPlayerControlView = root.Q(k_LocalPlayerViewName);
-            m_LocalPlayerView = new LocalPlayerView(localPlayerControlView);
+            m_LocalPlayerView = m_UIController.LocalPlayerView;
             m_RelationshipBarView = new RelationshipBarView(root);
             m_RequestFriendPopupView = new RequestFriendPopupView(root);
 
