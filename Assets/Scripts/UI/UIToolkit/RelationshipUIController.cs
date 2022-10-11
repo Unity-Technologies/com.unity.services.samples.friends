@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace UnityGamingServicesUsesCases.Relationships.UI
+namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
 {
     public class RelationshipUIController : MonoBehaviour
     {

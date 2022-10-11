@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using Button = UnityEngine.UIElements.Button;
 
-namespace UnityGamingServicesUsesCases.Relationships.UI
+namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
 {
     public class RequestFriendPopupView
     {

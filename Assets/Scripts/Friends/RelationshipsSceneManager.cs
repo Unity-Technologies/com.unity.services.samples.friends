@@ -9,7 +9,7 @@ using Unity.Services.Friends.Notifications;
 using Unity.Services.Friends.Options;
 using UnityEngine;
 using UnityEngine.UIElements;
-using UnityGamingServicesUsesCases.Relationships.UI;
+using UnityGamingServicesUsesCases.Relationships.UIToolkit;
 using Button = UnityEngine.UI.Button;
 
 namespace UnityGamingServicesUsesCases.Relationships
