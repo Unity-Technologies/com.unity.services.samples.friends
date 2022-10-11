@@ -14,23 +14,26 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
         Label m_PlayerActivity;
         Label m_PlayerStatusLabel;
         VisualElement m_PlayerStatusCircle;
+        VisualElement m_FriendEntryView;
 
         public FriendEntryView(VisualElement documentParent)
         {
-            var friendEntryView = documentParent.Q(k_FriendEntryViewName);
+            m_FriendEntryView = documentParent.Q(k_FriendEntryViewName);
 
-            m_PlayerName = friendEntryView.Q<Label>("player-name-label");
-            m_PlayerStatusLabel = friendEntryView.Q<Label>("player-status-label");
-            m_PlayerStatusCircle = friendEntryView.Q<VisualElement>("player-status-circle");
-            m_PlayerActivity = friendEntryView.Q<Label>("player-activity-label");
-            var removeFriendButton = friendEntryView.Q<Button>("remove-button");
+            m_PlayerName = m_FriendEntryView.Q<Label>("player-name-label");
+            m_PlayerStatusLabel = m_FriendEntryView.Q<Label>("player-status-label");
+            m_PlayerStatusCircle = m_FriendEntryView.Q<VisualElement>("player-status-circle");
+            m_PlayerActivity = m_FriendEntryView.Q<Label>("player-activity-label");
+            var removeFriendButton = m_FriendEntryView.Q<Button>("remove-button");
             removeFriendButton.RegisterCallback<ClickEvent>(_ =>
             {
                 onRemoveFriend?.Invoke();
+                Hide();
             });
-            var blockFriendButton = friendEntryView.Q<Button>("block-button");
+            var blockFriendButton = m_FriendEntryView.Q<Button>("block-button");
             blockFriendButton.RegisterCallback<ClickEvent>(_ =>
             {
+                Hide();
                 onBlockFriend?.Invoke();
             });
         }
@@ -45,5 +48,15 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
             m_PlayerStatusLabel.style.color = presenceColor;
             m_PlayerStatusCircle.style.backgroundColor = presenceColor;
         }
+        public void Show()
+        {
+            m_FriendEntryView.style.display = DisplayStyle.Flex;
+        }
+
+        public void Hide()
+        {
+            m_FriendEntryView.style.display = DisplayStyle.None;
+        }
+
     }
 }

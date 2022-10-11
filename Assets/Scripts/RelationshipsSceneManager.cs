@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Unity.Services.Authentication;
@@ -15,9 +16,10 @@ namespace UnityGamingServicesUsesCases.Relationships
 {
     public class RelationshipsSceneManager : MonoBehaviour
     {
+        const string k_LocalPlayerViewName = "local-player-entry";
         [Header("Data")]
         [SerializeField]
-        PlayerProfilesData m_PlayerProfilesData = null;
+        PlayerProfilesData m_PlayerProfilesData;
 
         [Header("UI")]
         [SerializeField]
@@ -30,15 +32,6 @@ namespace UnityGamingServicesUsesCases.Relationships
 
         [SerializeField]
         VisualTreeAsset m_BlockedEntryTemplate;
-
-        const string k_LocalPlayerViewName = "local-player-entry";
-
-        LocalPlayerView m_LocalPlayerView;
-        RelationshipBarView m_RelationshipBarView;
-        RequestFriendPopupView m_RequestFriendPopupView;
-        FriendsListView m_FriendsListView;
-        RequestListView m_RequestListView;
-        BlockedListView m_BlockListView;
 
         [Header("Debug UI")]
         [SerializeField]
@@ -53,9 +46,6 @@ namespace UnityGamingServicesUsesCases.Relationships
         [SerializeField]
         Button m_QuitButton;
 
-        string m_LoggedPlayerName;
-        string LoggedPlayerId => AuthenticationService.Instance.PlayerId;
-
         /// <summary>
         /// Serialized for debug inspection.
         /// Important to initialize these lists only once.
@@ -66,6 +56,16 @@ namespace UnityGamingServicesUsesCases.Relationships
         List<PlayerProfile> m_RequestsEntryDatas = new List<PlayerProfile>();
         [SerializeField]
         List<PlayerProfile> m_BlockEntryDatas = new List<PlayerProfile>();
+        BlockedListView m_BlockListView;
+        FriendsListView m_FriendsListView;
+
+        LocalPlayerView m_LocalPlayerView;
+
+        string m_LoggedPlayerName;
+        RelationshipBarView m_RelationshipBarView;
+        RequestFriendPopupView m_RequestFriendPopupView;
+        RequestListView m_RequestListView;
+        string LoggedPlayerId => AuthenticationService.Instance.PlayerId;
 
         public async Task Init(string currentPlayerName)
         {
@@ -129,7 +129,7 @@ namespace UnityGamingServicesUsesCases.Relationships
             m_QuitButton.onClick.AddListener(QuitAsync);
         }
 
-        private async void LogIn(string playerName)
+        async void LogIn(string playerName)
         {
             await UASUtils.SwitchUser(playerName);
             m_LoggedPlayerName = playerName;
@@ -141,7 +141,7 @@ namespace UnityGamingServicesUsesCases.Relationships
             Debug.Log($"Token ID{AuthenticationService.Instance.AccessToken}");
         }
 
-        private async void BlockFriendAsync(string id)
+        async void BlockFriendAsync(string id)
         {
             await BlockFriend(id);
             await RefreshFriends();
@@ -149,46 +149,45 @@ namespace UnityGamingServicesUsesCases.Relationships
             await RefreshBlocks();
         }
 
-        private async void UnblockFriendAsync(string id)
+        async void UnblockFriendAsync(string id)
         {
             await UnblockFriend(id);
             await RefreshBlocks();
             await RefreshFriends();
         }
 
-        private async void RemoveFriendAsync(string id)
+        async void RemoveFriendAsync(string id)
         {
             await RemoveFriend(id);
             await RefreshFriends();
         }
 
-        private async void AcceptRequestAsync(string id)
+        async void AcceptRequestAsync(string id)
         {
             await AcceptRequest(id);
             await RefreshRequests();
             await RefreshFriends();
         }
 
-        private async void DeclineRequestAsync(string id)
+        async void DeclineRequestAsync(string id)
         {
             await DeclineRequest(id);
             await RefreshRequests();
         }
 
-        private async void QuitAsync()
+        async void QuitAsync()
         {
             Friends.Instance.Dispose();
             await Task.Delay(1000);
             Application.Quit();
         }
 
-        private async void SetPresenceAsync((PresenceAvailabilityOptions presence, string activity) status)
+        async void SetPresenceAsync((PresenceAvailabilityOptions presence, string activity) status)
         {
             await SetPresence(status.presence, status.activity);
         }
 
-
-        private async void RequestFriendAsync(string id)
+        async void RequestFriendAsync(string id)
         {
             await RequestFriend(id, "button");
         }
@@ -287,13 +286,13 @@ namespace UnityGamingServicesUsesCases.Relationships
 
         void ShowAddFriendPopup()
         {
-            if(m_RequestFriendPopupView.IsShowing)
+            if (m_RequestFriendPopupView.IsShowing)
                 m_RequestFriendPopupView.Hide();
             else
                 m_RequestFriendPopupView.Show();
         }
 
-        private async Task RequestFriend(string playerId, string eventSource)
+        async Task RequestFriend(string playerId, string eventSource)
         {
             try
             {
@@ -307,7 +306,7 @@ namespace UnityGamingServicesUsesCases.Relationships
             }
         }
 
-        private async Task RemoveFriend(string playerId)
+        async Task RemoveFriend(string playerId)
         {
             try
             {
@@ -321,7 +320,7 @@ namespace UnityGamingServicesUsesCases.Relationships
             }
         }
 
-        private async Task BlockFriend(string playerId, string eventSource = null)
+        async Task BlockFriend(string playerId, string eventSource = null)
         {
             try
             {
@@ -335,7 +334,7 @@ namespace UnityGamingServicesUsesCases.Relationships
             }
         }
 
-        private async Task UnblockFriend(string playerId)
+        async Task UnblockFriend(string playerId)
         {
             try
             {
@@ -349,7 +348,7 @@ namespace UnityGamingServicesUsesCases.Relationships
             }
         }
 
-        private async Task AcceptRequest(string playerId)
+        async Task AcceptRequest(string playerId)
         {
             try
             {
@@ -363,7 +362,7 @@ namespace UnityGamingServicesUsesCases.Relationships
             }
         }
 
-        private async Task DeclineRequest(string playerId)
+        async Task DeclineRequest(string playerId)
         {
             try
             {
@@ -377,7 +376,7 @@ namespace UnityGamingServicesUsesCases.Relationships
             }
         }
 
-        private async Task<List<Player>> GetFriendsWithoutPresence()
+        async Task<List<Player>> GetFriendsWithoutPresence()
         {
             try
             {
@@ -393,7 +392,7 @@ namespace UnityGamingServicesUsesCases.Relationships
             return null;
         }
 
-        private async Task<List<PlayerPresence<Activity>>> GetFriendsWithPresence()
+        async Task<List<PlayerPresence<Activity>>> GetFriendsWithPresence()
         {
             try
             {
@@ -409,7 +408,7 @@ namespace UnityGamingServicesUsesCases.Relationships
             return null;
         }
 
-        private async Task<List<Player>> GetRequests()
+        async Task<List<Player>> GetRequests()
         {
             try
             {
@@ -425,7 +424,7 @@ namespace UnityGamingServicesUsesCases.Relationships
             return null;
         }
 
-        private async Task<List<Player>> GetBlocks()
+        async Task<List<Player>> GetBlocks()
         {
             try
             {
@@ -441,7 +440,7 @@ namespace UnityGamingServicesUsesCases.Relationships
             return null;
         }
 
-        private async Task SetPresence(PresenceAvailabilityOptions presenceAvailabilityOptions,
+        async Task SetPresence(PresenceAvailabilityOptions presenceAvailabilityOptions,
             string activityStatus = "")
         {
             var activity = new Activity { Status = activityStatus };
@@ -459,38 +458,38 @@ namespace UnityGamingServicesUsesCases.Relationships
             }
         }
 
-        private async Task SubscribeToFriendsEventCallbacks()
+        async Task SubscribeToFriendsEventCallbacks()
         {
             try
             {
                 var callbacks = new FriendsEventCallbacks<Activity>();
-                callbacks.FriendsEventConnectionStateChanged += async (e) =>
+                callbacks.FriendsEventConnectionStateChanged += async e =>
                 {
                     await RefreshFriends();
                     Debug.Log("FriendsEventConnectionStateChanged EventReceived");
                 };
-                callbacks.FriendAdded += async (e) =>
+                callbacks.FriendAdded += async e =>
                 {
                     await RefreshRequests();
                     await RefreshFriends();
                     Debug.Log("FriendAdded EventReceived");
                 };
-                callbacks.FriendRequestReceived += async (e) =>
+                callbacks.FriendRequestReceived += async e =>
                 {
                     await RefreshRequests();
                     Debug.Log("FriendRequestReceived EventReceived");
                 };
-                callbacks.Blocked += async (e) =>
+                callbacks.Blocked += async e =>
                 {
                     await RefreshBlocks();
                     Debug.Log("Blocked EventReceived");
                 };
-                callbacks.PresenceUpdated += async (e) =>
+                callbacks.PresenceUpdated += async e =>
                 {
                     await RefreshFriends();
                     Debug.Log("PresenceUpdated EventReceived");
                 };
-                callbacks.FriendRemoved += async (e) =>
+                callbacks.FriendRemoved += async e =>
                 {
                     await RefreshFriends();
                     Debug.Log("FriendRemoved EventReceived");

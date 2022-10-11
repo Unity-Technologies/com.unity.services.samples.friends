@@ -39,6 +39,7 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
             m_RequestListView.bindItem = (item, index) =>
             {
                 var requestControl = item.userData as RequestEntryView;
+                requestControl.Show();
                 var userProfile = listToBind[index];
                 requestControl.Refresh(userProfile.Name);
                 requestControl.onAccept = () =>

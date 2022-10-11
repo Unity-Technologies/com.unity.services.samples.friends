@@ -38,6 +38,7 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
             m_FriendListView.bindItem = (item, index) =>
             {
                 var friendControl = item.userData as FriendEntryView;
+                friendControl.Show();
                 var friendData = listToBind[index];
                 friendControl.Refresh(friendData.Name, friendData.Activity, friendData.Availability);
                 friendControl.onRemoveFriend = () =>
