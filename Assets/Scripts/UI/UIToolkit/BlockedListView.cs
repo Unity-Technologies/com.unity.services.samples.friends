@@ -4,11 +4,11 @@ using UnityEngine.UIElements;
 
 namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
 {
-    public class BlockedListView
+    public class BlockedListView : IBlockedListView
     {
         const string k_BlockedListViewName = "blocked-list";
 
-        public Action<string> onUnBlock;
+        public Action<string> onUnBlock { get; set; }
 
         ListView m_BlockedListView;
 
@@ -64,11 +64,11 @@ namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
         /// </summary>
         public void Refresh()
         {
-            #if UNITY_2020
+#if UNITY_2020
             m_BlockedListView.Refresh();
-            #elif UNITY_2021
+#elif UNITY_2021
             m_BlockedListView.RefreshItems();
-            #endif
+#endif
         }
     }
 }

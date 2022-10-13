@@ -16,26 +16,13 @@ namespace UnityGamingServicesUsesCases.Relationships
 {
     public class RelationshipsSceneManager : MonoBehaviour
     {
-        const string k_LocalPlayerViewName = "local-player-entry";
         [Header("Data")]
         [SerializeField]
         PlayerProfilesData m_PlayerProfilesData;
 
         [Header("UI")]
-
         [SerializeField]
         IRelationshipsUIController m_UIController;
-
-        [SerializeField]
-        UIDocument m_SocialUIDoc;
-        [SerializeField]
-        VisualTreeAsset m_FriendEntryTemplate;
-
-        [SerializeField]
-        VisualTreeAsset m_RequestEntryTemplate;
-
-        [SerializeField]
-        VisualTreeAsset m_BlockedEntryTemplate;
 
         [Header("Debug UI")]
         [SerializeField]
@@ -60,14 +47,14 @@ namespace UnityGamingServicesUsesCases.Relationships
         List<PlayerProfile> m_RequestsEntryDatas = new List<PlayerProfile>();
         [SerializeField]
         List<PlayerProfile> m_BlockEntryDatas = new List<PlayerProfile>();
-        BlockedListView m_BlockListView;
-        FriendsListView m_FriendsListView;
-        ILocalPlayerView m_LocalPlayerView;
 
         string m_LoggedPlayerName;
-        RelationshipBarView m_RelationshipBarView;
-        RequestFriendPopupView m_RequestFriendPopupView;
-        RequestListView m_RequestListView;
+        ILocalPlayerView m_LocalPlayerView;
+        IRequestFriendView m_RequestFriendView;
+        IFriendsListView m_FriendsListView;
+        IRequestListView m_RequestListView;
+        IBlockedListView m_BlockListView;
+
         string LoggedPlayerId => AuthenticationService.Instance.PlayerId;
 
         public async Task Init(string currentPlayerName)
@@ -85,31 +72,19 @@ namespace UnityGamingServicesUsesCases.Relationships
         void UISetup()
         {
             m_UIController.Init();
-            var root = m_SocialUIDoc.rootVisualElement;
-
-            //Init UI Controllers
-            var localPlayerControlView = root.Q(k_LocalPlayerViewName);
             m_LocalPlayerView = m_UIController.LocalPlayerView;
-            m_RelationshipBarView = new RelationshipBarView(root);
-            m_RequestFriendPopupView = new RequestFriendPopupView(root);
+            m_RequestFriendView = m_UIController.RequestFriendView;
 
             //Bind Entry Lists
-            m_FriendsListView = new FriendsListView(root, m_FriendEntryTemplate);
+            m_FriendsListView = m_UIController.FriendsListView;
             m_FriendsListView.BindList(m_FriendsEntryDatas);
-            m_RequestListView = new RequestListView(root, m_RequestEntryTemplate);
+            m_RequestListView = m_UIController.RequestListView;
             m_RequestListView.BindList(m_RequestsEntryDatas);
-            m_BlockListView = new BlockedListView(root, m_BlockedEntryTemplate);
+            m_BlockListView = m_UIController.BlockListView;
             m_BlockListView.BindList(m_BlockEntryDatas);
 
-            //Bind UI Navigation
-            m_RelationshipBarView.onFriends += ShowFriendList;
-            m_RelationshipBarView.onRequests += ShowRequestList;
-            m_RelationshipBarView.onBlocks += ShowBlockList;
-            m_RelationshipBarView.onAddFriend += ShowAddFriendPopup;
-            m_RequestFriendPopupView.Hide();
-
             //Bind Friend Calls
-            m_RequestFriendPopupView.tryAddFriend += RequestFriendAsync;
+            m_RequestFriendView.tryAddFriend += RequestFriendAsync;
             m_FriendsListView.onRemoveFriend += RemoveFriendAsync;
             m_FriendsListView.onBlockFriend += BlockFriendAsync;
             m_RequestListView.onAcceptUser += AcceptRequestAsync;
@@ -260,42 +235,6 @@ namespace UnityGamingServicesUsesCases.Relationships
             m_BlockListView.Refresh();
         }
 
-        void ShowFriendList()
-        {
-            Debug.Log("Switched to Friends List");
-            m_FriendsListView.Show();
-            m_RequestListView.Hide();
-            m_BlockListView.Hide();
-            m_FriendsListView.Refresh();
-        }
-
-        void ShowRequestList()
-        {
-            Debug.Log("Switched to Requests List");
-
-            m_RequestListView.Show();
-            m_FriendsListView.Hide();
-            m_BlockListView.Hide();
-            m_RequestListView.Refresh();
-        }
-
-        void ShowBlockList()
-        {
-            Debug.Log("Switched to Blocked List");
-            m_BlockListView.Show();
-            m_RequestListView.Hide();
-            m_FriendsListView.Hide();
-            m_BlockListView.Refresh();
-        }
-
-        void ShowAddFriendPopup()
-        {
-            if (m_RequestFriendPopupView.IsShowing)
-                m_RequestFriendPopupView.Hide();
-            else
-                m_RequestFriendPopupView.Show();
-        }
-
         async Task RequestFriend(string playerId, string eventSource)
         {
             try
@@ -306,7 +245,7 @@ namespace UnityGamingServicesUsesCases.Relationships
             catch (FriendsServiceException e)
             {
                 Debug.Log($"Failed to add {playerId} - {e}.");
-                m_RequestFriendPopupView.ShowAddFriendFailedWarning();
+                m_RequestFriendView.AddFriendFailed();
             }
         }
 

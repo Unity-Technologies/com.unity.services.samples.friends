@@ -18,11 +18,11 @@ namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
         VisualTreeAsset blockedEntryTemplate;
 
         public ILocalPlayerView LocalPlayerView { get; set; }
-        public RelationshipBarView relationshipBarView { get; private set; }
-        public RequestFriendPopupView requestFriendPopupView { get; private set; }
-        public FriendsListView friendsListView { get; private set; }
-        public RequestListView requestListView { get; private set; }
-        public BlockedListView blockList { get; private set; }
+        public IRelationshipBarView RelationshipBarView { get; private set; }
+        public IRequestFriendView RequestFriendView { get; private set; }
+        public IFriendsListView FriendsListView { get; private set; }
+        public IRequestListView RequestListView { get; private set; }
+        public IBlockedListView BlockListView { get; private set; }
 
         VisualElement m_Root;
         const string k_LocalPlayerViewName = "local-player-entry";
@@ -35,43 +35,50 @@ namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
 
             LocalPlayerView = new LocalPlayerView(localPlayerControlView);
 
-            requestFriendPopupView = new RequestFriendPopupView(m_Root);
-            friendsListView = new FriendsListView(m_Root, friendEntryTemplate);
-            requestListView = new RequestListView(m_Root, requestEntryTemplate);
-            blockList = new BlockedListView(m_Root, blockedEntryTemplate);
+            RequestFriendView = new RequestFriendView(m_Root);
 
-            relationshipBarView = new RelationshipBarView(m_Root);
-            relationshipBarView.onFriends = OnFriendList;
-            relationshipBarView.onRequests = OnRequestList;
-            relationshipBarView.onBlocks = OnBlockList;
-            relationshipBarView.onAddFriend = ShowAddFriendPopup;
-            requestFriendPopupView.Hide();
+            FriendsListView = new FriendsListView(m_Root, friendEntryTemplate);
+            RequestListView = new RequestListView(m_Root, requestEntryTemplate);
+            BlockListView = new BlockedListView(m_Root, blockedEntryTemplate);
+
+            RelationshipBarView = new RelationshipBarView(m_Root);
+            RelationshipBarView.onShowFriends = OnFriendList;
+            RelationshipBarView.onShowRequests = OnRequestList;
+            RelationshipBarView.onShowBlocks = OnBlockList;
+            RelationshipBarView.onShowRequestFriend = ShowAddFriendPopup;
+            RequestFriendView.Hide();
         }
 
         void OnFriendList()
         {
-            friendsListView.Show();
-            requestListView.Hide();
-            blockList.Hide();
+            FriendsListView.Show();
+            RequestListView.Hide();
+            BlockListView.Hide();
+            FriendsListView.Refresh();
         }
 
         void OnRequestList()
         {
-            requestListView.Show();
-            friendsListView.Hide();
-            blockList.Hide();
+            RequestListView.Show();
+            FriendsListView.Hide();
+            BlockListView.Hide();
+            RequestListView.Refresh();
         }
 
         void OnBlockList()
         {
-            blockList.Show();
-            requestListView.Hide();
-            friendsListView.Hide();
+            BlockListView.Show();
+            RequestListView.Hide();
+            FriendsListView.Hide();
+            BlockListView.Refresh();
         }
 
         void ShowAddFriendPopup()
         {
-            requestFriendPopupView.Show();
+            if (RequestFriendView.IsShowing)
+                RequestFriendView.Hide();
+            else
+                RequestFriendView.Show();
         }
     }
 }

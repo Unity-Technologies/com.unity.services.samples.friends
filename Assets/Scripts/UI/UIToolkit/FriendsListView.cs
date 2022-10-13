@@ -5,10 +5,10 @@ using UnityEngine.UIElements;
 
 namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
 {
-    public class FriendsListView
+    public class FriendsListView : IFriendsListView
     {
-        public Action<string> onRemoveFriend;
-        public Action<string> onBlockFriend;
+        public Action<string> onRemoveFriend { get; set; }
+        public Action<string> onBlockFriend { get; set; }
 
         const string k_FriendsListViewName = "friends-list";
 
@@ -70,11 +70,11 @@ namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
         /// </summary>
         public void Refresh()
         {
-            #if UNITY_2020
+#if UNITY_2020
             m_FriendListView.Refresh();
-            #elif UNITY_2021
+#elif UNITY_2021
             m_FriendListView.RefreshItems();
-            #endif
+#endif
         }
     }
 }

@@ -5,11 +5,11 @@ using UnityEngine.UIElements;
 
 namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
 {
-    public class RequestListView
+    public class RequestListView : IRequestListView
     {
-        public Action<string> onAcceptUser;
-        public Action<string> onDeclineUser;
-        public Action<string> onBlockUser;
+        public Action<string> onAcceptUser { get; set; }
+        public Action<string> onDeclineUser { get; set; }
+        public Action<string> onBlockUser { get; set; }
 
         const string k_RequestListViewName = "request-list";
 
@@ -77,11 +77,11 @@ namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
         /// </summary>
         public void Refresh()
         {
-             #if UNITY_2020
+#if UNITY_2020
             m_RequestListView.Refresh();
-            #elif UNITY_2021
+#elif UNITY_2021
             m_RequestListView.RefreshItems();
-            #endif
+#endif
         }
     }
 }
