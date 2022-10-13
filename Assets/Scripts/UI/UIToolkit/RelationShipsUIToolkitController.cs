@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UIElements;
 
 namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
@@ -6,42 +7,41 @@ namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
     public class RelationShipsUIToolkitController : MonoBehaviour, IRelationshipsUIController
     {
         [SerializeField]
-        UIDocument socialUIDoc;
+        UIDocument m_SocialUIDoc;
 
         [SerializeField]
-        VisualTreeAsset friendEntryTemplate;
+        VisualTreeAsset m_FriendEntryTemplate;
 
         [SerializeField]
-        VisualTreeAsset requestEntryTemplate;
+        VisualTreeAsset m_RequestEntryTemplate;
 
         [SerializeField]
-        VisualTreeAsset blockedEntryTemplate;
+        VisualTreeAsset m_BlockedEntryTemplate;
 
-        public ILocalPlayerView LocalPlayerView { get; set; }
+        public ILocalPlayerView LocalPlayerView { get; private set; }
         public IRelationshipBarView RelationshipBarView { get; private set; }
         public IRequestFriendView RequestFriendView { get; private set; }
         public IFriendsListView FriendsListView { get; private set; }
         public IRequestListView RequestListView { get; private set; }
         public IBlockedListView BlockListView { get; private set; }
 
-        VisualElement m_Root;
         const string k_LocalPlayerViewName = "local-player-entry";
 
         public void Init()
         {
-            m_Root = socialUIDoc.rootVisualElement;
+            var root = m_SocialUIDoc.rootVisualElement;
 
-            var localPlayerControlView = m_Root.Q(k_LocalPlayerViewName);
+            var localPlayerControlView = root.Q(k_LocalPlayerViewName);
 
             LocalPlayerView = new LocalPlayerView(localPlayerControlView);
 
-            RequestFriendView = new RequestFriendView(m_Root);
+            RequestFriendView = new RequestFriendView(root);
 
-            FriendsListView = new FriendsListView(m_Root, friendEntryTemplate);
-            RequestListView = new RequestListView(m_Root, requestEntryTemplate);
-            BlockListView = new BlockedListView(m_Root, blockedEntryTemplate);
+            FriendsListView = new FriendsListView(root, m_FriendEntryTemplate);
+            RequestListView = new RequestListView(root, m_RequestEntryTemplate);
+            BlockListView = new BlockedListView(root, m_BlockedEntryTemplate);
 
-            RelationshipBarView = new RelationshipBarView(m_Root);
+            RelationshipBarView = new RelationshipBarView(root);
             RelationshipBarView.onShowFriends = OnFriendList;
             RelationshipBarView.onShowRequests = OnRequestList;
             RelationshipBarView.onShowBlocks = OnBlockList;

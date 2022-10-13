@@ -8,8 +8,6 @@ using Unity.Services.Friends.Models;
 using Unity.Services.Friends.Notifications;
 using Unity.Services.Friends.Options;
 using UnityEngine;
-using UnityEngine.UIElements;
-using UnityGamingServicesUsesCases.Relationships.UIToolkit;
 using Button = UnityEngine.UI.Button;
 
 namespace UnityGamingServicesUsesCases.Relationships
@@ -22,6 +20,7 @@ namespace UnityGamingServicesUsesCases.Relationships
 
         [Header("UI")]
         [SerializeField]
+        GameObject m_UIControllerObject;
         IRelationshipsUIController m_UIController;
 
         [Header("Debug UI")]
@@ -71,6 +70,19 @@ namespace UnityGamingServicesUsesCases.Relationships
 
         void UISetup()
         {
+            if (m_UIControllerObject == null)
+            {
+                Debug.LogError("No GameObject in m_UIController");
+                return;
+            }
+
+            m_UIController = m_UIControllerObject.GetComponent<IRelationshipsUIController>();
+            if (m_UIController == null)
+            {
+                Debug.LogError($"No Component extending IRelationshipsUIController on {m_UIControllerObject.name}");
+                return;
+            }
+
             m_UIController.Init();
             m_LocalPlayerView = m_UIController.LocalPlayerView;
             m_RequestFriendView = m_UIController.RequestFriendView;

@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 8088031084014022016}
   - component: {fileID: 8088031084014022017}
   - component: {fileID: 8088031084014022019}
-  - component: {fileID: 8088031084538109612}
   m_Layer: 0
   m_Name: RelationshipsSample
   m_TagString: Untagged
@@ -61,10 +60,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_PlayerProfilesData: {fileID: 11400000, guid: 00410ffe8fe6f5947bd53cbaf3663362, type: 2}
-  m_SocialUIDoc: {fileID: 8088031084538109612}
-  m_FriendEntryTemplate: {fileID: 9197481963319205126, guid: 7464d6b4c4e6c49c39d1d09516907fc1, type: 3}
-  m_RequestEntryTemplate: {fileID: 9197481963319205126, guid: 2718900bbbae9584ba9a986fa03931fb, type: 3}
-  m_BlockedEntryTemplate: {fileID: 9197481963319205126, guid: 32a106e9152e3994089bf3426ad2951b, type: 3}
+  m_UIControllerObject: {fileID: 0}
   m_AddFriendView: {fileID: 0}
   m_LogInView: {fileID: 0}
   m_RefreshView: {fileID: 0}
@@ -72,19 +68,3 @@ MonoBehaviour:
   m_FriendsEntryDatas: []
   m_RequestsEntryDatas: []
   m_BlockEntryDatas: []
---- !u!114 &8088031084538109612
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8088031084014022018}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f21c074d86024caca2a0034ce4f53f73, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_PanelSettings: {fileID: 11400000, guid: c81bbe0918ec049ef8b8900e81a02c66, type: 2}
-  m_ParentUI: {fileID: 0}
-  sourceAsset: {fileID: 9197481963319205126, guid: 1abea08df882b13429a1122d5b20ae73, type: 3}
-  m_SortingOrder: 0
