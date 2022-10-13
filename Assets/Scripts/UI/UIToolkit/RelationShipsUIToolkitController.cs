@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UIElements;
 
 namespace UnityGamingServicesUsesCases.Relationships.UIToolkit

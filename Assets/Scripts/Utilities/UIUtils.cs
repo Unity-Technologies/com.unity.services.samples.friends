@@ -1,15 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
 using Unity.Services.Friends.Models;
 using UnityEngine;
 
-namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
+namespace UnityGamingServicesUsesCases.Relationships
 {
     public class UIUtils
     {
         public static Color GetPresenceColor(PresenceAvailabilityOptions presenceStatus)
         {
-            var colorIndex = Mathf.Clamp((int)presenceStatus - 1, 0, s_PresenceUIColors.Length-1);
+            var colorIndex = Mathf.Clamp((int)presenceStatus - 1, 0, s_PresenceUIColors.Length - 1);
             return s_PresenceUIColors[colorIndex];
         }
 

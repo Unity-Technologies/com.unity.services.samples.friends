@@ -18,7 +18,7 @@ namespace UnityGamingServicesUsesCases.Relationships
         [SerializeField]
         PlayerProfilesData m_PlayerProfilesData;
 
-        [Header("UI")]
+        [Header("UI"), Tooltip("Put in a GameObject with a Monobehaviour extending IRelationshipsUIController.")]
         [SerializeField]
         GameObject m_UIControllerObject;
         IRelationshipsUIController m_UIController;
@@ -253,6 +253,7 @@ namespace UnityGamingServicesUsesCases.Relationships
             {
                 await Friends.Instance.AddFriendAsync(playerId, eventSource);
                 Debug.Log($"{playerId} friend request sent.");
+                m_RequestFriendView.AddFriendSuccess();
             }
             catch (FriendsServiceException e)
             {
@@ -329,22 +330,6 @@ namespace UnityGamingServicesUsesCases.Relationships
                 Debug.Log($"Failed to decline request from {playerId}.");
                 Debug.LogError(e);
             }
-        }
-
-        async Task<List<Player>> GetFriendsWithoutPresence()
-        {
-            try
-            {
-                var friends = await Friends.Instance.GetFriendsAsync(new PaginationOptions());
-                return friends;
-            }
-            catch (FriendsServiceException e)
-            {
-                Debug.Log("Failed to retrieve the friend list.");
-                Debug.LogError(e);
-            }
-
-            return null;
         }
 
         async Task<List<PlayerPresence<Activity>>> GetFriendsWithPresence()
