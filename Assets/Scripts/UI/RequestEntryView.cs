@@ -24,21 +24,18 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
             acceptButton.RegisterCallback<ClickEvent>(_ =>
             {
                 onAccept?.Invoke();
-                Hide();
             });
 
             var denyButton = m_requestEntryView.Q<Button>("remove-button");
             denyButton.RegisterCallback<ClickEvent>(_ =>
             {
                 onDecline?.Invoke();
-                Hide();
             });
 
             var blockButton = m_requestEntryView.Q<Button>("block-button");
             blockButton.RegisterCallback<ClickEvent>(_ =>
             {
                 onBlockFriend?.Invoke();
-                Hide();
             });
         }
 
