@@ -4,14 +4,6 @@ using UnityEngine.UIElements;
 
 namespace UnityGamingServicesUsesCases.Relationships.UI
 {
-    public enum ShowListState
-    {
-        Friends = 0,
-        Requests = 1,
-        Blocked = 2,
-        None = 3
-    }
-
     public class RelationshipBarView
     {
         const string k_RelationshipsBarViewName = "relationship-bar-view";

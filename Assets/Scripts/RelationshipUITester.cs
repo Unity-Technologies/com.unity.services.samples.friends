@@ -1,9 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
 using Unity.Services.Friends.Models;
 using UnityEngine;
-using UnityEngine.Serialization;
-using UnityEngine.UIElements;
+
 
 namespace UnityGamingServicesUsesCases.Relationships.UI
 {
@@ -16,7 +14,7 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
         RelationshipUIController m_Controller;
 
         [SerializeField]
-        List<PlayerProfile> m_FriendsList;
+        List<FriendsEntryData> m_FriendsList;
 
         [SerializeField]
         List<PlayerProfile> m_RequestList;
@@ -26,7 +24,6 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
 
         void Start()
         {
-            TestLogin();
 
             m_Controller.friendsListView.BindList(m_FriendsList);
             m_Controller.friendsListView.onRemoveFriend += TestRemove;
@@ -45,14 +42,15 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
 
         void TestLogin()
         {
-            m_Controller.localLocalPlayerView.Refresh("LocalTester", "Playing", PresenceAvailabilityOptions.ONLINE);
+            m_Controller.localLocalPlayerView.Refresh("LocalTester", "id", "Testing",
+                PresenceAvailabilityOptions.ONLINE);
 
             m_Controller.localLocalPlayerView.onPresenceChanged = TestUserChangedPresence;
         }
 
-        void TestUserChangedPresence(PresenceAvailabilityOptions presence)
+        void TestUserChangedPresence((PresenceAvailabilityOptions presence, string activity) presence)
         {
-            Debug.Log($"User Switch presence to {presence}");
+            Debug.Log($"User Switch presence to {presence.activity}");
         }
 
         int tryTimes = 0;
@@ -61,7 +59,7 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
         {
             if (tryTimes > 3)
             {
-                m_Controller.requestFriendPopupView.Show(false);
+                m_Controller.requestFriendPopupView.Hide();
                 tryTimes = 0;
                 return;
             }

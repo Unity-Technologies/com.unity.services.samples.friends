@@ -10,14 +10,17 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
         public Action onUnBlock;
         Label m_PlayerName;
 
+        VisualElement m_BlockedEntryRoot;
+
         public BlockedEntryView(VisualElement viewParent)
         {
-            var blockedEntryRoot = viewParent.Q(k_BlockEntryViewName);
-            m_PlayerName = blockedEntryRoot.Q<Label>("player-name-label");
-            var blockButton = blockedEntryRoot.Q<Button>("unblock-button");
+            m_BlockedEntryRoot = viewParent.Q(k_BlockEntryViewName);
+            m_PlayerName = m_BlockedEntryRoot.Q<Label>("player-name-label");
+            var blockButton = m_BlockedEntryRoot.Q<Button>("unblock-button");
             blockButton.RegisterCallback<ClickEvent>(_ =>
                 {
                     onUnBlock?.Invoke();
+                    Hide();
                 }
             );
         }
@@ -25,6 +28,16 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
         public void Refresh(string name)
         {
             m_PlayerName.text = name;
+        }
+
+        public void Show()
+        {
+            m_BlockedEntryRoot.style.display = DisplayStyle.Flex;
+        }
+
+        public void Hide()
+        {
+            m_BlockedEntryRoot.style.display = DisplayStyle.None;
         }
     }
 }

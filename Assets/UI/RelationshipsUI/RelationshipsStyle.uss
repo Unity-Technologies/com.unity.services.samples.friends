@@ -130,7 +130,7 @@
 }
 
 .social-tab-button :hover {
-    -unity-background-image-tint-color: rgb(255, 205, 109);
+    -unity-background-image-tint-color: rgb(255, 230, 129);
     background-color: rgba(0, 0, 0, 0);
     border-left-color: rgba(0, 0, 0, 0);
     border-right-color: rgba(0, 0, 0, 0);
@@ -147,11 +147,15 @@
     border-bottom-color: rgba(0, 0, 0, 0);
 }
 
+.social-tab-button :active {
+    -unity-background-image-tint-color: rgb(255, 189, 85);
+}
+
 .player-action-button {
-    border-left-color: rgb(255, 170, 248);
-    border-right-color: rgb(255, 170, 248);
-    border-top-color: rgb(255, 170, 248);
-    border-bottom-color: rgb(255, 170, 248);
+    border-left-color: rgba(255, 170, 248, 0);
+    border-right-color: rgba(255, 170, 248, 0);
+    border-top-color: rgba(255, 170, 248, 0);
+    border-bottom-color: rgba(255, 170, 248, 0);
     width: 40px;
     height: 40px;
     background-color: rgba(0, 0, 0, 0);
@@ -195,7 +199,6 @@
 }
 
 .social-font {
-    -unity-font: url('project://database/Assets/UI/UnityDefaultRuntimeTheme.tss?fileID=2230732570650464555&guid=c7cbc177b8336244ca5e1b9ddc4f158c&type=3#NotInter-Regular');
     color: rgb(255, 255, 255);
     font-size: 16px;
 }
@@ -259,4 +262,79 @@
     visibility: visible;
     display: none;
     overflow: hidden;
+}
+
+.id-textfield Label {
+    color: rgb(255, 255, 255);
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    flex-direction: column;
+    min-width: 25px;
+}
+
+.id-textfield #unity-text-input {
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+    color: rgb(255, 255, 255);
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.id-textfield Label:focus.unity-base-field__label {
+    color: rgb(219, 219, 219);
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    flex-direction: column;
+    min-width: 25px;
+}
+
+.unity-base-field:focus > .unity-base-field__label {
+    color: rgb(219, 219, 219);
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    flex-direction: column;
+    min-width: 25px;
+}
+
+.friend-list .unity-list-view__empty-label {
+    display: none;
 }

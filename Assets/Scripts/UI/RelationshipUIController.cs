@@ -29,7 +29,7 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
         VisualElement m_Root;
         const string k_LocalPlayerViewName = "local-player-entry";
 
-        void Awake()
+        public void Init()
         {
             m_Root = socialUIDoc.rootVisualElement;
 
@@ -46,8 +46,8 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
             relationshipBarView.onFriends = OnFriendList;
             relationshipBarView.onRequests = OnRequestList;
             relationshipBarView.onBlocks = OnBlockList;
-            relationshipBarView.onAddFriend += ShowAddFriendPopup;
-            requestFriendPopupView.Show(false);
+            relationshipBarView.onAddFriend = ShowAddFriendPopup;
+            requestFriendPopupView.Hide();
         }
 
         void OnFriendList()
@@ -73,7 +73,7 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
 
         void ShowAddFriendPopup()
         {
-            requestFriendPopupView.Show(true);
+            requestFriendPopupView.Show();
         }
     }
 }

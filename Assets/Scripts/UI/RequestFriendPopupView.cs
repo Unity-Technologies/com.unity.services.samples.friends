@@ -19,6 +19,17 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
         {
             m_RequestFriendView = viewParent.Q(k_RequestFriendViewName);
 
+            var exitButton = m_RequestFriendView.Q<Button>("exit-button");
+            exitButton.RegisterCallback<ClickEvent>((e) =>
+            {
+                Hide();
+            });
+
+            var clickOffButton = m_RequestFriendView.Q<Button>("request-friend-clickoff-button");
+            clickOffButton.RegisterCallback<ClickEvent>((e) =>
+            {
+                Hide();
+            });
             m_WarningLabel = m_RequestFriendView.Q<Label>("warning-label");
             m_RequestFriendField = m_RequestFriendView.Q<TextField>("search-field");
 
@@ -31,8 +42,8 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
                         tryRequestFriend?.Invoke(m_RequestFriendField.text);
                     }
                 });
-            var addFriendButton = m_RequestFriendView.Q<Button>("add-button");
-            addFriendButton.RegisterCallback<ClickEvent>(_ =>
+            var requestFriendButton = m_RequestFriendView.Q<Button>("request-button");
+            requestFriendButton.RegisterCallback<ClickEvent>(_ =>
             {
                 tryRequestFriend?.Invoke(m_RequestFriendField.text);
             });
@@ -45,9 +56,14 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
             m_WarningLabel.style.opacity = 0;
         }
 
-        public void Show(bool show)
+        public void Show()
         {
-            m_RequestFriendView.style.display = show ? DisplayStyle.Flex : DisplayStyle.None;
+            m_RequestFriendView.style.display = DisplayStyle.Flex;
+        }
+
+        public void Hide()
+        {
+            m_RequestFriendView.style.display = DisplayStyle.None;
         }
     }
 }

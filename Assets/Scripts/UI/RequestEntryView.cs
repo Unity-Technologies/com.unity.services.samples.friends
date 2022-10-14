@@ -13,33 +13,48 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
 
         Label m_PlayerName;
 
+        VisualElement m_requestEntryView;
+
         public RequestEntryView(VisualElement viewParent)
         {
-            var requestEntryView = viewParent.Q(k_RequestEntryViewName);
-            m_PlayerName = requestEntryView.Q<Label>("player-name-label");
-            var acceptButton = requestEntryView.Q<Button>("accept-button");
+            m_requestEntryView = viewParent.Q(k_RequestEntryViewName);
+            m_PlayerName = m_requestEntryView.Q<Label>("player-name-label");
+            var acceptButton = m_requestEntryView.Q<Button>("accept-button");
 
             acceptButton.RegisterCallback<ClickEvent>(_ =>
             {
                 onAccept?.Invoke();
+                Hide();
             });
 
-            var denyButton = requestEntryView.Q<Button>("remove-button");
+            var denyButton = m_requestEntryView.Q<Button>("remove-button");
             denyButton.RegisterCallback<ClickEvent>(_ =>
             {
                 onDecline?.Invoke();
+                Hide();
             });
 
-            var blockButton = requestEntryView.Q<Button>("block-button");
+            var blockButton = m_requestEntryView.Q<Button>("block-button");
             blockButton.RegisterCallback<ClickEvent>(_ =>
             {
                 onBlockFriend?.Invoke();
+                Hide();
             });
         }
 
         public void Refresh(string name)
         {
             m_PlayerName.text = name;
+        }
+
+        public void Show()
+        {
+            m_requestEntryView.style.display = DisplayStyle.Flex;
+        }
+
+        public void Hide()
+        {
+            m_requestEntryView.style.display = DisplayStyle.None;
         }
     }
 }

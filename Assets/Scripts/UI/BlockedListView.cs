@@ -36,6 +36,7 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
             m_BlockedListView.bindItem = (item, index) =>
             {
                 var blockedEntryControl = item.userData as BlockedEntryView;
+                blockedEntryControl.Show();
                 var userProfile = blockedListToBind[index];
                 blockedEntryControl.Refresh(userProfile.Name);
                 blockedEntryControl.onUnBlock = () =>
@@ -51,6 +52,7 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
         public void Show()
         {
             m_BlockedListView.style.display = DisplayStyle.Flex;
+            Refresh();
         }
 
         public void Hide()
