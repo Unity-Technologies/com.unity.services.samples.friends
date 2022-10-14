@@ -12,6 +12,7 @@ using UnityEngine.UIElements;
 using UnityGamingServicesUsesCases.Relationships.UI;
 using Button = UnityEngine.UI.Button;
 
+
 namespace UnityGamingServicesUsesCases.Relationships
 {
     public class RelationshipsSceneManager : MonoBehaviour
@@ -66,6 +67,7 @@ namespace UnityGamingServicesUsesCases.Relationships
         RequestFriendPopupView m_RequestFriendPopupView;
         RequestListView m_RequestListView;
         string LoggedPlayerId => AuthenticationService.Instance.PlayerId;
+
 
         public async Task Init(string currentPlayerName)
         {
@@ -134,11 +136,13 @@ namespace UnityGamingServicesUsesCases.Relationships
             await UASUtils.SwitchUser(playerName);
             m_LoggedPlayerName = playerName;
             await SetPresence(PresenceAvailabilityOptions.ONLINE);
+
             m_LocalPlayerView.Refresh(m_LoggedPlayerName, LoggedPlayerId, "In Friends Menu",
                 PresenceAvailabilityOptions.ONLINE);
             RefreshAll();
             Debug.Log($"Logged in as {playerName} id: {LoggedPlayerId}");
             Debug.Log($"Token ID{AuthenticationService.Instance.AccessToken}");
+
         }
 
         async void BlockFriendAsync(string id)
@@ -191,6 +195,16 @@ namespace UnityGamingServicesUsesCases.Relationships
         {
             await RequestFriend(id, "button");
         }
+        
+        private async void QuitAsync()
+        {
+            Friends.Instance.Dispose();
+            await Task.Delay(1000);
+// #if !UNITY_EDITOR
+//             PlayerPrefs.DeleteAll();
+// #endif
+            Application.Quit();
+        }
 
         async void RefreshAll()
         {
@@ -223,6 +237,7 @@ namespace UnityGamingServicesUsesCases.Relationships
                     Id = friend.Player.Id,
                     Availability = friend.Presence.GetAvailability(),
                     Activity = activityText
+
                 };
                 m_FriendsEntryDatas.Add(info);
             }
@@ -453,6 +468,7 @@ namespace UnityGamingServicesUsesCases.Relationships
         }
 
         async Task SubscribeToFriendsEventCallbacks()
+
         {
             try
             {
@@ -486,6 +502,7 @@ namespace UnityGamingServicesUsesCases.Relationships
                 callbacks.FriendRemoved += async e =>
                 {
                     await RefreshFriends();
+
                     Debug.Log("FriendRemoved EventReceived");
                 };
                 await Friends.Instance.SubscribeToFriendsEventsAsync(callbacks);
@@ -496,5 +513,6 @@ namespace UnityGamingServicesUsesCases.Relationships
                     "An error occurred while performing the action. Code: " + e.Reason + ", Message: " + e.Message);
             }
         }
+
     }
 }

@@ -2164,6 +2164,7 @@ RectTransform:
   - {fileID: 1421278913}
   - {fileID: 500427243}
   - {fileID: 34713988}
+  - {fileID: 1615264562}
   m_Father: {fileID: 1896553554}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4206,6 +4207,7 @@ CanvasRenderer:
   m_GameObject: {fileID: 1590510873}
   m_CullTransparentMesh: 1
 --- !u!1 &1615264561
+
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4218,6 +4220,7 @@ GameObject:
   - component: {fileID: 1615264564}
   m_Layer: 5
   m_Name: Quit
+
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4225,6 +4228,7 @@ GameObject:
   m_IsActive: 1
 --- !u!224 &1615264562
 RectTransform:
+
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -4282,6 +4286,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1615264561}
   m_CullTransparentMesh: 1
+
 --- !u!1 &1760250358
 GameObject:
   m_ObjectHideFlags: 0
