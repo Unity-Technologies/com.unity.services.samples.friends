@@ -54,6 +54,19 @@
         "com.unity.services.friends",
         "com.unity.services.wire"
       ]
+    },
+    {
+      "name": "Basic",
+      "url": "https://packages.unity.com",
+      "scopes": [
+        "com.unity.ui",
+        "com.unity.ui-builder",
+        "com.unity.toolchain.macos-x86_64-linux-x86_64",
+        "com.unity.toolchain.win-x86_64-linux-x86_64",
+		"com.unity.sysroot",
+		"com.unity.sysroot.linux-x86_64",
+		"com.unity.textcore"
+      ]
     }
   ]
 }

@@ -32,23 +32,46 @@ MonoBehaviour:
     - com.unity.services.wire
     m_IsDefault: 0
     m_Capabilities: 0
-  m_UserSelectedRegistryName: Artifactory
+  - m_Id: scoped:Basic
+    m_Name: Basic
+    m_Url: https://packages.unity.com
+    m_Scopes:
+    - com.unity.ui
+    - com.unity.ui-builder
+    - com.unity.toolchain.macos-x86_64-linux-x86_64
+    - com.unity.toolchain.win-x86_64-linux-x86_64
+    - com.unity.sysroot
+    - com.unity.sysroot.linux-x86_64
+    - com.unity.textcore
+    m_IsDefault: 0
+    m_Capabilities: 7
+  m_UserSelectedRegistryName: Basic
   m_UserAddingNewScopedRegistry: 0
   m_RegistryInfoDraft:
     m_ErrorMessage: 
     m_Original:
-      m_Id: scoped:Artifactory
-      m_Name: Artifactory
-      m_Url: https://artifactory.prd.it.unity3d.com/artifactory/api/npm/upm-candidates
+      m_Id: scoped:Basic
+      m_Name: Basic
+      m_Url: https://packages.unity.com
       m_Scopes:
-      - com.unity.services.friends
-      - com.unity.services.wire
+      - com.unity.ui
+      - com.unity.ui-builder
+      - com.unity.toolchain.macos-x86_64-linux-x86_64
+      - com.unity.toolchain.win-x86_64-linux-x86_64
+      - com.unity.sysroot
+      - com.unity.sysroot.linux-x86_64
+      - com.unity.textcore
       m_IsDefault: 0
-      m_Capabilities: 0
+      m_Capabilities: 7
     m_Modified: 0
-    m_Name: Artifactory
-    m_Url: https://artifactory.prd.it.unity3d.com/artifactory/api/npm/upm-candidates
+    m_Name: Basic
+    m_Url: https://packages.unity.com
     m_Scopes:
-    - com.unity.services.friends
-    - com.unity.services.wire
+    - com.unity.ui
+    - com.unity.ui-builder
+    - com.unity.toolchain.macos-x86_64-linux-x86_64
+    - com.unity.toolchain.win-x86_64-linux-x86_64
+    - com.unity.sysroot
+    - com.unity.sysroot.linux-x86_64
+    - com.unity.textcore
     m_SelectedScopeIndex: 0
