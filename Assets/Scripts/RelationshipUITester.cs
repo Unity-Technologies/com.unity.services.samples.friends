@@ -37,7 +37,7 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
             m_Controller.blockList.BindList(m_BlockedList);
             m_Controller.blockList.onUnBlock += TestUnblock;
 
-            m_Controller.requestFriendPopupView.tryAddFriend += TestRequestFriend;
+            m_Controller.requestFriendPopupView.tryRequestFriend += TestRequestFriend;
         }
 
         void TestLogin()

@@ -65,6 +65,7 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
         public void Show()
         {
             m_RequestListView.style.display = DisplayStyle.Flex;
+            Refresh();
         }
 
         public void Hide()

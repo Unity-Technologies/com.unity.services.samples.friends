@@ -9,8 +9,7 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
     public class RequestFriendPopupView
     {
         const string k_RequestFriendViewName = "request-friend-view";
-        public Action<string> tryAddFriend;
-        public bool IsShowing { get; private set; }
+        public Action<string> tryRequestFriend;
 
         TextField m_RequestFriendField;
         VisualElement m_RequestFriendView;
@@ -20,8 +19,14 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
         {
             m_RequestFriendView = viewParent.Q(k_RequestFriendViewName);
 
-            var exitButton =  m_RequestFriendView.Q<Button>("exit-button");
+            var exitButton = m_RequestFriendView.Q<Button>("exit-button");
             exitButton.RegisterCallback<ClickEvent>((e) =>
+            {
+                Hide();
+            });
+
+            var clickOffButton = m_RequestFriendView.Q<Button>("request-friend-clickoff-button");
+            clickOffButton.RegisterCallback<ClickEvent>((e) =>
             {
                 Hide();
             });
@@ -34,13 +39,13 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
                 {
                     if (evt.keyCode == KeyCode.Return || evt.keyCode == KeyCode.KeypadEnter)
                     {
-                        tryAddFriend?.Invoke(m_RequestFriendField.text);
+                        tryRequestFriend?.Invoke(m_RequestFriendField.text);
                     }
                 });
-            var addFriendButton = m_RequestFriendView.Q<Button>("add-button");
-            addFriendButton.RegisterCallback<ClickEvent>(_ =>
+            var requestFriendButton = m_RequestFriendView.Q<Button>("request-button");
+            requestFriendButton.RegisterCallback<ClickEvent>(_ =>
             {
-                tryAddFriend?.Invoke(m_RequestFriendField.text);
+                tryRequestFriend?.Invoke(m_RequestFriendField.text);
             });
         }
 
@@ -54,13 +59,11 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
         public void Show()
         {
             m_RequestFriendView.style.display = DisplayStyle.Flex;
-            IsShowing = true;
         }
+
         public void Hide()
         {
             m_RequestFriendView.style.display = DisplayStyle.None;
-            IsShowing = false;
-
         }
     }
 }

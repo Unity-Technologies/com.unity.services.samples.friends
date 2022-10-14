@@ -52,6 +52,7 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
         public void Show()
         {
             m_BlockedListView.style.display = DisplayStyle.Flex;
+            Refresh();
         }
 
         public void Hide()

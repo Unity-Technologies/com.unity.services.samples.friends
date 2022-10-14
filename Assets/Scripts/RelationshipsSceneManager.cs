@@ -105,7 +105,7 @@ namespace UnityGamingServicesUsesCases.Relationships
             m_RequestFriendPopupView.Hide();
 
             //Bind Friend Calls
-            m_RequestFriendPopupView.tryAddFriend += RequestFriendAsync;
+            m_RequestFriendPopupView.tryRequestFriend += RequestFriendAsync;
             m_FriendsListView.onRemoveFriend += RemoveFriendAsync;
             m_FriendsListView.onBlockFriend += BlockFriendAsync;
             m_RequestListView.onAcceptUser += AcceptRequestAsync;
@@ -262,7 +262,6 @@ namespace UnityGamingServicesUsesCases.Relationships
             m_FriendsListView.Show();
             m_RequestListView.Hide();
             m_BlockListView.Hide();
-            m_FriendsListView.Refresh();
         }
 
         void ShowRequestList()
@@ -272,7 +271,6 @@ namespace UnityGamingServicesUsesCases.Relationships
             m_RequestListView.Show();
             m_FriendsListView.Hide();
             m_BlockListView.Hide();
-            m_RequestListView.Refresh();
         }
 
         void ShowBlockList()
@@ -281,15 +279,11 @@ namespace UnityGamingServicesUsesCases.Relationships
             m_BlockListView.Show();
             m_RequestListView.Hide();
             m_FriendsListView.Hide();
-            m_BlockListView.Refresh();
         }
 
         void ShowAddFriendPopup()
         {
-            if (m_RequestFriendPopupView.IsShowing)
-                m_RequestFriendPopupView.Hide();
-            else
-                m_RequestFriendPopupView.Show();
+            m_RequestFriendPopupView.Hide();
         }
 
         async Task RequestFriend(string playerId, string eventSource)
