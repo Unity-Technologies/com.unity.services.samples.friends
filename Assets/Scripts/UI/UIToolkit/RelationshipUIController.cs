@@ -1,10 +1,8 @@
-using System;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace UnityGamingServicesUsesCases.Relationships.UI
+namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
 {
-    [RequireComponent(typeof(UIDocument))]
     public class RelationshipUIController : MonoBehaviour
     {
         [SerializeField]

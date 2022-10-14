@@ -9,7 +9,7 @@ using Unity.Services.Friends.Notifications;
 using Unity.Services.Friends.Options;
 using UnityEngine;
 using UnityEngine.UIElements;
-using UnityGamingServicesUsesCases.Relationships.UI;
+using UnityGamingServicesUsesCases.Relationships.UIToolkit;
 using Button = UnityEngine.UI.Button;
 
 
@@ -59,7 +59,6 @@ namespace UnityGamingServicesUsesCases.Relationships
         List<PlayerProfile> m_BlockEntryDatas = new List<PlayerProfile>();
         BlockedListView m_BlockListView;
         FriendsListView m_FriendsListView;
-
         LocalPlayerView m_LocalPlayerView;
 
         string m_LoggedPlayerName;

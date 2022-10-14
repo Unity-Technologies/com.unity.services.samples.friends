@@ -36,7 +36,6 @@
 }
 
 .player-settings-button {
-    color: rgb(255, 255, 255);
     letter-spacing: 10px;
     -unity-text-align: middle-center;
     -unity-font-style: bold;
@@ -49,7 +48,6 @@
 }
 
 .player-settings-button .unity-base-field__input {
-    color: rgb(255, 255, 255);
     letter-spacing: 10px;
     -unity-text-align: middle-center;
     -unity-font-style: bold;
@@ -57,11 +55,10 @@
     border-right-color: rgba(0, 0, 0, 0);
     border-top-color: rgba(0, 0, 0, 0);
     border-bottom-color: rgba(0, 0, 0, 0);
-    background-color: rgba(81, 73, 171, 0);
+    background-color: rgba(0, 0, 0, 0);
 }
 
 .player-settings-button .unity-base-popup-field__arrow {
-    color: rgb(255, 255, 255);
     letter-spacing: 10px;
     -unity-text-align: middle-center;
     -unity-font-style: bold;
@@ -69,8 +66,18 @@
     border-right-color: rgba(0, 0, 0, 0);
     border-top-color: rgba(0, 0, 0, 0);
     border-bottom-color: rgba(0, 0, 0, 0);
-    background-color: rgba(81, 73, 171, 0);
     -unity-background-image-tint-color: rgb(255, 255, 255);
+    color: rgb(61, 255, 0);
+}
+
+.player-settings-button PopupTextElement {
+    -unity-text-align: middle-center;
+    -unity-font-style: bold;
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+    color: rgb(70, 255, 0);
 }
 
 .add-friend-button {
@@ -90,19 +97,14 @@
     border-top-width: 0;
     border-bottom-width: 0;
     overflow: visible;
-    transition-property: opacity;
-    transition-duration: 1s;
 }
 
 .add-friend-button .unity-button :hover {
     -unity-background-image-tint-color: rgb(0, 255, 194);
-    transition-property: opacity;
 }
 
 .add-friend-button .unity-button :active {
     -unity-background-image-tint-color: rgb(45, 27, 212);
-    transition-property: opacity;
-    transition-duration: 1s;
 }
 
 .social-tab-button {
@@ -335,6 +337,18 @@
     min-width: 25px;
 }
 
-.friend-list .unity-list-view__empty-label {
+.relationships_lists {
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom-width: 0;
+    min-height: 0;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    height: 500px;
+}
+
+.relationships_lists .unity-list-view__empty-label {
     display: none;
 }

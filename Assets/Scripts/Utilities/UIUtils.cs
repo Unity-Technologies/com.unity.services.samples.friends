@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.Services.Friends.Models;
 using UnityEngine;
 
-namespace UnityGamingServicesUsesCases.Relationships.UI
+namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
 {
     public class UIUtils
     {

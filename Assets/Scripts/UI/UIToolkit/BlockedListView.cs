@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine.UIElements;
 
-namespace UnityGamingServicesUsesCases.Relationships.UI
+namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
 {
     public class BlockedListView
     {
@@ -65,7 +65,11 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
         /// </summary>
         public void Refresh()
         {
+            #if UNITY_2020
+            m_BlockedListView.Refresh();
+            #elif UNITY_2021
             m_BlockedListView.RefreshItems();
+            #endif
         }
     }
 }

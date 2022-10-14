@@ -4,7 +4,7 @@ using Unity.Services.Friends.Models;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace UnityGamingServicesUsesCases.Relationships.UI
+namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
 {
     public class LocalPlayerView
     {
@@ -48,7 +48,7 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
             SetPresence(PresenceAvailabilityOptions.INVISIBLE);
         }
 
-        //Keeping these setters seperate in case we wan to support name and activity changes
+        //Keeping these setters seperate in case we wan to support name and activity changesxwx`
 
         public void Refresh(string name, string id, string activity,
             PresenceAvailabilityOptions presenceAvailabilityOptions)
