@@ -12,7 +12,6 @@ using UnityEngine.UIElements;
 using UnityGamingServicesUsesCases.Relationships.UIToolkit;
 using Button = UnityEngine.UI.Button;
 
-
 namespace UnityGamingServicesUsesCases.Relationships
 {
     public class RelationshipsSceneManager : MonoBehaviour
@@ -66,7 +65,6 @@ namespace UnityGamingServicesUsesCases.Relationships
         RequestFriendPopupView m_RequestFriendPopupView;
         RequestListView m_RequestListView;
         string LoggedPlayerId => AuthenticationService.Instance.PlayerId;
-
 
         public async Task Init(string currentPlayerName)
         {
@@ -138,10 +136,10 @@ namespace UnityGamingServicesUsesCases.Relationships
 
             m_LocalPlayerView.Refresh(m_LoggedPlayerName, LoggedPlayerId, "In Friends Menu",
                 PresenceAvailabilityOptions.ONLINE);
+
             RefreshAll();
             Debug.Log($"Logged in as {playerName} id: {LoggedPlayerId}");
             Debug.Log($"Token ID{AuthenticationService.Instance.AccessToken}");
-
         }
 
         async void BlockFriendAsync(string id)
@@ -178,13 +176,6 @@ namespace UnityGamingServicesUsesCases.Relationships
             await RefreshRequests();
         }
 
-        async void QuitAsync()
-        {
-            Friends.Instance.Dispose();
-            await Task.Delay(1000);
-            Application.Quit();
-        }
-
         async void SetPresenceAsync((PresenceAvailabilityOptions presence, string activity) status)
         {
             await SetPresence(status.presence, status.activity);
@@ -194,14 +185,11 @@ namespace UnityGamingServicesUsesCases.Relationships
         {
             await RequestFriend(id, "button");
         }
-        
-        private async void QuitAsync()
+
+        async void QuitAsync()
         {
             Friends.Instance.Dispose();
             await Task.Delay(1000);
-// #if !UNITY_EDITOR
-//             PlayerPrefs.DeleteAll();
-// #endif
             Application.Quit();
         }
 
@@ -236,7 +224,6 @@ namespace UnityGamingServicesUsesCases.Relationships
                     Id = friend.Player.Id,
                     Availability = friend.Presence.GetAvailability(),
                     Activity = activityText
-
                 };
                 m_FriendsEntryDatas.Add(info);
             }
@@ -512,6 +499,5 @@ namespace UnityGamingServicesUsesCases.Relationships
                     "An error occurred while performing the action. Code: " + e.Reason + ", Message: " + e.Message);
             }
         }
-
     }
 }

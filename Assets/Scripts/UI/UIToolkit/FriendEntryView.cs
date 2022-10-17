@@ -28,12 +28,10 @@ namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
             removeFriendButton.RegisterCallback<ClickEvent>(_ =>
             {
                 onRemoveFriend?.Invoke();
-                Hide();
             });
             var blockFriendButton = m_FriendEntryView.Q<Button>("block-button");
             blockFriendButton.RegisterCallback<ClickEvent>(_ =>
             {
-                Hide();
                 onBlockFriend?.Invoke();
             });
         }

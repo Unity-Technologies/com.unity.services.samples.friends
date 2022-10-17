@@ -45,16 +45,19 @@ namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
                 requestControl.onAccept = () =>
                 {
                     onAcceptUser?.Invoke(userProfile.Id);
+                    requestControl.Hide();
                 };
 
                 requestControl.onDecline = () =>
                 {
                     onDeclineUser?.Invoke(userProfile.Id);
+                    requestControl.Hide();
                 };
 
                 requestControl.onBlockFriend = () =>
                 {
                     onBlockUser?.Invoke(userProfile.Id);
+                    requestControl.Hide();
                 };
             };
 
