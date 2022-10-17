@@ -6,9 +6,10 @@ using UnityEngine;
 
 namespace UnityGamingServicesUsesCases.Relationships
 {
-    public class PlayerInfoView : MonoBehaviour
+    public class PlayerInfoView : MonoBehaviour, ILocalPlayerView
     {
-        public Action<(PresenceAvailabilityOptions,string)> OnPresenceChanged;
+        //public Action<(PresenceAvailabilityOptions,string)> OnPresenceChanged;
+        public Action<(PresenceAvailabilityOptions, string)> onPresenceChanged { get; set; }
 
         [SerializeField] private TextMeshProUGUI m_Text = null;
         [SerializeField] private TMP_InputField m_IdInputField = null;
@@ -41,16 +42,16 @@ namespace UnityGamingServicesUsesCases.Relationships
             var presence = (PresenceAvailabilityOptions) Enum.Parse(typeof(PresenceAvailabilityOptions),
                 m_PresenceDropdown.options[value].text, true);
                 
-            OnPresenceChanged?.Invoke((presence,activity));
+            onPresenceChanged?.Invoke((presence,activity));
         }
 
-        public void Init(string name, string id, PresenceAvailabilityOptions presence, string activity = "")
+        public void Refresh(string name, string id, string acitvity, PresenceAvailabilityOptions presenceAvailabilityOptions)
         {
             m_Text.text = name;
             m_IdInputField.text = id;
-            var index = (int)presence - 1;
+            var index = (int)presenceAvailabilityOptions - 1;
             m_PresenceDropdown.SetValueWithoutNotify(index);
-            m_ActivityInputField.text = activity;
+            m_ActivityInputField.text = acitvity;
         }
     }
 }

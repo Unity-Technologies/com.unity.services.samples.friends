@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace UnityGamingServicesUsesCases.Relationships
 {
-    public class BlocksView : MonoBehaviour
+    public class BlocksView : MonoBehaviour, IBlockedListView
     {
         public Action<string> OnFriendUnblock = null;
 
@@ -12,7 +12,7 @@ namespace UnityGamingServicesUsesCases.Relationships
         [SerializeField]private GenericEntryView m_BlockedEntryViewPrefab = null;
 
         List<GenericEntryView> m_Blocked = new List<GenericEntryView>();
-
+        private List<PlayerProfile> m_PlayerProfiles = new List<PlayerProfile>();
         public void Refresh(List<PlayerProfile> playerProfiles)
         {
             foreach (var entry in m_Blocked)
@@ -32,6 +32,28 @@ namespace UnityGamingServicesUsesCases.Relationships
                 m_Blocked.Add(entry);
                 entry.button2.gameObject.SetActive(false);
             }
+        }
+
+        public Action<string> onUnBlock { get; set; }
+        public void BindList(List<PlayerProfile> listToBind)
+        {
+            m_PlayerProfiles = listToBind;
+        }
+
+        public void Show()
+        {
+           Refresh();
+           gameObject.SetActive(true);
+        }
+
+        public void Hide()
+        {
+            gameObject.SetActive(false);
+        }
+
+        public void Refresh()
+        {
+           Refresh(m_PlayerProfiles);
         }
     }
 }

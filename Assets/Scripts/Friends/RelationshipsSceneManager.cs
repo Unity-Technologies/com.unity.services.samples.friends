@@ -70,6 +70,8 @@ namespace UnityGamingServicesUsesCases.Relationships
 
         void UISetup()
         {
+            
+            //Do you want to do null checks?
             if (m_UIControllerObject == null)
             {
                 Debug.LogError("No GameObject in m_UIController");
@@ -96,7 +98,7 @@ namespace UnityGamingServicesUsesCases.Relationships
             m_BlockListView.BindList(m_BlockEntryDatas);
 
             //Bind Friend Calls
-            m_RequestFriendView.tryAddFriend += RequestFriendAsync;
+            //m_RequestFriendView.tryAddFriend += RequestFriendAsync;
             m_FriendsListView.onRemoveFriend += RemoveFriendAsync;
             m_FriendsListView.onBlockFriend += BlockFriendAsync;
             m_RequestListView.onAcceptUser += AcceptRequestAsync;
@@ -253,12 +255,12 @@ namespace UnityGamingServicesUsesCases.Relationships
             {
                 await Friends.Instance.AddFriendAsync(playerId, eventSource);
                 Debug.Log($"{playerId} friend request sent.");
-                m_RequestFriendView.AddFriendSuccess();
+                //m_RequestFriendView.AddFriendSuccess(); //this should not be here
             }
             catch (FriendsServiceException e)
             {
                 Debug.Log($"Failed to add {playerId} - {e}.");
-                m_RequestFriendView.AddFriendFailed();
+                //m_RequestFriendView.AddFriendFailed();
             }
         }
 
