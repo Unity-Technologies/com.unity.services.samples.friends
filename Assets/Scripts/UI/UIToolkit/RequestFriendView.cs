@@ -44,9 +44,9 @@ namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
             });
         }
 
-        public void AddFriendSuccess() { }
+        public void RequestFriendSuccess() { }
 
-        public async void AddFriendFailed()
+        public async void RequestFriendFailed()
         {
             m_WarningLabel.style.opacity = 1;
             await Task.Delay(2000);

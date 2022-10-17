@@ -31,13 +31,13 @@ namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
             };
         }
 
-        public void BindList(List<PlayerProfile> blockedListToBind)
+        public void BindList(List<PlayerProfile> playerProfiles)
         {
             m_BlockedListView.bindItem = (item, index) =>
             {
                 var blockedEntryControl = item.userData as BlockedEntryView;
                 blockedEntryControl.Show();
-                var userProfile = blockedListToBind[index];
+                var userProfile = playerProfiles[index];
                 blockedEntryControl.Refresh(userProfile.Name);
                 blockedEntryControl.onUnBlock = () =>
                 {
@@ -45,7 +45,7 @@ namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
                 };
             };
 
-            m_BlockedListView.itemsSource = blockedListToBind;
+            m_BlockedListView.itemsSource = playerProfiles;
             Refresh();
         }
 

@@ -7,8 +7,8 @@ namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
 {
     public class FriendsListView : IFriendsListView
     {
-        public Action<string> onRemoveFriend { get; set; }
-        public Action<string> onBlockFriend { get; set; }
+        public Action<string> onRemove { get; set; }
+        public Action<string> onBlock { get; set; }
 
         const string k_FriendsListViewName = "friends-list";
 
@@ -33,25 +33,25 @@ namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
             };
         }
 
-        public void BindList(List<FriendsEntryData> listToBind)
+        public void BindList(List<FriendsEntryData> friendEntryDatas)
         {
             m_FriendListView.bindItem = (item, index) =>
             {
                 var friendControl = item.userData as FriendEntryView;
                 friendControl.Show();
-                var friendData = listToBind[index];
+                var friendData = friendEntryDatas[index];
                 friendControl.Refresh(friendData.Name, friendData.Activity, friendData.Availability);
                 friendControl.onRemoveFriend = () =>
                 {
-                    onRemoveFriend?.Invoke(friendData.Id);
+                    onRemove?.Invoke(friendData.Id);
                 };
 
                 friendControl.onBlockFriend = () =>
                 {
-                    onBlockFriend?.Invoke(friendData.Id);
+                    onBlock?.Invoke(friendData.Id);
                 };
             };
-            m_FriendListView.itemsSource = listToBind;
+            m_FriendListView.itemsSource = friendEntryDatas;
             Refresh();
         }
 

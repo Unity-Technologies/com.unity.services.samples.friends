@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Unity.Services.Authentication;
@@ -18,7 +17,7 @@ namespace UnityGamingServicesUsesCases.Relationships
         [SerializeField]
         PlayerProfilesData m_PlayerProfilesData;
 
-        [Header("UI"), Tooltip("Put in a GameObject with a Monobehaviour extending IRelationshipsUIController.")]
+        [Header("UI"), Tooltip("Put in a GameObject with a monobehaviour extending IRelationshipsUIController.")]
         [SerializeField]
         GameObject m_UIControllerObject;
         IRelationshipsUIController m_UIController;
@@ -85,7 +84,7 @@ namespace UnityGamingServicesUsesCases.Relationships
 
             m_UIController.Init();
             m_LocalPlayerView = m_UIController.LocalPlayerView;
-            m_RequestFriendView = m_UIController.RequestFriendView;
+            m_RequestFriendView = m_UIController.SendRequestPopupView;
 
             //Bind Entry Lists
             m_FriendsListView = m_UIController.FriendsListView;
@@ -97,11 +96,11 @@ namespace UnityGamingServicesUsesCases.Relationships
 
             //Bind Friend Calls
             m_RequestFriendView.tryAddFriend += RequestFriendAsync;
-            m_FriendsListView.onRemoveFriend += RemoveFriendAsync;
-            m_FriendsListView.onBlockFriend += BlockFriendAsync;
-            m_RequestListView.onAcceptUser += AcceptRequestAsync;
-            m_RequestListView.onDeclineUser += DeclineRequestAsync;
-            m_RequestListView.onBlockUser += BlockFriendAsync;
+            m_FriendsListView.onRemove += RemoveFriendAsync;
+            m_FriendsListView.onBlock += BlockFriendAsync;
+            m_RequestListView.onAccept += AcceptRequestAsync;
+            m_RequestListView.onDecline += DeclineRequestAsync;
+            m_RequestListView.onBlock += BlockFriendAsync;
             m_BlockListView.onUnBlock += UnblockFriendAsync;
             m_LocalPlayerView.onPresenceChanged += SetPresenceAsync;
         }
@@ -180,7 +179,12 @@ namespace UnityGamingServicesUsesCases.Relationships
 
         async void RequestFriendAsync(string id)
         {
-            await RequestFriend(id, "button");
+            var success = await RequestFriend(id, "button");
+            if(success)
+                m_RequestFriendView.RequestFriendSuccess(); // Make Into Task.
+            else
+                m_RequestFriendView.RequestFriendFailed();
+
         }
 
         async void RefreshAll()
@@ -247,18 +251,18 @@ namespace UnityGamingServicesUsesCases.Relationships
             m_BlockListView.Refresh();
         }
 
-        async Task RequestFriend(string playerId, string eventSource)
+        async Task<bool> RequestFriend(string playerId, string eventSource)
         {
             try
             {
                 await Friends.Instance.AddFriendAsync(playerId, eventSource);
                 Debug.Log($"{playerId} friend request sent.");
-                m_RequestFriendView.AddFriendSuccess();
+                return true;
             }
             catch (FriendsServiceException e)
             {
                 Debug.Log($"Failed to add {playerId} - {e}.");
-                m_RequestFriendView.AddFriendFailed();
+                return false;
             }
         }
 
