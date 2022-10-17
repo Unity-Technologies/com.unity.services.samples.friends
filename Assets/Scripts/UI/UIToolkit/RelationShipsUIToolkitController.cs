@@ -16,7 +16,7 @@ namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
 
         [SerializeField]
         VisualTreeAsset m_BlockedEntryTemplate;
-
+        
         public ILocalPlayerView LocalPlayerView { get; private set; }
         public IRelationshipBarView RelationshipBarView { get; private set; }
         public IRequestFriendView RequestFriendView { get; private set; }
@@ -41,7 +41,7 @@ namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
             BlockListView = new BlockedListView(root, m_BlockedEntryTemplate);
 
             RelationshipBarView = new RelationshipBarView(root);
-            RelationshipBarView.onShowFriends = OnFriendList;
+            RelationshipBarView.onShowFriends = OnFriendList;//forgot Show?
             RelationshipBarView.onShowRequests = OnRequestList;
             RelationshipBarView.onShowBlocks = OnBlockList;
             RelationshipBarView.onShowRequestFriend = ShowAddFriendPopup;

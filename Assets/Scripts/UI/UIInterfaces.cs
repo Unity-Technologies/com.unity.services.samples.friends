@@ -5,11 +5,12 @@ using UnityEngine;
 
 namespace UnityGamingServicesUsesCases.Relationships
 {
+    //what about having interfaces in different files ?
     public interface IRelationshipsUIController
     {
         ILocalPlayerView LocalPlayerView { get; }
         IRelationshipBarView RelationshipBarView { get; }
-        IRequestFriendView RequestFriendView { get; }
+        IRequestFriendView RequestFriendView { get; } //naming is confusing
         IFriendsListView FriendsListView { get; }
         IRequestListView RequestListView { get; }
         IBlockedListView BlockListView { get; }
@@ -21,13 +22,13 @@ namespace UnityGamingServicesUsesCases.Relationships
     {
         Action<(PresenceAvailabilityOptions, string)> onPresenceChanged { get; set; }
 
-        void Refresh(string name, string id, string acitvity,
+        void Refresh(string name, string id, string acitvity, //typo
             PresenceAvailabilityOptions presenceAvailabilityOptions);
     }
 
     public interface IRelationshipBarView
     {
-        Action onShowFriends { get; set; }
+        Action onShowFriends { get; set; } //are public camel Case?
         Action onShowRequests { get; set; }
         Action onShowBlocks { get; set; }
         Action onShowRequestFriend { get; set; }
@@ -47,18 +48,19 @@ namespace UnityGamingServicesUsesCases.Relationships
     {
         Action<string> onRemoveFriend { get; set; }
         Action<string> onBlockFriend { get; set; }
-        void BindList(List<FriendsEntryData> listToBind);
+        void BindList(List<FriendsEntryData> listToBind); //naming
         void Show();
         void Hide();
         void Refresh();
     }
 
+    //forgot s at request list view
     public interface IRequestListView
     {
-        Action<string> onAcceptUser { get; set; }
+        Action<string> onAcceptUser { get; set; } //remove user?
         Action<string> onDeclineUser { get; set; }
         Action<string> onBlockUser { get; set; }
-        void BindList(List<PlayerProfile> listToBind);
+        void BindList(List<PlayerProfile> listToBind); //naming
         void Show();
         void Hide();
         void Refresh();
@@ -66,8 +68,8 @@ namespace UnityGamingServicesUsesCases.Relationships
 
     public interface IBlockedListView
     {
-        Action<string> onUnBlock { get; set; }
-        void BindList(List<PlayerProfile> listToBind);
+        Action<string> onUnBlock { get; set; } //typo
+        void BindList(List<PlayerProfile> listToBind); //naming
         void Show();
         void Hide();
         void Refresh();
