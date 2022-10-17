@@ -5,11 +5,11 @@ using UnityEngine.UIElements;
 
 namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
 {
-    public class RequestListView
+    public class RequestListView : IRequestListView
     {
-        public Action<string> onAcceptUser;
-        public Action<string> onDeclineUser;
-        public Action<string> onBlockUser;
+        public Action<string> onAccept { get; set; }
+        public Action<string> onDecline { get; set; }
+        public Action<string> onBlock { get; set; }
 
         const string k_RequestListViewName = "request-list";
 
@@ -34,34 +34,37 @@ namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
             };
         }
 
-        public void BindList(List<PlayerProfile> listToBind)
+        public void BindList(List<PlayerProfile> playerProfiles)
         {
             m_RequestListView.bindItem = (item, index) =>
             {
                 var requestControl = item.userData as RequestEntryView;
                 requestControl.Show();
-                var userProfile = listToBind[index];
+                var userProfile = playerProfiles[index];
                 requestControl.Refresh(userProfile.Name);
                 requestControl.onAccept = () =>
                 {
-                    onAcceptUser?.Invoke(userProfile.Id);
+                    onAccept?.Invoke(userProfile.Id);
                     requestControl.Hide();
+
                 };
 
                 requestControl.onDecline = () =>
                 {
-                    onDeclineUser?.Invoke(userProfile.Id);
+                    onDecline?.Invoke(userProfile.Id);
                     requestControl.Hide();
+
                 };
 
                 requestControl.onBlockFriend = () =>
                 {
-                    onBlockUser?.Invoke(userProfile.Id);
+                    onBlock?.Invoke(userProfile.Id);
                     requestControl.Hide();
+
                 };
             };
 
-            m_RequestListView.itemsSource = listToBind;
+            m_RequestListView.itemsSource = playerProfiles;
             Refresh();
         }
 
@@ -81,11 +84,11 @@ namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
         /// </summary>
         public void Refresh()
         {
-             #if UNITY_2020
+#if UNITY_2020
             m_RequestListView.Refresh();
-            #elif UNITY_2021
+#elif UNITY_2021
             m_RequestListView.RefreshItems();
-            #endif
+#endif
         }
     }
 }

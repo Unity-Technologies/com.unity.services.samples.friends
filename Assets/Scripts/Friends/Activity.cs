@@ -1,23 +1,20 @@
 using System.Runtime.Serialization;
 using UnityEngine.Scripting;
 
-namespace UnityGamingServicesUsesCases
+namespace UnityGamingServicesUsesCases.Relationships
 {
-    namespace Relationships
+    /// <summary>
+    /// Activity represent the activity containing the status of a player.
+    /// </summary>
+    [Preserve]
+    [DataContract]
+    public class Activity
     {
         /// <summary>
-        /// Activity represent the activity containing the status of a player.
+        /// Status of the player.
         /// </summary>
         [Preserve]
-        [DataContract]
-        public class Activity
-        {
-            /// <summary>
-            /// Status of the player.
-            /// </summary>
-            [Preserve]
-            [DataMember(Name = "status", IsRequired = true, EmitDefaultValue = true)]
-            public string Status { get; set; }
-        }
+        [DataMember(Name = "status", IsRequired = true, EmitDefaultValue = true)]
+        public string Status { get; set; }
     }
 }

@@ -4,11 +4,11 @@ using UnityEngine.UIElements;
 
 namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
 {
-    public class BlockedListView
+    public class BlockedListView : IBlockedListView
     {
         const string k_BlockedListViewName = "blocked-list";
 
-        public Action<string> onUnBlock;
+        public Action<string> onUnBlock { get; set; }
 
         ListView m_BlockedListView;
 
@@ -31,13 +31,13 @@ namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
             };
         }
 
-        public void BindList(List<PlayerProfile> blockedListToBind)
+        public void BindList(List<PlayerProfile> playerProfiles)
         {
             m_BlockedListView.bindItem = (item, index) =>
             {
                 var blockedEntryControl = item.userData as BlockedEntryView;
                 blockedEntryControl.Show();
-                var userProfile = blockedListToBind[index];
+                var userProfile = playerProfiles[index];
                 blockedEntryControl.Refresh(userProfile.Name);
                 blockedEntryControl.onUnBlock = () =>
                 {
@@ -46,7 +46,7 @@ namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
                 };
             };
 
-            m_BlockedListView.itemsSource = blockedListToBind;
+            m_BlockedListView.itemsSource = playerProfiles;
             Refresh();
         }
 
@@ -66,11 +66,11 @@ namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
         /// </summary>
         public void Refresh()
         {
-            #if UNITY_2020
+#if UNITY_2020
             m_BlockedListView.Refresh();
-            #elif UNITY_2021
+#elif UNITY_2021
             m_BlockedListView.RefreshItems();
-            #endif
+#endif
         }
     }
 }

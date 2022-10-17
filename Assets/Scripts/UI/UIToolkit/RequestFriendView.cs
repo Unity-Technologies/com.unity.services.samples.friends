@@ -6,16 +6,16 @@ using Button = UnityEngine.UIElements.Button;
 
 namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
 {
-    public class RequestFriendPopupView
+    public class RequestFriendView : IRequestFriendView
     {
         const string k_RequestFriendViewName = "request-friend-view";
-        public Action<string> tryRequestFriend;
+        public Action<string> tryRequestFriend { get; set; }
 
         TextField m_RequestFriendField;
         VisualElement m_RequestFriendView;
         Label m_WarningLabel;
 
-        public RequestFriendPopupView(VisualElement viewParent)
+        public RequestFriendView(VisualElement viewParent)
         {
             m_RequestFriendView = viewParent.Q(k_RequestFriendViewName);
 
@@ -49,7 +49,9 @@ namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
             });
         }
 
-        public async void ShowAddFriendFailedWarning()
+        public void RequestFriendSuccess() { }
+
+        public async void RequestFriendFailed()
         {
             m_WarningLabel.style.opacity = 1;
             await Task.Delay(2000);

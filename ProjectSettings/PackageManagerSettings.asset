@@ -32,6 +32,19 @@ MonoBehaviour:
     - com.unity.services.wire
     m_IsDefault: 0
     m_Capabilities: 0
+  - m_Id: scoped:Basic
+    m_Name: Basic
+    m_Url: https://packages.unity.com
+    m_Scopes:
+    - com.unity.ui
+    - com.unity.ui-builder
+    - com.unity.toolchain.macos-x86_64-linux-x86_64
+    - com.unity.toolchain.win-x86_64-linux-x86_64
+    - com.unity.sysroot
+    - com.unity.sysroot.linux-x86_64
+    - com.unity.textcore
+    m_IsDefault: 0
+    m_Capabilities: 7
   m_UserSelectedRegistryName: Artifactory
   m_UserAddingNewScopedRegistry: 0
   m_RegistryInfoDraft:

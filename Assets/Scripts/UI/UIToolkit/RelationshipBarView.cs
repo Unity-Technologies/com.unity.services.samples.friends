@@ -3,14 +3,14 @@ using UnityEngine.UIElements;
 
 namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
 {
-    public class RelationshipBarView
+    public class RelationshipBarView : IRelationshipBarView
     {
         const string k_RelationshipsBarViewName = "relationship-bar-view";
 
-        public Action onFriends;
-        public Action onRequests;
-        public Action onBlocks;
-        public Action onAddFriend;
+        public Action onShowFriends { get; set; }
+        public Action onShowRequests { get; set; }
+        public Action onShowBlocks { get; set; }
+        public Action onShowRequestFriend { get; set; }
 
         public RelationshipBarView(VisualElement viewParent)
         {
@@ -22,19 +22,19 @@ namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
 
             friendsListButton.RegisterCallback<ClickEvent>((_) =>
             {
-                onFriends?.Invoke();
+                onShowFriends?.Invoke();
             });
             requestListButton.RegisterCallback<ClickEvent>((_) =>
             {
-                onRequests?.Invoke();
+                onShowRequests?.Invoke();
             });
             blockedListButton.RegisterCallback<ClickEvent>((_) =>
             {
-                onBlocks?.Invoke();
+                onShowBlocks?.Invoke();
             });
             addFriendButton.RegisterCallback<ClickEvent>((_) =>
             {
-                onAddFriend?.Invoke();
+                onShowRequestFriend?.Invoke();
             });
         }
     }

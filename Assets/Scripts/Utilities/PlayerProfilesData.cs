@@ -36,7 +36,7 @@ namespace UnityGamingServicesUsesCases.Relationships
                 if (id == playerProfile.Id)
                     return playerProfile.Name;
             }
-            
+
             return $"Friend_{id}";
         }
 
@@ -51,13 +51,11 @@ namespace UnityGamingServicesUsesCases.Relationships
         }
     }
 
-
     [System.Serializable]
     public class PlayerProfile
     {
-
-        [field: SerializeField] public string Name { get; private set; }
-        [field: SerializeField] public string Id { get; private set; }
+        public string Name { get; private set; }
+        public string Id { get; private set; }
 
         public PlayerProfile(string name, string id)
         {

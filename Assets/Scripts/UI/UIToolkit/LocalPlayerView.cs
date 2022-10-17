@@ -6,14 +6,14 @@ using UnityEngine.UIElements;
 
 namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
 {
-    public class LocalPlayerView
+    public class LocalPlayerView : ILocalPlayerView
     {
         const string k_PlayerEntryRootName = "local-player-entry";
 
         //We dont support the player selecting OFFLINE or UNKNOWN with the UI
         static readonly string[] k_LocalPlayerChoices = { "ONLINE", "BUSY", "AWAY", "INVISIBLE" };
 
-        public Action<(PresenceAvailabilityOptions, string)> onPresenceChanged;
+        public Action<(PresenceAvailabilityOptions, string)> onPresenceChanged { get; set; }
 
         //TODO Add Editable Activity Field?
 
