@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityGamingServicesUsesCases.Relationships;
 
@@ -7,6 +5,7 @@ public class RelationshipsUGuiController : MonoBehaviour, IRelationshipsUIContro
 {
 
     [SerializeField] private PlayerInfoView m_PlayerInfoView;
+    [SerializeField] private AddFriendByIdView m_AddFriendByIdView;
     [SerializeField] private RelationshipNavBar m_RelationshipNavBar;
     [SerializeField] private FriendsView m_FriendsView;
     [SerializeField] private RequestsView m_RequestsView;
@@ -14,7 +13,7 @@ public class RelationshipsUGuiController : MonoBehaviour, IRelationshipsUIContro
     public ILocalPlayerView LocalPlayerView => m_PlayerInfoView;
 
     public IRelationshipBarView RelationshipBarView => m_RelationshipNavBar;
-    public IRequestFriendView RequestFriendView { get; }
+    public IRequestFriendView RequestFriendView => m_AddFriendByIdView;
     public IFriendsListView FriendsListView => m_FriendsView;
     public IRequestListView RequestListView => m_RequestsView;
     public IBlockedListView BlockListView => m_BlocksView;
@@ -23,7 +22,14 @@ public class RelationshipsUGuiController : MonoBehaviour, IRelationshipsUIContro
         m_RelationshipNavBar.onShowFriends += ShowFriends;
         m_RelationshipNavBar.onShowRequests += ShowRequests;
         m_RelationshipNavBar.onShowBlocks += ShowBlocks;
+        m_RelationshipNavBar.onShowRequestFriend += ShowSendRequestPopUp;
+        m_AddFriendByIdView.Init();
         HideAll();
+    }
+
+    private void ShowSendRequestPopUp()
+    {
+        m_AddFriendByIdView.Show();
     }
 
     void HideAll()
