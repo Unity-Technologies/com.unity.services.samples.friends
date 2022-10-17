@@ -20,7 +20,6 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
             blockButton.RegisterCallback<ClickEvent>(_ =>
                 {
                     onUnBlock?.Invoke();
-                    Hide();
                 }
             );
         }

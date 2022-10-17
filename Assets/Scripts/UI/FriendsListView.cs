@@ -44,11 +44,13 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
                 friendControl.onRemoveFriend = () =>
                 {
                     onRemoveFriend?.Invoke(friendData.Id);
+                    friendControl.Hide();
                 };
 
                 friendControl.onBlockFriend = () =>
                 {
                     onBlockFriend?.Invoke(friendData.Id);
+                    friendControl.Hide();
                 };
             };
             m_FriendListView.itemsSource = listToBind;

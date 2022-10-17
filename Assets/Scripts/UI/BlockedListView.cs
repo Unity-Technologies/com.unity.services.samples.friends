@@ -42,6 +42,7 @@ namespace UnityGamingServicesUsesCases.Relationships.UI
                 blockedEntryControl.onUnBlock = () =>
                 {
                     onUnBlock?.Invoke(userProfile.Id);
+                    blockedEntryControl.Hide();
                 };
             };
 
