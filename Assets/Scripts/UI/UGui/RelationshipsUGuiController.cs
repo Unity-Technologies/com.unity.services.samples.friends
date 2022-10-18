@@ -13,7 +13,7 @@ namespace UnityGamingServicesUsesCases.Relationships.UGUI
         public ILocalPlayerView LocalPlayerView => m_LocalPlayerViewUGUI;
 
         public IRelationshipBarView RelationshipBarView => m_NavBarViewUGUI;
-        public IRequestFriendView RequestFriendView => m_SendRequestViewUGUI;
+        public IRequestFriendView SendRequestPopupView =>m_SendRequestViewUGUI;
         public IFriendsListView FriendsListView => m_FriendsViewUGUI;
         public IRequestListView RequestListView => m_RequestsViewUGUI;
         public IBlockedListView BlockListView => m_BlocksViewUGUI;

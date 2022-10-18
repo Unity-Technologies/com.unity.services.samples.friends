@@ -6,11 +6,8 @@ namespace UnityGamingServicesUsesCases.Relationships.UGUI
 {
     public class FriendsViewUGUI : MonoBehaviour, IFriendsListView
     {
-       // public Action<string> OnFriendRemove = null;
-       // public Action<string> OnFriendBlock = null;
-
-        [SerializeField]private RectTransform m_ParentTransform = null;
-        [SerializeField]private FriendsEntryViewUGUI m_FriendEntryViewPrefab = null;
+        [SerializeField] private RectTransform m_ParentTransform = null;
+        [SerializeField] private FriendsEntryViewUGUI m_FriendEntryViewPrefab = null;
 
         List<FriendsEntryViewUGUI> m_Friends = new List<FriendsEntryViewUGUI>();
 
@@ -22,26 +19,22 @@ namespace UnityGamingServicesUsesCases.Relationships.UGUI
             {
                 Destroy(entry.gameObject);
             }
+
             m_Friends.Clear();
 
             foreach (var friendsEntryData in friendsEntryDatas)
             {
                 var entry = Instantiate(m_FriendEntryViewPrefab, m_ParentTransform);
-                entry.Init(friendsEntryData.Name,friendsEntryData.Availability.ToString(), friendsEntryData.Activity);
-                entry.button1.onClick.AddListener(() =>
-                {
-                    onRemoveFriend?.Invoke(friendsEntryData.Id);
-                });
-                entry.button2.onClick.AddListener(() =>
-                {
-                    onBlockFriend?.Invoke(friendsEntryData.Id);
-                });
+                entry.Init(friendsEntryData.Name, friendsEntryData.Availability.ToString(), friendsEntryData.Activity);
+                entry.button1.onClick.AddListener(() => { onRemove?.Invoke(friendsEntryData.Id); });
+                entry.button2.onClick.AddListener(() => { onBlock?.Invoke(friendsEntryData.Id); });
                 m_Friends.Add(entry);
             }
         }
 
-        public Action<string> onRemoveFriend { get; set; }
-        public Action<string> onBlockFriend { get; set; }
+        public Action<string> onRemove { get; set; }
+        public Action<string> onBlock { get; set; }
+
         public void BindList(List<FriendsEntryData> listToBind)
         {
             m_FriendsEntryDatas = listToBind;

@@ -7,9 +7,9 @@ namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
 {
     public class RequestListView : IRequestListView
     {
-        public Action<string> onAcceptUser { get; set; }
-        public Action<string> onDeclineUser { get; set; }
-        public Action<string> onBlockUser { get; set; }
+        public Action<string> onAccept { get; set; }
+        public Action<string> onDecline { get; set; }
+        public Action<string> onBlock { get; set; }
 
         const string k_RequestListViewName = "request-list";
 
@@ -34,37 +34,44 @@ namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
             };
         }
 
-        public void BindList(List<PlayerProfile> listToBind)
+        public void BindList(List<PlayerProfile> playerProfiles)
         {
             m_RequestListView.bindItem = (item, index) =>
             {
                 var requestControl = item.userData as RequestEntryView;
                 requestControl.Show();
-                var userProfile = listToBind[index];
+                var userProfile = playerProfiles[index];
                 requestControl.Refresh(userProfile.Name);
                 requestControl.onAccept = () =>
                 {
-                    onAcceptUser?.Invoke(userProfile.Id);
+                    onAccept?.Invoke(userProfile.Id);
+                    requestControl.Hide();
+
                 };
 
                 requestControl.onDecline = () =>
                 {
-                    onDeclineUser?.Invoke(userProfile.Id);
+                    onDecline?.Invoke(userProfile.Id);
+                    requestControl.Hide();
+
                 };
 
                 requestControl.onBlockFriend = () =>
                 {
-                    onBlockUser?.Invoke(userProfile.Id);
+                    onBlock?.Invoke(userProfile.Id);
+                    requestControl.Hide();
+
                 };
             };
 
-            m_RequestListView.itemsSource = listToBind;
+            m_RequestListView.itemsSource = playerProfiles;
             Refresh();
         }
 
         public void Show()
         {
             m_RequestListView.style.display = DisplayStyle.Flex;
+            Refresh();
         }
 
         public void Hide()

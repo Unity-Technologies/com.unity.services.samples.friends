@@ -9,8 +9,7 @@ namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
     public class RequestFriendView : IRequestFriendView
     {
         const string k_RequestFriendViewName = "request-friend-view";
-        public Action<string> tryAddFriend { get; set; }
-        public bool IsShowing { get; private set; }
+        public Action<string> tryRequestFriend { get; set; }
 
         TextField m_RequestFriendField;
         VisualElement m_RequestFriendView;
@@ -25,6 +24,12 @@ namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
             {
                 Hide();
             });
+
+            var clickOffButton = m_RequestFriendView.Q<Button>("request-friend-clickoff-button");
+            clickOffButton.RegisterCallback<ClickEvent>((e) =>
+            {
+                Hide();
+            });
             m_WarningLabel = m_RequestFriendView.Q<Label>("warning-label");
             m_RequestFriendField = m_RequestFriendView.Q<TextField>("search-field");
 
@@ -34,19 +39,19 @@ namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
                 {
                     if (evt.keyCode == KeyCode.Return || evt.keyCode == KeyCode.KeypadEnter)
                     {
-                        tryAddFriend?.Invoke(m_RequestFriendField.text);
+                        tryRequestFriend?.Invoke(m_RequestFriendField.text);
                     }
                 });
-            var addFriendButton = m_RequestFriendView.Q<Button>("add-button");
-            addFriendButton.RegisterCallback<ClickEvent>(_ =>
+            var requestFriendButton = m_RequestFriendView.Q<Button>("request-button");
+            requestFriendButton.RegisterCallback<ClickEvent>(_ =>
             {
-                tryAddFriend?.Invoke(m_RequestFriendField.text);
+                tryRequestFriend?.Invoke(m_RequestFriendField.text);
             });
         }
 
-        public void AddFriendSuccess() { }
+        public void RequestFriendSuccess() { }
 
-        public async void AddFriendFailed()
+        public async void RequestFriendFailed()
         {
             m_WarningLabel.style.opacity = 1;
             await Task.Delay(2000);
@@ -56,13 +61,11 @@ namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
         public void Show()
         {
             m_RequestFriendView.style.display = DisplayStyle.Flex;
-            IsShowing = true;
         }
 
         public void Hide()
         {
             m_RequestFriendView.style.display = DisplayStyle.None;
-            IsShowing = false;
         }
     }
 }

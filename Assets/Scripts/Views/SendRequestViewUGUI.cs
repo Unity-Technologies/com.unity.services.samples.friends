@@ -16,24 +16,24 @@ namespace UnityGamingServicesUsesCases.Relationships.UGUI
         {
             var playerId = string.Empty;
             m_InputField.onValueChanged.AddListener((value) => { playerId = value; });
-            m_Button.onClick.AddListener(() => tryAddFriend?.Invoke(playerId));
+            m_Button.onClick.AddListener(() => tryRequestFriend?.Invoke(playerId));
             m_backgroundButton.onClick.AddListener(Hide);
             m_closeButton.onClick.AddListener(Hide);
             Hide();
         }
-
-        public void AddFriendSuccess()
+        
+        public void RequestFriendSuccess()
         {
-           
+            
         }
 
-        public void AddFriendFailed()
+        public void RequestFriendFailed()
         {
-           
+          //
         }
 
-        public Action<string> tryAddFriend { get; set; }
-        public bool IsShowing { get; }
+        public Action<string> tryRequestFriend { get; set; }
+
         public void Show()
         {
             gameObject.SetActive(true);
