@@ -8,7 +8,7 @@ namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
 {
     public class RequestFriendView : IRequestFriendView
     {
-        const string k_RequestFriendViewName = "request-friend-view";
+        const string k_RequestFriendViewName = "request-friend-bg";
         public Action<string> tryRequestFriend { get; set; }
 
         TextField m_RequestFriendField;
@@ -42,7 +42,7 @@ namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
                         tryRequestFriend?.Invoke(m_RequestFriendField.text);
                     }
                 });
-            var requestFriendButton = m_RequestFriendView.Q<Button>("request-button");
+            var requestFriendButton = m_RequestFriendView.Q<Button>("add-button");
             requestFriendButton.RegisterCallback<ClickEvent>(_ =>
             {
                 tryRequestFriend?.Invoke(m_RequestFriendField.text);

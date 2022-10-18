@@ -1,16 +1,19 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <Style src="project://database/Assets/UI/RelationshipsUI/RelationshipsStyle.uss?fileID=7433441132597879392&amp;guid=947b3ef19af094ccca809ccb7e4ad0b2&amp;type=3#RelationshipsStyle" />
-    <ui:VisualElement name="request-friend-view" picking-mode="Ignore" class="menu-panel social-font" style="min-height: 200px; justify-content: space-around; width: 100%; height: 100%;">
-        <ui:VisualElement name="add-friend-bg" style="flex-grow: 0; justify-content: space-between; width: 100%; align-items: center; padding-left: 15px; border-bottom-width: 1px; border-bottom-color: rgb(56, 49, 137); margin-bottom: 5px; flex-direction: row; padding-right: 15px; min-width: 200px; min-height: 40px; padding-top: 10px;">
-            <ui:Label text="ADD FRIEND" display-tooltip-when-elided="true" name="add-friend-title" class="list-label social-font" style="align-items: stretch; -unity-text-align: upper-center; -unity-font-style: bold; color: rgb(247, 182, 89); padding-bottom: 0; padding-top: 0; padding-right: 0; padding-left: 0; margin-bottom: 5px; margin-top: 0; margin-right: 0; margin-left: 0; font-size: 18px;" />
-            <ui:Button display-tooltip-when-elided="true" name="exit-button" class="player-action-button" style="background-image: url(&apos;project://database/Assets/Art/cross.png?fileID=2800000&amp;guid=5de658ed28dcdd140be84b67973beb7f&amp;type=3#cross&apos;); margin-right: 0; justify-content: space-around; width: 35px; height: 35px; margin-bottom: 5px; background-color: rgba(228, 228, 228, 0); border-left-color: rgba(255, 255, 255, 0); border-right-color: rgba(255, 255, 255, 0); border-top-color: rgba(255, 255, 255, 0); border-bottom-color: rgba(255, 255, 255, 0);" />
-        </ui:VisualElement>
-        <ui:VisualElement name="entry-group" style="flex-direction: row; align-items: stretch; justify-content: space-around; width: 100%; height: 35px; margin-bottom: 5px; padding-top: 5px; min-height: 50px;">
-            <ui:VisualElement name="input-id-field" style="justify-content: space-around; width: 70%; padding-left: 10px;">
-                <ui:TextField text="Add Friend by ID" name="search-field" is-delayed="true" class="social-input-field" style="background-color: rgba(0, 0, 0, 0); margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; border-top-left-radius: 0; border-bottom-left-radius: 0; border-top-right-radius: 0; border-bottom-right-radius: 0;" />
+    <Style src="RelationshipsStyle.uss" />
+    <ui:VisualElement name="request-friend-bg" style="flex-grow: 1; justify-content: center; align-items: center;">
+        <ui:Button display-tooltip-when-elided="true" name="request-friend-clickoff-button" style="position: absolute; flex-grow: 1; justify-content: space-around; height: 100%; width: 100%; border-left-color: rgba(70, 70, 70, 0.12); border-right-color: rgba(70, 70, 70, 0.12); border-top-color: rgba(70, 70, 70, 0.12); border-bottom-color: rgba(70, 70, 70, 0.12); background-color: rgba(38, 38, 38, 0.03); border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0;" />
+        <ui:VisualElement name="request-friend-view" class="menu-panel social-font" style="flex-grow: 0; width: 500px; height: 175px;">
+            <ui:VisualElement name="add-friend-bg" style="flex-direction: row; justify-content: space-between; padding-left: 10px; padding-right: 10px; padding-top: 10px; border-bottom-width: 2px; border-left-color: rgb(71, 64, 159); border-right-color: rgb(71, 64, 159); border-top-color: rgb(71, 64, 159); border-bottom-color: rgb(71, 64, 159);">
+                <ui:Label text="ADD FRIEND" display-tooltip-when-elided="true" name="add-friend-title" class="list-label social-font" style="color: rgb(247, 194, 89); -unity-font-style: bold;" />
+                <ui:Button display-tooltip-when-elided="true" name="exit-button" class="player-action-button" style="background-image: url(&apos;/Assets/Art/Icons/close.png&apos;);" />
             </ui:VisualElement>
-            <ui:Button text="Add" display-tooltip-when-elided="true" name="add-button" class="add-friend-button" style="-unity-font-style: bold; overflow: visible;" />
+            <ui:VisualElement name="entry-group" style="flex-direction: row; justify-content: space-between; padding-right: 15px; padding-left: 15px; border-top-color: rgb(62, 56, 132); border-top-width: 0; margin-top: 0; padding-top: 5px; border-left-width: 0; border-right-width: 0; border-bottom-width: 0;">
+                <ui:VisualElement name="input-id-field" style="flex-grow: 1;">
+                    <ui:TextField text="Add Friend by ID" name="search-field" is-delayed="true" class="social-input-field" />
+                </ui:VisualElement>
+                <ui:Button text="Add" display-tooltip-when-elided="true" name="add-button" class="add-friend-button" style="font-size: 20px;" />
+            </ui:VisualElement>
+            <ui:Label text="No Friend by that ID." display-tooltip-when-elided="true" name="warning-label" style="border-left-width: 15px; border-right-width: 15px; border-bottom-width: 10px;" />
         </ui:VisualElement>
-        <ui:Label text="No Friend by that ID." display-tooltip-when-elided="true" name="warning-label" style="opacity: 0; color: rgb(255, 114, 114); margin-left: 25px; flex-shrink: 1;" />
     </ui:VisualElement>
 </ui:UXML>
