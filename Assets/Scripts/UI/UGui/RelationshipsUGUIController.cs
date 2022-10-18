@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace UnityGamingServicesUsesCases.Relationships.UGUI
 {
-    public class RelationshipsUGUIControllerR : MonoBehaviour, IRelationshipsUIController
+    public class RelationshipsUGUIController : MonoBehaviour, IRelationshipsUIController
     {
         [SerializeField] private LocalPlayerViewUGUI m_LocalPlayerViewUGUI;
         [SerializeField] private SendRequestViewUGUI m_SendRequestViewUGUI;
