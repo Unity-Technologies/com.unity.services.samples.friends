@@ -861,7 +861,7 @@ PrefabInstance:
     - target: {fileID: 4432279240489188279, guid: cd3c1bce7e9cc6742800dc9c33cd19eb, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 1ba9cc9df5b71ac4db0fd9a1c6b5b2e9, type: 3}
+      objectReference: {fileID: 21300000, guid: 05ecba458c601454c8b686c3ef0b3ba7, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cd3c1bce7e9cc6742800dc9c33cd19eb, type: 3}
 --- !u!224 &427754705 stripped
@@ -1880,7 +1880,7 @@ PrefabInstance:
     - target: {fileID: 4432279240489188279, guid: cd3c1bce7e9cc6742800dc9c33cd19eb, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 8d61844c0864f1d4ba853506cdf82583, type: 3}
+      objectReference: {fileID: 21300000, guid: a8eafe4d416814d9298f37f33c84133a, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cd3c1bce7e9cc6742800dc9c33cd19eb, type: 3}
 --- !u!224 &793116170 stripped
@@ -5361,6 +5361,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: NavBarButton
       objectReference: {fileID: 0}
+    - target: {fileID: 4432279240489188279, guid: cd3c1bce7e9cc6742800dc9c33cd19eb, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 5a4d659f615eb461a9e43470b61760bb, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cd3c1bce7e9cc6742800dc9c33cd19eb, type: 3}
 --- !u!1001 &4593130545987286462
