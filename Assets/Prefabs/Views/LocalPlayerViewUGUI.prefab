@@ -616,7 +616,7 @@ GameObject:
   - component: {fileID: 3784827136006215163}
   - component: {fileID: 3784827136006215160}
   m_Layer: 5
-  m_Name: Label
+  m_Name: PresenceText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1320,6 +1320,7 @@ MonoBehaviour:
   m_Activity: {fileID: 7061109632956145785}
   m_PresenceSelector: {fileID: 3784827136170594823}
   m_PresenceColor: {fileID: 2995340584255983810}
+  m_PresenceText: {fileID: 3784827136006215160}
 --- !u!1 &3784827136793745075
 GameObject:
   m_ObjectHideFlags: 0
