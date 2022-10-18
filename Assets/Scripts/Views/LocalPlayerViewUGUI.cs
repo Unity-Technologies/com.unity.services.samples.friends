@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.Services.Friends.Models;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace UnityGamingServicesUsesCases.Relationships.UGUI
 {
@@ -10,10 +11,11 @@ namespace UnityGamingServicesUsesCases.Relationships.UGUI
     {
         public Action<(PresenceAvailabilityOptions, string)> onPresenceChanged { get; set; }
 
-        [SerializeField] private TextMeshProUGUI m_Text = null;
-        [SerializeField] private TMP_InputField m_IdInputField = null;
-        [SerializeField] private TMP_InputField m_ActivityInputField = null;
-        [SerializeField] private TMP_Dropdown m_PresenceDropdown = null;
+        [SerializeField] private TextMeshProUGUI m_NameText = null;
+        [SerializeField] private TMP_InputField m_Id = null;
+        [SerializeField] private TMP_InputField m_Activity = null;
+        [SerializeField] private TMP_Dropdown m_PresenceSelector = null;
+        [SerializeField] private Image m_PresenceColor = null;
 
         private void Awake()
         {
@@ -25,32 +27,33 @@ namespace UnityGamingServicesUsesCases.Relationships.UGUI
                 PresenceAvailabilityOptions.INVISIBLE.ToString()
             };
 
-            m_PresenceDropdown.AddOptions(names);
-            m_PresenceDropdown.onValueChanged.AddListener((value) =>
+            m_PresenceSelector.AddOptions(names);
+            m_PresenceSelector.onValueChanged.AddListener((value) =>
             {
-                OnStatusChanged(value,m_ActivityInputField.text);
+                OnStatusChanged(value,m_Activity.text);
             });
-            m_ActivityInputField.onEndEdit.AddListener((value) =>
+            m_Activity.onEndEdit.AddListener((value) =>
             {
-                OnStatusChanged(m_PresenceDropdown.value,value);
+                OnStatusChanged(m_PresenceSelector.value,value);
             });
         }
 
         private void OnStatusChanged(int value, string activity)
         {
             var presence = (PresenceAvailabilityOptions) Enum.Parse(typeof(PresenceAvailabilityOptions),
-                m_PresenceDropdown.options[value].text, true);
+                m_PresenceSelector.options[value].text, true);
                 
             onPresenceChanged?.Invoke((presence,activity));
         }
 
-        public void Refresh(string name, string id, string acitvity, PresenceAvailabilityOptions presenceAvailabilityOptions)
+        public void Refresh(string name, string id, string activity, PresenceAvailabilityOptions presenceAvailabilityOptions)
         {
-            m_Text.text = name;
-            m_IdInputField.text = id;
+            m_NameText.text = name;
+            m_Id.text = id;
             var index = (int)presenceAvailabilityOptions - 1;
-            m_PresenceDropdown.SetValueWithoutNotify(index);
-            m_ActivityInputField.text = acitvity;
+            m_PresenceSelector.SetValueWithoutNotify(index);
+            m_PresenceColor.color = UIUtils.GetPresenceColor(presenceAvailabilityOptions);
+            m_Activity.text = activity;
         }
     }
 }

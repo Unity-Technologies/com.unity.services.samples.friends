@@ -126,10 +126,8 @@ namespace UnityGamingServicesUsesCases.Relationships
             await UASUtils.SwitchUser(playerName);
             m_LoggedPlayerName = playerName;
             await SetPresence(PresenceAvailabilityOptions.ONLINE);
-
             m_LocalPlayerView.Refresh(m_LoggedPlayerName, LoggedPlayerId, "In Friends Menu",
                 PresenceAvailabilityOptions.ONLINE);
-
             RefreshAll();
             Debug.Log($"Logged in as {playerName} id: {LoggedPlayerId}");
             Debug.Log($"Token ID{AuthenticationService.Instance.AccessToken}");
@@ -172,6 +170,8 @@ namespace UnityGamingServicesUsesCases.Relationships
         async void SetPresenceAsync((PresenceAvailabilityOptions presence, string activity) status)
         {
             await SetPresence(status.presence, status.activity);
+            m_LocalPlayerView.Refresh(m_LoggedPlayerName, LoggedPlayerId, status.activity,
+               status.presence);
         }
 
         async void RequestFriendAsync(string id)
@@ -181,7 +181,6 @@ namespace UnityGamingServicesUsesCases.Relationships
                 m_RequestFriendView.RequestFriendSuccess(); // Make Into Task.
             else
                 m_RequestFriendView.RequestFriendFailed();
-
         }
 
         async void QuitAsync()
