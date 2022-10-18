@@ -2,9 +2,9 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace UnityGamingServicesUsesCases.Relationships
+namespace UnityGamingServicesUsesCases.Relationships.UGUI
 {
-    public class GenericEntryView : MonoBehaviour
+    public class GenericEntryViewUGUI : MonoBehaviour
     {
         [SerializeField] private TextMeshProUGUI m_Text = null;
         public Button button1 = null;

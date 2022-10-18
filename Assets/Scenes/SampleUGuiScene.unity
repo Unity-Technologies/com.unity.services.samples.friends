@@ -894,7 +894,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6041617984865741953, guid: bd6d57e277fe69946ad95e48f21b65e7, type: 3}
       propertyPath: m_Name
-      value: BlocksView
+      value: BlocksViewUGUI
       objectReference: {fileID: 0}
     - target: {fileID: 6041617984865741953, guid: bd6d57e277fe69946ad95e48f21b65e7, type: 3}
       propertyPath: m_IsActive
@@ -1529,7 +1529,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8576461554161097830, guid: e250347badc9a1642a9ee8609d825c04, type: 3}
       propertyPath: m_Name
-      value: FriendsView
+      value: FriendsViewUGUI
       objectReference: {fileID: 0}
     - target: {fileID: 8576461554161097830, guid: e250347badc9a1642a9ee8609d825c04, type: 3}
       propertyPath: m_IsActive
@@ -2887,7 +2887,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3784827136723250983, guid: 1ec82c210cc8383458c59bdc0a899dc7, type: 3}
       propertyPath: m_Name
-      value: 'PlayerInfoView '
+      value: LocalPlayerViewUGUI
       objectReference: {fileID: 0}
     - target: {fileID: 3784827136723250983, guid: 1ec82c210cc8383458c59bdc0a899dc7, type: 3}
       propertyPath: m_IsActive
@@ -3739,7 +3739,7 @@ GameObject:
   - component: {fileID: 1157802338}
   - component: {fileID: 1157802337}
   m_Layer: 5
-  m_Name: SendRequestPopUp
+  m_Name: SendRequestViewUGUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5542,7 +5542,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8001390550900857761, guid: ae44e84439fb5ed40a63cec929450e46, type: 3}
       propertyPath: m_Name
-      value: RequestsView
+      value: RequestsViewUGUI
       objectReference: {fileID: 0}
     - target: {fileID: 8001390550900857761, guid: ae44e84439fb5ed40a63cec929450e46, type: 3}
       propertyPath: m_IsActive
@@ -5750,7 +5750,7 @@ GameObject:
   - component: {fileID: 1896553551}
   - component: {fileID: 1896553555}
   m_Layer: 5
-  m_Name: RelationshipsUGuiController
+  m_Name: RelationshipsUGUIController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5851,12 +5851,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b58cdcc217966a74da1377f99607016e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_PlayerInfoView: {fileID: 832177426}
-  m_AddFriendByIdView: {fileID: 1157802337}
-  m_RelationshipNavBar: {fileID: 1961877581}
-  m_FriendsView: {fileID: 543665510}
-  m_RequestsView: {fileID: 500389802}
-  m_BlocksView: {fileID: 1914566022}
+  m_LocalPlayerViewUGUI: {fileID: 832177426}
+  m_SendRequestViewUGUI: {fileID: 1157802337}
+  m_NavBarViewUGUI: {fileID: 1961877581}
+  m_FriendsViewUGUI: {fileID: 543665510}
+  m_RequestsViewUGUI: {fileID: 500389802}
+  m_BlocksViewUGUI: {fileID: 1914566022}
 --- !u!114 &1914566022 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 310980878, guid: bd6d57e277fe69946ad95e48f21b65e7, type: 3}

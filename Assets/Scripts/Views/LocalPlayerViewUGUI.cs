@@ -4,11 +4,10 @@ using TMPro;
 using Unity.Services.Friends.Models;
 using UnityEngine;
 
-namespace UnityGamingServicesUsesCases.Relationships
+namespace UnityGamingServicesUsesCases.Relationships.UGUI
 {
-    public class PlayerInfoView : MonoBehaviour, ILocalPlayerView
+    public class LocalPlayerViewUGUI : MonoBehaviour, ILocalPlayerView
     {
-        //public Action<(PresenceAvailabilityOptions,string)> OnPresenceChanged;
         public Action<(PresenceAvailabilityOptions, string)> onPresenceChanged { get; set; }
 
         [SerializeField] private TextMeshProUGUI m_Text = null;

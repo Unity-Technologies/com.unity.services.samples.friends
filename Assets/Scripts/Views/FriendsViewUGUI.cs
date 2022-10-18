@@ -2,17 +2,17 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace UnityGamingServicesUsesCases.Relationships
+namespace UnityGamingServicesUsesCases.Relationships.UGUI
 {
-    public class FriendsView : MonoBehaviour, IFriendsListView
+    public class FriendsViewUGUI : MonoBehaviour, IFriendsListView
     {
        // public Action<string> OnFriendRemove = null;
        // public Action<string> OnFriendBlock = null;
 
         [SerializeField]private RectTransform m_ParentTransform = null;
-        [SerializeField]private FriendsEntryView m_FriendEntryViewPrefab = null;
+        [SerializeField]private FriendsEntryViewUGUI m_FriendEntryViewPrefab = null;
 
-        List<FriendsEntryView> m_Friends = new List<FriendsEntryView>();
+        List<FriendsEntryViewUGUI> m_Friends = new List<FriendsEntryViewUGUI>();
 
         private List<FriendsEntryData> m_FriendsEntryDatas = new List<FriendsEntryData>();
 

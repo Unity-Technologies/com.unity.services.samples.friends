@@ -3,9 +3,9 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace UnityGamingServicesUsesCases.Relationships
+namespace UnityGamingServicesUsesCases.Relationships.UGUI
 {
-    public class AddFriendByIdView : MonoBehaviour, IRequestFriendView
+    public class SendRequestViewUGUI : MonoBehaviour, IRequestFriendView
     {
         [SerializeField] private Button m_Button = null;
         [SerializeField] private Button m_closeButton = null;

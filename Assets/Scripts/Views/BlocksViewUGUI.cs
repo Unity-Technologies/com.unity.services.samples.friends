@@ -2,16 +2,16 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace UnityGamingServicesUsesCases.Relationships
+namespace UnityGamingServicesUsesCases.Relationships.UGUI
 {
-    public class BlocksView : MonoBehaviour, IBlockedListView
+    public class BlocksViewUGUI : MonoBehaviour, IBlockedListView
     {
         public Action<string> OnFriendUnblock = null;
 
         [SerializeField]private RectTransform m_ParentTransform = null;
-        [SerializeField]private GenericEntryView m_BlockedEntryViewPrefab = null;
+        [SerializeField]private GenericEntryViewUGUI m_BlockedEntryViewPrefab = null;
 
-        List<GenericEntryView> m_Blocked = new List<GenericEntryView>();
+        List<GenericEntryViewUGUI> m_Blocked = new List<GenericEntryViewUGUI>();
         private List<PlayerProfile> m_PlayerProfiles = new List<PlayerProfile>();
         public void Refresh(List<PlayerProfile> playerProfiles)
         {

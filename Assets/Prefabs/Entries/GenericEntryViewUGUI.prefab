@@ -527,7 +527,7 @@ GameObject:
   - component: {fileID: 3784936978384758377}
   - component: {fileID: 3784936978384758378}
   m_Layer: 5
-  m_Name: GenericEntryView
+  m_Name: GenericEntryViewUGUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -2,17 +2,17 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace UnityGamingServicesUsesCases.Relationships
+namespace UnityGamingServicesUsesCases.Relationships.UGUI
 {
-    public class RequestsView : MonoBehaviour,IRequestListView
+    public class RequestsViewUGUI : MonoBehaviour,IRequestListView
     {
         //public Action<string> OnRequestAccepted = null;
         //public Action<string> OnRequestDeclined = null;
 
         [SerializeField] private RectTransform m_ParentTransform = null;
-        [SerializeField] private GenericEntryView m_RequestEntryViewPrefab = null;
+        [SerializeField] private GenericEntryViewUGUI m_RequestEntryViewPrefab = null;
 
-        List<GenericEntryView> m_Requests = new List<GenericEntryView>();
+        List<GenericEntryViewUGUI> m_Requests = new List<GenericEntryViewUGUI>();
 
         private List<PlayerProfile> m_PlayerProfiles = new List<PlayerProfile>();
         public void Refresh(List<PlayerProfile> playerProfiles)

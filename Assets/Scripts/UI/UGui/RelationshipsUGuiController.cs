@@ -1,62 +1,64 @@
 using UnityEngine;
-using UnityGamingServicesUsesCases.Relationships;
 
-public class RelationshipsUGuiController : MonoBehaviour, IRelationshipsUIController
+namespace UnityGamingServicesUsesCases.Relationships.UGUI
 {
-
-    [SerializeField] private PlayerInfoView m_PlayerInfoView;
-    [SerializeField] private AddFriendByIdView m_AddFriendByIdView;
-    [SerializeField] private RelationshipNavBar m_RelationshipNavBar;
-    [SerializeField] private FriendsView m_FriendsView;
-    [SerializeField] private RequestsView m_RequestsView;
-    [SerializeField] private BlocksView m_BlocksView;
-    public ILocalPlayerView LocalPlayerView => m_PlayerInfoView;
-
-    public IRelationshipBarView RelationshipBarView => m_RelationshipNavBar;
-    public IRequestFriendView RequestFriendView => m_AddFriendByIdView;
-    public IFriendsListView FriendsListView => m_FriendsView;
-    public IRequestListView RequestListView => m_RequestsView;
-    public IBlockedListView BlockListView => m_BlocksView;
-    public void Init()
+    public class RelationshipsUGUIController : MonoBehaviour, IRelationshipsUIController
     {
-        m_RelationshipNavBar.onShowFriends += ShowFriends;
-        m_RelationshipNavBar.onShowRequests += ShowRequests;
-        m_RelationshipNavBar.onShowBlocks += ShowBlocks;
-        m_RelationshipNavBar.onShowRequestFriend += ShowSendRequestPopUp;
-        m_AddFriendByIdView.Init();
-        HideAll();
-    }
+        [SerializeField] private LocalPlayerViewUGUI m_LocalPlayerViewUGUI;
+        [SerializeField] private SendRequestViewUGUI m_SendRequestViewUGUI;
+        [SerializeField] private NavBarViewUGUI m_NavBarViewUGUI;
+        [SerializeField] private FriendsViewUGUI m_FriendsViewUGUI;
+        [SerializeField] private RequestsViewUGUI m_RequestsViewUGUI;
+        [SerializeField] private BlocksViewUGUI m_BlocksViewUGUI;
+        public ILocalPlayerView LocalPlayerView => m_LocalPlayerViewUGUI;
 
-    private void ShowSendRequestPopUp()
-    {
-        m_AddFriendByIdView.Show();
-    }
+        public IRelationshipBarView RelationshipBarView => m_NavBarViewUGUI;
+        public IRequestFriendView RequestFriendView => m_SendRequestViewUGUI;
+        public IFriendsListView FriendsListView => m_FriendsViewUGUI;
+        public IRequestListView RequestListView => m_RequestsViewUGUI;
+        public IBlockedListView BlockListView => m_BlocksViewUGUI;
 
-    void HideAll()
-    {
-        FriendsListView.Hide();
-        RequestListView.Hide();
-        BlockListView.Hide();
-    }
+        public void Init()
+        {
+            m_NavBarViewUGUI.onShowFriends += ShowFriends;
+            m_NavBarViewUGUI.onShowRequests += ShowRequests;
+            m_NavBarViewUGUI.onShowBlocks += ShowBlocks;
+            m_NavBarViewUGUI.onShowRequestFriend += ShowSendRequestPopUp;
+            m_SendRequestViewUGUI.Init();
+            HideAll();
+        }
 
-    void ShowFriends()
-    {
-        FriendsListView.Show();
-        RequestListView.Hide();
-        BlockListView.Hide();
-    }
+        private void ShowSendRequestPopUp()
+        {
+            m_SendRequestViewUGUI.Show();
+        }
 
-    void ShowRequests()
-    {
-        RequestListView.Show();
-        FriendsListView.Hide();
-        BlockListView.Hide();
-    }
+        void HideAll()
+        {
+            FriendsListView.Hide();
+            RequestListView.Hide();
+            BlockListView.Hide();
+        }
 
-    void ShowBlocks()
-    {
-        BlockListView.Show();
-        RequestListView.Hide();
-        FriendsListView.Hide();
+        void ShowFriends()
+        {
+            FriendsListView.Show();
+            RequestListView.Hide();
+            BlockListView.Hide();
+        }
+
+        void ShowRequests()
+        {
+            RequestListView.Show();
+            FriendsListView.Hide();
+            BlockListView.Hide();
+        }
+
+        void ShowBlocks()
+        {
+            BlockListView.Show();
+            RequestListView.Hide();
+            FriendsListView.Hide();
+        }
     }
 }
