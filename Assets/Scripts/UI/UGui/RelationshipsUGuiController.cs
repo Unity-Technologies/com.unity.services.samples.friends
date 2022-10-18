@@ -11,12 +11,22 @@ namespace UnityGamingServicesUsesCases.Relationships.UGUI
         [SerializeField] private RequestsViewUGUI m_RequestsViewUGUI;
         [SerializeField] private BlocksViewUGUI m_BlocksViewUGUI;
         public ILocalPlayerView LocalPlayerView => m_LocalPlayerViewUGUI;
-
         public IRelationshipBarView RelationshipBarView => m_NavBarViewUGUI;
         public IRequestFriendView SendRequestPopupView =>m_SendRequestViewUGUI;
         public IFriendsListView FriendsListView => m_FriendsViewUGUI;
         public IRequestListView RequestListView => m_RequestsViewUGUI;
         public IBlockedListView BlockListView => m_BlocksViewUGUI;
+
+        //TODO: to remove before release
+        private void Reset()
+        {
+            m_LocalPlayerViewUGUI = GetComponentInChildren<LocalPlayerViewUGUI>();
+            m_SendRequestViewUGUI = GetComponentInChildren<SendRequestViewUGUI>();
+            m_NavBarViewUGUI = GetComponentInChildren<NavBarViewUGUI>();
+            m_FriendsViewUGUI = GetComponentInChildren<FriendsViewUGUI>();
+            m_RequestsViewUGUI = GetComponentInChildren<RequestsViewUGUI>();
+            m_BlocksViewUGUI = GetComponentInChildren<BlocksViewUGUI>();
+        }
 
         public void Init()
         {
