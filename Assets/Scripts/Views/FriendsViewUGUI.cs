@@ -15,9 +15,9 @@ namespace UnityGamingServicesUsesCases.Relationships.UGUI
         public Action<string> onRemove { get; set; }
         public Action<string> onBlock { get; set; }
 
-        public void BindList(List<FriendsEntryData> listToBind)
+        public void BindList(List<FriendsEntryData> friendEntryDatas)
         {
-            m_FriendsEntryDatas = listToBind;
+            m_FriendsEntryDatas = friendEntryDatas;
         }
 
         public void Show()
