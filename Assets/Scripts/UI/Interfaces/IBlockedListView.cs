@@ -6,7 +6,7 @@ namespace UnityGamingServicesUsesCases.Relationships
 {
     public interface IBlockedListView
     {
-        Action<string> onUnBlock { get; set; }
+        Action<string> onUnblock { get; set; }
         void BindList(List<PlayerProfile> playerProfiles);
         void Show();
         void Hide();

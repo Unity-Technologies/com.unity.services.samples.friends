@@ -97,13 +97,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2981505979800444273, guid: 99f276fd68647374e8e0c3d1cd6cb0fe, type: 3}
       propertyPath: m_Name
-      value: RequestsView
+      value: RequestsViewUGUI
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 99f276fd68647374e8e0c3d1cd6cb0fe, type: 3}
 --- !u!1 &8001390550900857761 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2981505979800444273, guid: 99f276fd68647374e8e0c3d1cd6cb0fe, type: 3}
+  m_PrefabInstance: {fileID: 5074089706227599056}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &8574771109791878959 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 3500842071915547135, guid: 99f276fd68647374e8e0c3d1cd6cb0fe, type: 3}
   m_PrefabInstance: {fileID: 5074089706227599056}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &1794537882
@@ -119,9 +124,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ParentTransform: {fileID: 8574771109791878959}
-  m_RequestEntryViewPrefab: {fileID: 8096351880289900734, guid: 3d0b02f152f60cc418c44472e7415e45, type: 3}
---- !u!224 &8574771109791878959 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 3500842071915547135, guid: 99f276fd68647374e8e0c3d1cd6cb0fe, type: 3}
-  m_PrefabInstance: {fileID: 5074089706227599056}
-  m_PrefabAsset: {fileID: 0}
+  m_RequestEntryViewPrefab: {fileID: 3666512978743262121, guid: 3d0b02f152f60cc418c44472e7415e45, type: 3}

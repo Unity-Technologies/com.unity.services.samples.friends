@@ -8,7 +8,7 @@ namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
     {
         const string k_BlockedListViewName = "blocked-list";
 
-        public Action<string> onUnBlock { get; set; }
+        public Action<string> onUnblock { get; set; }
 
         ListView m_BlockedListView;
 
@@ -41,7 +41,7 @@ namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
                 blockedEntryControl.Refresh(userProfile.Name);
                 blockedEntryControl.onUnBlock = () =>
                 {
-                    onUnBlock?.Invoke(userProfile.Id);
+                    onUnblock?.Invoke(userProfile.Id);
                     blockedEntryControl.Hide();
                 };
             };

@@ -103,7 +103,7 @@ namespace UnityGamingServicesUsesCases.Relationships
             m_RequestListView.onAccept += AcceptRequestAsync;
             m_RequestListView.onDecline += DeclineRequestAsync;
             m_RequestListView.onBlock += BlockFriendAsync;
-            m_BlockListView.onUnBlock += UnblockFriendAsync;
+            m_BlockListView.onUnblock += UnblockFriendAsync;
             m_LocalPlayerView.onPresenceChanged += SetPresenceAsync;
         }
 

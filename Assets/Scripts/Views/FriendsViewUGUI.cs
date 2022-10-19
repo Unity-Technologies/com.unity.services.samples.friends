@@ -6,31 +6,11 @@ namespace UnityGamingServicesUsesCases.Relationships.UGUI
 {
     public class FriendsViewUGUI : MonoBehaviour, IFriendsListView
     {
-        [SerializeField] private RectTransform m_ParentTransform = null;
-        [SerializeField] private FriendsEntryViewUGUI m_FriendEntryViewPrefab = null;
+        [SerializeField] RectTransform m_ParentTransform = null;
+        [SerializeField] FriendEntryViewUGUI m_FriendEntryViewPrefab = null;
 
-        List<FriendsEntryViewUGUI> m_Friends = new List<FriendsEntryViewUGUI>();
-
-        private List<FriendsEntryData> m_FriendsEntryDatas = new List<FriendsEntryData>();
-
-        public void Refresh(List<FriendsEntryData> friendsEntryDatas)
-        {
-            foreach (var entry in m_Friends)
-            {
-                Destroy(entry.gameObject);
-            }
-
-            m_Friends.Clear();
-
-            foreach (var friendsEntryData in friendsEntryDatas)
-            {
-                var entry = Instantiate(m_FriendEntryViewPrefab, m_ParentTransform);
-                entry.Init(friendsEntryData.Name, friendsEntryData.Availability.ToString(), friendsEntryData.Activity);
-                entry.button1.onClick.AddListener(() => { onRemove?.Invoke(friendsEntryData.Id); });
-                entry.button2.onClick.AddListener(() => { onBlock?.Invoke(friendsEntryData.Id); });
-                m_Friends.Add(entry);
-            }
-        }
+        List<FriendEntryViewUGUI> m_FriendEntries = new List<FriendEntryViewUGUI>();
+        List<FriendsEntryData> m_FriendsEntryDatas = new List<FriendsEntryData>();
 
         public Action<string> onRemove { get; set; }
         public Action<string> onBlock { get; set; }
@@ -53,7 +33,17 @@ namespace UnityGamingServicesUsesCases.Relationships.UGUI
 
         public void Refresh()
         {
-            Refresh(m_FriendsEntryDatas);
+            m_FriendEntries.ForEach(entry => Destroy(entry.gameObject));
+            m_FriendEntries.Clear();
+
+            foreach (var friendsEntryData in m_FriendsEntryDatas)
+            {
+                var entry = Instantiate(m_FriendEntryViewPrefab, m_ParentTransform);
+                entry.Init(friendsEntryData.Name, friendsEntryData.Availability.ToString(), friendsEntryData.Activity);
+                entry.removeFriendButton.onClick.AddListener(() => { onRemove?.Invoke(friendsEntryData.Id); });
+                entry.blockFriendButton.onClick.AddListener(() => { onBlock?.Invoke(friendsEntryData.Id); });
+                m_FriendEntries.Add(entry);
+            }
         }
     }
 }

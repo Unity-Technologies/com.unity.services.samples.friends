@@ -6,44 +6,22 @@ namespace UnityGamingServicesUsesCases.Relationships.UGUI
 {
     public class BlocksViewUGUI : MonoBehaviour, IBlockedListView
     {
-        public Action<string> OnFriendUnblock = null;
+        [SerializeField] RectTransform m_ParentTransform = null;
+        [SerializeField] BlockEntryViewUGUI m_BlockEntryViewPrefab = null;
 
-        [SerializeField]private RectTransform m_ParentTransform = null;
-        [SerializeField]private GenericEntryViewUGUI m_BlockedEntryViewPrefab = null;
+        List<BlockEntryViewUGUI> m_BlockEntries = new List<BlockEntryViewUGUI>();
+        List<PlayerProfile> m_PlayerProfiles = new List<PlayerProfile>();
+        public Action<string> onUnblock { get; set; }
 
-        List<GenericEntryViewUGUI> m_Blocked = new List<GenericEntryViewUGUI>();
-        private List<PlayerProfile> m_PlayerProfiles = new List<PlayerProfile>();
-        public void Refresh(List<PlayerProfile> playerProfiles)
+        public void BindList(List<PlayerProfile> playerProfiles)
         {
-            foreach (var entry in m_Blocked)
-            {
-                Destroy(entry.gameObject);
-            }
-            m_Blocked.Clear();
-
-            foreach (var playerProfile in playerProfiles)
-            {
-                var entry = Instantiate(m_BlockedEntryViewPrefab, m_ParentTransform);
-                entry.Init(playerProfile.Name);
-                entry.button1.onClick.AddListener(() =>
-                {
-                    OnFriendUnblock?.Invoke(playerProfile.Id);
-                });
-                m_Blocked.Add(entry);
-                entry.button2.gameObject.SetActive(false);
-            }
-        }
-
-        public Action<string> onUnBlock { get; set; }
-        public void BindList(List<PlayerProfile> listToBind)
-        {
-            m_PlayerProfiles = listToBind;
+            m_PlayerProfiles = playerProfiles;
         }
 
         public void Show()
         {
-           Refresh();
-           gameObject.SetActive(true);
+            Refresh();
+            gameObject.SetActive(true);
         }
 
         public void Hide()
@@ -53,7 +31,16 @@ namespace UnityGamingServicesUsesCases.Relationships.UGUI
 
         public void Refresh()
         {
-           Refresh(m_PlayerProfiles);
+            m_BlockEntries.ForEach(entry => Destroy(entry.gameObject));
+            m_BlockEntries.Clear();
+            
+            foreach (var playerProfile in m_PlayerProfiles)
+            {
+                var entry = Instantiate(m_BlockEntryViewPrefab, m_ParentTransform);
+                entry.Init(playerProfile.Name);
+                entry.unblockButton.onClick.AddListener(() => { onUnblock?.Invoke(playerProfile.Id); });
+                m_BlockEntries.Add(entry);
+            }
         }
     }
 }
