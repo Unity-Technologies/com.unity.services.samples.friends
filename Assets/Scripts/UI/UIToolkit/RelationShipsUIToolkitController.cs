@@ -19,7 +19,7 @@ namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
 
         public ILocalPlayerView LocalPlayerView { get; private set; }
         public IRelationshipBarView RelationshipBarView { get; private set; }
-        public IRequestFriendView SendRequestPopupView { get; private set; }
+        public IAddFriendView AddFriendView { get; private set; }
         public IFriendsListView FriendsListView { get; private set; }
         public IRequestListView RequestListView { get; private set; }
         public IBlockedListView BlockListView { get; private set; }
@@ -34,7 +34,7 @@ namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
 
             LocalPlayerView = new LocalPlayerView(localPlayerControlView);
 
-            SendRequestPopupView = new RequestFriendView(root);
+            AddFriendView = new AddFriendView(root);
 
             FriendsListView = new FriendsListView(root, m_FriendEntryTemplate);
             RequestListView = new RequestListView(root, m_RequestEntryTemplate);
@@ -45,7 +45,7 @@ namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
             RelationshipBarView.onShowRequests = OnRequestList;
             RelationshipBarView.onShowBlocks = OnBlockList;
             RelationshipBarView.onShowRequestFriend = ShowAddFriendPopup;
-            SendRequestPopupView.Hide();
+            AddFriendView.Hide();
         }
 
         void OnFriendList()
@@ -74,7 +74,7 @@ namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
 
         void ShowAddFriendPopup()
         {
-            SendRequestPopupView.Show();
+            AddFriendView.Show();
         }
     }
 }

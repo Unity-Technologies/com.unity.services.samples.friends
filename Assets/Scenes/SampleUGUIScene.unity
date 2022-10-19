@@ -5536,6 +5536,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1421278917}
     - target: {fileID: 8088031084014022019, guid: 9fdc3765655b72d4888932030e95072a, type: 3}
+      propertyPath: m_AddFriendDebugView
+      value: 
+      objectReference: {fileID: 1421278917}
+    - target: {fileID: 8088031084014022019, guid: 9fdc3765655b72d4888932030e95072a, type: 3}
       propertyPath: m_UIControllerObject
       value: 
       objectReference: {fileID: 1896553550}

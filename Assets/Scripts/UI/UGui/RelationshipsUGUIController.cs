@@ -12,7 +12,7 @@ namespace UnityGamingServicesUsesCases.Relationships.UGUI
         [SerializeField] private BlocksViewUGUI m_BlocksViewUGUI;
         public ILocalPlayerView LocalPlayerView => m_LocalPlayerViewUGUI;
         public IRelationshipBarView RelationshipBarView => m_NavBarViewUGUI;
-        public IRequestFriendView SendRequestPopupView =>m_AddFriendViewUGUI;
+        public IAddFriendView AddFriendView =>m_AddFriendViewUGUI;
         public IFriendsListView FriendsListView => m_FriendsViewUGUI;
         public IRequestListView RequestListView => m_RequestsViewUGUI;
         public IBlockedListView BlockListView => m_BlocksViewUGUI;

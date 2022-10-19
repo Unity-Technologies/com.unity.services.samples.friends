@@ -24,7 +24,7 @@ namespace UnityGamingServicesUsesCases.Relationships
 
         [Header("Debug UI")]
         [SerializeField]
-        AddFriendView m_AddFriendView;
+        AddFriendView m_AddFriendDebugView;
 
         [SerializeField]
         LogInView m_LogInView;
@@ -48,7 +48,7 @@ namespace UnityGamingServicesUsesCases.Relationships
 
         string m_LoggedPlayerName;
         ILocalPlayerView m_LocalPlayerView;
-        IRequestFriendView m_RequestFriendView;
+        IAddFriendView m_AddFriendView;
         IFriendsListView m_FriendsListView;
         IRequestListView m_RequestListView;
         IBlockedListView m_BlockListView;
@@ -86,7 +86,7 @@ namespace UnityGamingServicesUsesCases.Relationships
 
             m_UIController.Init();
             m_LocalPlayerView = m_UIController.LocalPlayerView;
-            m_RequestFriendView = m_UIController.SendRequestPopupView;
+            m_AddFriendView = m_UIController.AddFriendView;
 
             //Bind Entry Lists
             m_FriendsListView = m_UIController.FriendsListView;
@@ -97,7 +97,7 @@ namespace UnityGamingServicesUsesCases.Relationships
             m_BlockListView.BindList(m_BlockEntryDatas);
 
             //Bind Friend Calls
-            m_RequestFriendView.tryRequestFriend += RequestFriendAsync;
+            m_AddFriendView.onFriendRequestSent += SendFriendRequestAsync;
             m_FriendsListView.onRemove += RemoveFriendAsync;
             m_FriendsListView.onBlock += BlockFriendAsync;
             m_RequestListView.onAccept += AcceptRequestAsync;
@@ -110,8 +110,8 @@ namespace UnityGamingServicesUsesCases.Relationships
         void DebugUISetup()
         {
             //Bind Actionable
-            m_AddFriendView.Init();
-            m_AddFriendView.OnAddFriend += RequestFriendAsync;
+            m_AddFriendDebugView.Init();
+            m_AddFriendDebugView.OnAddFriend += SendFriendRequestAsync;
 
             m_LogInView.Init();
             m_LogInView.OnLogIn += LogIn;
@@ -174,13 +174,13 @@ namespace UnityGamingServicesUsesCases.Relationships
                status.presence);
         }
 
-        async void RequestFriendAsync(string id)
+        async void SendFriendRequestAsync(string id)
         {
             var success = await RequestFriend(id, "button");
             if(success)
-                m_RequestFriendView.RequestFriendSuccess(); // Make Into Task.
+                m_AddFriendView.FriendRequestSuccess(); // Make Into Task.
             else
-                m_RequestFriendView.RequestFriendFailed();
+                m_AddFriendView.FriendRequestFailed();
         }
 
         async void QuitAsync()

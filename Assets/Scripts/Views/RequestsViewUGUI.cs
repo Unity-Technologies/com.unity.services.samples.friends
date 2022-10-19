@@ -42,6 +42,7 @@ namespace UnityGamingServicesUsesCases.Relationships.UGUI
                 entry.Init(playerProfile.Name);
                 entry.acceptButton.onClick.AddListener(() => { onAccept?.Invoke(playerProfile.Id); });
                 entry.declineButton.onClick.AddListener(() => { onDecline?.Invoke(playerProfile.Id); });
+                entry.blockButton.onClick.AddListener(() => { onBlock?.Invoke(playerProfile.Id); });
                 m_RequestEntries.Add(entry);
             }
         }

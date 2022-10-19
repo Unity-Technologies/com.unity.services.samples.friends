@@ -5,7 +5,7 @@ namespace UnityGamingServicesUsesCases.Relationships
     {
         ILocalPlayerView LocalPlayerView { get; }
         IRelationshipBarView RelationshipBarView { get; }
-        IRequestFriendView SendRequestPopupView { get; }
+        IAddFriendView AddFriendView { get; }
         IFriendsListView FriendsListView { get; }
         IRequestListView RequestListView { get; }
         IBlockedListView BlockListView { get; }
