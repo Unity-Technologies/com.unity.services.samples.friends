@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace UnityGamingServicesUsesCases.Relationships
 {
-    public class UIUtils
+    public class ColorUtils
     {
         public static Color GetPresenceColor(PresenceAvailabilityOptions presenceStatus)
         {

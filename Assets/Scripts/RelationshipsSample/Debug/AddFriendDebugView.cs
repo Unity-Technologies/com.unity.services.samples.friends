@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace UnityGamingServicesUsesCases.Relationships
 {
-    public class AddFriendView : MonoBehaviour
+    public class AddFriendDebugView : MonoBehaviour
     {
         public Action<string> OnAddFriend;
 

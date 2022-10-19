@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace UnityGamingServicesUsesCases.Relationships
 {
-    public class LogInView : MonoBehaviour
+    public class LogInDebugView : MonoBehaviour
     {
         public Action<string> OnLogIn;
 

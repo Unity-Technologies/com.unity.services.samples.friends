@@ -42,7 +42,7 @@ namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
             m_PlayerActivity.text = activity;
             m_PlayerStatusLabel.text = presenceStatus.ToString();
 
-            var presenceColor = UIUtils.GetPresenceColor(presenceStatus);
+            var presenceColor = ColorUtils.GetPresenceColor(presenceStatus);
             m_PlayerStatusLabel.style.color = presenceColor;
             m_PlayerStatusCircle.style.backgroundColor = presenceColor;
         }

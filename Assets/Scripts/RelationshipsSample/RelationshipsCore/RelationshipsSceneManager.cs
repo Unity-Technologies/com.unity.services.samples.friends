@@ -24,13 +24,13 @@ namespace UnityGamingServicesUsesCases.Relationships
 
         [Header("Debug UI")]
         [SerializeField]
-        AddFriendView m_AddFriendDebugView;
+        AddFriendDebugView m_AddFriendDebugView;
 
         [SerializeField]
-        LogInView m_LogInView;
+        LogInDebugView m_LogInDebugView;
 
         [SerializeField]
-        RefreshView m_RefreshView;
+        RefreshDebugView m_RefreshDebugView;
 
         [SerializeField]
         Button m_QuitButton;
@@ -113,11 +113,11 @@ namespace UnityGamingServicesUsesCases.Relationships
             m_AddFriendDebugView.Init();
             m_AddFriendDebugView.OnAddFriend += SendFriendRequestAsync;
 
-            m_LogInView.Init();
-            m_LogInView.OnLogIn += LogIn;
+            m_LogInDebugView.Init();
+            m_LogInDebugView.OnLogIn += LogIn;
 
-            m_RefreshView.Init();
-            m_RefreshView.OnRefresh += RefreshAll;
+            m_RefreshDebugView.Init();
+            m_RefreshDebugView.OnRefresh += RefreshAll;
             m_QuitButton.onClick.AddListener(QuitAsync);
         }
 

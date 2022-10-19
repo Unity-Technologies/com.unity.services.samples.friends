@@ -68,7 +68,7 @@ namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
 
         void SetPresenceColor(PresenceAvailabilityOptions presenceStatus)
         {
-            var presenceColor = UIUtils.GetPresenceColor(presenceStatus);
+            var presenceColor = ColorUtils.GetPresenceColor(presenceStatus);
             m_PlayerStatusCircle.style.backgroundColor = presenceColor;
             m_PlayerStatusDropDown.style.color = presenceColor;
         }

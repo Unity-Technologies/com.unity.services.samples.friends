@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace UnityGamingServicesUsesCases.Relationships
 {
-    public class RefreshView : MonoBehaviour
+    public class RefreshDebugView : MonoBehaviour
     {
         public Action OnRefresh;
 

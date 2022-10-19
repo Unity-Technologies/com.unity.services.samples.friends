@@ -55,7 +55,7 @@ namespace UnityGamingServicesUsesCases.Relationships.UGUI
             //Presence
             var index = (int)presenceAvailabilityOptions - 1;
             m_PresenceSelector.SetValueWithoutNotify(index);
-            var presenceColor =  UIUtils.GetPresenceColor(presenceAvailabilityOptions);
+            var presenceColor =  ColorUtils.GetPresenceColor(presenceAvailabilityOptions);
             m_PresenceColor.color = presenceColor;
             m_PresenceText.color = presenceColor;
             
