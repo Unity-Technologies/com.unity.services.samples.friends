@@ -133,7 +133,7 @@ GameObject:
   - component: {fileID: 4593130544871530356}
   - component: {fileID: 4593130544871530359}
   m_Layer: 5
-  m_Name: InputField (TMP)
+  m_Name: IDInputField (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -308,7 +308,7 @@ GameObject:
   - component: {fileID: 4593130544979907904}
   - component: {fileID: 4593130544979907907}
   m_Layer: 5
-  m_Name: Button
+  m_Name: AddFriendButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -428,7 +428,7 @@ GameObject:
   - component: {fileID: 4593130544997588188}
   - component: {fileID: 4593130544997588191}
   m_Layer: 5
-  m_Name: SendRequestViewUGUI
+  m_Name: AddFriendViewUGUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -475,10 +475,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61ed4c20e74f5a142b9aad277950f606, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Button: {fileID: 4593130544979907907}
-  m_closeButton: {fileID: 4593130545847738183}
-  m_backgroundButton: {fileID: 4593130544501286793}
-  m_InputField: {fileID: 4593130544871530359}
+  m_AddFriendButton: {fileID: 4593130544979907907}
+  m_CloseButton: {fileID: 4593130545847738183}
+  m_BackgroundButton: {fileID: 4593130544501286793}
+  m_IdInputField: {fileID: 4593130544871530359}
 --- !u!1 &4593130544998711751
 GameObject:
   m_ObjectHideFlags: 0
@@ -639,7 +639,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4593130545112082050}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 50}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4593130545847738182}
@@ -648,10 +648,10 @@ RectTransform:
   m_Father: {fileID: 4593130544997588190}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.5}
-  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -300, y: 500}
+  m_SizeDelta: {x: 800, y: 500}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4593130545112082174
 CanvasRenderer:

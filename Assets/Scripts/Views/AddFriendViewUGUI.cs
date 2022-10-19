@@ -5,20 +5,20 @@ using UnityEngine.UI;
 
 namespace UnityGamingServicesUsesCases.Relationships.UGUI
 {
-    public class SendRequestViewUGUI : MonoBehaviour, IRequestFriendView
+    public class AddFriendViewUGUI : MonoBehaviour, IRequestFriendView
     {
-        [SerializeField] private Button m_Button = null;
-        [SerializeField] private Button m_closeButton = null;
-        [SerializeField] private Button m_backgroundButton = null;
-        [SerializeField] private TMP_InputField m_InputField = null;
+        [SerializeField] private Button m_AddFriendButton = null;
+        [SerializeField] private Button m_CloseButton = null;
+        [SerializeField] private Button m_BackgroundButton = null;
+        [SerializeField] private TMP_InputField m_IdInputField = null;
 
         public void Init()
         {
             var playerId = string.Empty;
-            m_InputField.onValueChanged.AddListener((value) => { playerId = value; });
-            m_Button.onClick.AddListener(() => tryRequestFriend?.Invoke(playerId));
-            m_backgroundButton.onClick.AddListener(Hide);
-            m_closeButton.onClick.AddListener(Hide);
+            m_IdInputField.onValueChanged.AddListener((value) => { playerId = value; });
+            m_AddFriendButton.onClick.AddListener(() => tryRequestFriend?.Invoke(playerId));
+            m_BackgroundButton.onClick.AddListener(Hide);
+            m_CloseButton.onClick.AddListener(Hide);
             Hide();
         }
         
