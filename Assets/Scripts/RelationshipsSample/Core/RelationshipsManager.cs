@@ -7,33 +7,15 @@ using Unity.Services.Friends.Models;
 using Unity.Services.Friends.Notifications;
 using Unity.Services.Friends.Options;
 using UnityEngine;
-using Button = UnityEngine.UI.Button;
 
 namespace UnityGamingServicesUsesCases.Relationships
 {
-    public class RelationshipsSceneManager : MonoBehaviour
+    public class RelationshipsManager : MonoBehaviour
     {
-        [Header("Data")]
-        [SerializeField]
-        PlayerProfilesData m_PlayerProfilesData;
-
-        [Header("UI"), Tooltip("Put in a GameObject with a monobehaviour extending IRelationshipsUIController.")]
+        [Header("UI GameObject"), Tooltip("Put in a GameObject with a MonoBehaviour extending IRelationshipsUIController.")]
         [SerializeField]
         GameObject m_UIControllerObject;
         IRelationshipsUIController m_UIController;
-
-        [Header("Debug UI")]
-        [SerializeField]
-        AddFriendDebugView m_AddFriendDebugView;
-
-        [SerializeField]
-        LogInDebugView m_LogInDebugView;
-
-        [SerializeField]
-        RefreshDebugView m_RefreshDebugView;
-
-        [SerializeField]
-        Button m_QuitButton;
 
         /// <summary>
         /// Serialized for debug inspection.
@@ -52,13 +34,15 @@ namespace UnityGamingServicesUsesCases.Relationships
         IFriendsListView m_FriendsListView;
         IRequestListView m_RequestListView;
         IBlockedListView m_BlockListView;
+        ISocialProfileService m_SocialProfileService;
+
 
         string LoggedPlayerId => AuthenticationService.Instance.PlayerId;
 
-        public async Task Init(string currentPlayerName)
+        public async Task Init(string currentPlayerName, ISocialProfileService profileService)
         {
+            m_SocialProfileService = profileService;
             UISetup();
-            DebugUISetup();
 
             m_LoggedPlayerName = currentPlayerName;
             m_LocalPlayerView.Refresh(m_LoggedPlayerName, LoggedPlayerId, "In Friends Menu",
@@ -69,7 +53,6 @@ namespace UnityGamingServicesUsesCases.Relationships
 
         void UISetup()
         {
-            
             //Do you want to do null checks?
             if (m_UIControllerObject == null)
             {
@@ -97,7 +80,7 @@ namespace UnityGamingServicesUsesCases.Relationships
             m_BlockListView.BindList(m_BlockEntryDatas);
 
             //Bind Friend Calls
-            m_AddFriendView.onFriendRequestSent += SendFriendRequestAsync;
+            m_AddFriendView.onFriendRequestSent += AddFriendAsync;
             m_FriendsListView.onRemove += RemoveFriendAsync;
             m_FriendsListView.onBlock += BlockFriendAsync;
             m_RequestListView.onAccept += AcceptRequestAsync;
@@ -107,21 +90,8 @@ namespace UnityGamingServicesUsesCases.Relationships
             m_LocalPlayerView.onPresenceChanged += SetPresenceAsync;
         }
 
-        void DebugUISetup()
-        {
-            //Bind Actionable
-            m_AddFriendDebugView.Init();
-            m_AddFriendDebugView.OnAddFriend += SendFriendRequestAsync;
 
-            m_LogInDebugView.Init();
-            m_LogInDebugView.OnLogIn += LogIn;
-
-            m_RefreshDebugView.Init();
-            m_RefreshDebugView.OnRefresh += RefreshAll;
-            m_QuitButton.onClick.AddListener(QuitAsync);
-        }
-
-        async void LogIn(string playerName)
+        public async void LogIn(string playerName)
         {
             await UASUtils.SwitchUser(playerName);
             m_LoggedPlayerName = playerName;
@@ -131,6 +101,13 @@ namespace UnityGamingServicesUsesCases.Relationships
             RefreshAll();
             Debug.Log($"Logged in as {playerName} id: {LoggedPlayerId}");
             Debug.Log($"Token ID{AuthenticationService.Instance.AccessToken}");
+        }
+
+        public async void RefreshAll()
+        {
+            await RefreshFriends();
+            await RefreshRequests();
+            await RefreshBlocks();
         }
 
         async void BlockFriendAsync(string id)
@@ -174,27 +151,13 @@ namespace UnityGamingServicesUsesCases.Relationships
                status.presence);
         }
 
-        async void SendFriendRequestAsync(string id)
+        async void AddFriendAsync(string id)
         {
             var success = await RequestFriend(id, "button");
             if(success)
                 m_AddFriendView.FriendRequestSuccess(); // Make Into Task.
             else
                 m_AddFriendView.FriendRequestFailed();
-        }
-
-        async void QuitAsync()
-        {
-            Friends.Instance.Dispose();
-            await Task.Delay(1000);
-            Application.Quit();
-        }
-
-        async void RefreshAll()
-        {
-            await RefreshFriends();
-            await RefreshRequests();
-            await RefreshBlocks();
         }
 
         async Task RefreshFriends()
@@ -217,7 +180,7 @@ namespace UnityGamingServicesUsesCases.Relationships
 
                 var info = new FriendsEntryData
                 {
-                    Name = m_PlayerProfilesData.GetName(friend.Player.Id),
+                    Name = m_SocialProfileService.GetName(friend.Player.Id),
                     Id = friend.Player.Id,
                     Availability = friend.Presence.GetAvailability(),
                     Activity = activityText
@@ -235,7 +198,7 @@ namespace UnityGamingServicesUsesCases.Relationships
             m_RequestsEntryDatas.Clear();
             foreach (var request in requests)
             {
-                m_RequestsEntryDatas.Add(new PlayerProfile(m_PlayerProfilesData.GetName(request.Id), request.Id));
+                m_RequestsEntryDatas.Add(new PlayerProfile(m_SocialProfileService.GetName(request.Id), request.Id));
             }
 
             m_RequestListView.Refresh();
@@ -248,7 +211,7 @@ namespace UnityGamingServicesUsesCases.Relationships
             m_BlockEntryDatas.Clear();
             foreach (var block in blocks)
             {
-                m_BlockEntryDatas.Add(new PlayerProfile(m_PlayerProfilesData.GetName(block.Id), block.Id));
+                m_BlockEntryDatas.Add(new PlayerProfile(m_SocialProfileService.GetName(block.Id), block.Id));
             }
 
             m_BlockListView.Refresh();
