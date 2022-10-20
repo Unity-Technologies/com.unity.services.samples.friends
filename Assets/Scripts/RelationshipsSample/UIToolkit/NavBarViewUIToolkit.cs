@@ -3,16 +3,16 @@ using UnityEngine.UIElements;
 
 namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
 {
-    public class RelationshipBarView : IRelationshipBarView
+    public class NavBarViewUIToolkit : IRelationshipBarView
     {
-        const string k_RelationshipsBarViewName = "relationship-bar-view";
+        const string k_RelationshipsBarViewName = "nav-bar-view";
 
         public Action onShowFriends { get; set; }
         public Action onShowRequests { get; set; }
         public Action onShowBlocks { get; set; }
         public Action onShowRequestFriend { get; set; }
 
-        public RelationshipBarView(VisualElement viewParent)
+        public NavBarViewUIToolkit(VisualElement viewParent)
         {
             var relationshipsBarView = viewParent.Q(k_RelationshipsBarViewName);
             var friendsListButton = relationshipsBarView.Q<Button>("friends-button");

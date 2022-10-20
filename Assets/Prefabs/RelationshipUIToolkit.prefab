@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1664856525800574413}
   - component: {fileID: 505116760147848922}
-  - component: {fileID: 9176541395467582865}
+  - component: {fileID: 1495272926391214025}
   m_Layer: 0
   m_Name: RelationshipUIToolkit
   m_TagString: Untagged
@@ -44,11 +44,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd12e676dd9140048959d137ea632e65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_SocialUIDoc: {fileID: 9176541395467582865}
+  m_SocialUIDoc: {fileID: 1495272926391214025}
   m_FriendEntryTemplate: {fileID: 9197481963319205126, guid: 7464d6b4c4e6c49c39d1d09516907fc1, type: 3}
   m_RequestEntryTemplate: {fileID: 9197481963319205126, guid: 2718900bbbae9584ba9a986fa03931fb, type: 3}
   m_BlockedEntryTemplate: {fileID: 9197481963319205126, guid: 32a106e9152e3994089bf3426ad2951b, type: 3}
---- !u!114 &9176541395467582865
+--- !u!114 &1495272926391214025
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

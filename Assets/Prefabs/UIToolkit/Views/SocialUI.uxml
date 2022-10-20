@@ -1,13 +1,13 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <ui:Template name="LocalPlayerTabLayout" src="LocalPlayerView.uxml" />
-    <ui:Template name="SocialTabLayout" src="RelationshipBarView.uxml" />
-    <ui:Template name="RequestFriendLayout" src="RequestFriendView.uxml" />
-    <Style src="RelationshipsStyle.uss" />
+    <ui:Template name="AddFriendView" src="AddFriendView.uxml" />
+    <ui:Template name="LocalPlayerView" src="LocalPlayerView.uxml" />
+    <ui:Template name="NavBarView" src="NavBarView.uxml" />
+    <Style src="/Assets/Prefabs/UIToolkit/RelationshipsStyle.uss" />
     <ui:VisualElement name="full-screen" style="align-items: center; flex-grow: 1; justify-content: center;">
         <ui:VisualElement name="social-ui-group" style="align-items: stretch; width: 650px; flex-grow: 0; flex-shrink: 0; justify-content: space-between; height: auto; top: 0; right: 0; position: absolute; padding-left: 15px; padding-right: 15px; padding-top: 15px; padding-bottom: 15px;">
-            <ui:Instance template="LocalPlayerTabLayout" name="LocalUserView" style="margin-left: 0; padding-bottom: 15px;" />
-            <ui:Instance template="SocialTabLayout" name="RelationshipBarView" style="width: 100%;" />
+            <ui:Instance template="LocalPlayerView" name="LocalPlayerView" />
+            <ui:Instance template="NavBarView" name="RelationshipBarView" />
         </ui:VisualElement>
-        <ui:Instance template="RequestFriendLayout" name="RequestFriendView" picking-mode="Ignore" style="height: 100px; align-items: stretch; justify-content: space-around; width: 100%; flex-grow: 1;" />
+        <ui:Instance template="AddFriendView" name="AddFriendView" />
     </ui:VisualElement>
 </ui:UXML>

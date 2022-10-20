@@ -1,8 +1,8 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <ui:Template name="BasePlayerEntryLayout" src="/Assets/UI/RelationshipsUI/PlayerView.uxml" />
-    <Style src="/Assets/UI/RelationshipsUI/RelationshipsStyle.uss" />
+    <ui:Template name="PlayerView" src="/Assets/Prefabs/UIToolkit/Views/PlayerView.uxml" />
+    <Style src="/Assets/Prefabs/UIToolkit/RelationshipsStyle.uss" />
     <ui:VisualElement name="block-entry-view" picking-mode="Ignore" class="player-panel" style="flex-direction: row; justify-content: space-between; align-items: center; min-width: 450px;">
-        <ui:Instance template="BasePlayerEntryLayout" name="PlayerView" class="blocked-player-panel" style="width: 50%;" />
+        <ui:Instance template="PlayerView" name="PlayerView" class="blocked-player-panel" />
         <ui:Button display-tooltip-when-elided="true" name="unblock-button" class="player-action-button" style="background-image: url(&apos;/Assets/Art/Icons/unblock.png&apos;); height: 40px; overflow: hidden; margin-right: 60px; margin-bottom: 0;" />
     </ui:VisualElement>
 </ui:UXML>

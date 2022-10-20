@@ -1,6 +1,7 @@
 @import url("/Assets/UI Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss");
 
-@import url("RelationshipsUI/RelationshipsStyle.uss");
+@import url("RelationshipsStyle.uss");
+
 
 
 

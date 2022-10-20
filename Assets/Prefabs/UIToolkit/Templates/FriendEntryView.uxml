@@ -1,8 +1,8 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
-    <ui:Template name="BasePlayerEntryLayout" src="/Assets/UI/RelationshipsUI/PlayerView.uxml" />
-    <Style src="/Assets/UI/RelationshipsUI/RelationshipsStyle.uss" />
+    <ui:Template name="PlayerView" src="/Assets/Prefabs/UIToolkit/Views/PlayerView.uxml" />
+    <Style src="/Assets/Prefabs/UIToolkit/RelationshipsStyle.uss" />
     <ui:VisualElement name="friend-entry-view" picking-mode="Ignore" class="player-panel" style="flex-direction: row; justify-content: space-around; align-items: center; min-width: 460px;">
-        <ui:Instance template="BasePlayerEntryLayout" name="PlayerView" class="friends-player-panel" style="width: 100%; align-items: flex-start;" />
+        <ui:Instance template="PlayerView" name="PlayerView" class="friends-player-panel" />
         <ui:Button display-tooltip-when-elided="true" name="remove-button" class="player-action-button" style="background-image: url(&apos;/Assets/Art/Icons/remove_friend.png&apos;); height: 40px; overflow: hidden;" />
         <ui:Button text="&#10;" display-tooltip-when-elided="true" name="block-button" class="player-action-button" style="background-image: url(&apos;/Assets/Art/Icons/block.png&apos;); height: 40px;" />
     </ui:VisualElement>

@@ -4,7 +4,7 @@ using UnityEngine.UIElements;
 
 namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
 {
-    public class FriendEntryView
+    public class FriendEntryViewUIToolkit
     {
         const string k_FriendEntryViewName = "friend-entry-view";
 
@@ -16,7 +16,7 @@ namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
         VisualElement m_PlayerStatusCircle;
         VisualElement m_FriendEntryView;
 
-        public FriendEntryView(VisualElement documentParent)
+        public FriendEntryViewUIToolkit(VisualElement documentParent)
         {
             m_FriendEntryView = documentParent.Q(k_FriendEntryViewName);
 

@@ -5,7 +5,7 @@ using UnityEngine.UIElements;
 
 namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
 {
-    public class RequestListView : IRequestListView
+    public class RequestListViewUIToolkit : IRequestListView
     {
         public Action<string> onAccept { get; set; }
         public Action<string> onDecline { get; set; }
@@ -21,14 +21,14 @@ namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
         /// <param name="viewParent">One of the parents of the friends-list (In RelationShipBarView.uxml)</param>
         /// <param name="requestEntryTemplate">The Friends Template (FriendListEntry.uxml) </param>
         /// <param name="boundRequestProfiles">The List of users we bind the listview to.</param>
-        public RequestListView(VisualElement viewParent, VisualTreeAsset requestEntryTemplate)
+        public RequestListViewUIToolkit(VisualElement viewParent, VisualTreeAsset requestEntryTemplate)
         {
             m_RequestListView = viewParent.Q<ListView>(k_RequestListViewName);
 
             m_RequestListView.makeItem = () =>
             {
                 var newListEntry = requestEntryTemplate.Instantiate();
-                var newListEntryLogic = new RequestEntryView(newListEntry.contentContainer);
+                var newListEntryLogic = new RequestEntryViewUIToolkit(newListEntry.contentContainer);
                 newListEntry.userData = newListEntryLogic;
                 return newListEntry;
             };
@@ -38,7 +38,7 @@ namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
         {
             m_RequestListView.bindItem = (item, index) =>
             {
-                var requestControl = item.userData as RequestEntryView;
+                var requestControl = item.userData as RequestEntryViewUIToolkit;
                 requestControl.Show();
                 var userProfile = playerProfiles[index];
                 requestControl.Refresh(userProfile.Name);

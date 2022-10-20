@@ -3,7 +3,7 @@ using UnityEngine.UIElements;
 
 namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
 {
-    public class RelationShipsUIToolkitController : MonoBehaviour, IRelationshipsUIController
+    public class RelationshipsUIToolkitController : MonoBehaviour, IRelationshipsUIController
     {
         [SerializeField]
         UIDocument m_SocialUIDoc;
@@ -32,15 +32,15 @@ namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
 
             var localPlayerControlView = root.Q(k_LocalPlayerViewName);
 
-            LocalPlayerView = new LocalPlayerView(localPlayerControlView);
+            LocalPlayerView = new LocalPlayerViewUIToolkit(localPlayerControlView);
 
-            AddFriendView = new AddFriendView(root);
+            AddFriendView = new AddFriendViewUIToolkit(root);
 
-            FriendsListView = new FriendsListView(root, m_FriendEntryTemplate);
-            RequestListView = new RequestListView(root, m_RequestEntryTemplate);
-            BlockListView = new BlockedListView(root, m_BlockedEntryTemplate);
+            FriendsListView = new FriendsListViewUIToolkit(root, m_FriendEntryTemplate);
+            RequestListView = new RequestListViewUIToolkit(root, m_RequestEntryTemplate);
+            BlockListView = new BlockedListViewUIToolkit(root, m_BlockedEntryTemplate);
 
-            RelationshipBarView = new RelationshipBarView(root);
+            RelationshipBarView = new NavBarViewUIToolkit(root);
             RelationshipBarView.onShowFriends = OnFriendList;
             RelationshipBarView.onShowRequests = OnRequestList;
             RelationshipBarView.onShowBlocks = OnBlockList;
