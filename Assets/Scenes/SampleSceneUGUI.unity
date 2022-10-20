@@ -493,6 +493,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4593130545112082049, guid: 93e84604e3d19a74a92909b15e3261cf, type: 3}
+      propertyPath: m_PixelsPerUnitMultiplier
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 4593130545330024233, guid: 93e84604e3d19a74a92909b15e3261cf, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -3216,7 +3220,7 @@ RectTransform:
   - {fileID: 1794537879}
   - {fileID: 310980876}
   m_Father: {fileID: 1868475628}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -4228,8 +4232,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1362523806}
-  - {fileID: 1961877577}
   - {fileID: 1498353370}
+  - {fileID: 1961877577}
   m_Father: {fileID: 1896553554}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
