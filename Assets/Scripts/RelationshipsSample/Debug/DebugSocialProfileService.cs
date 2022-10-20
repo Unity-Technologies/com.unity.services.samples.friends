@@ -4,6 +4,7 @@ using Unity.Services.Authentication;
 using Unity.Services.Core;
 using Unity.Services.Friends;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 
@@ -31,8 +32,10 @@ namespace UnityGamingServicesUsesCases.Relationships
         [SerializeField]
         Button m_QuitButton;
 
+        [FormerlySerializedAs("m_RelationshipManager")]
+        [FormerlySerializedAs("m_RelationshipsSceneManager")]
         [SerializeField]
-        RelationshipsSceneManager m_RelationshipsSceneManager = null;
+        RelationshipsManager m_RelationshipsManager = null;
         [SerializeField]
         int m_Amount = 5;
 
@@ -59,17 +62,17 @@ namespace UnityGamingServicesUsesCases.Relationships
 
             Debug.Log($"Authenticated <b>{playerName}</b> with Id: <b>{AuthenticationService.Instance.PlayerId}</b>");
 
-            await m_RelationshipsSceneManager.Init(playerName, this);
+            await m_RelationshipsManager.Init(playerName, this);
             DebugUISetup();
         }
 
         void DebugUISetup()
         {
             m_LogInDebugView.Init();
-            m_LogInDebugView.OnLogIn += m_RelationshipsSceneManager.LogIn;
+            m_LogInDebugView.OnLogIn += m_RelationshipsManager.LogIn;
 
             m_RefreshDebugView.Init();
-            m_RefreshDebugView.OnRefresh += m_RelationshipsSceneManager.RefreshAll;
+            m_RefreshDebugView.OnRefresh += m_RelationshipsManager.RefreshAll;
             m_QuitButton.onClick.AddListener(QuitAsync);
         }
 

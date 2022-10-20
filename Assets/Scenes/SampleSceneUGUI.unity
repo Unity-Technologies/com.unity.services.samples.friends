@@ -276,6 +276,14 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 4497198854177495150, guid: f4309e7e6b9f14c84bccca5f78d8f31a, type: 3}
+      propertyPath: m_RelationshipManager
+      value: 
+      objectReference: {fileID: 8088031084538109611}
+    - target: {fileID: 4497198854177495150, guid: f4309e7e6b9f14c84bccca5f78d8f31a, type: 3}
+      propertyPath: m_RelationshipsManager
+      value: 
+      objectReference: {fileID: 8088031084538109611}
+    - target: {fileID: 4497198854177495150, guid: f4309e7e6b9f14c84bccca5f78d8f31a, type: 3}
       propertyPath: m_RelationshipsSceneManager
       value: 
       objectReference: {fileID: 8088031084538109611}
@@ -365,7 +373,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4497198854177495155, guid: f4309e7e6b9f14c84bccca5f78d8f31a, type: 3}
       propertyPath: m_Name
-      value: RelationshipDebug
+      value: DebugSocialProfileService
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f4309e7e6b9f14c84bccca5f78d8f31a, type: 3}
@@ -599,7 +607,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8088031084014022018, guid: 9fdc3765655b72d4888932030e95072a, type: 3}
       propertyPath: m_Name
-      value: RelationshipManager
+      value: RelationshipsManager
       objectReference: {fileID: 0}
     - target: {fileID: 8088031084014022019, guid: 9fdc3765655b72d4888932030e95072a, type: 3}
       propertyPath: m_LogInView

@@ -10,7 +10,7 @@ using UnityEngine;
 
 namespace UnityGamingServicesUsesCases.Relationships
 {
-    public class RelationshipsSceneManager : MonoBehaviour
+    public class RelationshipsManager : MonoBehaviour
     {
         [Header("UI GameObject"), Tooltip("Put in a GameObject with a MonoBehaviour extending IRelationshipsUIController.")]
         [SerializeField]
