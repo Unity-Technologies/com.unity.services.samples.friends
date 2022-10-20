@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 5943242863383411603}
   - component: {fileID: 8194958340358931754}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: RequestResultText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -140,7 +140,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: No Friend by that ID
+  m_text: RequestResultText
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -688,6 +688,7 @@ MonoBehaviour:
   m_CloseButton: {fileID: 4593130545847738183}
   m_BackgroundButton: {fileID: 4593130544501286793}
   m_IdInputField: {fileID: 4593130544871530359}
+  m_RequestResultText: {fileID: 8194958340358931754}
 --- !u!1 &4593130544998711751
 GameObject:
   m_ObjectHideFlags: 0
@@ -780,12 +781,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 72
+  m_fontSize: 30
   m_fontSizeBase: 14
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_fontSizeMax: 30
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
