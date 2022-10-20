@@ -95,6 +95,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: FriendsViewUGUI
       objectReference: {fileID: 0}
+    - target: {fileID: 3359231252902360696, guid: 99f276fd68647374e8e0c3d1cd6cb0fe, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3763460239453920940, guid: 99f276fd68647374e8e0c3d1cd6cb0fe, type: 3}
+      propertyPath: m_text
+      value: Friends
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 99f276fd68647374e8e0c3d1cd6cb0fe, type: 3}
 --- !u!1 &8576461554161097830 stripped
@@ -120,4 +128,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ParentTransform: {fileID: 7994070634913106152}
-  m_FriendEntryViewPrefab: {fileID: 3603345093990386523, guid: c51b92c99ba58854d8a0827a40bf7f5c, type: 3}
+  m_FriendEntryViewPrefab: {fileID: 3612984874194452788, guid: c51b92c99ba58854d8a0827a40bf7f5c, type: 3}
