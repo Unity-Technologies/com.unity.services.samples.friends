@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 505116760147848922}
   - component: {fileID: 9176541395467582865}
   m_Layer: 0
-  m_Name: UIToolkit
+  m_Name: RelationshipUIToolkit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
