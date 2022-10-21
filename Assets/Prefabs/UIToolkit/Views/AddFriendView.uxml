@@ -1,8 +1,8 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <Style src="RelationshipsStyle.uss" />
-    <ui:VisualElement name="add-friend-bg" style="flex-grow: 1; justify-content: center; align-items: center;">
-        <ui:Button display-tooltip-when-elided="true" name="add-friend-clickoff-button" style="position: absolute; flex-grow: 1; justify-content: space-around; height: 100%; width: 100%; border-left-color: rgba(70, 70, 70, 0.12); border-right-color: rgba(70, 70, 70, 0.12); border-top-color: rgba(70, 70, 70, 0.12); border-bottom-color: rgba(70, 70, 70, 0.12); background-color: rgba(38, 38, 38, 0.03); border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0;" />
-        <ui:VisualElement name="add-friend-view" class="menu-panel social-font" style="flex-grow: 0; width: 500px; height: 175px;">
+    <Style src="/Assets/Prefabs/UIToolkit/RelationshipsStyle.uss" />
+    <ui:VisualElement name="add-friend-bg" class="social-font" style="flex-grow: 1; justify-content: center; align-items: center;">
+        <ui:Button display-tooltip-when-elided="true" name="add-friend-clickoff-button" style="position: absolute; flex-grow: 1; justify-content: space-around; height: 100%; width: 100%; border-left-color: rgba(70, 70, 70, 0.12); border-right-color: rgba(70, 70, 70, 0.12); border-top-color: rgba(70, 70, 70, 0.12); border-bottom-color: rgba(70, 70, 70, 0.12); background-color: rgba(38, 38, 38, 0.03); border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; top: 0; left: 0;" />
+        <ui:VisualElement name="add-friend-view" class="menu-panel social-font" style="flex-grow: 0; width: 500px; height: 175px; border-left-width: 5px; border-right-width: 5px; border-top-width: 5px; border-bottom-width: 5px;">
             <ui:VisualElement name="add-friend-bg" style="flex-direction: row; justify-content: space-between; padding-left: 10px; padding-right: 10px; padding-top: 10px; border-bottom-width: 2px; border-left-color: rgb(71, 64, 159); border-right-color: rgb(71, 64, 159); border-top-color: rgb(71, 64, 159); border-bottom-color: rgb(71, 64, 159);">
                 <ui:Label text="ADD FRIEND" display-tooltip-when-elided="true" name="add-friend-title" class="list-label social-font" style="color: rgb(247, 194, 89); -unity-font-style: bold;" />
                 <ui:Button display-tooltip-when-elided="true" name="exit-button" class="player-action-button" style="background-image: url(&apos;/Assets/Art/Icons/close.png&apos;);" />
@@ -11,9 +11,9 @@
                 <ui:VisualElement name="input-id-field" style="flex-grow: 1;">
                     <ui:TextField text="Add Friend by ID" name="search-field" is-delayed="true" class="social-input-field" />
                 </ui:VisualElement>
-                <ui:Button text="Add" display-tooltip-when-elided="true" name="add-button" class="add-friend-button" style="font-size: 20px;" />
+                <ui:Button text="Add" display-tooltip-when-elided="true" name="add-button" class="add-friend-button social-font" style="font-size: 20px; color: rgb(66, 61, 130); -unity-font-style: bold; padding-left: 10px; padding-right: 10px; padding-top: 10px; padding-bottom: 10px; margin-left: 5px; margin-right: 5px; margin-top: 5px; margin-bottom: 5px; height: 35px;" />
             </ui:VisualElement>
-            <ui:Label text="No Friend by that ID." display-tooltip-when-elided="true" name="feedback-label" style="border-left-width: 15px; border-right-width: 15px; margin-bottom: 15px; margin-top: 15px;" />
+            <ui:Label text="No Friend by that ID." display-tooltip-when-elided="true" name="feedback-label" style="border-left-width: 15px; border-right-width: 15px; margin-bottom: 5px; margin-top: 5px; margin-right: 0; margin-left: 0; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0;" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

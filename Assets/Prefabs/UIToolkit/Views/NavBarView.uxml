@@ -5,7 +5,7 @@
             <ui:VisualElement name="tabs-buttons" style="flex-direction: row; flex-grow: 1; justify-content: space-around;">
                 <ui:Button display-tooltip-when-elided="true" name="friends-button" class="social-tab-button" style="background-image: url(&apos;/Assets/Art/Icons/friends.png&apos;); -unity-background-scale-mode: scale-and-crop;" />
                 <ui:Button display-tooltip-when-elided="true" name="requests-button" tabindex="1" class="social-tab-button" style="background-image: url(&apos;/Assets/Art/Icons/friend_request.png&apos;); -unity-background-scale-mode: scale-and-crop;" />
-                <ui:Button display-tooltip-when-elided="true" name="blocked-button" tabindex="2" class="social-tab-button" style="background-image: url(&apos;/Assets/Art/Icons/block.png&apos;);" />
+                <ui:Button display-tooltip-when-elided="true" name="blocked-button" tabindex="2" class="social-tab-button" style="background-image: url(&apos;/Assets/Art/Icons/block.png&apos;); overflow: hidden;" />
             </ui:VisualElement>
             <ui:Button name="add-friend-button" text="Add Friend" focusable="false" class="add-friend-button" style="position: relative; -unity-font-style: bold; width: 88px; font-size: 14px; overflow: visible; border-top-left-radius: 20px; border-bottom-left-radius: 20px; border-top-right-radius: 20px; border-bottom-right-radius: 20px; height: 35px; margin-right: 15px;" />
         </ui:VisualElement>
