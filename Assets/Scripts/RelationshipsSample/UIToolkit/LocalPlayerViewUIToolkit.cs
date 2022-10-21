@@ -18,6 +18,7 @@ namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
         //TODO Add Editable Activity Field?
 
         DropdownField m_PlayerStatusDropDown;
+        TextElement m_DropDownText;
         Label m_PlayerName;
         Label m_PlayerActivity;
         TextField m_PlayerId;
@@ -27,6 +28,7 @@ namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
         {
             var playerEntryView = viewParent.Q(k_PlayerEntryRootName);
             m_PlayerStatusDropDown = playerEntryView.Q<DropdownField>("player-status-dropdown");
+            m_DropDownText = m_PlayerStatusDropDown.Q<TextElement>();
             m_PlayerName = playerEntryView.Q<Label>("player-name-label");
             m_PlayerId = playerEntryView.Q<TextField>("id-field");
 
@@ -38,7 +40,7 @@ namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
             m_PlayerStatusDropDown.RegisterValueChangedCallback(choice =>
             {
                 var choiceInt = m_PlayerStatusDropDown.choices.IndexOf(choice.newValue);
-                SetPresenceColor((PresenceAvailabilityOptions)choiceInt + 1);
+                SetPresenceColor((PresenceAvailabilityOptions)(choiceInt + 1));
                 PresenceAvailabilityOptions option = PresenceAvailabilityOptions.UNKNOWN;
                 if (Enum.TryParse(choice.newValue, out PresenceAvailabilityOptions parsedOption))
                     option = parsedOption;
@@ -64,13 +66,14 @@ namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
             var clampedStatusIndex = Mathf.Clamp((int)presenceStatus - 1, 0, k_LocalPlayerChoices.Length - 1);
             var dropDownChoice = m_PlayerStatusDropDown.choices[clampedStatusIndex];
             m_PlayerStatusDropDown.SetValueWithoutNotify(dropDownChoice);
+            SetPresenceColor(presenceStatus);
         }
 
         void SetPresenceColor(PresenceAvailabilityOptions presenceStatus)
         {
             var presenceColor = ColorUtils.GetPresenceColor(presenceStatus);
             m_PlayerStatusCircle.style.backgroundColor = presenceColor;
-            m_PlayerStatusDropDown.style.color = presenceColor;
+            m_DropDownText.style.color = presenceColor;
         }
     }
 }
