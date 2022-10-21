@@ -47,6 +47,19 @@
     border-right-width: 2px;
 }
 
+.player-settings-button.unity-base-dropdown__container-outer {
+    letter-spacing: 10px;
+    -unity-text-align: middle-center;
+    -unity-font-style: bold;
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgb(104, 96, 197);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+    background-color: rgba(81, 73, 171, 0);
+    border-right-width: 2px;
+    height: 100px;
+}
+
 .player-settings-button .unity-base-field__input {
     letter-spacing: 10px;
     -unity-text-align: middle-center;
