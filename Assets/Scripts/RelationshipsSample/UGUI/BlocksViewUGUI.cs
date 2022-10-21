@@ -38,7 +38,11 @@ namespace UnityGamingServicesUsesCases.Relationships.UGUI
             {
                 var entry = Instantiate(m_BlockEntryViewPrefab, m_ParentTransform);
                 entry.Init(playerProfile.Name);
-                entry.unblockButton.onClick.AddListener(() => { onUnblock?.Invoke(playerProfile.Id); });
+                entry.unblockButton.onClick.AddListener(() =>
+                {
+                    entry.gameObject.SetActive(false);
+                    onUnblock?.Invoke(playerProfile.Id);
+                });
                 m_BlockEntries.Add(entry);
             }
         }
