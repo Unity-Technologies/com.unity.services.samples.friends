@@ -34,7 +34,7 @@ namespace UnityGamingServicesUsesCases.Relationships.UGUI
 
         public void FriendRequestFailed()
         {
-            m_RequestResultText.text = "could not send request : no player with that ID";
+            //m_RequestResultText.text = "Error";
         }
 
         public Action<string> onFriendRequestSent { get; set; }
