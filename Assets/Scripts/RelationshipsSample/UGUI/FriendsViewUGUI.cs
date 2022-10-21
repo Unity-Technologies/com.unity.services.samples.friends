@@ -40,8 +40,16 @@ namespace UnityGamingServicesUsesCases.Relationships.UGUI
             {
                 var entry = Instantiate(m_FriendEntryViewPrefab, m_ParentTransform);
                 entry.Init(friendsEntryData.Name, friendsEntryData.Availability, friendsEntryData.Activity);
-                entry.removeFriendButton.onClick.AddListener(() => { onRemove?.Invoke(friendsEntryData.Id); });
-                entry.blockFriendButton.onClick.AddListener(() => { onBlock?.Invoke(friendsEntryData.Id); });
+                entry.removeFriendButton.onClick.AddListener(() =>
+                {
+                    onRemove?.Invoke(friendsEntryData.Id);
+                    entry.gameObject.SetActive(false);
+                });
+                entry.blockFriendButton.onClick.AddListener(() =>
+                {
+                    onBlock?.Invoke(friendsEntryData.Id);
+                    entry.gameObject.SetActive(false);
+                });
                 m_FriendEntries.Add(entry);
             }
         }

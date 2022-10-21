@@ -40,9 +40,21 @@ namespace UnityGamingServicesUsesCases.Relationships.UGUI
             {
                 var entry = Instantiate(m_RequestEntryViewPrefab, m_ParentTransform);
                 entry.Init(playerProfile.Name);
-                entry.acceptButton.onClick.AddListener(() => { onAccept?.Invoke(playerProfile.Id); });
-                entry.declineButton.onClick.AddListener(() => { onDecline?.Invoke(playerProfile.Id); });
-                entry.blockButton.onClick.AddListener(() => { onBlock?.Invoke(playerProfile.Id); });
+                entry.acceptButton.onClick.AddListener(() =>
+                {
+                    entry.gameObject.SetActive(false);
+                    onAccept?.Invoke(playerProfile.Id);
+                });
+                entry.declineButton.onClick.AddListener(() =>
+                {
+                    entry.gameObject.SetActive(false);
+                    onDecline?.Invoke(playerProfile.Id);
+                });
+                entry.blockButton.onClick.AddListener(() =>
+                {
+                    entry.gameObject.SetActive(false);
+                    onBlock?.Invoke(playerProfile.Id);
+                });
                 m_RequestEntries.Add(entry);
             }
         }
