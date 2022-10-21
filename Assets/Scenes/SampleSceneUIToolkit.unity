@@ -415,7 +415,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4497198854177495155, guid: f4309e7e6b9f14c84bccca5f78d8f31a, type: 3}
       propertyPath: m_Name
-      value: RelationshipDebug
+      value: DebugSocialProfileService
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f4309e7e6b9f14c84bccca5f78d8f31a, type: 3}

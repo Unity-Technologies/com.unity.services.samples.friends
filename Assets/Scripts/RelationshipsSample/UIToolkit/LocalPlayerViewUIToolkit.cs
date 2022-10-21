@@ -6,7 +6,7 @@ using UnityEngine.UIElements;
 
 namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
 {
-    public class LocalPlayerView : ILocalPlayerView
+    public class LocalPlayerViewUIToolkit : ILocalPlayerView
     {
         const string k_PlayerEntryRootName = "local-player-entry";
 
@@ -23,7 +23,7 @@ namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
         TextField m_PlayerId;
         VisualElement m_PlayerStatusCircle;
 
-        public LocalPlayerView(VisualElement viewParent)
+        public LocalPlayerViewUIToolkit(VisualElement viewParent)
         {
             var playerEntryView = viewParent.Q(k_PlayerEntryRootName);
             m_PlayerStatusDropDown = playerEntryView.Q<DropdownField>("player-status-dropdown");

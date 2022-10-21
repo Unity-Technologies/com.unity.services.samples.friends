@@ -3,7 +3,7 @@ using UnityEngine.UIElements;
 
 namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
 {
-    public class RequestEntryView
+    public class RequestEntryViewUIToolkit
     {
         const string k_RequestEntryViewName = "request-friend-view";
 
@@ -15,7 +15,7 @@ namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
 
         VisualElement m_requestEntryView;
 
-        public RequestEntryView(VisualElement viewParent)
+        public RequestEntryViewUIToolkit(VisualElement viewParent)
         {
             m_requestEntryView = viewParent.Q(k_RequestEntryViewName);
             m_PlayerName = m_requestEntryView.Q<Label>("player-name-label");

@@ -4,7 +4,7 @@ using UnityEngine.UIElements;
 
 namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
 {
-    public class BlockedEntryView
+    public class BlockedEntryViewUIToolkit
     {
         const string k_BlockEntryViewName = "block-entry-view";
         public Action onUnBlock;
@@ -12,7 +12,7 @@ namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
 
         VisualElement m_BlockedEntryRoot;
 
-        public BlockedEntryView(VisualElement viewParent)
+        public BlockedEntryViewUIToolkit(VisualElement viewParent)
         {
             m_BlockedEntryRoot = viewParent.Q(k_BlockEntryViewName);
             m_PlayerName = m_BlockedEntryRoot.Q<Label>("player-name-label");

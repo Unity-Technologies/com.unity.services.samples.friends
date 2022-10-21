@@ -6,16 +6,15 @@ using Button = UnityEngine.UIElements.Button;
 
 namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
 {
-    public class AddFriendView : IAddFriendView
+    public class AddFriendViewUIToolkit : IAddFriendView
     {
-        const string k_AddFriendViewName = "request-friend-bg";
+        const string k_AddFriendViewName = "add-friend-bg";
         public Action<string> onFriendRequestSent { get; set; }
 
-        TextField m_AddFriendField;
         VisualElement m_AddFriendView;
-        Label m_WarningLabel;
+        Label m_FeedbackLabel;
 
-        public AddFriendView(VisualElement viewParent)
+        public AddFriendViewUIToolkit(VisualElement viewParent)
         {
             m_AddFriendView = viewParent.Q(k_AddFriendViewName);
 
@@ -25,37 +24,47 @@ namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
                 Hide();
             });
 
-            var clickOffButton = m_AddFriendView.Q<Button>("request-friend-clickoff-button");
+            var clickOffButton = m_AddFriendView.Q<Button>("add-friend-clickoff-button");
             clickOffButton.RegisterCallback<ClickEvent>((e) =>
             {
                 Hide();
             });
-            m_WarningLabel = m_AddFriendView.Q<Label>("warning-label");
-            m_AddFriendField = m_AddFriendView.Q<TextField>("search-field");
+            m_FeedbackLabel = m_AddFriendView.Q<Label>("feedback-label");
+            var addFriendField = m_AddFriendView.Q<TextField>("search-field");
 
             //Support for Enter and Numpad Enter
-            m_AddFriendField.Q(TextField.textInputUssName).RegisterCallback<KeyDownEvent>(
+            addFriendField.Q(TextField.textInputUssName).RegisterCallback<KeyDownEvent>(
                 evt =>
                 {
                     if (evt.keyCode == KeyCode.Return || evt.keyCode == KeyCode.KeypadEnter)
                     {
-                        onFriendRequestSent?.Invoke(m_AddFriendField.text);
+                        onFriendRequestSent?.Invoke(addFriendField.text);
                     }
                 });
             var requestFriendButton = m_AddFriendView.Q<Button>("add-button");
             requestFriendButton.RegisterCallback<ClickEvent>(_ =>
             {
-                onFriendRequestSent?.Invoke(m_AddFriendField.text);
+                onFriendRequestSent?.Invoke(addFriendField.text);
             });
         }
 
-        public void FriendRequestSuccess() { }
+        public async void FriendRequestSuccess()
+        {
+            m_FeedbackLabel.text = "Friend request sent!";
+            m_FeedbackLabel.style.color = Color.white;
+
+            m_FeedbackLabel.style.opacity = 1;
+            await Task.Delay(2000);
+            m_FeedbackLabel.style.opacity = 0;
+        }
 
         public async void FriendRequestFailed()
         {
-            m_WarningLabel.style.opacity = 1;
+            m_FeedbackLabel.text = "Could not send request.";
+            m_FeedbackLabel.style.color = Color.red;
+            m_FeedbackLabel.style.opacity = 1;
             await Task.Delay(2000);
-            m_WarningLabel.style.opacity = 0;
+            m_FeedbackLabel.style.opacity = 0;
         }
 
         public void Show()
