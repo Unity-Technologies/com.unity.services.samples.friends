@@ -391,6 +391,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: DebugSocialProfileService
       objectReference: {fileID: 0}
+    - target: {fileID: 4497198854177495155, guid: f4309e7e6b9f14c84bccca5f78d8f31a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f4309e7e6b9f14c84bccca5f78d8f31a, type: 3}
 --- !u!1001 &2151554843583616264
@@ -550,7 +554,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2151554844943026521, guid: 47960e68331154e1b84353e8ac92f85e, type: 3}
       propertyPath: m_AdditionalShaderChannelsFlag
-      value: 1
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 2151554844943026522, guid: 47960e68331154e1b84353e8ac92f85e, type: 3}
       propertyPath: m_Pivot.x
@@ -715,6 +719,10 @@ PrefabInstance:
     - target: {fileID: 7486796088730089078, guid: 47960e68331154e1b84353e8ac92f85e, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7649237467634969528, guid: 47960e68331154e1b84353e8ac92f85e, type: 3}
+      propertyPath: m_AdditionalShaderChannelsFlag
+      value: 25
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 47960e68331154e1b84353e8ac92f85e, type: 3}
