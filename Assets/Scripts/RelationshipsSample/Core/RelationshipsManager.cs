@@ -188,7 +188,7 @@ namespace UnityGamingServicesUsesCases.Relationships
                 m_FriendsEntryDatas.Add(info);
             }
 
-            m_FriendsListView.Refresh();
+            m_UIController.RelationshipBarView.Refresh();
         }
 
         async Task RefreshRequests()
@@ -201,7 +201,7 @@ namespace UnityGamingServicesUsesCases.Relationships
                 m_RequestsEntryDatas.Add(new PlayerProfile(m_SocialProfileService.GetName(request.Id), request.Id));
             }
 
-            m_RequestListView.Refresh();
+            m_UIController.RelationshipBarView.Refresh();
         }
 
         async Task RefreshBlocks()
@@ -214,7 +214,7 @@ namespace UnityGamingServicesUsesCases.Relationships
                 m_BlockEntryDatas.Add(new PlayerProfile(m_SocialProfileService.GetName(block.Id), block.Id));
             }
 
-            m_BlockListView.Refresh();
+            m_UIController.RelationshipBarView.Refresh();
         }
 
         async Task<bool> RequestFriend(string playerId, string eventSource)

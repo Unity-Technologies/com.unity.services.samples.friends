@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace UnityGamingServicesUsesCases.Relationships.UGUI
 {
-    public class BlocksViewUGUI : MonoBehaviour, IBlockedListView
+    public class BlocksViewUGUI : ListViewUGUI, IBlockedListView
     {
         [SerializeField] RectTransform m_ParentTransform = null;
         [SerializeField] BlockEntryViewUGUI m_BlockEntryViewPrefab = null;
@@ -18,18 +18,7 @@ namespace UnityGamingServicesUsesCases.Relationships.UGUI
             m_PlayerProfiles = playerProfiles;
         }
 
-        public void Show()
-        {
-            Refresh();
-            gameObject.SetActive(true);
-        }
-
-        public void Hide()
-        {
-            gameObject.SetActive(false);
-        }
-
-        public void Refresh()
+        public override void Refresh()
         {
             m_BlockEntries.ForEach(entry => Destroy(entry.gameObject));
             m_BlockEntries.Clear();

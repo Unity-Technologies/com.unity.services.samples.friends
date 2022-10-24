@@ -7,10 +7,10 @@ namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
     public class BlockedListViewUIToolkit : IBlockedListView
     {
         const string k_BlockedListViewName = "blocked-list";
-
         public Action<string> onUnblock { get; set; }
 
         ListView m_BlockedListView;
+        VisualElement m_BlockedListViewParent;
 
         /// <summary>
         /// Finds and binds the UI Elements with the controller
@@ -21,7 +21,7 @@ namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
         public BlockedListViewUIToolkit(VisualElement viewParent, VisualTreeAsset blockFriendTemplate)
         {
             m_BlockedListView = viewParent.Q<ListView>(k_BlockedListViewName);
-
+            m_BlockedListViewParent = m_BlockedListView.parent;
             m_BlockedListView.makeItem = () =>
             {
                 var newListEntry = blockFriendTemplate.Instantiate();
@@ -52,13 +52,13 @@ namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
 
         public void Show()
         {
-            m_BlockedListView.style.display = DisplayStyle.Flex;
+            m_BlockedListViewParent.style.display = DisplayStyle.Flex;
             Refresh();
         }
 
         public void Hide()
         {
-            m_BlockedListView.style.display = DisplayStyle.None;
+            m_BlockedListViewParent.style.display = DisplayStyle.None;
         }
 
         /// <summary>

@@ -30,45 +30,14 @@ namespace UnityGamingServicesUsesCases.Relationships.UGUI
 
         public void Init()
         {
-            m_NavBarViewUGUI.onShowFriends += ShowFriends;
-            m_NavBarViewUGUI.onShowRequests += ShowRequests;
-            m_NavBarViewUGUI.onShowBlocks += ShowBlocks;
-            m_NavBarViewUGUI.onShowRequestFriend += ShowSendRequestPopUp;
             m_AddFriendViewUGUI.Init();
-            HideAll();
+            m_NavBarViewUGUI.Init(new IListView[]{FriendsListView,RequestListView,BlockListView});
+            m_NavBarViewUGUI.onShowRequestFriend += ShowSendRequestPopUp;
         }
 
         private void ShowSendRequestPopUp()
         {
             m_AddFriendViewUGUI.Show();
-        }
-
-        void HideAll()
-        {
-            FriendsListView.Hide();
-            RequestListView.Hide();
-            BlockListView.Hide();
-        }
-
-        void ShowFriends()
-        {
-            FriendsListView.Show();
-            RequestListView.Hide();
-            BlockListView.Hide();
-        }
-
-        void ShowRequests()
-        {
-            RequestListView.Show();
-            FriendsListView.Hide();
-            BlockListView.Hide();
-        }
-
-        void ShowBlocks()
-        {
-            BlockListView.Show();
-            RequestListView.Hide();
-            FriendsListView.Hide();
         }
     }
 }
