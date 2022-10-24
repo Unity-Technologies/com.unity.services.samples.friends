@@ -54,18 +54,22 @@ namespace UnityGamingServicesUsesCases.Relationships
     [System.Serializable]
     public class PlayerProfile
     {
-        public string Name { get; private set; }
-        public string Id { get; private set; }
+        public string Name => m_Name;
+        public string Id => m_Id;
+        [SerializeField]
+        string m_Name;
+        [SerializeField]
+        string m_Id;
 
         public PlayerProfile(string name, string id)
         {
-            Name = name;
-            Id = id;
+            m_Name = name;
+            m_Id = id;
         }
 
         public override string ToString()
         {
-            return $"{Name} , Id :{Id}";
+            return $"{m_Name} , Id :{m_Id}";
         }
     }
 }
