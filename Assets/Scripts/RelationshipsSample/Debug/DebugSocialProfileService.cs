@@ -38,6 +38,8 @@ namespace UnityGamingServicesUsesCases.Relationships
         RelationshipsManager m_RelationshipsManager = null;
         [SerializeField]
         int m_Amount = 5;
+        [SerializeField]
+        bool m_AddUserZeroAsFriend = false;
 
         const string k_PlayerNamePrefix = "Player_";
 
@@ -76,6 +78,7 @@ namespace UnityGamingServicesUsesCases.Relationships
             m_QuitButton.onClick.AddListener(QuitAsync);
         }
 
+
         async Task GeneratePlayerProfiles(int amount)
         {
             //Need to initialize before doing anything.
@@ -86,12 +89,23 @@ namespace UnityGamingServicesUsesCases.Relationships
                 await GeneratePlayerProfile(i);
             }
         }
-
+        string m_FirstUser = null;
         async Task GeneratePlayerProfile(int i)
         {
             var playerName = $"{k_PlayerNamePrefix}{i}";
             await UASUtils.SwitchUser(playerName);
-            m_PlayerProfilesData.Add(playerName, AuthenticationService.Instance.PlayerId);
+            var playerID = AuthenticationService.Instance.PlayerId;
+            m_PlayerProfilesData.Add(playerName,playerID);
+            if (!m_AddUserZeroAsFriend)
+                return;
+            if (i == 0)
+            {
+                m_FirstUser = playerID;
+            }
+            else
+            {
+                await m_RelationshipsManager.RequestFriend(m_FirstUser, "debug");
+            }
         }
 
 
