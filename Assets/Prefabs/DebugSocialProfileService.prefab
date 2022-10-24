@@ -3080,7 +3080,7 @@ MonoBehaviour:
   m_LogInDebugView: {fileID: 4497198853569899987}
   m_RefreshDebugView: {fileID: 4497198853322290613}
   m_QuitButton: {fileID: 4497198852726315047}
-  m_RelationshipsSceneManager: {fileID: 0}
+  m_RelationshipsManager: {fileID: 0}
   m_Amount: 5
 --- !u!1 &4497198854221145887
 GameObject:
@@ -4114,6 +4114,7 @@ MonoBehaviour:
   m_CloseButton: {fileID: 0}
   m_BackgroundButton: {fileID: 0}
   m_IdInputField: {fileID: 0}
+  m_RequestResultText: {fileID: 0}
 --- !u!1 &4497198854631541295
 GameObject:
   m_ObjectHideFlags: 0
