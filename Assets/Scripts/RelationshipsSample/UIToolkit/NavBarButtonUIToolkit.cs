@@ -8,21 +8,20 @@ namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
     {
         public Action onSelected;
 
-        private Button m_Button;
+        Button m_Button;
 
         public NavBarButtonUIToolkit(VisualElement root, string parent)
         {
             var relationshipsBarView = root.Q(parent);
             m_Button = relationshipsBarView.Q<Button>(parent);
-            m_Button.RegisterCallback<ClickEvent>((_) => { onSelected?.Invoke(); });
+            m_Button.RegisterCallback<ClickEvent>((_) => Select());
             Deselect();
         }
 
-        public void Select()
+        void Select()
         {
             m_Button.style.backgroundColor = Color.magenta;
             m_Button.style.unityBackgroundImageTintColor = Color.cyan;
-            //enable selected visuals
             onSelected?.Invoke();
         }
 
@@ -30,7 +29,6 @@ namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
         {
             m_Button.style.backgroundColor = Color.blue;
             m_Button.style.unityBackgroundImageTintColor = Color.white;
-            //disable selected visuals
         }
     }
 }

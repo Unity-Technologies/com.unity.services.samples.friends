@@ -11,20 +11,21 @@ namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
         NavBarTab m_CurrentSelectedTab;
         NavBarTab[] m_NavBarTabs;
 
-        public void Refresh()
-        {
-            m_CurrentSelectedTab?.ListView.Refresh();
-        }
-
         public NavBarViewUIToolkit(VisualElement viewParent, IListView[] listViews)
         {
+            InitNavBar(viewParent, listViews);
+
             var relationshipsBarView = viewParent.Q(k_RelationshipsBarViewName);
 
-            //instantiate the navbar button toolkit
-            
+            var addFriendButton = relationshipsBarView.Q<Button>("add-friend-button");
+            addFriendButton.RegisterCallback<ClickEvent>((_) => { onShowRequestFriend?.Invoke(); });
+        }
+
+        private void InitNavBar(VisualElement viewParent, IListView[] listViews)
+        {
             var friendsButton = new NavBarButtonUIToolkit(viewParent, "friends-button");
             var requestsButton = new NavBarButtonUIToolkit(viewParent, "requests-button");
-            var blocksButton = new NavBarButtonUIToolkit(viewParent,"blocks-button");
+            var blocksButton = new NavBarButtonUIToolkit(viewParent, "blocks-button");
             var navBarButtons = new[] { friendsButton, requestsButton, blocksButton };
 
             var count = listViews.Length;
@@ -38,29 +39,33 @@ namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
                 };
             }
 
-            foreach (var info in m_NavBarTabs)
+            foreach (var navBarTab in m_NavBarTabs)
             {
-                info.NavBarButton.onSelected += () => { ShowListView(info); };
-                info.ListView.Hide();
+                navBarTab.NavBarButton.onSelected += () => { ShowListView(navBarTab); };
+                navBarTab.ListView.Hide();
             }
-
-            var addFriendButton = relationshipsBarView.Q<Button>("add-friend-button");
-            addFriendButton.RegisterCallback<ClickEvent>((_) => { onShowRequestFriend?.Invoke(); });
         }
 
-        private void ShowListView(NavBarTab info)
+        public void Refresh()
         {
-            if (info == m_CurrentSelectedTab)
-                return;
+            m_CurrentSelectedTab?.ListView.Refresh();
+        }
 
+        void ShowListView(NavBarTab navBarTab)
+        {
             if (m_CurrentSelectedTab != null)
             {
                 m_CurrentSelectedTab.NavBarButton.Deselect();
                 m_CurrentSelectedTab.ListView.Hide();
             }
 
-            m_CurrentSelectedTab = info;
-            m_CurrentSelectedTab.NavBarButton.Select();
+            if (navBarTab == m_CurrentSelectedTab)
+            {
+                m_CurrentSelectedTab = null;
+                return;
+            }
+
+            m_CurrentSelectedTab = navBarTab;
             m_CurrentSelectedTab.ListView.Show();
         }
 

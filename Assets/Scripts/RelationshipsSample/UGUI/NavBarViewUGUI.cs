@@ -6,6 +6,8 @@ namespace UnityGamingServicesUsesCases.Relationships.UGUI
 {
     public class NavBarViewUGUI : MonoBehaviour, IRelationshipBarView
     {
+        public Action onShowRequestFriend { get; set; }
+        
         [SerializeField] NavBarButtonUGUI[] m_NavBarButtons;
         [SerializeField] Button m_AddFriendButton;
         NavBarTab m_CurrentSelectedTab = null;
@@ -24,11 +26,11 @@ namespace UnityGamingServicesUsesCases.Relationships.UGUI
                 };
             }
 
-            foreach (var info in m_NavBarTabs)
+            foreach (var navBarTab in m_NavBarTabs)
             {
-                info.NavBarButton.Init();
-                info.NavBarButton.onSelected += () => { ShowListView(info); };
-                info.ListView.Hide();
+                navBarTab.NavBarButton.Init();
+                navBarTab.NavBarButton.onSelected += () => { ShowListView(navBarTab); };
+                navBarTab.ListView.Hide();
             }
 
             m_AddFriendButton.onClick.AddListener(() => { onShowRequestFriend?.Invoke(); });
@@ -39,24 +41,24 @@ namespace UnityGamingServicesUsesCases.Relationships.UGUI
             m_CurrentSelectedTab?.ListView.Refresh();
         }
 
-        void ShowListView(NavBarTab info)
+        void ShowListView(NavBarTab navBarTab)
         {
-            if (info == m_CurrentSelectedTab)
-                return;
-
             if (m_CurrentSelectedTab != null)
             {
                 m_CurrentSelectedTab.NavBarButton.Deselect();
                 m_CurrentSelectedTab.ListView.Hide();
             }
+            
+            if (navBarTab == m_CurrentSelectedTab)
+            {
+                m_CurrentSelectedTab = null;
+                return;
+            }
 
-            m_CurrentSelectedTab = info;
-            m_CurrentSelectedTab.NavBarButton.Select();
+            m_CurrentSelectedTab = navBarTab;
             m_CurrentSelectedTab.ListView.Show();
         }
-
-        public Action onShowRequestFriend { get; set; }
-
+        
         class NavBarTab
         {
             public IListView ListView;

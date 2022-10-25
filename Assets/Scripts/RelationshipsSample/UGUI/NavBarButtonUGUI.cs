@@ -18,7 +18,7 @@ namespace UnityGamingServicesUsesCases.Relationships.UGUI
             Deselect();
         }
 
-        public void Select()
+        void Select()
         {
             m_OnSelected?.Invoke();
             onSelected?.Invoke();
