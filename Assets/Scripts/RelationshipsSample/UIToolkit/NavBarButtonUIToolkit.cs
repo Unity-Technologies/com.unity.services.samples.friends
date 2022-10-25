@@ -20,15 +20,15 @@ namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
 
         void Select()
         {
-            m_Button.style.backgroundColor = Color.magenta;
-            m_Button.style.unityBackgroundImageTintColor = Color.cyan;
+            m_Button.style.backgroundColor = ColorUtils.SelectedNavBarTabColor;
+            m_Button.style.unityBackgroundImageTintColor = ColorUtils.SelectedNavBarIconColor;
             onSelected?.Invoke();
         }
 
         public void Deselect()
         {
-            m_Button.style.backgroundColor = Color.blue;
-            m_Button.style.unityBackgroundImageTintColor = Color.white;
+            m_Button.style.backgroundColor = ColorUtils.DefaultNavBarTabColor;
+            m_Button.style.unityBackgroundImageTintColor = ColorUtils.DefaultNavBarIconColor;
         }
     }
 }
