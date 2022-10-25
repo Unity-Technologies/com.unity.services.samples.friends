@@ -726,6 +726,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 47960e68331154e1b84353e8ac92f85e, type: 3}
+--- !u!114 &2151554843583616265 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2151554844943026523, guid: 47960e68331154e1b84353e8ac92f85e, type: 3}
+  m_PrefabInstance: {fileID: 2151554843583616264}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1896553550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b58cdcc217966a74da1377f99607016e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &8088031084538109610
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -813,6 +824,10 @@ PrefabInstance:
       propertyPath: m_UIControllerObject
       value: 
       objectReference: {fileID: 1896553550}
+    - target: {fileID: 8088031084014022019, guid: 9fdc3765655b72d4888932030e95072a, type: 3}
+      propertyPath: m_RelationshipsUIController
+      value: 
+      objectReference: {fileID: 2151554843583616265}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9fdc3765655b72d4888932030e95072a, type: 3}
 --- !u!114 &8088031084538109611 stripped

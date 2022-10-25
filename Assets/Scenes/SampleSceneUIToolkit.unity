@@ -506,6 +506,10 @@ PrefabInstance:
       propertyPath: m_UIControllerObject
       value: 
       objectReference: {fileID: 9176541395467582864}
+    - target: {fileID: 8088031084014022019, guid: 9fdc3765655b72d4888932030e95072a, type: 3}
+      propertyPath: m_RelationshipsUIController
+      value: 
+      objectReference: {fileID: 9176541395467582866}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9fdc3765655b72d4888932030e95072a, type: 3}
 --- !u!1001 &9176541395467582863
@@ -570,3 +574,14 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7278825963339546011, guid: b61da0cc8a775cc46bb22db214fc2a70, type: 3}
   m_PrefabInstance: {fileID: 9176541395467582863}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &9176541395467582866 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 505116760147848922, guid: b61da0cc8a775cc46bb22db214fc2a70, type: 3}
+  m_PrefabInstance: {fileID: 9176541395467582863}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9176541395467582864}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f494bc19fd6e5461e92c5d788fefd721, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

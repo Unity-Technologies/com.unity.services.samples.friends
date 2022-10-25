@@ -3,7 +3,7 @@ using UnityEngine.UIElements;
 
 namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
 {
-    public class RelationshipsUIToolkitController : MonoBehaviour, IRelationshipsUIController
+    public sealed class RelationshipsUIToolkitController : RelationshipsUIController
     {
         [SerializeField] UIDocument m_SocialUIDoc;
 
@@ -13,16 +13,16 @@ namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
 
         [SerializeField] VisualTreeAsset m_BlockedEntryTemplate;
         
-        public ILocalPlayerView LocalPlayerView { get; private set; }
-        public IRelationshipBarView RelationshipBarView { get; private set; }
-        public IAddFriendView AddFriendView { get; private set; }
-        public IFriendsListView FriendsListView { get; private set; }
-        public IRequestListView RequestListView { get; private set; }
-        public IBlockedListView BlockListView { get; private set; }
+        public override ILocalPlayerView LocalPlayerView { get; set; }
+        public override IRelationshipBarView RelationshipBarView { get; set; }
+        public override IAddFriendView AddFriendView { get; set; }
+        public override IFriendsListView FriendsListView { get; set; }
+        public override IRequestListView RequestListView { get; set; }
+        public override IBlockedListView BlockListView { get; set; }
 
         const string k_LocalPlayerViewName = "local-player-entry";
 
-        public void Init()
+        public override void Init()
         {
             var root = m_SocialUIDoc.rootVisualElement;
 

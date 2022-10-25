@@ -12,10 +12,8 @@ namespace UnityGamingServicesUsesCases.Relationships
 {
     public class RelationshipsManager : MonoBehaviour
     {
-        [Header("UI GameObject"), Tooltip("Put in a GameObject with a MonoBehaviour extending IRelationshipsUIController.")]
         [SerializeField]
-        GameObject m_UIControllerObject;
-        IRelationshipsUIController m_UIController;
+        RelationshipsUIController m_RelationshipsUIController;
 
         /// <summary>
         /// Serialized for debug inspection.
@@ -27,7 +25,7 @@ namespace UnityGamingServicesUsesCases.Relationships
         List<PlayerProfile> m_RequestsEntryDatas = new List<PlayerProfile>();
         [SerializeField]
         List<PlayerProfile> m_BlockEntryDatas = new List<PlayerProfile>();
-
+        
         string m_LoggedPlayerName;
         ILocalPlayerView m_LocalPlayerView;
         IAddFriendView m_AddFriendView;
@@ -52,29 +50,16 @@ namespace UnityGamingServicesUsesCases.Relationships
 
         void UISetup()
         {
-            if (m_UIControllerObject == null)
-            {
-                Debug.LogError("No GameObject in m_UIController");
-                return;
-            }
-
-            m_UIController = m_UIControllerObject.GetComponent<IRelationshipsUIController>();
-            if (m_UIController == null)
-            {
-                Debug.LogError($"No Component extending IRelationshipsUIController on {m_UIControllerObject.name}");
-                return;
-            }
-
-            m_UIController.Init();
-            m_LocalPlayerView = m_UIController.LocalPlayerView;
-            m_AddFriendView = m_UIController.AddFriendView;
+            m_RelationshipsUIController.Init();
+            m_LocalPlayerView = m_RelationshipsUIController.LocalPlayerView;
+            m_AddFriendView = m_RelationshipsUIController.AddFriendView;
 
             //Bind Entry Lists
-            m_FriendsListView = m_UIController.FriendsListView;
+            m_FriendsListView = m_RelationshipsUIController.FriendsListView;
             m_FriendsListView.BindList(m_FriendsEntryDatas);
-            m_RequestListView = m_UIController.RequestListView;
+            m_RequestListView = m_RelationshipsUIController.RequestListView;
             m_RequestListView.BindList(m_RequestsEntryDatas);
-            m_BlockListView = m_UIController.BlockListView;
+            m_BlockListView = m_RelationshipsUIController.BlockListView;
             m_BlockListView.BindList(m_BlockEntryDatas);
 
             //Bind Friend Calls
@@ -185,7 +170,7 @@ namespace UnityGamingServicesUsesCases.Relationships
                 m_FriendsEntryDatas.Add(info);
             }
 
-            m_UIController.RelationshipBarView.Refresh();
+            m_RelationshipsUIController.RelationshipBarView.Refresh();
         }
 
         async Task RefreshRequests()
@@ -198,7 +183,7 @@ namespace UnityGamingServicesUsesCases.Relationships
                 m_RequestsEntryDatas.Add(new PlayerProfile(m_SocialProfileService.GetName(request.Id), request.Id));
             }
 
-            m_UIController.RelationshipBarView.Refresh();
+            m_RelationshipsUIController.RelationshipBarView.Refresh();
         }
 
         async Task RefreshBlocks()
@@ -211,7 +196,7 @@ namespace UnityGamingServicesUsesCases.Relationships
                 m_BlockEntryDatas.Add(new PlayerProfile(m_SocialProfileService.GetName(block.Id), block.Id));
             }
 
-            m_UIController.RelationshipBarView.Refresh();
+            m_RelationshipsUIController.RelationshipBarView.Refresh();
         }
 
         async Task<bool> RequestFriend(string playerId, string eventSource)

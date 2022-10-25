@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace UnityGamingServicesUsesCases.Relationships.UGUI
 {
-    public class RelationshipsUGUIController : MonoBehaviour, IRelationshipsUIController
+    public sealed class RelationshipsUGUIController : RelationshipsUIController
     {
         [SerializeField] private LocalPlayerViewUGUI m_LocalPlayerViewUGUI;
         [SerializeField] private AddFriendViewUGUI m_AddFriendViewUGUI;
@@ -10,12 +10,12 @@ namespace UnityGamingServicesUsesCases.Relationships.UGUI
         [SerializeField] private FriendsViewUGUI m_FriendsViewUGUI;
         [SerializeField] private RequestsViewUGUI m_RequestsViewUGUI;
         [SerializeField] private BlocksViewUGUI m_BlocksViewUGUI;
-        public ILocalPlayerView LocalPlayerView => m_LocalPlayerViewUGUI;
-        public IRelationshipBarView RelationshipBarView => m_NavBarViewUGUI;
-        public IAddFriendView AddFriendView =>m_AddFriendViewUGUI;
-        public IFriendsListView FriendsListView => m_FriendsViewUGUI;
-        public IRequestListView RequestListView => m_RequestsViewUGUI;
-        public IBlockedListView BlockListView => m_BlocksViewUGUI;
+        public override ILocalPlayerView LocalPlayerView => m_LocalPlayerViewUGUI;
+        public override IRelationshipBarView RelationshipBarView => m_NavBarViewUGUI;
+        public override IAddFriendView AddFriendView => m_AddFriendViewUGUI;
+        public override IFriendsListView FriendsListView => m_FriendsViewUGUI;
+        public override IRequestListView RequestListView => m_RequestsViewUGUI;
+        public override IBlockedListView BlockListView => m_BlocksViewUGUI;
 
         //TODO: to remove before release
         private void Reset()
@@ -28,11 +28,13 @@ namespace UnityGamingServicesUsesCases.Relationships.UGUI
             m_BlocksViewUGUI = GetComponentInChildren<BlocksViewUGUI>();
         }
 
-        public void Init()
+        public override void Init()
         {
-            m_AddFriendViewUGUI.Init();
-            m_NavBarViewUGUI.Init(new IListView[]{FriendsListView,RequestListView,BlockListView});
+            var listViews = new IListView[] { FriendsListView, RequestListView, BlockListView };
+            m_NavBarViewUGUI.Init(listViews);
             m_NavBarViewUGUI.onShowRequestFriend += ShowSendRequestPopUp;
+            
+            m_AddFriendViewUGUI.Init();
         }
 
         private void ShowSendRequestPopUp()
