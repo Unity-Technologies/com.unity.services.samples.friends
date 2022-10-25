@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 namespace UnityGamingServicesUsesCases.Relationships
 {
     public interface IListView

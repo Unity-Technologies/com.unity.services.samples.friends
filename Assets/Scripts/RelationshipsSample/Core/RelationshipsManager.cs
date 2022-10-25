@@ -36,7 +36,6 @@ namespace UnityGamingServicesUsesCases.Relationships
         IBlockedListView m_BlockListView;
         ISocialProfileService m_SocialProfileService;
 
-
         string LoggedPlayerId => AuthenticationService.Instance.PlayerId;
 
         public async Task Init(string currentPlayerName, ISocialProfileService profileService)
@@ -53,7 +52,6 @@ namespace UnityGamingServicesUsesCases.Relationships
 
         void UISetup()
         {
-            //Do you want to do null checks?
             if (m_UIControllerObject == null)
             {
                 Debug.LogError("No GameObject in m_UIController");
@@ -90,7 +88,6 @@ namespace UnityGamingServicesUsesCases.Relationships
             m_LocalPlayerView.onPresenceChanged += SetPresenceAsync;
         }
 
-
         public async void LogIn(string playerName)
         {
             await UASUtils.SwitchUser(playerName);
@@ -100,7 +97,7 @@ namespace UnityGamingServicesUsesCases.Relationships
                 PresenceAvailabilityOptions.ONLINE);
             RefreshAll();
             Debug.Log($"Logged in as {playerName} id: {LoggedPlayerId}");
-            Debug.Log($"Token ID{AuthenticationService.Instance.AccessToken}");
+            //Debug.Log($"Token ID{AuthenticationService.Instance.AccessToken}");
         }
 
         public async void RefreshAll()

@@ -41,7 +41,7 @@ namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
 
             foreach (var navBarTab in m_NavBarTabs)
             {
-                navBarTab.NavBarButton.onSelected += () => { ShowListView(navBarTab); };
+                navBarTab.NavBarButton.onSelected += () => { ShowTab(navBarTab); };
                 navBarTab.ListView.Hide();
             }
         }
@@ -51,7 +51,7 @@ namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
             m_CurrentSelectedTab?.ListView.Refresh();
         }
 
-        void ShowListView(NavBarTab navBarTab)
+        void ShowTab(NavBarTab navBarTab)
         {
             if (m_CurrentSelectedTab != null)
             {
