@@ -1,0 +1,61 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62a5fe105f77b486da23c7efc53dbf29, type: 3}
+  m_Name: 2021+ Upgrade Guide
+  m_EditorClassIdentifier: 
+  header:
+    title: 2021+ Upgrade Guide
+    icon: {fileID: 0}
+  sections:
+  - subHeader1: UIToolkit Upgrade
+    subHeader2: 
+    subHeader3: 
+    body: '2021+Began full support of UIToolkit in the base editor. In Unity 2020
+      we need to use the UIBuilder and UIElements packages. '
+    bodyFormat: 0
+    boxCallout: 
+    bulletList: []
+    linkList: []
+  - subHeader1: 
+    subHeader2: 
+    subHeader3: In Unity 2021+
+    body: The only breaking change is in the UIToolkit panel settings file that UI
+      toolkit uses.
+    bodyFormat: 0
+    boxCallout: 
+    bulletList:
+    - body: In the Relationships Plugin,  navigate to */Prefabs/UIToolkit
+      bodyFormat: 0
+      bulletList: []
+      linkList: []
+    - body: Delete the now broken SocialUIPanelSettings
+      bodyFormat: 0
+      bulletList: []
+      linkList: []
+    - body: 'Right click in the folder: Create > UIToolkit > Panel Settings'
+      bodyFormat: 0
+      bulletList: []
+      linkList: []
+    - body: In the panel settings, drag and drop the SocialUITheme into the Theme
+        Style sheet reference.
+      bodyFormat: 0
+      bulletList: []
+      linkList: []
+    linkList: []
+  - subHeader1: 
+    subHeader2: 
+    subHeader3: 
+    body: You should now be able to use the Relationship UIToolkit with no issues.
+    bodyFormat: 0
+    boxCallout: 
+    bulletList: []
+    linkList: []
