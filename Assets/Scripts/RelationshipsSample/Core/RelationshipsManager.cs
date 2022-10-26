@@ -36,6 +36,7 @@ namespace UnityGamingServicesUsesCases.Relationships
         IBlockedListView m_BlockListView;
         ISocialProfileService m_SocialProfileService;
 
+        const int k_MAXAmountOfUsersPerRequest = 25;
 
         string LoggedPlayerId => AuthenticationService.Instance.PlayerId;
 
@@ -148,76 +149,122 @@ namespace UnityGamingServicesUsesCases.Relationships
         {
             await SetPresence(status.presence, status.activity);
             m_LocalPlayerView.Refresh(m_LoggedPlayerName, LoggedPlayerId, status.activity,
-               status.presence);
+                status.presence);
         }
 
         async void AddFriendAsync(string id)
         {
             var success = await RequestFriend(id, "button");
-            if(success)
-                m_AddFriendView.FriendRequestSuccess(); // Make Into Task.
+            if (success)
+                m_AddFriendView.FriendRequestSuccess();
             else
                 m_AddFriendView.FriendRequestFailed();
         }
 
         async Task RefreshFriends()
         {
-            //Friends
-            var friends = await GetFriendsWithPresence();
             m_FriendsEntryDatas.Clear();
-            foreach (var friend in friends)
-            {
-                string activityText;
-                if (friend.Presence.GetAvailability() == PresenceAvailabilityOptions.OFFLINE ||
-                    friend.Presence.GetAvailability() == PresenceAvailabilityOptions.INVISIBLE)
-                {
-                    activityText = friend.LastSeen.ToShortDateString() + " " + friend.LastSeen.ToLongTimeString();
-                }
-                else
-                {
-                    activityText = friend.Presence.GetActivity() == null ? "" : friend.Presence.GetActivity().Status;
-                }
+            var gotAllFriends = false;
+            var friendsCount = 0;
 
-                var info = new FriendsEntryData
-                {
-                    Name = m_SocialProfileService.GetName(friend.Player.Id),
-                    Id = friend.Player.Id,
-                    Availability = friend.Presence.GetAvailability(),
-                    Activity = activityText
-                };
-                m_FriendsEntryDatas.Add(info);
+            //Will continue until we've gotten all your friends, 25 at a time.
+            while (!gotAllFriends)
+            {
+                var friends = await GetFriendsWithPresence(k_MAXAmountOfUsersPerRequest, friendsCount);
+                if (friends == null)
+                    return;
+                AddFriends(friends);
             }
 
-            m_FriendsListView.Refresh();
+            void AddFriends(List<PlayerPresence<Activity>> friends)
+            {
+
+                foreach (var friend in friends)
+                {
+                    string activityText;
+                    if (friend.Presence.GetAvailability() == PresenceAvailabilityOptions.OFFLINE ||
+                        friend.Presence.GetAvailability() == PresenceAvailabilityOptions.INVISIBLE)
+                    {
+                        activityText = friend.LastSeen.ToShortDateString() + " " + friend.LastSeen.ToLongTimeString();
+                    }
+                    else
+                    {
+                        activityText = friend.Presence.GetActivity() == null ? "" : friend.Presence.GetActivity().Status;
+                    }
+
+                    var info = new FriendsEntryData
+                    {
+                        Name = m_SocialProfileService.GetName(friend.Player.Id),
+                        Id = friend.Player.Id,
+                        Availability = friend.Presence.GetAvailability(),
+                        Activity = activityText
+                    };
+                    m_FriendsEntryDatas.Add(info);
+                }
+                m_FriendsListView.Refresh();
+                friendsCount += friends.Count;
+                if (friends.Count < 25)
+                    gotAllFriends = true;
+            }
         }
+
 
         async Task RefreshRequests()
         {
-            //Requests
-            var requests = await GetRequests();
             m_RequestsEntryDatas.Clear();
-            foreach (var request in requests)
+            var gotAllRequests = false;
+            var requestsCount = 0;
+            //Will continue until we've gotten all your requests, 25 at a time.
+
+            while (!gotAllRequests)
             {
-                m_RequestsEntryDatas.Add(new PlayerProfile(m_SocialProfileService.GetName(request.Id), request.Id));
+                var requests = await GetRequests(k_MAXAmountOfUsersPerRequest, requestsCount);
+                if (requests == null)
+                    return;
+                AddRequests(requests);
             }
 
-            m_RequestListView.Refresh();
+            void AddRequests(List<Player> requests)
+            {
+                foreach (var request in requests)
+                    m_RequestsEntryDatas.Add(new PlayerProfile(m_SocialProfileService.GetName(request.Id), request.Id));
+
+                m_RequestListView.Refresh();
+                requestsCount += requests.Count;
+                if (requests.Count < 25)
+                    gotAllRequests = true;
+            }
         }
+
 
         async Task RefreshBlocks()
         {
-            //Blocks
-            var blocks = await GetBlocks();
             m_BlockEntryDatas.Clear();
-            foreach (var block in blocks)
+            var gotAllBlocks = false;
+            var blocksCount = 0;
+            //Will continue until we've gotten all your blocks, 25 at a time.
+            while (!gotAllBlocks)
             {
-                m_BlockEntryDatas.Add(new PlayerProfile(m_SocialProfileService.GetName(block.Id), block.Id));
+                var blocks = await GetBlocks(k_MAXAmountOfUsersPerRequest, blocksCount);
+                if (blocks == null)
+                    return;
+                AddBlocks(blocks);
             }
 
-            m_BlockListView.Refresh();
+            void AddBlocks(List<Player> blocks)
+            {
+                foreach (var block in blocks)
+                    m_BlockEntryDatas.Add(new PlayerProfile(m_SocialProfileService.GetName(block.Id), block.Id));
+
+                m_BlockListView.Refresh();
+                blocksCount += blocks.Count;
+                if (blocks.Count < 25)
+                    gotAllBlocks = true;
+            }
         }
 
-        async Task<bool> RequestFriend(string playerId, string eventSource)
+
+        public async Task<bool> RequestFriend(string playerId, string eventSource)
         {
             try
             {
@@ -302,11 +349,23 @@ namespace UnityGamingServicesUsesCases.Relationships
             }
         }
 
-        async Task<List<PlayerPresence<Activity>>> GetFriendsWithPresence()
+        /// <summary>
+        /// Currently the friends SDK can only ask for up to 25 users at a time, so to get a full list of users you need to call
+        /// it multiple times with an offset.
+        /// </summary>
+        /// <param name="limit">How many users are we asking for.</param>
+        /// <param name="offset">From where in my user list am i starting from.</param>
+        /// <returns>List of friends presences.</returns>
+        async Task<List<PlayerPresence<Activity>>> GetFriendsWithPresence(int limit, int offset)
         {
+            var paginationOptions = new PaginationOptions()
+            {
+                Limit = Mathf.Clamp(limit, 1, k_MAXAmountOfUsersPerRequest), // 25 is the max the API allows to fetch at a time.
+                Offset = offset
+            };
             try
             {
-                var friends = await Friends.Instance.GetFriendsAsync<Activity>(new PaginationOptions());
+                var friends = await Friends.Instance.GetFriendsAsync<Activity>(paginationOptions);
                 return friends;
             }
             catch (FriendsServiceException e)
@@ -318,11 +377,23 @@ namespace UnityGamingServicesUsesCases.Relationships
             return null;
         }
 
-        async Task<List<Player>> GetRequests()
+        /// <summary>
+        /// Currently the friends SDK can only ask for up to 25 users at a time, so to get a full list of users you need to call
+        /// it multiple times with an offset.
+        /// </summary>
+        /// <param name="limit">How many users are we asking for.</param>
+        /// <param name="offset">From where in my user list am i starting from.</param>
+        /// <returns>List of players.</returns>
+        async Task<List<Player>> GetRequests(int limit, int offset)
         {
+            var paginationOptions = new PaginationOptions()
+            {
+                Limit = Mathf.Clamp(limit, 1, k_MAXAmountOfUsersPerRequest), // 25 is the max the API allows to fetch at a time.
+                Offset = offset
+            };
             try
             {
-                var requests = await Friends.Instance.GetInboxAsync(new PaginationOptions());
+                var requests = await Friends.Instance.GetInboxAsync(paginationOptions);
                 return requests;
             }
             catch (FriendsServiceException e)
@@ -334,11 +405,23 @@ namespace UnityGamingServicesUsesCases.Relationships
             return null;
         }
 
-        async Task<List<Player>> GetBlocks()
+        /// <summary>
+        /// Currently the friends SDK can only ask for up to 25 users at a time, so to get a full list of users you need to call
+        /// it multiple times with an offset.
+        /// </summary>
+        /// <param name="limit">How many users are we asking for.</param>
+        /// <param name="offset">From where in my user list am i starting from.</param>
+        /// <returns>List of players.</returns>
+        async Task<List<Player>> GetBlocks(int limit, int offset)
         {
+            var paginationOptions = new PaginationOptions()
+            {
+                Limit = Mathf.Clamp(limit, 1, k_MAXAmountOfUsersPerRequest), // 25 is the max the API allows to fetch at a time.
+                Offset = offset
+            };
             try
             {
-                var requests = await Friends.Instance.GetBlocksAsync(new PaginationOptions());
+                var requests = await Friends.Instance.GetBlocksAsync(paginationOptions);
                 return requests;
             }
             catch (FriendsServiceException e)
