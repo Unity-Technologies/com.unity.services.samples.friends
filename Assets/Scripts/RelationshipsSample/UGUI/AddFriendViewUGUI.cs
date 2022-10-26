@@ -7,11 +7,12 @@ namespace UnityGamingServicesUsesCases.Relationships.UGUI
 {
     public class AddFriendViewUGUI : MonoBehaviour, IAddFriendView
     {
-        [SerializeField] private Button m_AddFriendButton = null;
-        [SerializeField] private Button m_CloseButton = null;
-        [SerializeField] private Button m_BackgroundButton = null;
-        [SerializeField] private TMP_InputField m_IdInputField = null;
-        [SerializeField] private TextMeshProUGUI m_RequestResultText = null;
+        [SerializeField] Button m_AddFriendButton = null;
+        [SerializeField] Button m_CloseButton = null;
+        [SerializeField] Button m_BackgroundButton = null;
+        [SerializeField] TMP_InputField m_IdInputField = null;
+        [SerializeField] TextMeshProUGUI m_RequestResultText = null;
+        public Action<string> onFriendRequestSent { get; set; }
 
         public void Init()
         {
@@ -26,7 +27,7 @@ namespace UnityGamingServicesUsesCases.Relationships.UGUI
             m_CloseButton.onClick.AddListener(Hide);
             Hide();
         }
-        
+
         public void FriendRequestSuccess()
         {
             m_RequestResultText.text = "Friend request sent!";
@@ -34,10 +35,8 @@ namespace UnityGamingServicesUsesCases.Relationships.UGUI
 
         public void FriendRequestFailed()
         {
-            //m_RequestResultText.text = "Error";
+            
         }
-
-        public Action<string> onFriendRequestSent { get; set; }
 
         public void Show()
         {

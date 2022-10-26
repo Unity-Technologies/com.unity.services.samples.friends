@@ -66,7 +66,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: f61544989206e2048a0b7009fc191cfb, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c8fbcd790c94cf3409909314c6770af7, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -261,14 +261,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.31764707, g: 0.28627452, b: 0.67058825, a: 1}
+  m_Color: {r: 0.33333334, g: 0.3019608, b: 0.69411767, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 199ad058fe7d08748ba044f3ecfce230, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 44074ff10e8982f4e865dcc62513ca33, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -290,9 +290,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de98a72e786638f4a99dcb7aaec919ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_FriendsButton: {fileID: 5170145169420757235}
-  m_RequestsButton: {fileID: 8809768609963373431}
-  m_BlocksButton: {fileID: 8809768609598015918}
+  m_NavBarButtons:
+  - {fileID: 9149590460633589506}
+  - {fileID: 4862619243999952006}
+  - {fileID: 4862619243698619999}
   m_AddFriendButton: {fileID: 5170145170311960532}
 --- !u!114 &5170145170398113294
 MonoBehaviour:
@@ -307,9 +308,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: 25
+    m_Left: 0
     m_Right: 25
-    m_Top: 0
+    m_Top: 5
     m_Bottom: 0
   m_ChildAlignment: 0
   m_Spacing: 50
@@ -521,7 +522,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 054dc495a855c2e40beeaa6fe8789fe0, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f9ea4693eb62eb3499c4cb3a76c96196, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -764,17 +765,21 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: a8eafe4d416814d9298f37f33c84133a, type: 3}
+    - target: {fileID: 8666639903007122859, guid: cd3c1bce7e9cc6742800dc9c33cd19eb, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a8eafe4d416814d9298f37f33c84133a, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cd3c1bce7e9cc6742800dc9c33cd19eb, type: 3}
---- !u!114 &8809768609598015918 stripped
+--- !u!114 &4862619243698619999 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4432279239858321893, guid: cd3c1bce7e9cc6742800dc9c33cd19eb, type: 3}
+  m_CorrespondingSourceObject: {fileID: 340995749381633556, guid: cd3c1bce7e9cc6742800dc9c33cd19eb, type: 3}
   m_PrefabInstance: {fileID: 5170145169435914315}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Script: {fileID: 11500000, guid: 0c18468026e38f74fa98cd29a237eca6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!224 &8809768609598015919 stripped
@@ -881,17 +886,21 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 05ecba458c601454c8b686c3ef0b3ba7, type: 3}
+    - target: {fileID: 8666639903007122859, guid: cd3c1bce7e9cc6742800dc9c33cd19eb, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 05ecba458c601454c8b686c3ef0b3ba7, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cd3c1bce7e9cc6742800dc9c33cd19eb, type: 3}
---- !u!114 &8809768609963373431 stripped
+--- !u!114 &4862619243999952006 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4432279239858321893, guid: cd3c1bce7e9cc6742800dc9c33cd19eb, type: 3}
+  m_CorrespondingSourceObject: {fileID: 340995749381633556, guid: cd3c1bce7e9cc6742800dc9c33cd19eb, type: 3}
   m_PrefabInstance: {fileID: 5170145169669294738}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Script: {fileID: 11500000, guid: 0c18468026e38f74fa98cd29a237eca6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!224 &8809768609963373430 stripped
@@ -998,17 +1007,21 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 5a4d659f615eb461a9e43470b61760bb, type: 3}
+    - target: {fileID: 8666639903007122859, guid: cd3c1bce7e9cc6742800dc9c33cd19eb, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 5a4d659f615eb461a9e43470b61760bb, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cd3c1bce7e9cc6742800dc9c33cd19eb, type: 3}
---- !u!114 &5170145169420757235 stripped
+--- !u!114 &9149590460633589506 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4432279239858321893, guid: cd3c1bce7e9cc6742800dc9c33cd19eb, type: 3}
+  m_CorrespondingSourceObject: {fileID: 340995749381633556, guid: cd3c1bce7e9cc6742800dc9c33cd19eb, type: 3}
   m_PrefabInstance: {fileID: 8809768609616318742}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Script: {fileID: 11500000, guid: 0c18468026e38f74fa98cd29a237eca6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!224 &5170145169420757234 stripped

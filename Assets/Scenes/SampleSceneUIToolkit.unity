@@ -514,6 +514,10 @@ PrefabInstance:
       propertyPath: m_UIControllerObject
       value: 
       objectReference: {fileID: 9176541395467582864}
+    - target: {fileID: 8088031084014022019, guid: 9fdc3765655b72d4888932030e95072a, type: 3}
+      propertyPath: m_RelationshipsUIControllerGameObject
+      value: 
+      objectReference: {fileID: 9176541395467582864}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9fdc3765655b72d4888932030e95072a, type: 3}
 --- !u!1001 &9176541395467582863

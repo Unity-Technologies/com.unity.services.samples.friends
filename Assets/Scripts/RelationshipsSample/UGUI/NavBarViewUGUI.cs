@@ -6,22 +6,63 @@ namespace UnityGamingServicesUsesCases.Relationships.UGUI
 {
     public class NavBarViewUGUI : MonoBehaviour, IRelationshipBarView
     {
-        [SerializeField] private Button m_FriendsButton;
-        [SerializeField] private Button m_RequestsButton;
-        [SerializeField] private Button m_BlocksButton;
-        [SerializeField] private Button m_AddFriendButton;
+        [SerializeField] NavBarButtonUGUI[] m_NavBarButtons;
+        [SerializeField] Button m_AddFriendButton;
 
-        private void Awake()
+        NavBarTab m_CurrentSelectedTab = null;
+        NavBarTab[] m_NavBarTabs;
+        public Action onShowAddFriend { get; set; }
+
+        public void Init(IListView[] listViews)
         {
-            m_FriendsButton.onClick.AddListener(() => onShowFriends?.Invoke());
-            m_RequestsButton.onClick.AddListener(() => onShowRequests?.Invoke());
-            m_BlocksButton.onClick.AddListener(() => onShowBlocks?.Invoke());
-            m_AddFriendButton.onClick.AddListener(() => onShowRequestFriend?.Invoke());
+            var tabCount = listViews.Length;
+            m_NavBarTabs = new NavBarTab[tabCount];
+            for (var i = 0; i < tabCount; i++)
+            {
+                m_NavBarTabs[i] = new NavBarTab
+                {
+                    ListView = listViews[i],
+                    NavBarButton = m_NavBarButtons[i]
+                };
+            }
+
+            foreach (var navBarTab in m_NavBarTabs)
+            {
+                navBarTab.NavBarButton.Init();
+                navBarTab.NavBarButton.onSelected += () => { ShowTab(navBarTab); };
+                navBarTab.ListView.Hide();
+            }
+
+            m_AddFriendButton.onClick.AddListener(() => { onShowAddFriend?.Invoke(); });
         }
 
-        public Action onShowFriends { get; set; }
-        public Action onShowRequests { get; set; }
-        public Action onShowBlocks { get; set; }
-        public Action onShowRequestFriend { get; set; }
+        public void Refresh()
+        {
+            m_CurrentSelectedTab?.ListView.Refresh();
+        }
+
+        void ShowTab(NavBarTab navBarTab)
+        {
+            if (m_CurrentSelectedTab != null)
+            {
+                m_CurrentSelectedTab.NavBarButton.Deselect();
+                m_CurrentSelectedTab.ListView.Hide();
+            }
+
+            if (navBarTab == m_CurrentSelectedTab)
+            {
+                m_CurrentSelectedTab = null;
+                return;
+            }
+
+            m_CurrentSelectedTab = navBarTab;
+            m_CurrentSelectedTab.ListView.Show();
+        }
+
+        class NavBarTab
+        {
+            public IListView ListView;
+            public NavBarButtonUGUI NavBarButton;
+        }
     }
 }

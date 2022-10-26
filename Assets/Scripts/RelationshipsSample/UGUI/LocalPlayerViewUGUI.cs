@@ -11,14 +11,14 @@ namespace UnityGamingServicesUsesCases.Relationships.UGUI
     {
         public Action<(PresenceAvailabilityOptions, string)> onPresenceChanged { get; set; }
 
-        [SerializeField] private TextMeshProUGUI m_NameText = null;
-        [SerializeField] private TMP_InputField m_Id = null;
-        [SerializeField] private TMP_InputField m_Activity = null;
-        [SerializeField] private TMP_Dropdown m_PresenceSelector = null;
-        [SerializeField] private Image m_PresenceColor = null;
-        [SerializeField] private TextMeshProUGUI m_PresenceText = null;
-        
-        private void Awake()
+        [SerializeField] TextMeshProUGUI m_NameText = null;
+        [SerializeField] TMP_InputField m_Id = null;
+        [SerializeField] TMP_InputField m_Activity = null;
+        [SerializeField] TMP_Dropdown m_PresenceSelector = null;
+        [SerializeField] Image m_PresenceColor = null;
+        [SerializeField] TextMeshProUGUI m_PresenceText = null;
+
+        void Awake()
         {
             var names = new List<string>
             {
@@ -29,36 +29,30 @@ namespace UnityGamingServicesUsesCases.Relationships.UGUI
             };
 
             m_PresenceSelector.AddOptions(names);
-            m_PresenceSelector.onValueChanged.AddListener((value) =>
-            {
-                OnStatusChanged(value,m_Activity.text);
-            });
-            m_Activity.onEndEdit.AddListener((value) =>
-            {
-                OnStatusChanged(m_PresenceSelector.value,value);
-            });
+            m_PresenceSelector.onValueChanged.AddListener((value) => { OnStatusChanged(value, m_Activity.text); });
+            m_Activity.onEndEdit.AddListener((value) => { OnStatusChanged(m_PresenceSelector.value, value); });
         }
 
-        private void OnStatusChanged(int value, string activity)
+        void OnStatusChanged(int value, string activity)
         {
-            var presence = (PresenceAvailabilityOptions) Enum.Parse(typeof(PresenceAvailabilityOptions),
+            var presence = (PresenceAvailabilityOptions)Enum.Parse(typeof(PresenceAvailabilityOptions),
                 m_PresenceSelector.options[value].text, true);
-                
-            onPresenceChanged?.Invoke((presence,activity));
+
+            onPresenceChanged?.Invoke((presence, activity));
         }
 
         public void Refresh(string name, string id, string activity, PresenceAvailabilityOptions presenceAvailabilityOptions)
         {
             m_NameText.text = name;
             m_Id.text = id;
-            
+
             //Presence
             var index = (int)presenceAvailabilityOptions - 1;
             m_PresenceSelector.SetValueWithoutNotify(index);
-            var presenceColor =  ColorUtils.GetPresenceColor(presenceAvailabilityOptions);
+            var presenceColor = ColorUtils.GetPresenceColor(presenceAvailabilityOptions);
             m_PresenceColor.color = presenceColor;
             m_PresenceText.color = presenceColor;
-            
+
             m_Activity.text = activity;
         }
     }

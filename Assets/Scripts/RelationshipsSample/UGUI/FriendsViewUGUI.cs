@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace UnityGamingServicesUsesCases.Relationships.UGUI
 {
-    public class FriendsViewUGUI : MonoBehaviour, IFriendsListView
+    public class FriendsViewUGUI : ListViewUGUI, IFriendsListView
     {
         [SerializeField] RectTransform m_ParentTransform = null;
         [SerializeField] FriendEntryViewUGUI m_FriendEntryViewPrefab = null;
@@ -19,19 +19,8 @@ namespace UnityGamingServicesUsesCases.Relationships.UGUI
         {
             m_FriendsEntryDatas = friendEntryDatas;
         }
-
-        public void Show()
-        {
-            Refresh();
-            gameObject.SetActive(true);
-        }
-
-        public void Hide()
-        {
-            gameObject.SetActive(false);
-        }
-
-        public void Refresh()
+        
+        public override void Refresh()
         {
             m_FriendEntries.ForEach(entry => Destroy(entry.gameObject));
             m_FriendEntries.Clear();

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace UnityGamingServicesUsesCases.Relationships.UGUI
 {
-    public class RequestsViewUGUI : MonoBehaviour, IRequestListView
+    public class RequestsViewUGUI : ListViewUGUI, IRequestListView
     {
         [SerializeField] RectTransform m_ParentTransform = null;
         [SerializeField] RequestEntryViewUGUI m_RequestEntryViewPrefab = null;
@@ -20,18 +20,7 @@ namespace UnityGamingServicesUsesCases.Relationships.UGUI
             m_PlayerProfiles = playerProfiles;
         }
 
-        public void Show()
-        {
-            Refresh();
-            gameObject.SetActive(true);
-        }
-
-        public void Hide()
-        {
-            gameObject.SetActive(false);
-        }
-
-        public void Refresh()
+        public override void Refresh()
         {
             m_RequestEntries.ForEach(entry => Destroy(entry.gameObject));
             m_RequestEntries.Clear();

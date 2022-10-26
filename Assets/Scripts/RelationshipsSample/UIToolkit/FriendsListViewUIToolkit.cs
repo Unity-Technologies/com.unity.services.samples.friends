@@ -5,7 +5,7 @@ using UnityEngine.UIElements;
 
 namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
 {
-    public class FriendsListViewUIToolkit : IFriendsListView
+    public class FriendsListViewUIToolkit : IFriendsListView, IListView
     {
         public Action<string> onRemove { get; set; }
         public Action<string> onBlock { get; set; }
@@ -13,6 +13,7 @@ namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
         const string k_FriendsListViewName = "friends-list";
 
         ListView m_FriendListView;
+        VisualElement m_RequestListViewParent;
 
         /// <summary>
         /// Finds and binds the UI Elements with the controller
@@ -23,7 +24,8 @@ namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
         public FriendsListViewUIToolkit(VisualElement viewParent, VisualTreeAsset friendEntryTemplate)
         {
             m_FriendListView = viewParent.Q<ListView>(k_FriendsListViewName);
-
+            m_RequestListViewParent = m_FriendListView.parent;
+            
             m_FriendListView.makeItem = () =>
             {
                 var newListEntry = friendEntryTemplate.Instantiate();
@@ -59,13 +61,13 @@ namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
 
         public void Show()
         {
-            m_FriendListView.style.display = DisplayStyle.Flex;
+            m_RequestListViewParent.style.display = DisplayStyle.Flex;
             Refresh();
         }
 
         public void Hide()
         {
-            m_FriendListView.style.display = DisplayStyle.None;
+            m_RequestListViewParent.style.display = DisplayStyle.None;
         }
 
         /// <summary>

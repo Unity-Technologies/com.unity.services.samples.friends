@@ -5,18 +5,14 @@ namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
 {
     public class RelationshipsUIToolkitController : MonoBehaviour, IRelationshipsUIController
     {
-        [SerializeField]
-        UIDocument m_SocialUIDoc;
+        [SerializeField] UIDocument m_SocialUIDoc;
 
-        [SerializeField]
-        VisualTreeAsset m_FriendEntryTemplate;
+        [SerializeField] VisualTreeAsset m_FriendEntryTemplate;
 
-        [SerializeField]
-        VisualTreeAsset m_RequestEntryTemplate;
+        [SerializeField] VisualTreeAsset m_RequestEntryTemplate;
 
-        [SerializeField]
-        VisualTreeAsset m_BlockedEntryTemplate;
-
+        [SerializeField] VisualTreeAsset m_BlockedEntryTemplate;
+        
         public ILocalPlayerView LocalPlayerView { get; private set; }
         public IRelationshipBarView RelationshipBarView { get; private set; }
         public IAddFriendView AddFriendView { get; private set; }
@@ -40,36 +36,10 @@ namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
             RequestListView = new RequestListViewUIToolkit(root, m_RequestEntryTemplate);
             BlockListView = new BlockedListViewUIToolkit(root, m_BlockedEntryTemplate);
 
-            RelationshipBarView = new NavBarViewUIToolkit(root);
-            RelationshipBarView.onShowFriends = OnFriendList;
-            RelationshipBarView.onShowRequests = OnRequestList;
-            RelationshipBarView.onShowBlocks = OnBlockList;
-            RelationshipBarView.onShowRequestFriend = ShowAddFriendPopup;
+            var listViews = new IListView[] { FriendsListView, RequestListView, BlockListView };
+            RelationshipBarView = new NavBarViewUIToolkit(root, listViews);
+            RelationshipBarView.onShowAddFriend = ShowAddFriendPopup;
             AddFriendView.Hide();
-        }
-
-        void OnFriendList()
-        {
-            FriendsListView.Show();
-            RequestListView.Hide();
-            BlockListView.Hide();
-            FriendsListView.Refresh();
-        }
-
-        void OnRequestList()
-        {
-            RequestListView.Show();
-            FriendsListView.Hide();
-            BlockListView.Hide();
-            RequestListView.Refresh();
-        }
-
-        void OnBlockList()
-        {
-            BlockListView.Show();
-            RequestListView.Hide();
-            FriendsListView.Hide();
-            BlockListView.Refresh();
         }
 
         void ShowAddFriendPopup()

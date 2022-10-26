@@ -12,10 +12,10 @@ namespace UnityGamingServicesUsesCases.Relationships
 {
     public class RelationshipsManager : MonoBehaviour
     {
-        [Header("UI GameObject"), Tooltip("Put in a GameObject with a MonoBehaviour extending IRelationshipsUIController.")]
+        [Tooltip("Reference a GameObject that has a component extending from IRelationshipsUIController.")]
         [SerializeField]
-        GameObject m_UIControllerObject;
-        IRelationshipsUIController m_UIController;
+        GameObject m_RelationshipsUIControllerGameObject;
+        IRelationshipsUIController m_RelationshipsUIController;
 
         /// <summary>
         /// Serialized for debug inspection.
@@ -38,12 +38,13 @@ namespace UnityGamingServicesUsesCases.Relationships
 
         const int k_MAXAmountOfUsersPerRequest = 25;
 
+
         string LoggedPlayerId => AuthenticationService.Instance.PlayerId;
 
         public async Task Init(string currentPlayerName, ISocialProfileService profileService)
         {
             m_SocialProfileService = profileService;
-            UISetup();
+            UIInit();
 
             m_LoggedPlayerName = currentPlayerName;
             m_LocalPlayerView.Refresh(m_LoggedPlayerName, LoggedPlayerId, "In Friends Menu",
@@ -52,35 +53,35 @@ namespace UnityGamingServicesUsesCases.Relationships
             await SubscribeToFriendsEventCallbacks();
         }
 
-        void UISetup()
+        void UIInit()
         {
-            //Do you want to do null checks?
-            if (m_UIControllerObject == null)
+            if (m_RelationshipsUIControllerGameObject == null)
             {
-                Debug.LogError("No GameObject in m_UIController");
+                Debug.LogError($"Missing GameObject in {name}",gameObject);
                 return;
             }
 
-            m_UIController = m_UIControllerObject.GetComponent<IRelationshipsUIController>();
-            if (m_UIController == null)
+            m_RelationshipsUIController = m_RelationshipsUIControllerGameObject.GetComponent<IRelationshipsUIController>();
+            if (m_RelationshipsUIController == null)
             {
-                Debug.LogError($"No Component extending IRelationshipsUIController on {m_UIControllerObject.name}");
+                Debug.LogError($"No Component extending IRelationshipsUIController {m_RelationshipsUIControllerGameObject.name}",
+                    m_RelationshipsUIControllerGameObject );
                 return;
             }
 
-            m_UIController.Init();
-            m_LocalPlayerView = m_UIController.LocalPlayerView;
-            m_AddFriendView = m_UIController.AddFriendView;
+            m_RelationshipsUIController.Init();
+            m_LocalPlayerView = m_RelationshipsUIController.LocalPlayerView;
+            m_AddFriendView = m_RelationshipsUIController.AddFriendView;
 
-            //Bind Entry Lists
-            m_FriendsListView = m_UIController.FriendsListView;
+            //Bind Lists
+            m_FriendsListView = m_RelationshipsUIController.FriendsListView;
             m_FriendsListView.BindList(m_FriendsEntryDatas);
-            m_RequestListView = m_UIController.RequestListView;
+            m_RequestListView = m_RelationshipsUIController.RequestListView;
             m_RequestListView.BindList(m_RequestsEntryDatas);
-            m_BlockListView = m_UIController.BlockListView;
+            m_BlockListView = m_RelationshipsUIController.BlockListView;
             m_BlockListView.BindList(m_BlockEntryDatas);
 
-            //Bind Friend Calls
+            //Bind Friends SDK Callbacks
             m_AddFriendView.onFriendRequestSent += AddFriendAsync;
             m_FriendsListView.onRemove += RemoveFriendAsync;
             m_FriendsListView.onBlock += BlockFriendAsync;
@@ -91,7 +92,6 @@ namespace UnityGamingServicesUsesCases.Relationships
             m_LocalPlayerView.onPresenceChanged += SetPresenceAsync;
         }
 
-
         public async void LogIn(string playerName)
         {
             await UASUtils.SwitchUser(playerName);
@@ -101,7 +101,7 @@ namespace UnityGamingServicesUsesCases.Relationships
                 PresenceAvailabilityOptions.ONLINE);
             RefreshAll();
             Debug.Log($"Logged in as {playerName} id: {LoggedPlayerId}");
-            Debug.Log($"Token ID{AuthenticationService.Instance.AccessToken}");
+            //Debug.Log($"Token ID{AuthenticationService.Instance.AccessToken}");
         }
 
         public async void RefreshAll()
@@ -114,9 +114,7 @@ namespace UnityGamingServicesUsesCases.Relationships
         async void BlockFriendAsync(string id)
         {
             await BlockFriend(id);
-            await RefreshFriends();
-            await RefreshRequests();
-            await RefreshBlocks();
+            RefreshAll();
         }
 
         async void UnblockFriendAsync(string id)
@@ -148,14 +146,14 @@ namespace UnityGamingServicesUsesCases.Relationships
         async void SetPresenceAsync((PresenceAvailabilityOptions presence, string activity) status)
         {
             await SetPresence(status.presence, status.activity);
-            m_LocalPlayerView.Refresh(m_LoggedPlayerName, LoggedPlayerId, status.activity,
-                status.presence);
+            m_LocalPlayerView.Refresh(m_LoggedPlayerName, LoggedPlayerId, status.activity, status.presence);
         }
 
         async void AddFriendAsync(string id)
         {
-            var success = await RequestFriend(id, "button");
-            if (success)
+
+            var success = await SendFriendRequest(id, "AddFriendView");
+            if(success)
                 m_AddFriendView.FriendRequestSuccess();
             else
                 m_AddFriendView.FriendRequestFailed();
@@ -163,6 +161,7 @@ namespace UnityGamingServicesUsesCases.Relationships
 
         async Task RefreshFriends()
         {
+
             m_FriendsEntryDatas.Clear();
             var gotAllFriends = false;
             var friendsCount = 0;
@@ -201,7 +200,8 @@ namespace UnityGamingServicesUsesCases.Relationships
                     };
                     m_FriendsEntryDatas.Add(info);
                 }
-                m_FriendsListView.Refresh();
+                m_RelationshipsUIController.RelationshipBarView.Refresh();
+
                 friendsCount += friends.Count;
                 if (friends.Count < 25)
                     gotAllFriends = true;
@@ -211,6 +211,7 @@ namespace UnityGamingServicesUsesCases.Relationships
 
         async Task RefreshRequests()
         {
+
             m_RequestsEntryDatas.Clear();
             var gotAllRequests = false;
             var requestsCount = 0;
@@ -229,7 +230,7 @@ namespace UnityGamingServicesUsesCases.Relationships
                 foreach (var request in requests)
                     m_RequestsEntryDatas.Add(new PlayerProfile(m_SocialProfileService.GetName(request.Id), request.Id));
 
-                m_RequestListView.Refresh();
+                m_RelationshipsUIController.RelationshipBarView.Refresh();
                 requestsCount += requests.Count;
                 if (requests.Count < 25)
                     gotAllRequests = true;
@@ -239,6 +240,7 @@ namespace UnityGamingServicesUsesCases.Relationships
 
         async Task RefreshBlocks()
         {
+
             m_BlockEntryDatas.Clear();
             var gotAllBlocks = false;
             var blocksCount = 0;
@@ -256,7 +258,7 @@ namespace UnityGamingServicesUsesCases.Relationships
                 foreach (var block in blocks)
                     m_BlockEntryDatas.Add(new PlayerProfile(m_SocialProfileService.GetName(block.Id), block.Id));
 
-                m_BlockListView.Refresh();
+                m_RelationshipsUIController.RelationshipBarView.Refresh();
                 blocksCount += blocks.Count;
                 if (blocks.Count < 25)
                     gotAllBlocks = true;
@@ -264,7 +266,8 @@ namespace UnityGamingServicesUsesCases.Relationships
         }
 
 
-        public async Task<bool> RequestFriend(string playerId, string eventSource)
+
+        async Task<bool> SendFriendRequest(string playerId, string eventSource)
         {
             try
             {
@@ -452,7 +455,6 @@ namespace UnityGamingServicesUsesCases.Relationships
         }
 
         async Task SubscribeToFriendsEventCallbacks()
-
         {
             try
             {

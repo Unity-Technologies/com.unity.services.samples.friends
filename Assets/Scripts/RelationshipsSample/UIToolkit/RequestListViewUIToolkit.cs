@@ -14,6 +14,7 @@ namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
         const string k_RequestListViewName = "request-list";
 
         ListView m_RequestListView;
+        VisualElement m_RequestListViewParent;
 
         /// <summary>
         /// Finds and binds the UI Elements with the controller
@@ -24,6 +25,7 @@ namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
         public RequestListViewUIToolkit(VisualElement viewParent, VisualTreeAsset requestEntryTemplate)
         {
             m_RequestListView = viewParent.Q<ListView>(k_RequestListViewName);
+            m_RequestListViewParent = m_RequestListView.parent;
 
             m_RequestListView.makeItem = () =>
             {
@@ -70,13 +72,13 @@ namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
 
         public void Show()
         {
-            m_RequestListView.style.display = DisplayStyle.Flex;
+            m_RequestListViewParent.style.display = DisplayStyle.Flex;
             Refresh();
         }
 
         public void Hide()
         {
-            m_RequestListView.style.display = DisplayStyle.None;
+            m_RequestListViewParent.style.display = DisplayStyle.None;
         }
 
         /// <summary>
