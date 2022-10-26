@@ -6,7 +6,7 @@ namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
     public class NavBarViewUIToolkit : IRelationshipBarView
     {
         const string k_RelationshipsBarViewName = "nav-bar-view";
-        public Action onShowRequestFriend { get; set; }
+        public Action onShowAddFriend { get; set; }
 
         NavBarTab m_CurrentSelectedTab;
         NavBarTab[] m_NavBarTabs;
@@ -18,7 +18,7 @@ namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
             var relationshipsBarView = viewParent.Q(k_RelationshipsBarViewName);
 
             var addFriendButton = relationshipsBarView.Q<Button>("add-friend-button");
-            addFriendButton.RegisterCallback<ClickEvent>((_) => { onShowRequestFriend?.Invoke(); });
+            addFriendButton.RegisterCallback<ClickEvent>((_) => { onShowAddFriend?.Invoke(); });
         }
 
         private void InitNavBar(VisualElement viewParent, IListView[] listViews)

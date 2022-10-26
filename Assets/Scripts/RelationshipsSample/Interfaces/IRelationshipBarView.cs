@@ -5,7 +5,7 @@ namespace UnityGamingServicesUsesCases.Relationships
 {
     public interface IRelationshipBarView
     {
-        Action onShowRequestFriend { get; set; }
+        Action onShowAddFriend { get; set; }
         void Refresh();
     }
 

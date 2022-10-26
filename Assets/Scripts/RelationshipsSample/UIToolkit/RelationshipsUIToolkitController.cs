@@ -38,7 +38,7 @@ namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
 
             var listViews = new IListView[] { FriendsListView, RequestListView, BlockListView };
             RelationshipBarView = new NavBarViewUIToolkit(root, listViews);
-            RelationshipBarView.onShowRequestFriend = ShowAddFriendPopup;
+            RelationshipBarView.onShowAddFriend = ShowAddFriendPopup;
             AddFriendView.Hide();
         }
 

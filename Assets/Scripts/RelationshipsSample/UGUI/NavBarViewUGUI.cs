@@ -6,20 +6,20 @@ namespace UnityGamingServicesUsesCases.Relationships.UGUI
 {
     public class NavBarViewUGUI : MonoBehaviour, IRelationshipBarView
     {
-        public Action onShowRequestFriend { get; set; }
-        
         [SerializeField] NavBarButtonUGUI[] m_NavBarButtons;
         [SerializeField] Button m_AddFriendButton;
+
         NavBarTab m_CurrentSelectedTab = null;
         NavBarTab[] m_NavBarTabs;
+        public Action onShowAddFriend { get; set; }
 
         public void Init(IListView[] listViews)
         {
-            var count = listViews.Length;
-            m_NavBarTabs = new NavBarTab[count];
-            for (int i = 0; i < count; i++)
+            var tabCount = listViews.Length;
+            m_NavBarTabs = new NavBarTab[tabCount];
+            for (var i = 0; i < tabCount; i++)
             {
-                m_NavBarTabs[i] = new NavBarTab()
+                m_NavBarTabs[i] = new NavBarTab
                 {
                     ListView = listViews[i],
                     NavBarButton = m_NavBarButtons[i]
@@ -33,7 +33,7 @@ namespace UnityGamingServicesUsesCases.Relationships.UGUI
                 navBarTab.ListView.Hide();
             }
 
-            m_AddFriendButton.onClick.AddListener(() => { onShowRequestFriend?.Invoke(); });
+            m_AddFriendButton.onClick.AddListener(() => { onShowAddFriend?.Invoke(); });
         }
 
         public void Refresh()
@@ -48,7 +48,7 @@ namespace UnityGamingServicesUsesCases.Relationships.UGUI
                 m_CurrentSelectedTab.NavBarButton.Deselect();
                 m_CurrentSelectedTab.ListView.Hide();
             }
-            
+
             if (navBarTab == m_CurrentSelectedTab)
             {
                 m_CurrentSelectedTab = null;
@@ -58,7 +58,7 @@ namespace UnityGamingServicesUsesCases.Relationships.UGUI
             m_CurrentSelectedTab = navBarTab;
             m_CurrentSelectedTab.ListView.Show();
         }
-        
+
         class NavBarTab
         {
             public IListView ListView;
