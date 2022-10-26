@@ -4,7 +4,6 @@ using Unity.Services.Authentication;
 using Unity.Services.Core;
 using Unity.Services.Friends;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 
@@ -32,14 +31,11 @@ namespace UnityGamingServicesUsesCases.Relationships
         [SerializeField]
         Button m_QuitButton;
 
-        [FormerlySerializedAs("m_RelationshipManager")]
-        [FormerlySerializedAs("m_RelationshipsSceneManager")]
         [SerializeField]
         RelationshipsManager m_RelationshipsManager = null;
         [SerializeField]
         int m_Amount = 5;
-        [SerializeField]
-        bool m_AddUserZeroAsFriend = false;
+
 
         const string k_PlayerNamePrefix = "Player_";
 
@@ -89,25 +85,13 @@ namespace UnityGamingServicesUsesCases.Relationships
                 await GeneratePlayerProfile(i);
             }
         }
-        string m_FirstUser = null;
         async Task GeneratePlayerProfile(int i)
         {
             var playerName = $"{k_PlayerNamePrefix}{i}";
             await UASUtils.SwitchUser(playerName);
             var playerID = AuthenticationService.Instance.PlayerId;
             m_PlayerProfilesData.Add(playerName,playerID);
-            if (!m_AddUserZeroAsFriend)
-                return;
-            if (i == 0)
-            {
-                m_FirstUser = playerID;
-            }
-            else
-            {
-                await m_RelationshipsManager.RequestFriend(m_FirstUser, "debug");
-            }
         }
-
 
         //Bug - Workaround for an API issue, should be removed with next API update
         async void QuitAsync()

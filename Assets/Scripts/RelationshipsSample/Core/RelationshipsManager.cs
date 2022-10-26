@@ -36,6 +36,7 @@ namespace UnityGamingServicesUsesCases.Relationships
         IBlockedListView m_BlockListView;
         ISocialProfileService m_SocialProfileService;
 
+        const int k_MAXAmountOfUsersPerRequest = 25;
 
         string LoggedPlayerId => AuthenticationService.Instance.PlayerId;
 
@@ -155,7 +156,7 @@ namespace UnityGamingServicesUsesCases.Relationships
         {
             var success = await RequestFriend(id, "button");
             if (success)
-                m_AddFriendView.FriendRequestSuccess(); // Make Into Task.
+                m_AddFriendView.FriendRequestSuccess();
             else
                 m_AddFriendView.FriendRequestFailed();
         }
@@ -163,15 +164,20 @@ namespace UnityGamingServicesUsesCases.Relationships
         async Task RefreshFriends()
         {
             m_FriendsEntryDatas.Clear();
-            bool gotAllFriends = false;
-            int friendsCount = 0;
+            var gotAllFriends = false;
+            var friendsCount = 0;
+
             //Will continue until we've gotten all your friends, 25 at a time.
             while (!gotAllFriends)
             {
-                var friends = await GetFriendsWithPresence(25, friendsCount);
+                var friends = await GetFriendsWithPresence(k_MAXAmountOfUsersPerRequest, friendsCount);
                 if (friends == null)
                     return;
-                friendsCount += friends.Count;
+                AddFriends(friends);
+            }
+
+            void AddFriends(List<PlayerPresence<Activity>> friends)
+            {
 
                 foreach (var friend in friends)
                 {
@@ -196,7 +202,7 @@ namespace UnityGamingServicesUsesCases.Relationships
                     m_FriendsEntryDatas.Add(info);
                 }
                 m_FriendsListView.Refresh();
-
+                friendsCount += friends.Count;
                 if (friends.Count < 25)
                     gotAllFriends = true;
             }
@@ -206,23 +212,25 @@ namespace UnityGamingServicesUsesCases.Relationships
         async Task RefreshRequests()
         {
             m_RequestsEntryDatas.Clear();
-            bool gotAllRequests = false;
-            int requestsCount = 0;
+            var gotAllRequests = false;
+            var requestsCount = 0;
             //Will continue until we've gotten all your requests, 25 at a time.
 
             while (!gotAllRequests)
             {
-                var requests = await GetRequests(25, requestsCount);
+                var requests = await GetRequests(k_MAXAmountOfUsersPerRequest, requestsCount);
                 if (requests == null)
                     return;
-                requestsCount += requests.Count;
+                AddRequests(requests);
+            }
+
+            void AddRequests(List<Player> requests)
+            {
                 foreach (var request in requests)
-                {
                     m_RequestsEntryDatas.Add(new PlayerProfile(m_SocialProfileService.GetName(request.Id), request.Id));
-                }
 
                 m_RequestListView.Refresh();
-
+                requestsCount += requests.Count;
                 if (requests.Count < 25)
                     gotAllRequests = true;
             }
@@ -232,22 +240,24 @@ namespace UnityGamingServicesUsesCases.Relationships
         async Task RefreshBlocks()
         {
             m_BlockEntryDatas.Clear();
-            bool gotAllBlocks = false;
-            int blocksCount = 0;
+            var gotAllBlocks = false;
+            var blocksCount = 0;
             //Will continue until we've gotten all your blocks, 25 at a time.
             while (!gotAllBlocks)
             {
-                var blocks = await GetBlocks(25, blocksCount);
+                var blocks = await GetBlocks(k_MAXAmountOfUsersPerRequest, blocksCount);
                 if (blocks == null)
                     return;
-                blocksCount += blocks.Count;
+                AddBlocks(blocks);
+            }
+
+            void AddBlocks(List<Player> blocks)
+            {
                 foreach (var block in blocks)
-                {
                     m_BlockEntryDatas.Add(new PlayerProfile(m_SocialProfileService.GetName(block.Id), block.Id));
-                }
 
                 m_BlockListView.Refresh();
-
+                blocksCount += blocks.Count;
                 if (blocks.Count < 25)
                     gotAllBlocks = true;
             }
@@ -339,11 +349,18 @@ namespace UnityGamingServicesUsesCases.Relationships
             }
         }
 
+        /// <summary>
+        /// Currently the friends SDK can only ask for up to 25 users at a time, so to get a full list of users you need to call
+        /// it multiple times with an offset.
+        /// </summary>
+        /// <param name="limit">How many users are we asking for.</param>
+        /// <param name="offset">From where in my user list am i starting from.</param>
+        /// <returns>List of friends presences.</returns>
         async Task<List<PlayerPresence<Activity>>> GetFriendsWithPresence(int limit, int offset)
         {
             var paginationOptions = new PaginationOptions()
             {
-                Limit = limit, // 25 is the max the API allows to fetch at a time.
+                Limit = Mathf.Clamp(limit, 1, k_MAXAmountOfUsersPerRequest), // 25 is the max the API allows to fetch at a time.
                 Offset = offset
             };
             try
@@ -360,12 +377,19 @@ namespace UnityGamingServicesUsesCases.Relationships
             return null;
         }
 
-        async Task<List<Player>> GetRequests(int limit, int fromOffset)
+        /// <summary>
+        /// Currently the friends SDK can only ask for up to 25 users at a time, so to get a full list of users you need to call
+        /// it multiple times with an offset.
+        /// </summary>
+        /// <param name="limit">How many users are we asking for.</param>
+        /// <param name="offset">From where in my user list am i starting from.</param>
+        /// <returns>List of players.</returns>
+        async Task<List<Player>> GetRequests(int limit, int offset)
         {
             var paginationOptions = new PaginationOptions()
             {
-                Limit = limit,
-                Offset = fromOffset
+                Limit = Mathf.Clamp(limit, 1, k_MAXAmountOfUsersPerRequest), // 25 is the max the API allows to fetch at a time.
+                Offset = offset
             };
             try
             {
@@ -381,12 +405,19 @@ namespace UnityGamingServicesUsesCases.Relationships
             return null;
         }
 
-        async Task<List<Player>> GetBlocks(int limit, int fromOffset)
+        /// <summary>
+        /// Currently the friends SDK can only ask for up to 25 users at a time, so to get a full list of users you need to call
+        /// it multiple times with an offset.
+        /// </summary>
+        /// <param name="limit">How many users are we asking for.</param>
+        /// <param name="offset">From where in my user list am i starting from.</param>
+        /// <returns>List of players.</returns>
+        async Task<List<Player>> GetBlocks(int limit, int offset)
         {
             var paginationOptions = new PaginationOptions()
             {
-                Limit = limit,
-                Offset = fromOffset
+                Limit = Mathf.Clamp(limit, 1, k_MAXAmountOfUsersPerRequest), // 25 is the max the API allows to fetch at a time.
+                Offset = offset
             };
             try
             {
