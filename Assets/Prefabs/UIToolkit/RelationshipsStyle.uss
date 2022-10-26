@@ -1,5 +1,5 @@
 .menu-panel {
-    background-color: rgb(81, 73, 171);
+    background-color: rgb(85, 77, 177);
     -unity-background-scale-mode: scale-and-crop;
     border-left-color: rgba(255, 170, 248, 0);
     border-right-color: rgba(255, 170, 248, 0);
@@ -130,28 +130,17 @@
     border-right-color: rgba(0, 0, 0, 0);
     border-top-color: rgba(0, 0, 0, 0);
     border-bottom-color: rgba(0, 0, 0, 0);
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
 }
 
-.social-tab-button :hover {
+.social-tab-button:hover {
     -unity-background-image-tint-color: rgb(255, 230, 129);
     background-color: rgba(0, 0, 0, 0);
     border-left-color: rgba(0, 0, 0, 0);
     border-right-color: rgba(0, 0, 0, 0);
     border-top-color: rgba(0, 0, 0, 0);
     border-bottom-color: rgba(0, 0, 0, 0);
-}
-
-.social-tab-button :focus {
-    -unity-background-image-tint-color: rgb(255, 205, 109);
-    background-color: rgb(75, 67, 160);
-    border-left-color: rgba(0, 0, 0, 0);
-    border-right-color: rgba(0, 0, 0, 0);
-    border-top-color: rgba(0, 0, 0, 0);
-    border-bottom-color: rgba(0, 0, 0, 0);
-}
-
-.social-tab-button :active {
-    -unity-background-image-tint-color: rgb(255, 189, 85);
 }
 
 .player-action-button {
@@ -356,13 +345,13 @@
 
 .social-dropdown.unity-base-dropdown__container-outer {
     height: 100px;
-    background-color: rgba(178, 243, 136, 255);
+    background-color: rgb(178, 243, 136);
     min-height: 125px;
 }
 
 .social-dropdown.unity-base-dropdown {
     height: 125px;
-    background-color: rgba(255, 146, 146, 255);
+    background-color: rgb(255, 146, 146);
     min-height: 125px;
 }
 
@@ -371,7 +360,11 @@
     background-color: rgb(164, 157, 250);
     min-height: 140px;
     position: relative;
-    color: rgba(255, 255, 255, 255);
+    color: rgb(255, 255, 255);
     -unity-font-style: bold;
-    -unity-background-image-tint-color: rgba(255, 255, 255, 255);
+    -unity-background-image-tint-color: rgb(255, 255, 255);
+}
+
+.list-view-bg {
+    background-color: rgb(41, 27, 95);
 }
