@@ -279,18 +279,6 @@ PrefabInstance:
       propertyPath: m_AdditionalShaderChannelsFlag
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 4497198854177495149, guid: f4309e7e6b9f14c84bccca5f78d8f31a, type: 3}
-      propertyPath: m_UiScaleMode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4497198854177495149, guid: f4309e7e6b9f14c84bccca5f78d8f31a, type: 3}
-      propertyPath: m_ReferenceResolution.x
-      value: 1242
-      objectReference: {fileID: 0}
-    - target: {fileID: 4497198854177495149, guid: f4309e7e6b9f14c84bccca5f78d8f31a, type: 3}
-      propertyPath: m_ReferenceResolution.y
-      value: 2688
-      objectReference: {fileID: 0}
     - target: {fileID: 4497198854177495150, guid: f4309e7e6b9f14c84bccca5f78d8f31a, type: 3}
       propertyPath: m_RelationshipManager
       value: 
@@ -654,7 +642,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5809032935288939425, guid: 47960e68331154e1b84353e8ac92f85e, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.00012207031
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6079183106373549226, guid: 47960e68331154e1b84353e8ac92f85e, type: 3}
       propertyPath: m_AnchorMax.x
@@ -750,11 +738,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8821843380025413478, guid: 47960e68331154e1b84353e8ac92f85e, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.00012207031
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8834707961297705657, guid: 47960e68331154e1b84353e8ac92f85e, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.00012207031
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9105007873900234162, guid: 47960e68331154e1b84353e8ac92f85e, type: 3}
       propertyPath: m_AnchorMax.x
