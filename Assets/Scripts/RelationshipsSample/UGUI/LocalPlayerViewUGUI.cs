@@ -16,17 +16,16 @@ namespace UnityGamingServicesUsesCases.Relationships.UGUI
         [SerializeField] TMP_InputField m_Activity = null;
         [SerializeField] TMP_Dropdown m_PresenceSelector = null;
         [SerializeField] Image m_PresenceColor = null;
-        [SerializeField] TextMeshProUGUI m_PresenceText = null;
         [SerializeField] Button m_CopyButton = null;
 
         void Awake()
         {
             var names = new List<string>
             {
-                PresenceAvailabilityOptions.ONLINE.ToString(),
-                PresenceAvailabilityOptions.BUSY.ToString(),
-                PresenceAvailabilityOptions.AWAY.ToString(),
-                PresenceAvailabilityOptions.INVISIBLE.ToString()
+                "Online",
+                "Busy",
+                "Away",
+                "Invisible"
             };
 
             m_PresenceSelector.AddOptions(names);
@@ -53,7 +52,6 @@ namespace UnityGamingServicesUsesCases.Relationships.UGUI
             m_PresenceSelector.SetValueWithoutNotify(index);
             var presenceColor = ColorUtils.GetPresenceColor(presenceAvailabilityOptions);
             m_PresenceColor.color = presenceColor;
-            m_PresenceText.color = presenceColor;
 
             m_Activity.text = activity;
         }
