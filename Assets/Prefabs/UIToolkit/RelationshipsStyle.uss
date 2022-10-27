@@ -332,11 +332,10 @@
     border-right-width: 0;
     border-top-width: 0;
     border-bottom-width: 0;
-    min-height: 0;
     flex-direction: column;
     flex-wrap: nowrap;
     justify-content: flex-start;
-    height: 500px;
+    max-height: 500px;
 }
 
 .relationships_lists .unity-list-view__empty-label {
@@ -357,12 +356,10 @@
 
 .social-dropdown ScrollView {
     height: 200px;
-    background-color: rgb(164, 157, 250);
     min-height: 140px;
     position: relative;
     color: rgb(255, 255, 255);
     -unity-font-style: bold;
-    -unity-background-image-tint-color: rgb(255, 255, 255);
 }
 
 .list-view-bg {

@@ -26,7 +26,8 @@ namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
         {
             m_RequestListView = viewParent.Q<ListView>(k_RequestListViewName);
             m_RequestListViewParent = m_RequestListView.parent;
-
+            var scrollView = m_RequestListView.Q<ScrollView>();
+            scrollView.style.position = Position.Relative;
             m_RequestListView.makeItem = () =>
             {
                 var newListEntry = requestEntryTemplate.Instantiate();

@@ -11,15 +11,15 @@
         </ui:VisualElement>
         <ui:VisualElement name="friends-list-view" class="list-view-bg">
             <ui:Label text="Friends" display-tooltip-when-elided="true" name="list-label" style="color: rgb(246, 209, 117);" />
-            <ui:ListView name="friends-list" fixed-item-height="70" virtualization-method="DynamicHeight" header-title="Friends" show-foldout-header="false" show-add-remove-footer="false" item-height="80" selection-type="None" show-alternating-row-backgrounds="ContentOnly" class="relationships_lists" style="display: none;" />
+            <ui:ListView name="friends-list" fixed-item-height="70" virtualization-method="DynamicHeight" header-title="Friends" show-foldout-header="false" show-add-remove-footer="false" item-height="80" show-border="false" selection-type="None" class="relationships_lists" style="display: flex; position: relative;" />
         </ui:VisualElement>
         <ui:VisualElement name="requests-list-view" class="list-view-bg">
             <ui:Label text="Requests" display-tooltip-when-elided="true" name="list-label" style="color: rgb(246, 209, 117);" />
-            <ui:ListView name="request-list" fixed-item-height="70" virtualization-method="DynamicHeight" header-title="Requests" item-height="80" selection-type="None" class="relationships_lists" style="justify-content: flex-start; display: none; min-height: 0;" />
+            <ui:ListView name="request-list" fixed-item-height="70" virtualization-method="DynamicHeight" header-title="Requests" item-height="80" selection-type="None" class="relationships_lists" style="justify-content: flex-start; display: flex;" />
         </ui:VisualElement>
         <ui:VisualElement name="blocks-list-view" class="list-view-bg">
             <ui:Label text="Blocks" display-tooltip-when-elided="true" name="list-label" style="color: rgb(246, 209, 117);" />
-            <ui:ListView name="blocked-list" fixed-item-height="70" virtualization-method="DynamicHeight" header-title="Blocked" item-height="80" selection-type="None" class="relationships_lists" style="justify-content: flex-start; display: none; min-height: 0;" />
+            <ui:ListView name="blocked-list" fixed-item-height="70" virtualization-method="DynamicHeight" header-title="Blocked" item-height="80" selection-type="None" class="relationships_lists" style="justify-content: flex-start; display: flex;" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>
