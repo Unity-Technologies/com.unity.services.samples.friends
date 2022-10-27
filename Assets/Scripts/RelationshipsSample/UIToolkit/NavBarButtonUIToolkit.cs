@@ -9,10 +9,9 @@ namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
 
         Button m_Button;
 
-        public NavBarButtonUIToolkit(VisualElement root, string parent)
+        public NavBarButtonUIToolkit(VisualElement navBarView, string buttonName)
         {
-            var relationshipsBarView = root.Q(parent);
-            m_Button = relationshipsBarView.Q<Button>(parent);
+            m_Button = navBarView.Q<Button>(buttonName);
             m_Button.RegisterCallback<ClickEvent>((_) => Select());
             Deselect();
         }

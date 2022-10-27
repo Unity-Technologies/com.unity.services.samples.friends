@@ -13,19 +13,18 @@ namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
 
         public NavBarViewUIToolkit(VisualElement viewParent, IListView[] listViews)
         {
-            InitNavBar(viewParent, listViews);
+            var navBarView = viewParent.Q(k_RelationshipsBarViewName);
+            Init(navBarView, listViews);
 
-            var relationshipsBarView = viewParent.Q(k_RelationshipsBarViewName);
-
-            var addFriendButton = relationshipsBarView.Q<Button>("add-friend-button");
+            var addFriendButton = navBarView.Q<Button>("add-friend-button");
             addFriendButton.RegisterCallback<ClickEvent>((_) => { onShowAddFriend?.Invoke(); });
         }
 
-        private void InitNavBar(VisualElement viewParent, IListView[] listViews)
+        private void Init(VisualElement navBarView, IListView[] listViews)
         {
-            var friendsButton = new NavBarButtonUIToolkit(viewParent, "friends-button");
-            var requestsButton = new NavBarButtonUIToolkit(viewParent, "requests-button");
-            var blocksButton = new NavBarButtonUIToolkit(viewParent, "blocks-button");
+            var friendsButton = new NavBarButtonUIToolkit(navBarView, "friends-button");
+            var requestsButton = new NavBarButtonUIToolkit(navBarView, "requests-button");
+            var blocksButton = new NavBarButtonUIToolkit(navBarView, "blocks-button");
             var navBarButtons = new[] { friendsButton, requestsButton, blocksButton };
 
             var count = listViews.Length;

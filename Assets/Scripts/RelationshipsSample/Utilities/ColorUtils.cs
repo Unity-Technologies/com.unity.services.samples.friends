@@ -22,9 +22,9 @@ namespace UnityGamingServicesUsesCases.Relationships
             new Color(1f, .4f, 1f) //UNKNOWN
         };
 
-        public static Color DefaultNavBarTabColor => ColorUtility.TryParseHtmlString("#554DB1", out var color) ? color : Color.black;
+        public static Color DefaultNavBarTabColor => ColorUtility.TryParseHtmlString("#5149AB", out var color) ? color : Color.black;
         public static Color DefaultNavBarIconColor => Color.white;
-        public static Color SelectedNavBarTabColor => ColorUtility.TryParseHtmlString("#443D8F", out var color) ? color : Color.black;
+        public static Color SelectedNavBarTabColor => ColorUtility.TryParseHtmlString("#291B5F", out var color) ? color : Color.black;
         public static Color SelectedNavBarIconColor => ColorUtility.TryParseHtmlString("#F6D175", out var color) ? color : Color.white;
     }
 }
