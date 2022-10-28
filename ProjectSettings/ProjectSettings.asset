@@ -8,7 +8,7 @@ PlayerSettings:
   AndroidProfiler: 0
   AndroidFilterTouchesWhenObscured: 0
   AndroidEnableSustainedPerformanceMode: 0
-  defaultScreenOrientation: 4
+  defaultScreenOrientation: 3
   targetDevice: 2
   useOnDemandResources: 0
   accelerometerFrequency: 60
@@ -794,11 +794,11 @@ PlayerSettings:
     m_VersionName: 
   apiCompatibilityLevel: 6
   activeInputHandler: 0
-  cloudProjectId: 7661a884-f84a-411e-a24c-a7b489a5c8c8
+  cloudProjectId: 95f3326f-2fc4-40ab-810c-e1aa90ead0c9
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: Relationships Sample Staging
-  organizationId: mps-sample-staging
+  projectName: relationship
+  organizationId: operate-samples
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   virtualTexturingSupportEnabled: 0
