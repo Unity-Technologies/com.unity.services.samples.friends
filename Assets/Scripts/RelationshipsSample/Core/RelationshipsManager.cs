@@ -50,6 +50,7 @@ namespace UnityGamingServicesUsesCases.Relationships
                 PresenceAvailabilityOptions.ONLINE);
             await SetPresence(PresenceAvailabilityOptions.ONLINE);
             await SubscribeToFriendsEventCallbacks();
+            RefreshAll();
         }
 
         void UIInit()
