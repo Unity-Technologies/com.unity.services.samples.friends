@@ -101,7 +101,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3500842071915547135, guid: 99f276fd68647374e8e0c3d1cd6cb0fe, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3500842071915547135, guid: 99f276fd68647374e8e0c3d1cd6cb0fe, type: 3}
       propertyPath: m_SizeDelta.y
@@ -109,7 +109,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3500842071915547135, guid: 99f276fd68647374e8e0c3d1cd6cb0fe, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -25
+      value: -0.0004272461
       objectReference: {fileID: 0}
     - target: {fileID: 3763460239453920940, guid: 99f276fd68647374e8e0c3d1cd6cb0fe, type: 3}
       propertyPath: m_text
@@ -140,4 +140,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ParentTransform: {fileID: 7994070634913106152}
-  m_FriendEntryViewPrefab: {fileID: 3612984874194452788, guid: c51b92c99ba58854d8a0827a40bf7f5c, type: 3}
+  m_FriendEntryViewPrefab: {fileID: 1968645415403379215, guid: 9094e993218f22b448ce0614983f8c46, type: 3}
