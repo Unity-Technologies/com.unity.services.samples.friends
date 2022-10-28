@@ -329,12 +329,12 @@ MonoBehaviour:
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: -1183493901
+  m_TextStyleHashCode: 84285412
   m_overrideHtmlColors: 0
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 26.85
+  m_fontSize: 24.75
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -786,7 +786,7 @@ MonoBehaviour:
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: -1183493901
+  m_TextStyleHashCode: 84285412
   m_overrideHtmlColors: 0
   m_faceColor:
     serializedVersion: 2
@@ -1064,12 +1064,12 @@ MonoBehaviour:
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: -1183493901
+  m_TextStyleHashCode: 84285412
   m_overrideHtmlColors: 0
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 20
+  m_fontSize: 72
   m_fontSizeBase: 20
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1694,7 +1694,6 @@ MonoBehaviour:
   m_Activity: {fileID: 7061109632956145785}
   m_PresenceSelector: {fileID: 3784827136170594823}
   m_PresenceColor: {fileID: 2995340584255983810}
-  m_PresenceText: {fileID: 3784827136006215160}
   m_CopyButton: {fileID: 8990967966902890776}
 --- !u!1 &3784827136793745075
 GameObject:
@@ -1836,7 +1835,7 @@ MonoBehaviour:
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: -1183493901
+  m_TextStyleHashCode: 84285412
   m_overrideHtmlColors: 0
   m_faceColor:
     serializedVersion: 2
@@ -1990,7 +1989,7 @@ MonoBehaviour:
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: -1183493901
+  m_TextStyleHashCode: 84285412
   m_overrideHtmlColors: 0
   m_faceColor:
     serializedVersion: 2
@@ -2608,7 +2607,7 @@ MonoBehaviour:
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: -1183493901
+  m_TextStyleHashCode: 84285412
   m_overrideHtmlColors: 0
   m_faceColor:
     serializedVersion: 2
@@ -3270,12 +3269,12 @@ MonoBehaviour:
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: -1183493901
+  m_TextStyleHashCode: 84285412
   m_overrideHtmlColors: 0
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 22.35
+  m_fontSize: 20.65
   m_fontSizeBase: 14
   m_fontWeight: 400
   m_enableAutoSizing: 1
