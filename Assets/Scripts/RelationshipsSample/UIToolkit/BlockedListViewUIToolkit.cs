@@ -21,6 +21,8 @@ namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
         public BlockedListViewUIToolkit(VisualElement viewParent, VisualTreeAsset blockFriendTemplate)
         {
             m_BlockedListView = viewParent.Q<ListView>(k_BlockedListViewName);
+            var scrollView = m_BlockedListView.Q<ScrollView>();
+            scrollView.style.position = Position.Relative;
             m_BlockedListViewParent = m_BlockedListView.parent;
             m_BlockedListView.makeItem = () =>
             {

@@ -1,10 +1,21 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <ui:Template name="PlayerView" src="/Assets/Prefabs/UIToolkit/Views/PlayerView.uxml" />
     <Style src="/Assets/Prefabs/UIToolkit/RelationshipsStyle.uss" />
-    <ui:VisualElement name="request-friend-view" picking-mode="Ignore" class="player-panel" style="flex-direction: row; justify-content: space-around; align-items: center; min-width: 450px;">
-        <ui:Instance template="PlayerView" name="PlayerView" class="requests-player-panel" />
-        <ui:Button display-tooltip-when-elided="true" name="accept-button" class="player-action-button" style="background-image: url(&apos;/Assets/Art/Icons/check.png&apos;); overflow: hidden;" />
-        <ui:Button display-tooltip-when-elided="true" name="remove-button" class="player-action-button" style="background-image: url(&apos;/Assets/Art/Icons/close.png&apos;); height: 40px; overflow: hidden; margin-right: 15px;" />
-        <ui:Button text="&#10;" display-tooltip-when-elided="true" name="block-button" class="player-action-button" style="background-image: url(&apos;/Assets/Art/Icons/block.png&apos;); height: 40px; margin-right: 15px;" />
+    <ui:VisualElement name="request-friend-view" picking-mode="Ignore" class="player-panel requests-player-panel" style="flex-direction: column; justify-content: space-around; align-items: center; min-width: 450px;">
+        <ui:Instance template="PlayerView" name="PlayerView" />
+        <ui:VisualElement name="request-bg" style="flex-direction: row;">
+            <ui:Button display-tooltip-when-elided="true" name="accept-button" class="player-action-button" style="overflow: hidden; -unity-background-image-tint-color: rgb(126, 211, 33);">
+                <ui:VisualElement name="accept-icon" style="width: 40px; height: 40px; background-image: url(&apos;/Assets/Art/Icons/check.png&apos;); -unity-background-image-tint-color: rgba(126, 211, 33, 255);" />
+                <ui:Label text="ACCEPT" display-tooltip-when-elided="true" name="accept-label" class="social-font" />
+            </ui:Button>
+            <ui:Button display-tooltip-when-elided="true" name="remove-button" class="player-action-button" style="height: 40px; overflow: hidden; margin-right: 15px;">
+                <ui:VisualElement name="remove-icon" style="background-image: url(&apos;/Assets/Art/Icons/close.png&apos;); width: 40px; height: 40px; -unity-background-image-tint-color: rgba(247, 8, 8, 255);" />
+                <ui:Label text="REMOVE" display-tooltip-when-elided="true" name="remove-label" class="social-font" />
+            </ui:Button>
+            <ui:Button text="&#10;" display-tooltip-when-elided="true" name="block-button" class="player-action-button" style="height: 40px; margin-right: 15px; align-items: center;">
+                <ui:VisualElement name="block-icon" style="background-image: url(&apos;/Assets/Art/Icons/block.png&apos;); width: 35px; height: 35px;" />
+                <ui:Label text="BLOCK" display-tooltip-when-elided="true" name="block-label" class="social-font" />
+            </ui:Button>
+        </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>
