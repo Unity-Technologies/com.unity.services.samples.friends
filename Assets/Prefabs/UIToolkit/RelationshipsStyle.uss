@@ -356,6 +356,18 @@
     border-right-color: rgba(0, 0, 0, 0);
 }
 
+.friends-player-panel #player-activity-field > #unity-text-input:hover {
+    display: flex;
+    opacity: 1;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.friends-player-panel #player-activity-field {
+    display: flex;
+    opacity: 1;
+    border-right-color: rgba(0, 0, 0, 0);
+}
+
 .local-player-panel #player-activity-field {
     visibility: visible;
     display: flex;
