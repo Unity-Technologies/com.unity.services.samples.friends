@@ -21,11 +21,11 @@
         </ui:VisualElement>
         <ui:VisualElement name="requests-list-view" class="list-view-bg" style="display: flex; padding-bottom: 2px;">
             <ui:Label text="Requests" display-tooltip-when-elided="true" name="list-label" style="color: rgb(253, 204, 81);" />
-            <ui:ListView name="request-list" fixed-item-height="70" virtualization-method="DynamicHeight" header-title="Requests" item-height="140" selection-type="None" focusable="false" class="relationships_lists" style="justify-content: flex-start; min-height: 0;" />
+            <ui:ListView name="request-list" fixed-item-height="70" virtualization-method="DynamicHeight" header-title="Requests" item-height="140" selection-type="None" focusable="false" class="relationships_lists" />
         </ui:VisualElement>
         <ui:VisualElement name="blocks-list-view" class="list-view-bg" style="display: flex; padding-bottom: 2px;">
             <ui:Label text="Blocks" display-tooltip-when-elided="true" name="list-label" style="color: rgb(253, 204, 81);" />
-            <ui:ListView name="blocked-list" fixed-item-height="70" virtualization-method="DynamicHeight" header-title="Blocked" item-height="140" selection-type="None" focusable="false" class="relationships_lists" style="justify-content: flex-start; min-height: 0;" />
+            <ui:ListView name="blocked-list" fixed-item-height="70" virtualization-method="DynamicHeight" header-title="Blocked" item-height="140" selection-type="None" focusable="false" class="relationships_lists" style="justify-content: flex-start;" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>
