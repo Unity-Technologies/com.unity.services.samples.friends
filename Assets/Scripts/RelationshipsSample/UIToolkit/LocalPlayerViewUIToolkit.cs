@@ -20,6 +20,7 @@ namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
         TextField m_PlayerActivity;
         TextField m_PlayerId;
         VisualElement m_PlayerStatusCircle;
+        Button m_CopyButton;
         Button m_AcceptChangeButton;
         Button m_CancelChangeButton;
         string m_LastActivityString;
@@ -30,11 +31,17 @@ namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
             m_PlayerStatusDropDown = playerEntryView.Q<DropdownField>("player-status-dropdown");
             m_PlayerName = playerEntryView.Q<Label>("player-name-label");
             m_PlayerId = playerEntryView.Q<TextField>("id-field");
-
             m_PlayerStatusCircle = playerEntryView.Q<VisualElement>("player-status-circle");
             m_PlayerActivity = playerEntryView.Q<TextField>("player-activity-field");
+
+            m_CopyButton = playerEntryView.Q<Button>("copy-id-button");
             m_AcceptChangeButton = m_PlayerActivity.Q<Button>("player-accept");
             m_CancelChangeButton = m_PlayerActivity.Q<Button>("player-cancel");
+
+            m_CopyButton.RegisterCallback<ClickEvent>((_) =>
+            {
+                GUIUtility.systemCopyBuffer = m_PlayerId.text;
+            });
 
             m_AcceptChangeButton.RegisterCallback<ClickEvent>((_) =>
             {
@@ -49,7 +56,6 @@ namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
             });
 
             m_PlayerStatusDropDown.choices = k_LocalPlayerChoices.ToList();
-
             m_PlayerStatusDropDown.RegisterValueChangedCallback(choice =>
             {
                 var choiceInt = m_PlayerStatusDropDown.choices.IndexOf(choice.newValue);
