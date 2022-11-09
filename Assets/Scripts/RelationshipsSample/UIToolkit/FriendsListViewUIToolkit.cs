@@ -24,8 +24,10 @@ namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
         public FriendsListViewUIToolkit(VisualElement viewParent, VisualTreeAsset friendEntryTemplate)
         {
             m_FriendListView = viewParent.Q<ListView>(k_FriendsListViewName);
+            var scrollView = m_FriendListView.Q<ScrollView>();
+            scrollView.style.position = Position.Relative;
             m_RequestListViewParent = m_FriendListView.parent;
-            
+
             m_FriendListView.makeItem = () =>
             {
                 var newListEntry = friendEntryTemplate.Instantiate();

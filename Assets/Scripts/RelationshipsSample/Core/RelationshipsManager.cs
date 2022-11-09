@@ -41,7 +41,7 @@ namespace UnityGamingServicesUsesCases.Relationships
             m_LoggedPlayerName = currentPlayerName;
             m_LocalPlayerView.Refresh(m_LoggedPlayerName, LoggedPlayerId, "In Friends Menu",
                 PresenceAvailabilityOptions.ONLINE);
-            await SetPresence(PresenceAvailabilityOptions.ONLINE);
+            await SetPresence(PresenceAvailabilityOptions.ONLINE, "In Friends Menu");
             await SubscribeToFriendsEventCallbacks();
             RefreshAll();
         }
@@ -188,6 +188,7 @@ namespace UnityGamingServicesUsesCases.Relationships
                         Availability = friend.Presence.GetAvailability(),
                         Activity = activityText
                     };
+                    Debug.Log($"Added {info} ");
                     m_FriendsEntryDatas.Add(info);
                     totalFriends++;
                 }

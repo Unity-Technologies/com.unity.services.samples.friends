@@ -11,39 +11,56 @@ namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
         const string k_PlayerEntryRootName = "local-player-entry";
 
         //We dont support the player selecting OFFLINE or UNKNOWN with the UI
-        static readonly string[] k_LocalPlayerChoices = { "ONLINE", "BUSY", "AWAY", "INVISIBLE" };
+        static readonly string[] k_LocalPlayerChoices = { "Online", "Busy", "Away", "Invisible" };
 
         public Action<(PresenceAvailabilityOptions, string)> onPresenceChanged { get; set; }
 
-        //TODO Add Editable Activity Field?
-
         DropdownField m_PlayerStatusDropDown;
-        TextElement m_DropDownText;
         Label m_PlayerName;
-        Label m_PlayerActivity;
+        TextField m_PlayerActivity;
         TextField m_PlayerId;
         VisualElement m_PlayerStatusCircle;
+        Button m_CopyButton;
+        Button m_AcceptChangeButton;
+        Button m_CancelChangeButton;
+        string m_LastActivityString;
 
         public LocalPlayerViewUIToolkit(VisualElement viewParent)
         {
             var playerEntryView = viewParent.Q(k_PlayerEntryRootName);
             m_PlayerStatusDropDown = playerEntryView.Q<DropdownField>("player-status-dropdown");
-            m_DropDownText = m_PlayerStatusDropDown.Q<TextElement>();
             m_PlayerName = playerEntryView.Q<Label>("player-name-label");
             m_PlayerId = playerEntryView.Q<TextField>("id-field");
-
             m_PlayerStatusCircle = playerEntryView.Q<VisualElement>("player-status-circle");
-            m_PlayerActivity = playerEntryView.Q<Label>("player-activity-label");
+            m_PlayerActivity = playerEntryView.Q<TextField>("player-activity-field");
+
+            m_CopyButton = playerEntryView.Q<Button>("copy-id-button");
+            m_AcceptChangeButton = m_PlayerActivity.Q<Button>("player-accept");
+            m_CancelChangeButton = m_PlayerActivity.Q<Button>("player-cancel");
+
+            m_CopyButton.RegisterCallback<ClickEvent>((_) =>
+            {
+                GUIUtility.systemCopyBuffer = m_PlayerId.text;
+            });
+
+            m_AcceptChangeButton.RegisterCallback<ClickEvent>((_) =>
+            {
+                var currentOption = ParseStatus(m_PlayerStatusDropDown.value);
+                onPresenceChanged?.Invoke((currentOption, m_PlayerActivity.text));
+                m_PlayerActivity.Blur();
+            });
+
+            m_CancelChangeButton.RegisterCallback<ClickEvent>((_) =>
+            {
+                m_PlayerActivity.Blur();
+            });
 
             m_PlayerStatusDropDown.choices = k_LocalPlayerChoices.ToList();
-
             m_PlayerStatusDropDown.RegisterValueChangedCallback(choice =>
             {
                 var choiceInt = m_PlayerStatusDropDown.choices.IndexOf(choice.newValue);
                 SetPresenceColor((PresenceAvailabilityOptions)(choiceInt + 1));
-                PresenceAvailabilityOptions option = PresenceAvailabilityOptions.UNKNOWN;
-                if (Enum.TryParse(choice.newValue, out PresenceAvailabilityOptions parsedOption))
-                    option = parsedOption;
+                var option = ParseStatus(choice.newValue);
                 onPresenceChanged?.Invoke((option, m_PlayerActivity.text));
             });
 
@@ -57,7 +74,7 @@ namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
         {
             m_PlayerName.text = name;
             m_PlayerId.SetValueWithoutNotify(id);
-            m_PlayerActivity.text = activity;
+            m_PlayerActivity.SetValueWithoutNotify(activity);
             SetPresence(presenceAvailabilityOptions);
         }
 
@@ -73,7 +90,17 @@ namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
         {
             var presenceColor = ColorUtils.GetPresenceColor(presenceStatus);
             m_PlayerStatusCircle.style.backgroundColor = presenceColor;
-            m_DropDownText.style.color = presenceColor;
+        }
+
+        PresenceAvailabilityOptions ParseStatus(string status)
+        {
+            var capsStatus = status.ToUpper();
+            if (Enum.TryParse(capsStatus, out PresenceAvailabilityOptions parsedOption))
+            {
+                return parsedOption;
+            }
+
+            return PresenceAvailabilityOptions.UNKNOWN;
         }
     }
 }
