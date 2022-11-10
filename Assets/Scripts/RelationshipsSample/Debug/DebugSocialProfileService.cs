@@ -2,7 +2,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Unity.Services.Authentication;
 using Unity.Services.Core;
-using Unity.Services.Friends;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -71,7 +70,7 @@ namespace UnityGamingServicesUsesCases.Relationships
 
             m_RefreshDebugView.Init();
             m_RefreshDebugView.OnRefresh += m_RelationshipsManager.RefreshAll;
-            m_QuitButton.onClick.AddListener(QuitAsync);
+            m_QuitButton.onClick.AddListener(Application.Quit);
         }
 
 
@@ -91,14 +90,6 @@ namespace UnityGamingServicesUsesCases.Relationships
             await UASUtils.SwitchUser(playerName);
             var playerID = AuthenticationService.Instance.PlayerId;
             m_PlayerProfilesData.Add(playerName,playerID);
-        }
-
-        //Bug - Workaround for an API issue, should be removed with next API update
-        async void QuitAsync()
-        {
-            Friends.Instance.Dispose();
-            await Task.Delay(1000);
-            Application.Quit();
         }
     }
 }
