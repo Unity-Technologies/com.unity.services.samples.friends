@@ -96,10 +96,8 @@ namespace UnityGamingServicesUsesCases.Relationships
             Debug.Log($"Logged in as {playerName} id: {LoggedPlayerId}");
         }
 
-        public async void RefreshAll()
+        public void RefreshAll()
         {
-            // TODO: remove once events in the ManagedRelationshipService are fully working
-            await m_ManagedRelationshipService.ForceRelationshipsRefresh();
             RefreshFriends();
             RefreshRequests();
             RefreshBlocks();
@@ -319,7 +317,7 @@ namespace UnityGamingServicesUsesCases.Relationships
         /// <returns>List of friends.</returns>
         List<Member> GetFriends()
         {            
-            return m_ManagedRelationshipService.Friends.Select(x => x.Member).ToList();
+            return getNonBlockedMembers(m_ManagedRelationshipService.Friends);
         }
 
         /// <summary>
@@ -329,11 +327,7 @@ namespace UnityGamingServicesUsesCases.Relationships
         /// <returns>List of players.</returns>
         List<Member> GetRequests()
         {
-            var blocks = GetBlocks();
-            return m_ManagedRelationshipService.IncomingFriendRequests
-                .Select(x => x.Member)
-                .Where(x => !blocks.Any(y => x.Id == y.Id))
-                .ToList();
+            return getNonBlockedMembers(m_ManagedRelationshipService.IncomingFriendRequests);
         }
 
         /// <summary>
@@ -374,10 +368,9 @@ namespace UnityGamingServicesUsesCases.Relationships
                 };
                 callbacks.RelationshipAdded += e =>
                 {
-                    // TODO: add switch for all relationship types
                     RefreshRequests();
                     RefreshFriends();
-                    Debug.Log("FriendAdded EventReceived");
+                    Debug.Log($"create {e.GetRelationship()} EventReceived");
                 };
                 callbacks.MessageReceived += e =>
                 {
@@ -391,9 +384,8 @@ namespace UnityGamingServicesUsesCases.Relationships
                 };
                 callbacks.RelationshipDeleted += e =>
                 {
-                    // TODO: add switch for all relationship types
                     RefreshFriends();
-                    Debug.Log("FriendRemoved EventReceived");
+                    Debug.Log($"delete {e.GetRelationship()} EventReceived");
                 };
                 
                 await m_ManagedRelationshipService.SubscribeToEventsAsync(callbacks);
@@ -403,6 +395,20 @@ namespace UnityGamingServicesUsesCases.Relationships
                 Debug.Log(
                     "An error occurred while performing the action. Code: " + e.Reason + ", Message: " + e.Message);
             }
+        }
+
+        /// <summary>
+        /// Returns a list of members that are not blocked by the active user.
+        /// </summary>
+        /// <param name="relationships">The list of relationships to filter.</param>
+        /// <returns>Filtered list of members.</returns>
+        List<Member> getNonBlockedMembers(IList<Relationship> relationships)
+        {
+            var blocks = GetBlocks();
+            return relationships
+                .Select(x => x.Member)
+                .Where(x => !blocks.Any(y => x.Id == y.Id))
+                .ToList();
         }
     }
 }
