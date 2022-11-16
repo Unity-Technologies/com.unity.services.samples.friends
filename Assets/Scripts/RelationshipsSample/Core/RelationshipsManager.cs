@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using PlasticGui.Configuration.CloudEdition.Welcome;
 using Unity.Services.Authentication;
 using Unity.Services.Friends;
 using Unity.Services.Friends.Exceptions;
@@ -35,8 +36,9 @@ namespace UnityGamingServicesUsesCases.Relationships
         public async Task Init(string currentPlayerName, ISocialProfileService profileService)
         {
             m_SocialProfileService = profileService;
-            m_ManagedRelationshipService = await ManagedRelationshipService.CreateManagedRelationshipServiceAsync();
             UIInit();
+
+            await LogInAsync(LoggedPlayerId);
 
             m_LoggedPlayerName = currentPlayerName;
             m_LocalPlayerView.Refresh(m_LoggedPlayerName, LoggedPlayerId, "In Friends Menu",
@@ -87,8 +89,20 @@ namespace UnityGamingServicesUsesCases.Relationships
 
         public async void LogIn(string playerName)
         {
+            await LogInAsync(playerName);
+        }
+        
+        public async Task LogInAsync(string playerName)
+        {
             await UASUtils.SwitchUser(playerName);
             m_LoggedPlayerName = playerName;
+            if (m_ManagedRelationshipService != null)
+            {
+                m_ManagedRelationshipService.Dispose();
+                // Want to make sure wire has a chance to shutdown (we need a dispose async method!)
+                await Task.Delay(500);
+            }
+            m_ManagedRelationshipService = await ManagedRelationshipService.CreateManagedRelationshipServiceAsync();
             await SetPresence(PresenceAvailabilityOptions.ONLINE);
             m_LocalPlayerView.Refresh(m_LoggedPlayerName, LoggedPlayerId, "In Friends Menu",
                 PresenceAvailabilityOptions.ONLINE);
@@ -360,35 +374,33 @@ namespace UnityGamingServicesUsesCases.Relationships
         {
             try
             {
-                var callbacks = new RelationshipsEventCallbacks();
-                callbacks.RelationshipsEventConnectionStateChanged += e =>
-                {
-                    RefreshFriends();
-                    Debug.Log("FriendsEventConnectionStateChanged EventReceived");
-                };
-                callbacks.RelationshipAdded += e =>
+              
+                // callbacks.RelationshipsEventConnectionStateChanged += e =>
+                // {
+                //     RefreshFriends();
+                //     Debug.Log("FriendsEventConnectionStateChanged EventReceived");
+                // };
+                m_ManagedRelationshipService.RelationshipAdded += e =>
                 {
                     RefreshRequests();
                     RefreshFriends();
                     Debug.Log($"create {e.GetRelationship()} EventReceived");
                 };
-                callbacks.MessageReceived += e =>
+                m_ManagedRelationshipService.MessageReceived += e =>
                 {
                     RefreshRequests();
                     Debug.Log("MessageReceived EventReceived");
                 };
-                callbacks.PresenceUpdated += e =>
+                m_ManagedRelationshipService.PresenceUpdated += e =>
                 {
                     RefreshFriends();
                     Debug.Log("PresenceUpdated EventReceived");
                 };
-                callbacks.RelationshipDeleted += e =>
+                m_ManagedRelationshipService.RelationshipDeleted += e =>
                 {
                     RefreshFriends();
                     Debug.Log($"delete {e.GetRelationship()} EventReceived");
                 };
-                
-                await m_ManagedRelationshipService.SubscribeToEventsAsync(callbacks);
             }
             catch (RelationshipsServiceException e)
             {
