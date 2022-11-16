@@ -45,20 +45,15 @@ namespace UnityGamingServicesUsesCases.Relationships
 
         async void Start()
         {
-            //The default logged in Player will be the last profile created.
-            var playerName = $"{k_PlayerNamePrefix}{m_Amount - 1}";
-            var hasGeneratedPlayerIds = m_PlayerProfilesData.Any();
-            if (hasGeneratedPlayerIds)
-            {
-                await UASUtils.LogIn(playerName);
-            }
-            else
+            //Need to initialize before doing anything.
+            await UnityServices.InitializeAsync();
+            
+            if (!m_PlayerProfilesData.Any())
             {
                 await GeneratePlayerProfiles(m_Amount);
             }
-
-            Debug.Log($"Authenticated <b>{playerName}</b> with Id: <b>{AuthenticationService.Instance.PlayerId}</b>");
-
+            
+            var playerName = m_PlayerProfilesData.First().Name;
             await m_RelationshipsManager.Init(playerName, this);
             DebugUISetup();
         }
@@ -76,9 +71,6 @@ namespace UnityGamingServicesUsesCases.Relationships
 
         async Task GeneratePlayerProfiles(int amount)
         {
-            //Need to initialize before doing anything.
-            await UnityServices.InitializeAsync();
-            await AuthenticationService.Instance.SignInAnonymouslyAsync();
             for (int i = 0; i < amount; i++)
             {
                 await GeneratePlayerProfile(i);

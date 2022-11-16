@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using Unity.Services.Authentication;
 using Unity.Services.Core;
+using UnityEngine;
 
 namespace UnityGamingServicesUsesCases.Relationships
 {
@@ -8,6 +9,7 @@ namespace UnityGamingServicesUsesCases.Relationships
     {
         public static async Task SwitchUser(string playerName)
         {
+            Debug.Log($"Switching Player Profile to PlayerName: '{playerName}'");
             AuthenticationService.Instance.SignOut();
             AuthenticationService.Instance.SwitchProfile(playerName);
             await LogIn(playerName);
@@ -19,6 +21,7 @@ namespace UnityGamingServicesUsesCases.Relationships
             var option = options.SetProfile(playerName);
             await UnityServices.InitializeAsync(option);
             await AuthenticationService.Instance.SignInAnonymouslyAsync();
+            Debug.Log($"Authenticated <b>{playerName}</b> with Id: <b>{AuthenticationService.Instance.PlayerId}</b>");
         }
     }
 }

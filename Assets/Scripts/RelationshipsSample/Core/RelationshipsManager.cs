@@ -38,7 +38,7 @@ namespace UnityGamingServicesUsesCases.Relationships
             m_SocialProfileService = profileService;
             UIInit();
 
-            await LogInAsync(LoggedPlayerId);
+            await LogInAsync(currentPlayerName);
 
             m_LoggedPlayerName = currentPlayerName;
             m_LocalPlayerView.Refresh(m_LoggedPlayerName, LoggedPlayerId, "In Friends Menu",
