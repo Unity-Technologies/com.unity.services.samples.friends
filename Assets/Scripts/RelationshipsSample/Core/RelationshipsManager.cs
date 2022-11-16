@@ -35,7 +35,7 @@ namespace UnityGamingServicesUsesCases.Relationships
         public async Task Init(string currentPlayerName, ISocialProfileService profileService)
         {
             m_SocialProfileService = profileService;
-            m_ManagedRelationshipService = await ManagedRelationshipService.CreateManagedRelationshipServiceAsync(useEvents: false);
+            m_ManagedRelationshipService = await ManagedRelationshipService.CreateManagedRelationshipServiceAsync();
             UIInit();
 
             m_LoggedPlayerName = currentPlayerName;
