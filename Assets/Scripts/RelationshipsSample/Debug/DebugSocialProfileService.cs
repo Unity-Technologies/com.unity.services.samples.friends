@@ -45,7 +45,6 @@ namespace UnityGamingServicesUsesCases.Relationships
 
         async void Start()
         {
-            //Need to initialize before doing anything.
             await UnityServices.InitializeAsync();
             
             if (!m_PlayerProfilesData.Any())

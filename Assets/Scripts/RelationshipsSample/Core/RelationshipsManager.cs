@@ -44,7 +44,7 @@ namespace UnityGamingServicesUsesCases.Relationships
             m_LocalPlayerView.Refresh(m_LoggedPlayerName, LoggedPlayerId, "In Friends Menu",
                 PresenceAvailabilityOptions.ONLINE);
             await SetPresence(PresenceAvailabilityOptions.ONLINE);
-            await SubscribeToFriendsEventCallbacks();
+            SubscribeToFriendsEventCallbacks();
             RefreshAll();
         }
 
@@ -170,74 +170,54 @@ namespace UnityGamingServicesUsesCases.Relationships
             var totalFriends = 0;
 
             var friends = GetFriends();
-            if (friends == null)
-                return;
-            AddFriends(friends);
 
-            void AddFriends(List<Member> friends)
+            foreach (var friend in friends)
             {
-                foreach (var friend in friends)
+                string activityText;
+                if (friend.Presence.Availability == PresenceAvailabilityOptions.OFFLINE ||
+                    friend.Presence.Availability == PresenceAvailabilityOptions.INVISIBLE)
                 {
-                    string activityText;
-                    if (friend.Presence.Availability == PresenceAvailabilityOptions.OFFLINE ||
-                        friend.Presence.Availability == PresenceAvailabilityOptions.INVISIBLE)
-                    {
-                        activityText = friend.Presence.LastSeen.ToShortDateString() + " " + friend.Presence.LastSeen.ToLongTimeString();
-                    }
-                    else
-                    {
-                        activityText = friend.Presence.GetActivity<Activity>() == null ? "" : friend.Presence.GetActivity<Activity>().Status;
-                    }
-
-                    var info = new FriendsEntryData
-                    {
-                        Name = m_SocialProfileService.GetName(friend.Id),
-                        Id = friend.Id,
-                        Availability = friend.Presence.Availability,
-                        Activity = activityText
-                    };
-                    m_FriendsEntryDatas.Add(info);
-                    totalFriends++;
+                    activityText = friend.Presence.LastSeen.ToShortDateString() + " " + friend.Presence.LastSeen.ToLongTimeString();
                 }
-                m_RelationshipsUIController.RelationshipBarView.Refresh();
+                else
+                {
+                    activityText = friend.Presence.GetActivity<Activity>() == null ? "" : friend.Presence.GetActivity<Activity>().Status;
+                }
+
+                var info = new FriendsEntryData
+                {
+                    Name = m_SocialProfileService.GetName(friend.Id),
+                    Id = friend.Id,
+                    Availability = friend.Presence.Availability,
+                    Activity = activityText
+                };
+                m_FriendsEntryDatas.Add(info);
+                totalFriends++;
             }
+            m_RelationshipsUIController.RelationshipBarView.Refresh();
         }
 
         void RefreshRequests()
         {
             m_RequestsEntryDatas.Clear();
             var requests = GetRequests();
-            if (requests == null)
-                return;
-            AddRequests(requests);
 
-
-            void AddRequests(List<Member> requests)
+            foreach (var request in requests)
             {
-                foreach (var request in requests)
-                {
-                    m_RequestsEntryDatas.Add(new PlayerProfile(m_SocialProfileService.GetName(request.Id), request.Id));
-                }
-                m_RelationshipsUIController.RelationshipBarView.Refresh();
+                m_RequestsEntryDatas.Add(new PlayerProfile(m_SocialProfileService.GetName(request.Id), request.Id));
             }
+            m_RelationshipsUIController.RelationshipBarView.Refresh();
         }
 
         void RefreshBlocks()
         {
             m_BlockEntryDatas.Clear();
-            var blocks = GetBlocks();
-            if (blocks == null)
-                return;
-            AddBlocks(blocks);
 
-            void AddBlocks(List<Member> blocks)
+            foreach (var block in m_ManagedRelationshipService.Blocks)
             {
-                foreach (var block in blocks)
-                {
-                    m_BlockEntryDatas.Add(new PlayerProfile(m_SocialProfileService.GetName(block.Id), block.Id));
-                }
-                m_RelationshipsUIController.RelationshipBarView.Refresh();
+                m_BlockEntryDatas.Add(new PlayerProfile(m_SocialProfileService.GetName(block.Member.Id), block.Member.Id));
             }
+            m_RelationshipsUIController.RelationshipBarView.Refresh();
         }
 
         async Task<bool> SendFriendRequest(string playerId)
@@ -331,7 +311,7 @@ namespace UnityGamingServicesUsesCases.Relationships
         /// <returns>List of friends.</returns>
         List<Member> GetFriends()
         {            
-            return getNonBlockedMembers(m_ManagedRelationshipService.Friends);
+            return GetNonBlockedMembers(m_ManagedRelationshipService.Friends);
         }
 
         /// <summary>
@@ -341,16 +321,7 @@ namespace UnityGamingServicesUsesCases.Relationships
         /// <returns>List of players.</returns>
         List<Member> GetRequests()
         {
-            return getNonBlockedMembers(m_ManagedRelationshipService.IncomingFriendRequests);
-        }
-
-        /// <summary>
-        /// Get an amount of Blocks.
-        /// </summary>
-        /// <returns>List of players.</returns>
-        List<Member> GetBlocks()
-        {
-            return m_ManagedRelationshipService.Blocks.Select(x => x.Member).ToList();
+            return GetNonBlockedMembers(m_ManagedRelationshipService.IncomingFriendRequests);
         }
 
         async Task SetPresence(PresenceAvailabilityOptions presenceAvailabilityOptions,
@@ -370,16 +341,10 @@ namespace UnityGamingServicesUsesCases.Relationships
             }
         }
 
-        async Task SubscribeToFriendsEventCallbacks()
+        void SubscribeToFriendsEventCallbacks()
         {
             try
             {
-              
-                // callbacks.RelationshipsEventConnectionStateChanged += e =>
-                // {
-                //     RefreshFriends();
-                //     Debug.Log("FriendsEventConnectionStateChanged EventReceived");
-                // };
                 m_ManagedRelationshipService.RelationshipAdded += e =>
                 {
                     RefreshRequests();
@@ -414,12 +379,12 @@ namespace UnityGamingServicesUsesCases.Relationships
         /// </summary>
         /// <param name="relationships">The list of relationships to filter.</param>
         /// <returns>Filtered list of members.</returns>
-        List<Member> getNonBlockedMembers(IList<Relationship> relationships)
+        private List<Member> GetNonBlockedMembers(IList<Relationship> relationships)
         {
-            var blocks = GetBlocks();
-            return relationships
-                .Select(x => x.Member)
-                .Where(x => !blocks.Any(y => x.Id == y.Id))
+            var blocks = m_ManagedRelationshipService.Blocks;
+            return relationships                
+                .Where(relationship => !blocks.Any(blockedRelationship => blockedRelationship.Member.Id == relationship.Member.Id))
+                .Select(relationship => relationship.Member)
                 .ToList();
         }
     }
