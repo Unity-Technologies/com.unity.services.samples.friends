@@ -1,5 +1,5 @@
 .menu-panel {
-    background-color: rgb(85, 77, 177);
+    background-color: rgb(101, 94, 188);
     -unity-background-scale-mode: scale-and-crop;
     border-left-color: rgba(255, 170, 248, 0);
     border-right-color: rgba(255, 170, 248, 0);
@@ -7,8 +7,8 @@
     border-bottom-color: rgba(0, 0, 0, 0.2);
     border-left-width: 0;
     border-right-width: 0;
-    border-top-width: 2px;
-    border-bottom-width: 2px;
+    border-top-width: 4px;
+    border-bottom-width: 4px;
     border-top-left-radius: 15px;
     border-bottom-left-radius: 15px;
     border-top-right-radius: 15px;
@@ -31,10 +31,6 @@
     border-bottom-color: rgba(0, 0, 0, 0.3);
 }
 
-.player-panel {
-    display: flex;
-}
-
 .player-drop-down {
     letter-spacing: 10px;
     -unity-text-align: middle-center;
@@ -44,6 +40,48 @@
     border-top-color: rgba(0, 0, 0, 0);
     border-bottom-color: rgba(0, 0, 0, 0);
     border-right-width: 2px;
+    margin-left: 0;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.player-drop-down:hover .unity-base-field__input {
+    letter-spacing: 10px;
+    -unity-text-align: middle-center;
+    -unity-font-style: bold;
+    border-left-color: rgba(255, 255, 255, 0);
+    border-right-color: rgba(255, 255, 255, 0);
+    border-top-color: rgba(255, 255, 255, 0);
+    border-bottom-color: rgba(255, 255, 255, 0);
+    border-right-width: 2px;
+    margin-left: 0;
+    background-color: rgba(0, 0, 0, 0.1);
+    -unity-background-image-tint-color: rgba(255, 255, 255, 0);
+}
+
+.player-drop-down:focus .unity-base-field__input {
+    letter-spacing: 10px;
+    -unity-text-align: middle-center;
+    -unity-font-style: bold;
+    border-left-color: rgba(255, 255, 255, 0);
+    border-right-color: rgba(255, 255, 255, 0);
+    border-top-color: rgba(255, 255, 255, 0);
+    border-bottom-color: rgba(255, 255, 255, 0);
+    border-right-width: 2px;
+    margin-left: 0;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.player-drop-down:active .unity-base-field__input {
+    letter-spacing: 10px;
+    -unity-text-align: middle-center;
+    -unity-font-style: bold;
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgb(104, 96, 197);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+    border-right-width: 2px;
+    margin-left: 0;
+    background-color: rgba(0, 0, 0, 0.1);
 }
 
 .player-drop-down .unity-base-field__input {
@@ -54,6 +92,13 @@
     border-top-color: rgba(0, 0, 0, 0);
     border-bottom-color: rgba(0, 0, 0, 0);
     background-color: rgba(0, 0, 0, 0);
+    margin-left: 0;
+    padding-left: 0;
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom-width: 0;
+    font-size: 13px;
 }
 
 .player-drop-down .unity-base-popup-field__arrow {
@@ -78,52 +123,58 @@
     border-right-color: rgba(0, 0, 0, 0);
     border-top-color: rgba(0, 0, 0, 0);
     border-bottom-color: rgba(0, 0, 0, 0);
-    color: rgb(70, 255, 0);
 }
 
 .add-friend-button {
     color: rgb(60, 52, 152);
-    background-color: rgb(247, 194, 89);
-    -unity-background-image-tint-color: rgb(247, 182, 89);
     border-left-color: rgba(255, 255, 255, 0);
     border-right-color: rgba(255, 255, 255, 0);
-    border-top-color: rgba(255, 255, 255, 0);
-    border-bottom-color: rgba(255, 255, 255, 0);
-    border-top-left-radius: 15px;
-    border-bottom-left-radius: 15px;
-    border-top-right-radius: 15px;
-    border-bottom-right-radius: 15px;
+    border-top-color: rgba(255, 255, 255, 0.3);
+    border-bottom-color: rgba(0, 0, 0, 0.3);
+    border-top-left-radius: 22px;
+    border-bottom-left-radius: 22px;
+    border-top-right-radius: 22px;
+    border-bottom-right-radius: 22px;
     border-left-width: 0;
     border-right-width: 0;
-    border-top-width: 0;
-    border-bottom-width: 0;
+    border-top-width: 2px;
+    border-bottom-width: 2px;
     overflow: visible;
+    -unity-background-scale-mode: stretch-to-fill;
+    background-color: rgb(248, 150, 56);
+    background-image: url('/Assets/Art/UI/ShortGradient.png');
+    -unity-background-image-tint-color: rgba(253, 204, 81, 0.76);
+    padding-left: 30px;
+    padding-right: 30px;
+    font-size: 12px;
+    -unity-font-style: bold;
 }
 
-.add-friend-button .unity-button :hover {
-    -unity-background-image-tint-color: rgb(0, 255, 194);
+.add-friend-button:hover {
+    background-color: rgb(248, 168, 56);
+    -unity-background-image-tint-color: rgb(246, 231, 117);
+    border-bottom-color: rgba(0, 0, 0, 0.3);
+    border-top-color: rgba(255, 255, 255, 0.3);
+    border-top-width: 2px;
+    border-bottom-width: 2px;
 }
 
-.add-friend-button .unity-button :active {
-    -unity-background-image-tint-color: rgb(45, 27, 212);
+.add-friend-button:hover:active {
+    background-color: rgb(246, 209, 117);
+    -unity-background-image-tint-color: rgb(248, 150, 56);
+    border-top-color: rgba(0, 0, 0, 0.3);
+    border-bottom-color: rgba(255, 255, 255, 0.3);
+    border-top-width: 2px;
+    border-bottom-width: 2px;
 }
 
 .social-tab-button {
-    margin-left: 5px;
-    margin-right: 5px;
-    margin-top: 5px;
-    margin-bottom: 5px;
     width: 25px;
-    padding-left: 0;
-    padding-right: 0;
-    padding-top: 0;
-    padding-bottom: 0;
     height: 25px;
     color: rgb(255, 255, 255);
     background-color: rgba(0, 0, 0, 0);
     align-items: center;
     justify-content: center;
-    flex-basis: 25px;
     flex-grow: 0;
     flex-shrink: 0;
     border-left-color: rgba(0, 0, 0, 0);
@@ -134,9 +185,33 @@
     border-top-right-radius: 15px;
 }
 
-.social-tab-button:hover {
-    -unity-background-image-tint-color: rgb(255, 230, 129);
+.social-tab-button:focus {
+    width: 25px;
+    height: 25px;
+    color: rgb(255, 255, 255);
+    align-items: center;
+    justify-content: center;
+    flex-basis: 25px;
+    flex-grow: 0;
+    flex-shrink: 0;
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
     background-color: rgba(0, 0, 0, 0);
+}
+
+.social-tab-button:hover VisualElement {
+    -unity-background-image-tint-color: rgb(247, 194, 89);
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+}
+
+.social-tab-button:hover {
+    -unity-background-image-tint-color: rgb(247, 194, 89);
+    background-color: rgb(41, 27, 95);
     border-left-color: rgba(0, 0, 0, 0);
     border-right-color: rgba(0, 0, 0, 0);
     border-top-color: rgba(0, 0, 0, 0);
@@ -148,29 +223,31 @@
     border-right-color: rgba(255, 170, 248, 0);
     border-top-color: rgba(255, 170, 248, 0);
     border-bottom-color: rgba(255, 170, 248, 0);
-    width: 40px;
+    width: 140px;
     height: 40px;
-    background-color: rgba(0, 0, 0, 0);
-    -unity-background-image-tint-color: rgb(253, 198, 107);
+    background-color: rgba(170, 240, 255, 0.2);
     border-left-width: 0;
     border-right-width: 0;
     border-top-width: 0;
     border-bottom-width: 0;
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
     margin-left: 0;
     margin-right: 15px;
     margin-top: 0;
     margin-bottom: 0;
-    padding-left: 0;
-    padding-right: 0;
+    padding-left: 10px;
+    padding-right: 10px;
     padding-top: 0;
     padding-bottom: 0;
+    -unity-font-style: bold;
+    color: rgb(255, 255, 255);
+    flex-direction: row;
 }
 
-.player-action-button :enabled :active :hover {
+.player-action-button:hover:active {
     border-left-color: rgb(255, 170, 248);
     border-right-color: rgb(255, 170, 248);
     border-top-color: rgb(255, 170, 248);
@@ -179,15 +256,27 @@
     border-right-width: 0;
     border-top-width: 0;
     border-bottom-width: 0;
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-    width: 40px;
-    height: 40px;
-    background-color: rgba(0, 0, 0, 0);
-    -unity-background-image-tint-color: rgb(212, 141, 53);
+    border-top-left-radius: 22px;
+    border-bottom-left-radius: 22px;
+    border-top-right-radius: 22px;
+    border-bottom-right-radius: 22px;
+    background-color: rgba(94, 165, 180, 0.2);
+    -unity-background-image-tint-color: rgb(188, 140, 45);
     -unity-background-scale-mode: stretch-to-fill;
+}
+
+.player-action-button:hover {
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom-width: 0;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    -unity-background-image-tint-color: rgb(247, 194, 89);
+    -unity-background-scale-mode: stretch-to-fill;
+    background-color: rgba(206, 247, 255, 0.2);
 }
 
 .social-font {
@@ -197,26 +286,60 @@
 
 .social-input-field {
     color: rgb(115, 115, 115);
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
+    border-top-left-radius: 22px;
+    border-bottom-left-radius: 22px;
+    border-top-right-radius: 22px;
+    border-bottom-right-radius: 22px;
+    height: 50px;
+    -unity-text-align: middle-left;
+    max-height: 50px;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
 }
 
-.social-input-field TextField {
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
+.social-input-field:hover > #unity-text-input {
+    -unity-text-align: middle-left;
+    -unity-font-style: normal;
+    padding-left: 10px;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    height: 42px;
+}
+
+.social-input-field:focus > #unity-text-input {
+    height: 42px;
+    -unity-text-align: middle-left;
+    -unity-font-style: normal;
+    padding-left: 10px;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.social-input-field > TextField {
     color: rgb(120, 120, 120);
 }
 
-.social-input-field TextField #unity-text-input {
+.social-input-field > #unity-text-input {
     border-left-color: rgba(0, 0, 0, 0);
     border-right-color: rgba(0, 0, 0, 0);
-    border-top-color: rgba(0, 0, 0, 0);
-    border-bottom-color: rgba(0, 0, 0, 0);
-    color: rgb(115, 115, 115);
+    border-top-color: rgba(41, 27, 95, 0.5);
+    border-bottom-color: rgba(255, 255, 255, 0.5);
+    border-top-left-radius: 22px;
+    border-bottom-left-radius: 22px;
+    border-top-right-radius: 22px;
+    border-bottom-right-radius: 22px;
+    background-color: rgb(87, 80, 182);
+    border-top-width: 2px;
+    border-bottom-width: 2px;
+    color: rgb(255, 255, 255);
 }
 
 .blocked-player-panel #player-activity-status-bg {
@@ -237,12 +360,27 @@
 
 .friends-player-panel #player-status-dropdown {
     display: none;
-    visibility: visible;
+    opacity: 1;
+    border-right-color: rgba(0, 0, 0, 0);
 }
 
-.friends-player-panel #player-status-label {
+.friends-player-panel #player-activity-field > #unity-text-input:hover {
     display: flex;
+    opacity: 1;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.friends-player-panel #player-activity-field {
+    display: flex;
+    opacity: 1;
+    border-right-color: rgba(0, 0, 0, 0);
+}
+
+.local-player-panel #player-activity-field {
     visibility: visible;
+    display: flex;
+    overflow: hidden;
+    border-left-color: rgb(164, 157, 250);
 }
 
 .local-player-panel #player-status-dropdown {
@@ -250,14 +388,8 @@
     visibility: visible;
 }
 
-.local-player-panel #player-status-label {
-    visibility: visible;
-    display: none;
-    overflow: hidden;
-}
-
 .id-textfield Label {
-    color: rgb(255, 255, 255);
+    color: rgb(164, 157, 250);
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
     border-top-right-radius: 0;
@@ -272,39 +404,11 @@
     padding-bottom: 0;
     flex-direction: column;
     min-width: 25px;
+    -unity-font-style: bold;
 }
 
-.id-textfield #unity-text-input {
-    border-left-color: rgba(0, 0, 0, 0);
-    border-right-color: rgba(0, 0, 0, 0);
-    border-top-color: rgba(0, 0, 0, 0);
-    border-bottom-color: rgba(0, 0, 0, 0);
-    color: rgb(255, 255, 255);
-    margin-left: 0;
-    margin-right: 0;
-    margin-top: 0;
-    margin-bottom: 0;
-    padding-left: 5px;
-    padding-right: 5px;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    background-color: rgba(0, 0, 0, 0);
-}
-
-.id-textfield Label:focus.unity-base-field__label {
-    color: rgb(219, 219, 219);
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-    margin-left: 0;
-    margin-right: 0;
-    margin-top: 0;
-    margin-bottom: 0;
-    padding-left: 0;
-    padding-right: 0;
-    padding-top: 0;
-    padding-bottom: 0;
+.id-textfield > #unity-text-input {
+    color: rgb(164, 157, 250);
     flex-direction: column;
     min-width: 25px;
 }
@@ -332,15 +436,23 @@
     border-right-width: 0;
     border-top-width: 0;
     border-bottom-width: 0;
-    min-height: 0;
     flex-direction: column;
     flex-wrap: nowrap;
     justify-content: flex-start;
-    height: 500px;
 }
 
 .relationships_lists .unity-list-view__empty-label {
     display: none;
+}
+
+.relationships_lists .unity-list-view__item:focus {
+    display: none;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.relationships_lists .unity-list-view__item:hover {
+    display: none;
+    background-color: rgba(0, 0, 0, 0);
 }
 
 .social-dropdown.unity-base-dropdown__container-outer {
@@ -366,5 +478,130 @@
 }
 
 .list-view-bg {
-    background-color: rgb(41, 27, 95);
+    background-color: rgb(61, 55, 129);
+    display: flex;
+    max-height: 100%;
+}
+
+.activity-input-field {
+    -unity-text-align: middle-left;
+    -unity-font-style: normal;
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+    background-color: rgba(0, 0, 0, 0);
+    flex-shrink: 0;
+}
+
+.activity-input-field:focus > #unity-text-input {
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    background-color: rgb(87, 80, 182);
+    flex-shrink: 0;
+    padding-left: 15px;
+    padding-right: 60px;
+    padding-top: 0;
+    padding-bottom: 0;
+    border-bottom-width: 2px;
+    border-top-width: 2px;
+    border-top-color: rgba(0, 0, 0, 0.2);
+    border-bottom-color: rgba(255, 255, 255, 0.2);
+}
+
+.activity-input-field:hover:focus > #unity-text-input {
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    background-color: rgb(87, 80, 182);
+    flex-shrink: 0;
+    padding-left: 15px;
+    padding-right: 60px;
+    padding-top: 0;
+    padding-bottom: 0;
+    border-bottom-width: 2px;
+    border-top-width: 2px;
+    border-top-color: rgba(0, 0, 0, 0.2);
+    border-bottom-color: rgba(255, 255, 255, 0.2);
+}
+
+.activity-input-field:hover > #unity-text-input {
+    -unity-font-style: normal;
+    background-color: rgba(87, 80, 182, 0.5);
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    flex-shrink: 0;
+    border-top-width: 2px;
+    border-bottom-width: 2px;
+    border-top-color: rgba(255, 255, 255, 0);
+    border-bottom-color: rgba(255, 255, 255, 0);
+    border-left-color: rgba(255, 255, 255, 0);
+    border-right-color: rgba(255, 255, 255, 0);
+}
+
+.activity-input-field > #unity-text-input {
+    border-left-color: rgba(255, 255, 255, 0);
+    border-right-color: rgba(255, 255, 255, 0);
+    border-top-color: rgba(255, 255, 255, 0);
+    border-bottom-color: rgba(255, 255, 255, 0);
+    color: rgb(255, 255, 255);
+    background-color: rgba(0, 0, 0, 0);
+    flex-shrink: 0;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.activity-input-field > Button {
+    flex-shrink: 0;
+    display: none;
+    visibility: hidden;
+}
+
+.activity-input-field:focus > Button {
+    flex-shrink: 0;
+    display: flex;
+    visibility: visible;
+}
+
+.activity-input-field:hover:focus > Button {
+    flex-shrink: 0;
+    visibility: visible;
+    display: flex;
+}
+
+.icon-button {
+    background-color: rgba(0, 0, 0, 0);
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+}
+
+.icon-button:hover {
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+    background-color: rgba(0, 0, 0, 0);
+    -unity-background-image-tint-color: rgb(253, 204, 81);
+}
+
+.icon-button:hover:active {
+    -unity-background-image-tint-color: rgb(248, 150, 56);
+    background-color: rgba(0, 0, 0, 0);
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
 }
