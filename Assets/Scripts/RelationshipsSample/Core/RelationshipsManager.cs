@@ -1,12 +1,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using PlasticGui.Configuration.CloudEdition.Welcome;
 using Unity.Services.Authentication;
 using Unity.Services.Friends;
 using Unity.Services.Friends.Exceptions;
 using Unity.Services.Friends.Models;
-using Unity.Services.Friends.Notifications;
 using UnityEngine;
 
 namespace UnityGamingServicesUsesCases.Relationships
