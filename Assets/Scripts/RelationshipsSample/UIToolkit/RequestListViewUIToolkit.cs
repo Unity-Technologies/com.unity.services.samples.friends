@@ -25,6 +25,9 @@ namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
         public RequestListViewUIToolkit(VisualElement viewParent, VisualTreeAsset requestEntryTemplate)
         {
             m_RequestListView = viewParent.Q<ListView>(k_RequestListViewName);
+            var scrollView = m_RequestListView.Q<ScrollView>();
+            scrollView.style.position = Position.Relative;
+
             m_RequestListViewParent = m_RequestListView.parent;
 
             m_RequestListView.makeItem = () =>
@@ -48,21 +51,18 @@ namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
                 {
                     onAccept?.Invoke(userProfile.Id);
                     requestControl.Hide();
-
                 };
 
                 requestControl.onDecline = () =>
                 {
                     onDecline?.Invoke(userProfile.Id);
                     requestControl.Hide();
-
                 };
 
                 requestControl.onBlockFriend = () =>
                 {
                     onBlock?.Invoke(userProfile.Id);
                     requestControl.Hide();
-
                 };
             };
 

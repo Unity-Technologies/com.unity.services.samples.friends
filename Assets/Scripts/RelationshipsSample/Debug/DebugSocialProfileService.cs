@@ -80,7 +80,7 @@ namespace UnityGamingServicesUsesCases.Relationships
             var playerName = $"{k_PlayerNamePrefix}{i}";
             await UASUtils.SwitchUser(playerName);
             var playerID = AuthenticationService.Instance.PlayerId;
-            m_PlayerProfilesData.Add(playerName,playerID);
+            m_PlayerProfilesData.Add(playerName, playerID);
         }
     }
 }

@@ -19,7 +19,7 @@ namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
         void Select()
         {
             m_Button.style.backgroundColor = ColorUtils.SelectedNavBarTabColor;
-            m_Button.style.unityBackgroundImageTintColor = ColorUtils.SelectedNavBarIconColor;
+            m_Button.style.unityBackgroundImageTintColor = ColorUtils.YellowColor;
             onSelected?.Invoke();
         }
 

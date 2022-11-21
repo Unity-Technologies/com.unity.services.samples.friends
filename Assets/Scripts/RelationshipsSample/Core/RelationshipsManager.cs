@@ -41,8 +41,10 @@ namespace UnityGamingServicesUsesCases.Relationships
             m_LoggedPlayerName = currentPlayerName;
             m_LocalPlayerView.Refresh(m_LoggedPlayerName, LoggedPlayerId, "In Friends Menu",
                 PresenceAvailabilityOptions.ONLINE);
+                
             await SetPresence(PresenceAvailabilityOptions.ONLINE);
             SubscribeToFriendsEventCallbacks();
+
             RefreshAll();
         }
 

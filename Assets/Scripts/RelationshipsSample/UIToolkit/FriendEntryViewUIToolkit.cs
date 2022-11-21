@@ -11,19 +11,18 @@ namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
         public Action onRemoveFriend;
         public Action onBlockFriend;
         Label m_PlayerName;
-        Label m_PlayerActivity;
-        Label m_PlayerStatusLabel;
+        TextField m_PlayerActivity;
         VisualElement m_PlayerStatusCircle;
         VisualElement m_FriendEntryView;
 
         public FriendEntryViewUIToolkit(VisualElement documentParent)
         {
             m_FriendEntryView = documentParent.Q(k_FriendEntryViewName);
-
             m_PlayerName = m_FriendEntryView.Q<Label>("player-name-label");
-            m_PlayerStatusLabel = m_FriendEntryView.Q<Label>("player-status-label");
             m_PlayerStatusCircle = m_FriendEntryView.Q<VisualElement>("player-status-circle");
-            m_PlayerActivity = m_FriendEntryView.Q<Label>("player-activity-label");
+            m_PlayerActivity = m_FriendEntryView.Q<TextField>("player-activity-field");
+            m_PlayerActivity.focusable = false;
+            m_PlayerActivity.isReadOnly = true;
             var removeFriendButton = m_FriendEntryView.Q<Button>("remove-button");
             removeFriendButton.RegisterCallback<ClickEvent>(_ =>
             {
@@ -39,13 +38,12 @@ namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
         public void Refresh(string name, string activity, PresenceAvailabilityOptions presenceStatus)
         {
             m_PlayerName.text = name;
-            m_PlayerActivity.text = activity;
-            m_PlayerStatusLabel.text = presenceStatus.ToString();
+            m_PlayerActivity.SetValueWithoutNotify(activity);
 
             var presenceColor = ColorUtils.GetPresenceColor(presenceStatus);
-            m_PlayerStatusLabel.style.color = presenceColor;
             m_PlayerStatusCircle.style.backgroundColor = presenceColor;
         }
+
         public void Show()
         {
             m_FriendEntryView.style.display = DisplayStyle.Flex;
@@ -55,6 +53,5 @@ namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
         {
             m_FriendEntryView.style.display = DisplayStyle.None;
         }
-
     }
 }
