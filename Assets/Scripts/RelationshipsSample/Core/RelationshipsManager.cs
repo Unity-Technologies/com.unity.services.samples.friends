@@ -1,11 +1,10 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Unity.Services.Authentication;
 using Unity.Services.Friends;
 using Unity.Services.Friends.Exceptions;
 using Unity.Services.Friends.Models;
-using Unity.Services.Friends.Notifications;
-using Unity.Services.Friends.Options;
 using UnityEngine;
 
 namespace UnityGamingServicesUsesCases.Relationships
@@ -16,7 +15,7 @@ namespace UnityGamingServicesUsesCases.Relationships
         [SerializeField]
         GameObject m_RelationshipsUIControllerGameObject;
         IRelationshipsUIController m_RelationshipsUIController;
-        
+
         List<FriendsEntryData> m_FriendsEntryDatas = new List<FriendsEntryData>();
         List<PlayerProfile> m_RequestsEntryDatas = new List<PlayerProfile>();
         List<PlayerProfile> m_BlockEntryDatas = new List<PlayerProfile>();
@@ -28,8 +27,7 @@ namespace UnityGamingServicesUsesCases.Relationships
         IRequestListView m_RequestListView;
         IBlockedListView m_BlockListView;
         ISocialProfileService m_SocialProfileService;
-
-        const int k_MaxAmountOfUsersPerRequest = 25;
+        IManagedRelationshipService m_ManagedRelationshipService;
 
         string LoggedPlayerId => AuthenticationService.Instance.PlayerId;
 
@@ -38,11 +36,15 @@ namespace UnityGamingServicesUsesCases.Relationships
             m_SocialProfileService = profileService;
             UIInit();
 
+            await LogInAsync(currentPlayerName);
+
             m_LoggedPlayerName = currentPlayerName;
             m_LocalPlayerView.Refresh(m_LoggedPlayerName, LoggedPlayerId, "In Friends Menu",
                 PresenceAvailabilityOptions.ONLINE);
-            await SetPresence(PresenceAvailabilityOptions.ONLINE, "In Friends Menu");
-            await SubscribeToFriendsEventCallbacks();
+                
+            await SetPresence(PresenceAvailabilityOptions.ONLINE);
+            SubscribeToFriendsEventCallbacks();
+
             RefreshAll();
         }
 
@@ -87,8 +89,20 @@ namespace UnityGamingServicesUsesCases.Relationships
 
         public async void LogIn(string playerName)
         {
+            await LogInAsync(playerName);
+        }
+        
+        public async Task LogInAsync(string playerName)
+        {
             await UASUtils.SwitchUser(playerName);
             m_LoggedPlayerName = playerName;
+            if (m_ManagedRelationshipService != null)
+            {
+                m_ManagedRelationshipService.Dispose();
+                // Want to make sure wire has a chance to shutdown (we need a dispose async method!)
+                await Task.Delay(500);
+            }
+            m_ManagedRelationshipService = await ManagedRelationshipService.CreateManagedRelationshipServiceAsync();
             await SetPresence(PresenceAvailabilityOptions.ONLINE);
             m_LocalPlayerView.Refresh(m_LoggedPlayerName, LoggedPlayerId, "In Friends Menu",
                 PresenceAvailabilityOptions.ONLINE);
@@ -96,11 +110,11 @@ namespace UnityGamingServicesUsesCases.Relationships
             Debug.Log($"Logged in as {playerName} id: {LoggedPlayerId}");
         }
 
-        public async void RefreshAll()
+        public void RefreshAll()
         {
-            await RefreshFriends();
-            await RefreshRequests();
-            await RefreshBlocks();
+            RefreshFriends();
+            RefreshRequests();
+            RefreshBlocks();
         }
 
         async void BlockFriendAsync(string id)
@@ -112,27 +126,27 @@ namespace UnityGamingServicesUsesCases.Relationships
         async void UnblockFriendAsync(string id)
         {
             await UnblockFriend(id);
-            await RefreshBlocks();
-            await RefreshFriends();
+            RefreshBlocks();
+            RefreshFriends();
         }
 
         async void RemoveFriendAsync(string id)
         {
             await RemoveFriend(id);
-            await RefreshFriends();
+            RefreshFriends();
         }
 
         async void AcceptRequestAsync(string id)
         {
             await AcceptRequest(id);
-            await RefreshRequests();
-            await RefreshFriends();
+            RefreshRequests();
+            RefreshFriends();
         }
 
         async void DeclineRequestAsync(string id)
         {
             await DeclineRequest(id);
-            await RefreshRequests();
+            RefreshRequests();
         }
 
         async void SetPresenceAsync((PresenceAvailabilityOptions presence, string activity) status)
@@ -143,122 +157,78 @@ namespace UnityGamingServicesUsesCases.Relationships
 
         async void AddFriendAsync(string id)
         {
-            var success = await SendFriendRequest(id, "AddFriendView");
+            var success = await SendFriendRequest(id);
             if(success)
                 m_AddFriendView.FriendRequestSuccess();
             else
                 m_AddFriendView.FriendRequestFailed();
         }
 
-        async Task RefreshFriends()
+        void RefreshFriends()
         {
             m_FriendsEntryDatas.Clear();
-            var gotAllFriends = false;
             var totalFriends = 0;
-            
-            while (!gotAllFriends)
-            {
-                var friends = await GetFriendsWithPresence(k_MaxAmountOfUsersPerRequest, totalFriends);
-                if (friends == null)
-                    return;
-                AddFriends(friends);
-                if (friends.Count < k_MaxAmountOfUsersPerRequest)
-                    gotAllFriends = true;
-            }
 
-            void AddFriends(List<PlayerPresence<Activity>> friends)
+            var friends = GetFriends();
+
+            foreach (var friend in friends)
             {
-                foreach (var friend in friends)
+                string activityText;
+                if (friend.Presence.Availability == PresenceAvailabilityOptions.OFFLINE ||
+                    friend.Presence.Availability == PresenceAvailabilityOptions.INVISIBLE)
                 {
-                    string activityText;
-                    if (friend.Presence.GetAvailability() == PresenceAvailabilityOptions.OFFLINE ||
-                        friend.Presence.GetAvailability() == PresenceAvailabilityOptions.INVISIBLE)
-                    {
-                        activityText = friend.LastSeen.ToShortDateString() + " " + friend.LastSeen.ToLongTimeString();
-                    }
-                    else
-                    {
-                        activityText = friend.Presence.GetActivity() == null ? "" : friend.Presence.GetActivity().Status;
-                    }
-
-                    var info = new FriendsEntryData
-                    {
-                        Name = m_SocialProfileService.GetName(friend.Player.Id),
-                        Id = friend.Player.Id,
-                        Availability = friend.Presence.GetAvailability(),
-                        Activity = activityText
-                    };
-                    Debug.Log($"Added {info} ");
-                    m_FriendsEntryDatas.Add(info);
-                    totalFriends++;
+                    activityText = friend.Presence.LastSeen.ToShortDateString() + " " + friend.Presence.LastSeen.ToLongTimeString();
                 }
-                m_RelationshipsUIController.RelationshipBarView.Refresh();
+                else
+                {
+                    activityText = friend.Presence.GetActivity<Activity>() == null ? "" : friend.Presence.GetActivity<Activity>().Status;
+                }
+
+                var info = new FriendsEntryData
+                {
+                    Name = m_SocialProfileService.GetName(friend.Id),
+                    Id = friend.Id,
+                    Availability = friend.Presence.Availability,
+                    Activity = activityText
+                };
+                m_FriendsEntryDatas.Add(info);
+                totalFriends++;
             }
+            m_RelationshipsUIController.RelationshipBarView.Refresh();
         }
 
-        async Task RefreshRequests()
+        void RefreshRequests()
         {
             m_RequestsEntryDatas.Clear();
-            var gotAllRequests = false;
-            var totalRequests = 0;
+            var requests = GetRequests();
 
-            while (!gotAllRequests)
+            foreach (var request in requests)
             {
-                var requests = await GetRequests(k_MaxAmountOfUsersPerRequest, totalRequests);
-                if (requests == null)
-                    return;
-                AddRequests(requests);
-                if (requests.Count < k_MaxAmountOfUsersPerRequest)
-                    gotAllRequests = true;
+                m_RequestsEntryDatas.Add(new PlayerProfile(m_SocialProfileService.GetName(request.Id), request.Id));
             }
-
-            void AddRequests(List<Player> requests)
-            {
-                foreach (var request in requests)
-                {
-                    m_RequestsEntryDatas.Add(new PlayerProfile(m_SocialProfileService.GetName(request.Id), request.Id));
-                    totalRequests++;
-                }
-                m_RelationshipsUIController.RelationshipBarView.Refresh();
-            }
+            m_RelationshipsUIController.RelationshipBarView.Refresh();
         }
-        
-        async Task RefreshBlocks()
+
+        void RefreshBlocks()
         {
             m_BlockEntryDatas.Clear();
-            var gotAllBlocks = false;
-            var totalBlocks = 0;
-  
-            while (!gotAllBlocks)
-            {
-                var blocks = await GetBlocks(k_MaxAmountOfUsersPerRequest, totalBlocks);
-                if (blocks == null)
-                    return;
-                AddBlocks(blocks);
-                if (blocks.Count < k_MaxAmountOfUsersPerRequest)
-                    gotAllBlocks = true;
-            }
 
-            void AddBlocks(List<Player> blocks)
+            foreach (var block in m_ManagedRelationshipService.Blocks)
             {
-                foreach (var block in blocks)
-                {
-                    m_BlockEntryDatas.Add(new PlayerProfile(m_SocialProfileService.GetName(block.Id), block.Id));
-                    totalBlocks++;
-                }
-                m_RelationshipsUIController.RelationshipBarView.Refresh();
+                m_BlockEntryDatas.Add(new PlayerProfile(m_SocialProfileService.GetName(block.Member.Id), block.Member.Id));
             }
+            m_RelationshipsUIController.RelationshipBarView.Refresh();
         }
 
-        async Task<bool> SendFriendRequest(string playerId, string eventSource)
+        async Task<bool> SendFriendRequest(string playerId)
         {
             try
             {
-                await Friends.Instance.AddFriendAsync(playerId, eventSource);
+                await m_ManagedRelationshipService.AddFriendAsync(playerId);
                 Debug.Log($"{playerId} friend request sent.");
                 return true;
             }
-            catch (FriendsServiceException e)
+            catch (RelationshipsServiceException e)
             {
                 Debug.Log($"Failed to add {playerId} - {e}.");
                 return false;
@@ -269,24 +239,24 @@ namespace UnityGamingServicesUsesCases.Relationships
         {
             try
             {
-                await Friends.Instance.RemoveFriendAsync(playerId);
+                await m_ManagedRelationshipService.DeleteFriendAsync(playerId); 
                 Debug.Log($"{playerId} was removed from the friends list.");
             }
-            catch (FriendsServiceException e)
+            catch (RelationshipsServiceException e)
             {
                 Debug.Log($"Failed to remove {playerId}.");
                 Debug.LogError(e);
             }
         }
 
-        async Task BlockFriend(string playerId, string eventSource = null)
+        async Task BlockFriend(string playerId)
         {
             try
             {
-                await Friends.Instance.BlockAsync(playerId, eventSource);
+                await m_ManagedRelationshipService.AddBlockAsync(playerId);
                 Debug.Log($"{playerId} was blocked.");
             }
-            catch (FriendsServiceException e)
+            catch (RelationshipsServiceException e)
             {
                 Debug.Log($"Failed to block {playerId}.");
                 Debug.LogError(e);
@@ -297,10 +267,10 @@ namespace UnityGamingServicesUsesCases.Relationships
         {
             try
             {
-                await Friends.Instance.UnblockAsync(playerId);
+                await m_ManagedRelationshipService.DeleteBlockAsync(playerId);
                 Debug.Log($"{playerId} was unblocked.");
             }
-            catch (FriendsServiceException e)
+            catch (RelationshipsServiceException e)
             {
                 Debug.Log($"Failed to unblock {playerId}.");
                 Debug.LogError(e);
@@ -311,10 +281,10 @@ namespace UnityGamingServicesUsesCases.Relationships
         {
             try
             {
-                await Friends.Instance.ConsentFriendRequestAsync(playerId);
+                await SendFriendRequest(playerId);
                 Debug.Log($"Friend request from {playerId} was accepted.");
             }
-            catch (FriendsServiceException e)
+            catch (RelationshipsServiceException e)
             {
                 Debug.Log($"Failed to accept request from {playerId}.");
                 Debug.LogError(e);
@@ -324,11 +294,11 @@ namespace UnityGamingServicesUsesCases.Relationships
         async Task DeclineRequest(string playerId)
         {
             try
-            {
-                await Friends.Instance.IgnoreFriendRequestAsync(playerId);
+            {   
+                await m_ManagedRelationshipService.DeleteIncomingFriendRequestAsync(playerId);
                 Debug.Log($"Friend request from {playerId} was declined.");
             }
-            catch (FriendsServiceException e)
+            catch (RelationshipsServiceException e)
             {
                 Debug.Log($"Failed to decline request from {playerId}.");
                 Debug.LogError(e);
@@ -336,151 +306,86 @@ namespace UnityGamingServicesUsesCases.Relationships
         }
 
         /// <summary>
-        /// Get am amount of friends with Presence. Currently, the friends SDK can only ask for up to 25 users at a time.
-        /// This is why we call it multiple times with an offset until we get all friends.
+        /// Get am amount of friends (including presence data).
         /// </summary>
-        /// <param name="limit">Max amount of users we will get back from this request.</param>
-        /// <param name="offset">From where in my user list am i starting from.</param>
-        /// <returns>List of friends presences.</returns>
-        async Task<List<PlayerPresence<Activity>>> GetFriendsWithPresence(int limit, int offset)
-        {
-            var paginationOptions = new PaginationOptions()
-            {
-                Limit = Mathf.Clamp(limit, 1, k_MaxAmountOfUsersPerRequest),
-                Offset = offset
-            };
-            try
-            {
-                var friends = await Friends.Instance.GetFriendsAsync<Activity>(paginationOptions);
-                return friends;
-            }
-            catch (FriendsServiceException e)
-            {
-                Debug.Log("Failed to retrieve the friend list.");
-                Debug.LogError(e);
-            }
-
-            return null;
+        /// <returns>List of friends.</returns>
+        List<Member> GetFriends()
+        {            
+            return GetNonBlockedMembers(m_ManagedRelationshipService.Friends);
         }
 
         /// <summary>
-        /// Get an amount of Requests. Currently, the friends SDK can only ask for up to 25 users at a time.
-        /// This is why we call it multiple times with an offset until we get all friends.
+        /// Get an amount of Requests. The friends SDK maintains relationships unless explicitly deleted, even those
+        /// towards blocked players. We don't want to show blocked players' requests, so we filter them out.
         /// </summary>
-        /// <param name="limit">Max amount of users we will get back from this request.</param>
-        /// <param name="offset">From where in my user list am i starting from.</param>
         /// <returns>List of players.</returns>
-        async Task<List<Player>> GetRequests(int limit, int offset)
+        List<Member> GetRequests()
         {
-            var paginationOptions = new PaginationOptions()
-            {
-                Limit = Mathf.Clamp(limit, 1, k_MaxAmountOfUsersPerRequest), 
-                Offset = offset
-            };
-            try
-            {
-                var requests = await Friends.Instance.GetInboxAsync(paginationOptions);
-                return requests;
-            }
-            catch (FriendsServiceException e)
-            {
-                Debug.Log("Failed to retrieve the requests list.");
-                Debug.LogError(e);
-            }
-
-            return null;
-        }
-
-        /// <summary>
-        /// Get an amount of Blocks. Currently, the friends SDK can only ask for up to 25 users at a time.
-        /// This is why we call it multiple times with an offset until we get all friends.
-        /// </summary>
-        /// <param name="limit">Max amount of users we will get back from this request.</param>
-        /// <param name="offset">From where in my user list am i starting from.</param>
-        /// <returns>List of players.</returns>
-        async Task<List<Player>> GetBlocks(int limit, int offset)
-        {
-            var paginationOptions = new PaginationOptions()
-            {
-                Limit = Mathf.Clamp(limit, 1, k_MaxAmountOfUsersPerRequest),
-                Offset = offset
-            };
-            try
-            {
-                var requests = await Friends.Instance.GetBlocksAsync(paginationOptions);
-                return requests;
-            }
-            catch (FriendsServiceException e)
-            {
-                Debug.Log("Failed to retrieve the blocks list.");
-                Debug.LogError(e);
-            }
-
-            return null;
+            return GetNonBlockedMembers(m_ManagedRelationshipService.IncomingFriendRequests);
         }
 
         async Task SetPresence(PresenceAvailabilityOptions presenceAvailabilityOptions,
             string activityStatus = "")
         {
             var activity = new Activity { Status = activityStatus };
-            var presence = new Presence<Activity>(presenceAvailabilityOptions, activity);
 
             try
             {
-                await Friends.Instance.SetPresenceAsync(presence);
-                Debug.Log($"Availability changed to {presence.GetAvailability()}.");
+                await m_ManagedRelationshipService.SetPresenceAsync(presenceAvailabilityOptions, activity);
+                Debug.Log($"Availability changed to {presenceAvailabilityOptions}.");
             }
-            catch (FriendsServiceException e)
+            catch (RelationshipsServiceException e)
             {
-                Debug.Log($"Failed to set the presence to {presence.GetAvailability()}");
+                Debug.Log($"Failed to set the presence to {presenceAvailabilityOptions}");
                 Debug.LogError(e);
             }
         }
 
-        async Task SubscribeToFriendsEventCallbacks()
+        void SubscribeToFriendsEventCallbacks()
         {
             try
             {
-                var callbacks = new FriendsEventCallbacks<Activity>();
-                callbacks.FriendsEventConnectionStateChanged += async e =>
+                m_ManagedRelationshipService.RelationshipAdded += e =>
                 {
-                    await RefreshFriends();
-                    Debug.Log("FriendsEventConnectionStateChanged EventReceived");
+                    RefreshRequests();
+                    RefreshFriends();
+                    Debug.Log($"create {e.GetRelationship()} EventReceived");
                 };
-                callbacks.FriendAdded += async e =>
+                m_ManagedRelationshipService.MessageReceived += e =>
                 {
-                    await RefreshRequests();
-                    await RefreshFriends();
-                    Debug.Log("FriendAdded EventReceived");
+                    RefreshRequests();
+                    Debug.Log("MessageReceived EventReceived");
                 };
-                callbacks.FriendRequestReceived += async e =>
+                m_ManagedRelationshipService.PresenceUpdated += e =>
                 {
-                    await RefreshRequests();
-                    Debug.Log("FriendRequestReceived EventReceived");
-                };
-                callbacks.Blocked += async e =>
-                {
-                    await RefreshBlocks();
-                    Debug.Log("Blocked EventReceived");
-                };
-                callbacks.PresenceUpdated += async e =>
-                {
-                    await RefreshFriends();
+                    RefreshFriends();
                     Debug.Log("PresenceUpdated EventReceived");
                 };
-                callbacks.FriendRemoved += async e =>
+                m_ManagedRelationshipService.RelationshipDeleted += e =>
                 {
-                    await RefreshFriends();
-
-                    Debug.Log("FriendRemoved EventReceived");
+                    RefreshFriends();
+                    Debug.Log($"delete {e.GetRelationship()} EventReceived");
                 };
-                await Friends.Instance.SubscribeToFriendsEventsAsync(callbacks);
             }
-            catch (FriendsServiceException e)
+            catch (RelationshipsServiceException e)
             {
                 Debug.Log(
                     "An error occurred while performing the action. Code: " + e.Reason + ", Message: " + e.Message);
             }
+        }
+
+        /// <summary>
+        /// Returns a list of members that are not blocked by the active user.
+        /// </summary>
+        /// <param name="relationships">The list of relationships to filter.</param>
+        /// <returns>Filtered list of members.</returns>
+        private List<Member> GetNonBlockedMembers(IList<Relationship> relationships)
+        {
+            var blocks = m_ManagedRelationshipService.Blocks;
+            return relationships                
+                .Where(relationship => !blocks.Any(blockedRelationship => blockedRelationship.Member.Id == relationship.Member.Id))
+                .Select(relationship => relationship.Member)
+                .ToList();
         }
     }
 }

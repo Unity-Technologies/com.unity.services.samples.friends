@@ -2,7 +2,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Unity.Services.Authentication;
 using Unity.Services.Core;
-using Unity.Services.Friends;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -46,20 +45,14 @@ namespace UnityGamingServicesUsesCases.Relationships
 
         async void Start()
         {
-            //The default logged in Player will be the last profile created.
-            var playerName = $"{k_PlayerNamePrefix}{m_Amount - 1}";
-            var hasGeneratedPlayerIds = m_PlayerProfilesData.Any();
-            if (hasGeneratedPlayerIds)
-            {
-                await UASUtils.LogIn(playerName);
-            }
-            else
+            await UnityServices.InitializeAsync();
+            
+            if (!m_PlayerProfilesData.Any())
             {
                 await GeneratePlayerProfiles(m_Amount);
             }
-
-            Debug.Log($"Authenticated <b>{playerName}</b> with Id: <b>{AuthenticationService.Instance.PlayerId}</b>");
-
+            
+            var playerName = m_PlayerProfilesData.First().Name;
             await m_RelationshipsManager.Init(playerName, this);
             DebugUISetup();
         }
@@ -71,15 +64,12 @@ namespace UnityGamingServicesUsesCases.Relationships
 
             m_RefreshDebugView.Init();
             m_RefreshDebugView.OnRefresh += m_RelationshipsManager.RefreshAll;
-            m_QuitButton.onClick.AddListener(QuitAsync);
+            m_QuitButton.onClick.AddListener(Application.Quit);
         }
 
 
         async Task GeneratePlayerProfiles(int amount)
         {
-            //Need to initialize before doing anything.
-            await UnityServices.InitializeAsync();
-            await AuthenticationService.Instance.SignInAnonymouslyAsync();
             for (int i = 0; i < amount; i++)
             {
                 await GeneratePlayerProfile(i);
@@ -91,14 +81,6 @@ namespace UnityGamingServicesUsesCases.Relationships
             await UASUtils.SwitchUser(playerName);
             var playerID = AuthenticationService.Instance.PlayerId;
             m_PlayerProfilesData.Add(playerName, playerID);
-        }
-
-        //Bug - Workaround for an API issue, should be removed with next API update
-        async void QuitAsync()
-        {
-            Friends.Instance.Dispose();
-            await Task.Delay(1000);
-            Application.Quit();
         }
     }
 }
