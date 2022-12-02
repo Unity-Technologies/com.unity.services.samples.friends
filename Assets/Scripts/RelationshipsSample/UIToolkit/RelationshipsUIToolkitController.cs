@@ -12,7 +12,7 @@ namespace Unity.Services.Toolkits.Relationships.UIToolkit
         [SerializeField] VisualTreeAsset m_RequestEntryTemplate;
 
         [SerializeField] VisualTreeAsset m_BlockedEntryTemplate;
-        
+
         public ILocalPlayerView LocalPlayerView { get; private set; }
         public IRelationshipBarView RelationshipBarView { get; private set; }
         public IAddFriendView AddFriendView { get; private set; }
@@ -22,8 +22,16 @@ namespace Unity.Services.Toolkits.Relationships.UIToolkit
 
         const string k_LocalPlayerViewName = "local-player-entry";
 
+        //Called by the 2020 > 2021 upgrade script
+        public void SetUIDocument(UIDocument doc)
+        {
+            m_SocialUIDoc = doc;
+        }
+
         public void Init()
         {
+            if (m_SocialUIDoc == null)
+                m_SocialUIDoc = GetComponent<UIDocument>();
             var root = m_SocialUIDoc.rootVisualElement;
 
             var localPlayerControlView = root.Q(k_LocalPlayerViewName);
