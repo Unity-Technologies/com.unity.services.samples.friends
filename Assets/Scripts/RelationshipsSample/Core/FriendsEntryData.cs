@@ -1,7 +1,7 @@
 using System.Text;
 using Unity.Services.Friends.Models;
 
-namespace UnityGamingServicesUsesCases.Relationships
+namespace Unity.Services.Toolkits.Relationships
 {
     [System.Serializable]
     public struct FriendsEntryData

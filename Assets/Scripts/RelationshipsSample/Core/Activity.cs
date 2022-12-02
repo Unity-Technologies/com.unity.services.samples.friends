@@ -1,7 +1,7 @@
 using System.Runtime.Serialization;
 using UnityEngine.Scripting;
 
-namespace UnityGamingServicesUsesCases.Relationships
+namespace Unity.Services.Toolkits.Relationships
 {
     /// <summary>
     /// Activity represent the activity containing the status of a player.

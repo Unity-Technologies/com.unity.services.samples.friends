@@ -1,6 +1,6 @@
 using UnityEditor;
 using UnityEngine;
-using UnityGamingServicesUsesCases.Relationships;
+using Unity.Services.Toolkits.Relationships;
 
 [CustomEditor(typeof(PlayerProfilesData))]
 public class PlayerProfilesDataDrawer : Editor

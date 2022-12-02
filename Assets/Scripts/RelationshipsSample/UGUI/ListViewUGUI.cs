@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace UnityGamingServicesUsesCases.Relationships.UGUI
+namespace Unity.Services.Toolkits.Relationships.UGUI
 {
     public abstract class ListViewUGUI : MonoBehaviour
     {

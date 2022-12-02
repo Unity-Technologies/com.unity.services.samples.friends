@@ -1,4 +1,4 @@
-namespace UnityGamingServicesUsesCases.Relationships
+namespace Unity.Services.Toolkits.Relationships
 {
     /// <summary>
     /// Extend this interface and add to it for your own user profile system, like adding support for user Icons,

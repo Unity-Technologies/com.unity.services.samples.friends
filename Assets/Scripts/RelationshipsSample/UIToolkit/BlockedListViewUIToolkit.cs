@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine.UIElements;
 
-namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
+namespace Unity.Services.Toolkits.Relationships.UIToolkit
 {
     public class BlockedListViewUIToolkit : IBlockedListView
     {

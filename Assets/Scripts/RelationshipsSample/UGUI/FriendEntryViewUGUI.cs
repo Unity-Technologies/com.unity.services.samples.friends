@@ -3,7 +3,7 @@ using Unity.Services.Friends.Models;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace UnityGamingServicesUsesCases.Relationships.UGUI
+namespace Unity.Services.Toolkits.Relationships.UGUI
 {
     public class FriendEntryViewUGUI : MonoBehaviour
     {

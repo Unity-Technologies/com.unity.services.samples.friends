@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace UnityGamingServicesUsesCases.Relationships
+namespace Unity.Services.Toolkits.Relationships
 {
     public class ApplicationQuit : MonoBehaviour
     {

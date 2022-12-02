@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace UnityGamingServicesUsesCases.Relationships.UGUI
+namespace Unity.Services.Toolkits.Relationships.UGUI
 {
     public class FriendsViewUGUI : ListViewUGUI, IFriendsListView
     {

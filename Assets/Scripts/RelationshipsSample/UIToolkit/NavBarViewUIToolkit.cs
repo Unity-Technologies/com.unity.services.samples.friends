@@ -1,7 +1,7 @@
 using System;
 using UnityEngine.UIElements;
 
-namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
+namespace Unity.Services.Toolkits.Relationships.UIToolkit
 {
     public class NavBarViewUIToolkit : IRelationshipBarView
     {

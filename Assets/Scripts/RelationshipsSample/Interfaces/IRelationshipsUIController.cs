@@ -1,5 +1,5 @@
 
-namespace UnityGamingServicesUsesCases.Relationships
+namespace Unity.Services.Toolkits.Relationships
 {
     public interface IRelationshipsUIController
     {
