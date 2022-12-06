@@ -4,7 +4,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace Unity.Services.Toolkits.Relationships.UIToolkit.Editor
+namespace Unity.Services.Toolkits.Friends.UIToolkit.Editor
 {
     /// <summary>
     /// Upgrades UITOOLKIT from 2020 LTS versions to 2021 versions
@@ -53,6 +53,7 @@ namespace Unity.Services.Toolkits.Relationships.UIToolkit.Editor
 
                     uiToolkitController.SetUIDocument(uiDocumentComponent);
                     PrefabUtility.ApplyPrefabInstance(toolkitInstance, InteractionMode.AutomatedAction);
+                    AssetDatabase.SaveAssets();
                     Debug.Log("Successfully Upgraded UIToolkit implementation to Unity 2021 + ");
                 }
 
