@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace UnityGamingServicesUsesCases.Relationships.UGUI
+namespace Unity.Services.Toolkits.Friends.UGUI
 {
     public class RelationshipsUGUIController : MonoBehaviour, IRelationshipsUIController
     {

@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace UnityGamingServicesUsesCases.Relationships
+namespace Unity.Services.Toolkits.Friends
 {
     public class RefreshDebugView : MonoBehaviour
     {

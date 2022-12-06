@@ -1,6 +1,6 @@
 using System;
 
-namespace UnityGamingServicesUsesCases.Relationships
+namespace Unity.Services.Toolkits.Friends
 {
     public interface IAddFriendView
     {

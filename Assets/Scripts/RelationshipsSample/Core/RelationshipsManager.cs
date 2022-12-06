@@ -7,7 +7,7 @@ using Unity.Services.Friends.Exceptions;
 using Unity.Services.Friends.Models;
 using UnityEngine;
 
-namespace UnityGamingServicesUsesCases.Relationships
+namespace Unity.Services.Toolkits.Friends
 {
     public class RelationshipsManager : MonoBehaviour
     {
@@ -41,7 +41,7 @@ namespace UnityGamingServicesUsesCases.Relationships
             m_LoggedPlayerName = currentPlayerName;
             m_LocalPlayerView.Refresh(m_LoggedPlayerName, LoggedPlayerId, "In Friends Menu",
                 PresenceAvailabilityOptions.ONLINE);
-                
+
             await SetPresence(PresenceAvailabilityOptions.ONLINE);
             SubscribeToFriendsEventCallbacks();
 
@@ -91,7 +91,7 @@ namespace UnityGamingServicesUsesCases.Relationships
         {
             await LogInAsync(playerName);
         }
-        
+
         public async Task LogInAsync(string playerName)
         {
             await UASUtils.SwitchUser(playerName);
@@ -239,7 +239,7 @@ namespace UnityGamingServicesUsesCases.Relationships
         {
             try
             {
-                await m_ManagedRelationshipService.DeleteFriendAsync(playerId); 
+                await m_ManagedRelationshipService.DeleteFriendAsync(playerId);
                 Debug.Log($"{playerId} was removed from the friends list.");
             }
             catch (RelationshipsServiceException e)
@@ -294,7 +294,7 @@ namespace UnityGamingServicesUsesCases.Relationships
         async Task DeclineRequest(string playerId)
         {
             try
-            {   
+            {
                 await m_ManagedRelationshipService.DeleteIncomingFriendRequestAsync(playerId);
                 Debug.Log($"Friend request from {playerId} was declined.");
             }
@@ -310,7 +310,7 @@ namespace UnityGamingServicesUsesCases.Relationships
         /// </summary>
         /// <returns>List of friends.</returns>
         List<Member> GetFriends()
-        {            
+        {
             return GetNonBlockedMembers(m_ManagedRelationshipService.Friends);
         }
 
@@ -382,7 +382,7 @@ namespace UnityGamingServicesUsesCases.Relationships
         private List<Member> GetNonBlockedMembers(IList<Relationship> relationships)
         {
             var blocks = m_ManagedRelationshipService.Blocks;
-            return relationships                
+            return relationships
                 .Where(relationship => !blocks.Any(blockedRelationship => blockedRelationship.Member.Id == relationship.Member.Id))
                 .Select(relationship => relationship.Member)
                 .ToList();

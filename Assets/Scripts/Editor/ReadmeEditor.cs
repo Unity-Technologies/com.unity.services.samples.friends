@@ -3,7 +3,7 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace UnityGamingServicesUseCases.Editor
+namespace Unity.Services.Toolkits.Editor
 {
     [CustomEditor(typeof(Readme))]
     [InitializeOnLoad]
@@ -49,6 +49,8 @@ namespace UnityGamingServicesUseCases.Editor
                 SessionState.SetBool(k_ShowedReadmeSessionStateName, true);
             }
         }
+
+
 
         static void SelectReadme()
         {

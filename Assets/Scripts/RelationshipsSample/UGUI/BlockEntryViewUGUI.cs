@@ -2,7 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace UnityGamingServicesUsesCases.Relationships.UGUI
+namespace Unity.Services.Toolkits.Friends.UGUI
 {
     public class BlockEntryViewUGUI : MonoBehaviour
     {

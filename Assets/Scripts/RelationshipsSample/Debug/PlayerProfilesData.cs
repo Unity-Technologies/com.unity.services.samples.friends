@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace UnityGamingServicesUsesCases.Relationships
+namespace Unity.Services.Toolkits.Friends
 {
     [CreateAssetMenu(fileName = "playerIds_data", menuName = "Data/PlayerIds")]
     public class PlayerProfilesData : ScriptableObject, IEnumerable<PlayerProfile>

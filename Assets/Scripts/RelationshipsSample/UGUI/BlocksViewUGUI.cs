@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace UnityGamingServicesUsesCases.Relationships.UGUI
+namespace Unity.Services.Toolkits.Friends.UGUI
 {
     public class BlocksViewUGUI : ListViewUGUI, IBlockedListView
     {
@@ -22,7 +22,7 @@ namespace UnityGamingServicesUsesCases.Relationships.UGUI
         {
             m_BlockEntries.ForEach(entry => Destroy(entry.gameObject));
             m_BlockEntries.Clear();
-            
+
             foreach (var playerProfile in m_PlayerProfiles)
             {
                 var entry = Instantiate(m_BlockEntryViewPrefab, m_ParentTransform);

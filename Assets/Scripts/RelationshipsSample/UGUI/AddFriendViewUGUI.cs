@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace UnityGamingServicesUsesCases.Relationships.UGUI
+namespace Unity.Services.Toolkits.Friends.UGUI
 {
     public class AddFriendViewUGUI : MonoBehaviour, IAddFriendView
     {
@@ -35,7 +35,7 @@ namespace UnityGamingServicesUsesCases.Relationships.UGUI
 
         public void FriendRequestFailed()
         {
-            
+
         }
 
         public void Show()

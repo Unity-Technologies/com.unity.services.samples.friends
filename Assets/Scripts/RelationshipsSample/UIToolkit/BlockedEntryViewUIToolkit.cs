@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace UnityGamingServicesUsesCases.Relationships.UIToolkit
+namespace Unity.Services.Toolkits.Friends.UIToolkit
 {
     public class BlockedEntryViewUIToolkit
     {
