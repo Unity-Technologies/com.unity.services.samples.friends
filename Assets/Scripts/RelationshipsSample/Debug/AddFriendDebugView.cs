@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Unity.Services.Toolkits.Relationships
+namespace Unity.Services.Toolkits.Friends
 {
     public class AddFriendDebugView : MonoBehaviour
     {

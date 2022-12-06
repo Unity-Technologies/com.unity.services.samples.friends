@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-namespace Unity.Services.Toolkits.Relationships.UGUI
+namespace Unity.Services.Toolkits.Friends.UGUI
 {
     public class NavBarButtonUGUI : MonoBehaviour
     {

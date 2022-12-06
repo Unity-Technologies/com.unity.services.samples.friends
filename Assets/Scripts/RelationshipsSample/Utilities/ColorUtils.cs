@@ -1,7 +1,7 @@
 using Unity.Services.Friends.Models;
 using UnityEngine;
 
-namespace Unity.Services.Toolkits.Relationships
+namespace Unity.Services.Toolkits.Friends
 {
     public class ColorUtils
     {

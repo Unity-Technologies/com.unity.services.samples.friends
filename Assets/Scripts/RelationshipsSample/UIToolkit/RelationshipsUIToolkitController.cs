@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace Unity.Services.Toolkits.Relationships.UIToolkit
+namespace Unity.Services.Toolkits.Friends.UIToolkit
 {
     public class RelationshipsUIToolkitController : MonoBehaviour, IRelationshipsUIController
     {

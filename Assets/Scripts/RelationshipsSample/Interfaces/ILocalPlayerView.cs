@@ -1,7 +1,7 @@
 using System;
 using Unity.Services.Friends.Models;
 
-namespace Unity.Services.Toolkits.Relationships
+namespace Unity.Services.Toolkits.Friends
 {
     public interface ILocalPlayerView
     {

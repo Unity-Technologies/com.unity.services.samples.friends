@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Unity.Services.Toolkits.Relationships
+namespace Unity.Services.Toolkits.Friends
 {
     public class LogInDebugView : MonoBehaviour
     {
@@ -13,7 +13,7 @@ namespace Unity.Services.Toolkits.Relationships
         [SerializeField] private Button m_Button = null;
         [SerializeField] private TMP_Dropdown m_Dropdown = null;
         [SerializeField] private PlayerProfilesData m_PlayerProfilesData = null;
-        
+
         public void Init()
         {
             var names = new List<string>();

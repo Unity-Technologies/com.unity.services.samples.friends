@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Unity.Services.Toolkits.Relationships.UGUI
+namespace Unity.Services.Toolkits.Friends.UGUI
 {
     public class FriendsViewUGUI : ListViewUGUI, IFriendsListView
     {
@@ -19,7 +19,7 @@ namespace Unity.Services.Toolkits.Relationships.UGUI
         {
             m_FriendsEntryDatas = friendEntryDatas;
         }
-        
+
         public override void Refresh()
         {
             m_FriendEntries.ForEach(entry => Destroy(entry.gameObject));

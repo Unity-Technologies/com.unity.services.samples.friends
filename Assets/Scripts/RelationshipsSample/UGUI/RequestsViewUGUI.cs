@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Unity.Services.Toolkits.Relationships.UGUI
+namespace Unity.Services.Toolkits.Friends.UGUI
 {
     public class RequestsViewUGUI : ListViewUGUI, IRequestListView
     {

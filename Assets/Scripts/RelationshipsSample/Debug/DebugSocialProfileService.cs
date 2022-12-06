@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-namespace Unity.Services.Toolkits.Relationships
+namespace Unity.Services.Toolkits.Friends
 {
 
     /// <summary>
@@ -46,12 +46,12 @@ namespace Unity.Services.Toolkits.Relationships
         async void Start()
         {
             await UnityServices.InitializeAsync();
-            
+
             if (!m_PlayerProfilesData.Any())
             {
                 await GeneratePlayerProfiles(m_Amount);
             }
-            
+
             var playerName = m_PlayerProfilesData.First().Name;
             await m_RelationshipsManager.Init(playerName, this);
             DebugUISetup();

@@ -5,7 +5,7 @@ using Unity.Services.Friends.Models;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Unity.Services.Toolkits.Relationships.UGUI
+namespace Unity.Services.Toolkits.Friends.UGUI
 {
     public class LocalPlayerViewUGUI : MonoBehaviour, ILocalPlayerView
     {

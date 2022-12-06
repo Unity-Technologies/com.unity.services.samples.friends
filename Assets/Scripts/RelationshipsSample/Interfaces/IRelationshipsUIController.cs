@@ -1,5 +1,5 @@
 
-namespace Unity.Services.Toolkits.Relationships
+namespace Unity.Services.Toolkits.Friends
 {
     public interface IRelationshipsUIController
     {

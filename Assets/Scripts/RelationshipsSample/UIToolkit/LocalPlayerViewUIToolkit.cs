@@ -4,7 +4,7 @@ using Unity.Services.Friends.Models;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace Unity.Services.Toolkits.Relationships.UIToolkit
+namespace Unity.Services.Toolkits.Friends.UIToolkit
 {
     public class LocalPlayerViewUIToolkit : ILocalPlayerView
     {
