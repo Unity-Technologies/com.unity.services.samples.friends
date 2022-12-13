@@ -13,14 +13,101 @@ MonoBehaviour:
   m_Name: README
   m_EditorClassIdentifier: 
   header:
-    title: Relationships UI
-    icon: {fileID: 0}
+    title: Friends Toolkit
+    icon: {fileID: 2800000, guid: ea6364f65ebe246e9bb16b715436f568, type: 3}
   sections:
-  - subHeader1: A Friends service front-end for managing your friends!
+  - subHeader1: 
+    subHeader2: 
+    subHeader3: Welcome to the Friend Toolkit!
+    body: Refer to the README.MD in the project or on the github page for more detailed
+      information.
+    bodyFormat: 0
+    boxCallout: 'Ensure you have Onboarded to the Friends Service before continuing:'
+    bulletList:
+    - body: In your Unity Dashboard, Enable Friends under Multiplayer > Friends
+      bodyFormat: 2
+      bulletList: []
+      linkList: []
+    - body: 'Link this project to your Dashboard:'
+      bodyFormat: 2
+      bulletList:
+      - body: Project Settings >Services > Create new Project ID
+        bodyFormat: 2
+        bulletList: []
+      linkList: []
+    linkList:
+    - linkText: Link to Starting Game Services.
+      url: https://docs.unity.com/ugs-overview/GettingStarted.html
+  - subHeader1: 
     subHeader2: 
     subHeader3: 
-    body: Open this Readme ScriptableObject in debug mode to edit.
+    body: 'This  project consists of a simple user interface that allows you to interact
+      with the Friends service and perform actions such as:'
     bodyFormat: 0
     boxCallout: 
-    bulletList: []
+    bulletList:
+    - body: 'Send a friend request '
+      bodyFormat: 0
+      bulletList: []
+      linkList: []
+    - body: Accept a friend request
+      bodyFormat: 0
+      bulletList: []
+      linkList: []
+    - body: Ignore a friend request
+      bodyFormat: 0
+      bulletList: []
+      linkList: []
+    - body: Block a player
+      bodyFormat: 0
+      bulletList: []
+      linkList: []
+    - body: View your Friend list
+      bodyFormat: 0
+      bulletList: []
+      linkList: []
+    - body: 'View your Block list '
+      bodyFormat: 0
+      bulletList: []
+      linkList: []
+    - body: Unblock a player
+      bodyFormat: 0
+      bulletList: []
+      linkList: []
+    - body: Remove a friend
+      bodyFormat: 0
+      bulletList: []
+      linkList: []
+    - body: Set your Presence status
+      bodyFormat: 0
+      bulletList: []
+      linkList: []
+    linkList: []
+  - subHeader1: 
+    subHeader2: 'Toolkit Quickstart:'
+    subHeader3: 
+    body: Build a Standalone player to act as a friend.
+    bodyFormat: 0
+    boxCallout: 
+    bulletList:
+    - body: Run two seperate builds.
+      bodyFormat: 0
+      bulletList: []
+      linkList: []
+    - body: Copy the PlayerID from one build.
+      bodyFormat: 0
+      bulletList: []
+      linkList: []
+    - body: Paste the PlayerID into the Add Friend Window.
+      bodyFormat: 0
+      bulletList: []
+      linkList: []
+    - body: Accept the Friends request in the first build.
+      bodyFormat: 0
+      bulletList: []
+      linkList: []
+    - body: Build 1 and Build 2 are now friends!
+      bodyFormat: 0
+      bulletList: []
+      linkList: []
     linkList: []
