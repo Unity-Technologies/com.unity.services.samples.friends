@@ -1,6 +1,6 @@
 # README
 
-The Friends sample project demonstrates a basic implementation of the Friends service.
+The Friends Toolkit project demonstrates a basic implementation of the Friends service.
 
 ## Getting started
 
@@ -89,8 +89,6 @@ The sample project consists of a simple user interface that allows you to intera
 
 It also includes a debugging tool that allows you to:
 
-- Select and add a friend
-- Select and log in as a player
 - Refresh the user interface
 - Use the following table as a reference for the meaning of buttons and user interface elements.
 
@@ -122,28 +120,23 @@ After the scene launches, you should see the sample Friends user interface.
 
 ### Send a Friend request
 
-You can send a friend request to another player using the player’s ID and the **Add Friend** button. For example, if you want to simulate Player_3 sending a friend request to Player_0:
+You can send a friend request to another player using the player’s ID and the **Add Friend** button. 
 
-1. Use the debugging tool to log in as **Player_0**.
-2. Copy the Player ID.
+1. Using the Project as **Player 1**, Build another player to act as **Player 2**. 
+2. Copy **Player 1**'s Players ID.
 
 ![](https://lh6.googleusercontent.com/draonDTJAjrUnHjUM01P1lCeEBwBVusZtEMlBHxrxmyPTPRxZ_bH1bDeAfasbI_7q3kodzPJFYis-XKDqjxVQ_O44LyjwobrpYQzBDNkQyDjCgXhg7BDvDaqqEzAK2BIEurH3fFgXKruyxWnfUrawKqaOoW8ynHOmb3u4n7jOs2EZymQJ04xxmct1oJUkA)
 
-3. Use the debugging tool to log in as **Player_3**.
-4. Select the **Add Friend** button.
-
-![](https://lh5.googleusercontent.com/ZOBH_6u8Zyum1jihpOqhBJUXXiZj8H0unBoEESw8CmlKJc5EyzS2Av6u7cYKAn-fMK29NptMrtzbugn9r32ECNQpGp5ujicSIERIBoqVC8SJe7Qf5y5TiaAV1XkPaZjRAc9M9Omkw0GCV6gGupuy0W_M1q9e6SdxZq6dHqqiCDf9RVCXeyeVpsitkBR96A)
-
-5. Paste the ID of Player_0 into the ID field, then select **Add**.
+3. Paste the ID of **Player 1** into the ID field of **Player 2**, then select **Add**.
 
 ![](https://lh6.googleusercontent.com/jONHLYogwAgqWhjbwolRm9dNINPZ2p80s9cQzXAmKUQYMuqEwlreYRvTLb6lbCAqhp3ZSLLu5BmXd_OD6aN6XoSc4AcDbMZQpzykIAivbph5mQ8GMLyw0mc9DpPWntvpfbLCHiVewmDDqO-DmyieHQhp_Xx-zDMphTT9Nlg53gbIjiSE6Iyjzr_83MKIVw)
 
-6. Use the debugging tool to log in as **Player_0**.
-7. Select the Friend request inbox button.
+4. Return to **Player 1**
+5. Select the Friend request inbox button.
 
 ![](https://lh3.googleusercontent.com/t66VZN7h8PkOzQtsW8CAwOctNJZav85o2Hv33hAS9sFe9kkm9rscu56PVTTWI79aQvzuH_5Px86JK_qEfAonuhybvxH4kJ30G_l2C4TaxRmUmrcx2zgFbC9Q0KGLHMThmlupyEM2MZ6_dkFdi0A9odnlpbVQuVtYdOMXU4M-mbVJCaIKKXrrvVkOTe3J0Q)
 
-1. Accept or ignore the friend request from Player_3.
+6. Accept or ignore the friend request from **Player 2**
 
 ### Accept a Friend request
 
@@ -215,51 +208,6 @@ You can set your Presence status by selecting the down arrow next to your curren
 1. Select the down arrow next to ONLINE.
 2. Select **OFFLINE**.
 
-### Use the debugging tool
-
-The debugging tool is an additional user interface with options to perform actions, such as logging in as a player, adding a friend, and refreshing the scene. The workflow you use to interact with the debugging tool does not necessarily reflect how you should interact with the sample. For example, the correct way to add a friend is to use the Player ID of the friend you want to add. With the debugging tool, you can simply select the player by name.
-
-#### Select and log in as a player
-
-By default, when you start the Sample Scene, you are already logged in as one of the example players. However, you can use the debugging tool set to log in as another player:
-
-1. Select the player you want to log in as from the drop-down menu above Log In. For example, to log in as Player_0, select **Player_0**.
-2. Select the **Log In** button.
-
-![](https://lh6.googleusercontent.com/Jr6hJZ3lH2bgHWQXQpC4rIjufIXmfvFNMAVUPfbL4mJuaEyHOK2k0NxBgmqZFFKJxIFQ4eL6wGgprmZ8rSq7Elp6Wbme7PjFVcUET49eFHxqD3otebMPe1-8ApNyP2GyQaR3Z_Hgbb2uSwdIan_bNCwGRO6lEdRLfnSAvAD1KMPIiWvMd3rcENUsLjDX6w)
-
-After logging in, you should see the player you selected (for example, Player_0) in the user interface.
-
-![](https://lh5.googleusercontent.com/Ed_p7vS3eyQ9HcMQDefJJDYirvcwACC4X6w3DSj0PGefFlyGhwN_o5p64-q8M4eQItsLXduWI2bwXYjxCaPu0URLezm83vTHGXmPWC_AOWx7z4P2eAKj_bQ9H2ezHgMQTSGF8EuHA6obNth-JQXjRbIfCRgpExDwW7Qr9Wcq8YBG7t0aftO7zfQ10CmVQw)
-
-#### Select and add a friend
-
-The debugging tool allows you to send a friend request to one of the sample players. For example, if you’re logged in as Player_0, you can end a friend request to Player_2. Then, you can log in as Player_0 and accept or ignore the request.
-
-To send a friend request using the debugging tool:
-
-1. Select the player to send a friend request from the drop-down menu above Add Friend. Make sure this is a player other than the player you’re logged in as.
-2. Select **Add Friend**.
-
-![](https://lh5.googleusercontent.com/YjY5POfZAzElDZAQfHubCujRCBosbqjqLifb3ewnvWk_T6apDa8tg6wT8cbSUQ6EKb-Afm37hPhF5IKpHDJcfhnlC6lWS1Rt3kWah-eImyVJObcxI-UzMoPzkw8l2pCqeHSSs6cpArhHsPiIOZjdBat_vQnZajJ8gXU2tv48GwZysJgtblkMKttsOWB4Xg)
-
-After you send the request, you can log in as the player you sent the request to and accept the request, ignore the request, or block the player.
-
-For example, if you’re Player_0 and you sent the request to Player_2:
-
-1. Select Player_2 from the drop-down list above Log In.
-2. Select **Log In**.
-3. Select the Friend request inbox icon.
-
-![](https://lh3.googleusercontent.com/JBtSGrz9w_3-sbbsV4CoeT3LC8HBT3Evz7-mR03DNW-AfowC0EZmA3HORAaeGOO6FNT3lwfJhb9-lf-CRLWvjH9AXhP7Lr5T7lCUhkegqqnurH2q37V7IZAJ3YZ575dSEG3JnAfKmPhUCckWDEM_VsAH4dEzVz_OGZlJIyp2rDt0RS--0lTAcu9EavfMEw)
-
-4. You should see Player_0 in your Friend request inbox list.
-
-   1. Select the **Accept** (✔) button to accept the request.
-   2. Select the **Ignore** (**×**) button to ignore the request.
-   3. Select the minus symbol to block Player_0.
-
-![](https://lh4.googleusercontent.com/bt8d1WLIJDe_OhmHSwm4sUBjUe4-Azw4vorS4IB4nkJkyW0Ffxu5Czhs84Eg2FFx5QO-pq__aCxWB5YHdC5cTtHjJGlt66qwS9ByzHMWuTgvseQSj8FDJlCaSzkhtQj8oEFSBkB8Kh-YKJoAdNEpnlBMt74JC0e6LY-d1hVVw4zA1dqM3MjCJDGXjesxbA)
 
 #### Refresh the user interface
 
