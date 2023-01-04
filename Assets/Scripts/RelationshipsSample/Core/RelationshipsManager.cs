@@ -13,7 +13,7 @@ namespace Unity.Services.Toolkits.Friends
     {
         [Tooltip("Reference a GameObject that has a component extending from IRelationshipsUIController.")]
         [SerializeField]
-        GameObject m_RelationshipsUIControllerGameObject;
+        GameObject m_RelationshipsUIControllerGameObject; //This gameObject reference is only needed to get the IRelationshipUIController component from it.
         IRelationshipsUIController m_RelationshipsUIController;
 
         List<FriendsEntryData> m_FriendsEntryDatas = new List<FriendsEntryData>();
