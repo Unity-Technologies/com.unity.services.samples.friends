@@ -10,6 +10,7 @@ namespace Unity.Services.Toolkits.Friends.UGUI
         [SerializeField] FriendsViewUGUI m_FriendsViewUGUI;
         [SerializeField] RequestsViewUGUI m_RequestsViewUGUI;
         [SerializeField] BlocksViewUGUI m_BlocksViewUGUI;
+        
         public ILocalPlayerView LocalPlayerView => m_LocalPlayerViewUGUI;
         public IRelationshipBarView RelationshipBarView => m_NavBarViewUGUI;
         public IAddFriendView AddFriendView => m_AddFriendViewUGUI;

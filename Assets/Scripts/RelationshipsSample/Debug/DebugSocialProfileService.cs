@@ -78,7 +78,7 @@ namespace Unity.Services.Toolkits.Friends
         async Task GeneratePlayerProfile(int i)
         {
             var playerName = $"{k_PlayerNamePrefix}{i}";
-            await UASUtils.SwitchUser(playerName);
+            await UnityAuthenticationServicesUtils.SwitchUser(playerName);
             var playerID = AuthenticationService.Instance.PlayerId;
             m_PlayerProfilesData.Add(playerName, playerID);
         }

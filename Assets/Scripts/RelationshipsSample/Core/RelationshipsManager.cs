@@ -13,7 +13,7 @@ namespace Unity.Services.Toolkits.Friends
     {
         [Tooltip("Reference a GameObject that has a component extending from IRelationshipsUIController.")]
         [SerializeField]
-        GameObject m_RelationshipsUIControllerGameObject;
+        GameObject m_RelationshipsUIControllerGameObject; //This gameObject reference is only needed to get the IRelationshipUIController component from it.
         IRelationshipsUIController m_RelationshipsUIController;
 
         List<FriendsEntryData> m_FriendsEntryDatas = new List<FriendsEntryData>();
@@ -92,9 +92,9 @@ namespace Unity.Services.Toolkits.Friends
             await LogInAsync(playerName);
         }
 
-        public async Task LogInAsync(string playerName)
+        async Task LogInAsync(string playerName)
         {
-            await UASUtils.SwitchUser(playerName);
+            await UnityAuthenticationServicesUtils.SwitchUser(playerName);
             m_LoggedPlayerName = playerName;
             if (m_ManagedRelationshipService != null)
             {
@@ -167,10 +167,9 @@ namespace Unity.Services.Toolkits.Friends
         void RefreshFriends()
         {
             m_FriendsEntryDatas.Clear();
-            var totalFriends = 0;
-
+            
             var friends = GetFriends();
-
+            
             foreach (var friend in friends)
             {
                 string activityText;
@@ -192,7 +191,6 @@ namespace Unity.Services.Toolkits.Friends
                     Activity = activityText
                 };
                 m_FriendsEntryDatas.Add(info);
-                totalFriends++;
             }
             m_RelationshipsUIController.RelationshipBarView.Refresh();
         }
@@ -306,7 +304,7 @@ namespace Unity.Services.Toolkits.Friends
         }
 
         /// <summary>
-        /// Get am amount of friends (including presence data).
+        /// Get an amount of friends (including presence data).
         /// </summary>
         /// <returns>List of friends.</returns>
         List<Member> GetFriends()

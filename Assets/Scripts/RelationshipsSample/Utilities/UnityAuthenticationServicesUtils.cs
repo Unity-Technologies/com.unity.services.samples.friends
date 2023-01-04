@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Unity.Services.Toolkits.Friends
 {
-    public static class UASUtils
+    public static class UnityAuthenticationServicesUtils
     {
         public static async Task SwitchUser(string playerName)
         {
@@ -15,7 +15,7 @@ namespace Unity.Services.Toolkits.Friends
             await LogIn(playerName);
         }
 
-        public static async Task LogIn(string playerName)
+        static async Task LogIn(string playerName)
         {
             var options = new InitializationOptions();
             var option = options.SetProfile(playerName);

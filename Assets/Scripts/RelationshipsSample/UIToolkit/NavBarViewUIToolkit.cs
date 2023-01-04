@@ -43,6 +43,8 @@ namespace Unity.Services.Toolkits.Friends.UIToolkit
                 navBarTab.NavBarButton.onSelected += () => { ShowTab(navBarTab); };
                 navBarTab.ListView.Hide();
             }
+            //Select the friends tab by default
+            m_NavBarTabs[0].NavBarButton.Select();
         }
 
         public void Refresh()
