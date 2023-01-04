@@ -1,13 +1,12 @@
-using Unity.Services.Friends.Models;
 using UnityEngine;
 
 namespace Unity.Services.Toolkits.Friends
 {
-    public class ColorUtils
+    public static class ColorUtils
     {
-        public static Color GetPresenceColor(PresenceAvailabilityOptions presenceStatus)
+        public static Color GetPresenceColor(int index)
         {
-            var colorIndex = Mathf.Clamp((int)presenceStatus - 1, 0, s_PresenceUIColors.Length - 1);
+            var colorIndex = Mathf.Clamp(index, 0, s_PresenceUIColors.Length - 1);
             return s_PresenceUIColors[colorIndex];
         }
 

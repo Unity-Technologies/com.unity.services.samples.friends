@@ -59,7 +59,7 @@ namespace Unity.Services.Toolkits.Friends.UIToolkit
             m_PlayerStatusDropDown.RegisterValueChangedCallback(choice =>
             {
                 var choiceInt = m_PlayerStatusDropDown.choices.IndexOf(choice.newValue);
-                SetPresenceColor((PresenceAvailabilityOptions)(choiceInt + 1));
+                SetPresenceColor(choiceInt);
                 var option = ParseStatus(choice.newValue);
                 onPresenceChanged?.Invoke((option, m_PlayerActivity.text));
             });
@@ -67,8 +67,7 @@ namespace Unity.Services.Toolkits.Friends.UIToolkit
             SetPresence(PresenceAvailabilityOptions.INVISIBLE);
         }
 
-        //Keeping these setters seperate in case we wan to support name and activity changesxwx`
-
+        //Keeping these setters seperate in case we wan to support name and activity changes`
         public void Refresh(string name, string id, string activity,
             PresenceAvailabilityOptions presenceAvailabilityOptions)
         {
@@ -80,15 +79,15 @@ namespace Unity.Services.Toolkits.Friends.UIToolkit
 
         void SetPresence(PresenceAvailabilityOptions presenceStatus)
         {
-            var clampedStatusIndex = Mathf.Clamp((int)presenceStatus - 1, 0, k_LocalPlayerChoices.Length - 1);
-            var dropDownChoice = m_PlayerStatusDropDown.choices[clampedStatusIndex];
+            var index = FriendsUtils.RemapEnumIndex(presenceStatus);
+            var dropDownChoice = m_PlayerStatusDropDown.choices[index];
             m_PlayerStatusDropDown.SetValueWithoutNotify(dropDownChoice);
-            SetPresenceColor(presenceStatus);
+            SetPresenceColor(index);
         }
 
-        void SetPresenceColor(PresenceAvailabilityOptions presenceStatus)
+        void SetPresenceColor(int index)
         {
-            var presenceColor = ColorUtils.GetPresenceColor(presenceStatus);
+            var presenceColor = ColorUtils.GetPresenceColor(index);
             m_PlayerStatusCircle.style.backgroundColor = presenceColor;
         }
 
