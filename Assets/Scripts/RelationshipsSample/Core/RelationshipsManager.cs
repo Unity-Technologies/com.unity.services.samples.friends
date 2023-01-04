@@ -92,9 +92,9 @@ namespace Unity.Services.Toolkits.Friends
             await LogInAsync(playerName);
         }
 
-        public async Task LogInAsync(string playerName)
+        async Task LogInAsync(string playerName)
         {
-            await UASUtils.SwitchUser(playerName);
+            await UnityAuthenticationServicesUtils.SwitchUser(playerName);
             m_LoggedPlayerName = playerName;
             if (m_ManagedRelationshipService != null)
             {
