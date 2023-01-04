@@ -1,21 +1,25 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Unity.Services.Toolkits.Friends
 {
     public class ApplicationQuit : MonoBehaviour
     {
-        [SerializeField] bool m_DeleteSaveOnQuit = false;
+        [SerializeField] Button m_QuitButton;
 
+        void Awake()
+        {
+            m_QuitButton.onClick.AddListener(Quit);
+        }
         void Update()
         {
-#if !UNITY_EDITOR
             if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                Application.Quit();
-                if (m_DeleteSaveOnQuit)
-                    PlayerPrefs.DeleteAll();
-            }
-#endif
+                Quit();
+        }
+
+        public void Quit()
+        {
+            Application.Quit();
         }
     }
 }
