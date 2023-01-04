@@ -16,7 +16,7 @@ namespace Unity.Services.Toolkits.Friends.UIToolkit
             Deselect();
         }
 
-        void Select()
+        public void Select()
         {
             m_Button.style.backgroundColor = ColorUtils.SelectedNavBarTabColor;
             m_Button.style.unityBackgroundImageTintColor = ColorUtils.YellowColor;

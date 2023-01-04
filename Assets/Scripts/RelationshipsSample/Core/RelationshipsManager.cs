@@ -1,9 +1,7 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Unity.Services.Authentication;
-using Unity.Services.Core;
 using Unity.Services.Friends;
 using Unity.Services.Friends.Exceptions;
 using Unity.Services.Friends.Models;
@@ -15,7 +13,7 @@ namespace Unity.Services.Toolkits.Friends
     {
         [Tooltip("Reference a GameObject that has a component extending from IRelationshipsUIController.")]
         [SerializeField]
-        GameObject m_RelationshipsUIControllerGameObject;
+        GameObject m_RelationshipsUIControllerGameObject; //This gameObject reference is only needed to get the IRelationshipUIController component from it.
         IRelationshipsUIController m_RelationshipsUIController;
 
         List<FriendsEntryData> m_FriendsEntryDatas = new List<FriendsEntryData>();
@@ -33,33 +31,36 @@ namespace Unity.Services.Toolkits.Friends
 
         string LoggedPlayerId => AuthenticationService.Instance.PlayerId;
 
-        public async Task Init(ISocialProfileService socialProfileService)
+        public async Task Init(string currentPlayerName, ISocialProfileService profileService)
         {
-            m_SocialProfileService = socialProfileService;
+            m_SocialProfileService = profileService;
+            UIInit();
 
-            await UnityServices.InitializeAsync();
-            await AuthenticationService.Instance.SignInAnonymouslyAsync();
-            InitUI();
-            await InitLocalPlayer();
+            await LogInAsync(currentPlayerName);
+
+            m_LoggedPlayerName = currentPlayerName;
+            m_LocalPlayerView.Refresh(m_LoggedPlayerName, LoggedPlayerId, "In Friends Menu",
+                PresenceAvailabilityOptions.ONLINE);
+
+            await SetPresence(PresenceAvailabilityOptions.ONLINE);
             SubscribeToFriendsEventCallbacks();
+
             RefreshAll();
         }
 
-        void InitUI()
+        void UIInit()
         {
             if (m_RelationshipsUIControllerGameObject == null)
             {
-                Debug.LogError($"Missing GameObject in {name}", gameObject);
+                Debug.LogError($"Missing GameObject in {name}",gameObject);
                 return;
             }
 
-            m_RelationshipsUIController =
-                m_RelationshipsUIControllerGameObject.GetComponent<IRelationshipsUIController>();
+            m_RelationshipsUIController = m_RelationshipsUIControllerGameObject.GetComponent<IRelationshipsUIController>();
             if (m_RelationshipsUIController == null)
             {
-                Debug.LogError(
-                    $"No Component extending IRelationshipsUIController {m_RelationshipsUIControllerGameObject.name}",
-                    m_RelationshipsUIControllerGameObject);
+                Debug.LogError($"No Component extending IRelationshipsUIController {m_RelationshipsUIControllerGameObject.name}",
+                    m_RelationshipsUIControllerGameObject );
                 return;
             }
 
@@ -86,34 +87,27 @@ namespace Unity.Services.Toolkits.Friends
             m_LocalPlayerView.onPresenceChanged += SetPresenceAsync;
         }
 
-        async Task InitLocalPlayer()
+        public async void LogIn(string playerName)
         {
-            var localPlayerName = m_SocialProfileService.GetName(LoggedPlayerId);
-            await LogInAsync(localPlayerName);
-
-            m_LoggedPlayerName = localPlayerName;
-            m_LocalPlayerView.Refresh(m_LoggedPlayerName, LoggedPlayerId, "In Friends Menu",
-                PresenceAvailabilityOptions.ONLINE);
-
-            await SetPresence(PresenceAvailabilityOptions.ONLINE);
+            await LogInAsync(playerName);
         }
 
         async Task LogInAsync(string playerName)
         {
-            try
+            await UnityAuthenticationServicesUtils.SwitchUser(playerName);
+            m_LoggedPlayerName = playerName;
+            if (m_ManagedRelationshipService != null)
             {
-                m_ManagedRelationshipService = await ManagedRelationshipService.CreateManagedRelationshipServiceAsync();
-                await SetPresence(PresenceAvailabilityOptions.ONLINE);
-                m_LocalPlayerView.Refresh(m_LoggedPlayerName, LoggedPlayerId, "In Friends Menu",
-                    PresenceAvailabilityOptions.ONLINE);
-                RefreshAll();
-                Debug.Log($"Logged in as {playerName} id: {LoggedPlayerId}");
+                m_ManagedRelationshipService.Dispose();
+                // Want to make sure wire has a chance to shutdown (we need a dispose async method!)
+                await Task.Delay(500);
             }
-            catch (Exception ex)
-            {
-                Debug.LogError($"Error Logging in to Relationship Service {ex}");
-                throw;
-            }
+            m_ManagedRelationshipService = await ManagedRelationshipService.CreateManagedRelationshipServiceAsync();
+            await SetPresence(PresenceAvailabilityOptions.ONLINE);
+            m_LocalPlayerView.Refresh(m_LoggedPlayerName, LoggedPlayerId, "In Friends Menu",
+                PresenceAvailabilityOptions.ONLINE);
+            RefreshAll();
+            Debug.Log($"Logged in as {playerName} id: {LoggedPlayerId}");
         }
 
         public void RefreshAll()
@@ -164,7 +158,7 @@ namespace Unity.Services.Toolkits.Friends
         async void AddFriendAsync(string id)
         {
             var success = await SendFriendRequest(id);
-            if (success)
+            if(success)
                 m_AddFriendView.FriendRequestSuccess();
             else
                 m_AddFriendView.FriendRequestFailed();
@@ -173,24 +167,20 @@ namespace Unity.Services.Toolkits.Friends
         void RefreshFriends()
         {
             m_FriendsEntryDatas.Clear();
-            var totalFriends = 0;
-
+            
             var friends = GetFriends();
-
+            
             foreach (var friend in friends)
             {
                 string activityText;
                 if (friend.Presence.Availability == PresenceAvailabilityOptions.OFFLINE ||
                     friend.Presence.Availability == PresenceAvailabilityOptions.INVISIBLE)
                 {
-                    activityText = friend.Presence.LastSeen.ToShortDateString() + " " +
-                        friend.Presence.LastSeen.ToLongTimeString();
+                    activityText = friend.Presence.LastSeen.ToShortDateString() + " " + friend.Presence.LastSeen.ToLongTimeString();
                 }
                 else
                 {
-                    activityText = friend.Presence.GetActivity<Activity>() == null
-                        ? ""
-                        : friend.Presence.GetActivity<Activity>().Status;
+                    activityText = friend.Presence.GetActivity<Activity>() == null ? "" : friend.Presence.GetActivity<Activity>().Status;
                 }
 
                 var info = new FriendsEntryData
@@ -201,9 +191,7 @@ namespace Unity.Services.Toolkits.Friends
                     Activity = activityText
                 };
                 m_FriendsEntryDatas.Add(info);
-                totalFriends++;
             }
-
             m_RelationshipsUIController.RelationshipBarView.Refresh();
         }
 
@@ -216,7 +204,6 @@ namespace Unity.Services.Toolkits.Friends
             {
                 m_RequestsEntryDatas.Add(new PlayerProfile(m_SocialProfileService.GetName(request.Id), request.Id));
             }
-
             m_RelationshipsUIController.RelationshipBarView.Refresh();
         }
 
@@ -226,10 +213,8 @@ namespace Unity.Services.Toolkits.Friends
 
             foreach (var block in m_ManagedRelationshipService.Blocks)
             {
-                m_BlockEntryDatas.Add(new PlayerProfile(m_SocialProfileService.GetName(block.Member.Id),
-                    block.Member.Id));
+                m_BlockEntryDatas.Add(new PlayerProfile(m_SocialProfileService.GetName(block.Member.Id), block.Member.Id));
             }
-
             m_RelationshipsUIController.RelationshipBarView.Refresh();
         }
 
@@ -319,7 +304,7 @@ namespace Unity.Services.Toolkits.Friends
         }
 
         /// <summary>
-        /// Get am amount of friends (including presence data).
+        /// Get an amount of friends (including presence data).
         /// </summary>
         /// <returns>List of friends.</returns>
         List<Member> GetFriends()
@@ -396,8 +381,7 @@ namespace Unity.Services.Toolkits.Friends
         {
             var blocks = m_ManagedRelationshipService.Blocks;
             return relationships
-                .Where(relationship =>
-                    !blocks.Any(blockedRelationship => blockedRelationship.Member.Id == relationship.Member.Id))
+                .Where(relationship => !blocks.Any(blockedRelationship => blockedRelationship.Member.Id == relationship.Member.Id))
                 .Select(relationship => relationship.Member)
                 .ToList();
         }

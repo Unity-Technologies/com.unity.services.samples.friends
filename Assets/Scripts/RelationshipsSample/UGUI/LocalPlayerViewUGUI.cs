@@ -48,9 +48,9 @@ namespace Unity.Services.Toolkits.Friends.UGUI
             m_Id.text = id;
 
             //Presence
-            var index = (int)presenceAvailabilityOptions - 1;
+            var index = FriendsUtils.RemapEnumIndex(presenceAvailabilityOptions);
             m_PresenceSelector.SetValueWithoutNotify(index);
-            var presenceColor = ColorUtils.GetPresenceColor(presenceAvailabilityOptions);
+            var presenceColor = ColorUtils.GetPresenceColor(index);
             m_PresenceColor.color = presenceColor;
 
             m_Activity.text = activity;

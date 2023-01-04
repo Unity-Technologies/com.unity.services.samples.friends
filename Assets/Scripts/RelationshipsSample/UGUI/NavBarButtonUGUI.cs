@@ -18,12 +18,12 @@ namespace Unity.Services.Toolkits.Friends.UGUI
             Deselect();
         }
 
-        void Select()
+        public void Select()
         {
             m_OnSelected?.Invoke();
             onSelected?.Invoke();
         }
-
+        
         public void Deselect()
         {
             m_OnDeselected?.Invoke();

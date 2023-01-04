@@ -19,7 +19,8 @@ namespace Unity.Services.Toolkits.Friends.UGUI
         {
             m_NameText.text = playerName;
             m_PresenceText.text = presence.ToString();
-            var presenceColor = ColorUtils.GetPresenceColor(presence);
+            var index = FriendsUtils.RemapEnumIndex(presence);
+            var presenceColor = ColorUtils.GetPresenceColor(index);
             m_PresenceText.color = presenceColor;
             m_PresenceColorImage.color = presenceColor;
             m_ActivityText.text = activity;
