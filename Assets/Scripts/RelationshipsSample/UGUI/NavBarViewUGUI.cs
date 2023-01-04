@@ -33,6 +33,9 @@ namespace Unity.Services.Toolkits.Friends.UGUI
                 navBarTab.ListView.Hide();
             }
 
+            //Select the friends tab by default
+            m_NavBarTabs[0].NavBarButton.Select();
+            
             m_AddFriendButton.onClick.AddListener(() => { onShowAddFriend?.Invoke(); });
         }
 
