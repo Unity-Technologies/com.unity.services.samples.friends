@@ -1,3 +1,6 @@
+using System.Threading.Tasks;
+using Unity.Services.Authentication;
+using Unity.Services.Core;
 using Unity.Services.Toolkits.Friends;
 using UnityEngine;
 
@@ -9,17 +12,21 @@ public class DebugGameManager : MonoBehaviour
 {
     [SerializeField] RelationshipsManager m_RelationshipsManager;
 
-    void Start()
+    async void Start()
     {
-        InitServices();
+        await InitServices();
     }
 
     /// <summary>
     /// The only service we are dependent on is one that connects playerNames to Unity Authentication ID's
     /// </summary>
-    void InitServices()
+    async Task InitServices()
     {
+        await UnityServices.InitializeAsync();
+        await AuthenticationService.Instance.SignInAnonymouslyAsync();
+        
+        var playerID = AuthenticationService.Instance.PlayerId;
         var debugSocialProfileService = new DebugSocialProfileService();
-        m_RelationshipsManager.Init(debugSocialProfileService);
+        await m_RelationshipsManager.Init(playerID, debugSocialProfileService);
     }
 }
