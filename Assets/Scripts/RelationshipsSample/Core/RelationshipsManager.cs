@@ -167,10 +167,9 @@ namespace Unity.Services.Toolkits.Friends
         void RefreshFriends()
         {
             m_FriendsEntryDatas.Clear();
-            var totalFriends = 0;
-
+            
             var friends = GetFriends();
-
+            
             foreach (var friend in friends)
             {
                 string activityText;
@@ -192,7 +191,6 @@ namespace Unity.Services.Toolkits.Friends
                     Activity = activityText
                 };
                 m_FriendsEntryDatas.Add(info);
-                totalFriends++;
             }
             m_RelationshipsUIController.RelationshipBarView.Refresh();
         }
@@ -306,7 +304,7 @@ namespace Unity.Services.Toolkits.Friends
         }
 
         /// <summary>
-        /// Get am amount of friends (including presence data).
+        /// Get an amount of friends (including presence data).
         /// </summary>
         /// <returns>List of friends.</returns>
         List<Member> GetFriends()
