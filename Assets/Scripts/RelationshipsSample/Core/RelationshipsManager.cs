@@ -32,13 +32,19 @@ namespace Unity.Services.Toolkits.Friends
 
         string LoggedPlayerId => AuthenticationService.Instance.PlayerId;
 
-        public async Task Init(string playerID, ISocialProfileService profileService)
+        async void Start()
         {
-            m_SocialProfileService = profileService;
+            await UnityServices.InitializeAsync();
+            await AuthenticationService.Instance.SignInAnonymouslyAsync();
+            await Init(AuthenticationService.Instance.PlayerId);
+        }
+        
+        async Task Init(string playerID)
+        {
+            m_SocialProfileService = new DebugSocialProfileService();
             UIInit();
-
             
-            var currentPlayerName = profileService.GetName(playerID);
+            var currentPlayerName = m_SocialProfileService.GetName(playerID);
             await LogInAsync(currentPlayerName);
 
             m_LocalPlayerView.Refresh(m_LoggedPlayerName, LoggedPlayerId, "In Friends Menu",

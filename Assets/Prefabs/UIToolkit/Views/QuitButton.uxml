@@ -1,0 +1,4 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="/Assets/Prefabs/UIToolkit/RelationshipsStyle.uss" />
+    <ui:Button text="Quit" display-tooltip-when-elided="true" class="player-action-button" style="background-color: rgba(255, 255, 255, 255); color: rgba(17, 17, 17, 255); font-size: 25%;" />
+</ui:UXML>

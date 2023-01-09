@@ -11,13 +11,14 @@ namespace Unity.Services.Toolkits.Friends
         {
             m_QuitButton.onClick.AddListener(Quit);
         }
+        
         void Update()
         {
             if (Input.GetKeyDown(KeyCode.Escape))
                 Quit();
         }
 
-        public void Quit()
+        void Quit()
         {
             Application.Quit();
         }

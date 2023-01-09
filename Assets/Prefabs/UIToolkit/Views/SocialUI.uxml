@@ -2,6 +2,7 @@
     <ui:Template name="NavBarView" src="NavBarView.uxml" />
     <ui:Template name="LocalPlayerView" src="LocalPlayerView.uxml" />
     <ui:Template name="AddFriendView" src="AddFriendView.uxml" />
+    <ui:Template name="QuitButton" src="QuitButton.uxml" />
     <Style src="/Assets/Prefabs/UIToolkit/RelationshipsStyle.uss" />
     <ui:VisualElement name="full-screen" style="align-items: center; flex-grow: 1; justify-content: center; background-image: url(&apos;/Assets/Art/UI/bg.png&apos;); -unity-background-scale-mode: scale-and-crop;">
         <ui:VisualElement name="social-ui-group" style="align-items: stretch; width: 650px; flex-grow: 0; flex-shrink: 0; justify-content: space-between; height: auto; top: 0; right: 0; position: absolute; padding-left: 15px; padding-right: 15px; padding-top: 15px; padding-bottom: 15px; flex-direction: column-reverse;">
@@ -9,5 +10,6 @@
             <ui:Instance template="LocalPlayerView" name="LocalPlayerView" style="margin-bottom: 15px;" />
         </ui:VisualElement>
         <ui:Instance template="AddFriendView" name="AddFriendView" />
+        <ui:Instance template="QuitButton" name="QuitButton" style="position: absolute; left: 0; top: 0;" />
     </ui:VisualElement>
 </ui:UXML>

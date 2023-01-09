@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8088031084014022016}
-  - component: {fileID: 731993878984140346}
   - component: {fileID: 8088031084014022019}
   m_Layer: 0
   m_Name: RelationshipManager
@@ -32,19 +31,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &731993878984140346
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8088031084014022018}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1577ed09cb1544625bcab3aba5a69587, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_RelationshipsManager: {fileID: 8088031084014022019}
 --- !u!114 &8088031084014022019
 MonoBehaviour:
   m_ObjectHideFlags: 0
