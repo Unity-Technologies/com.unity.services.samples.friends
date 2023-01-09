@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Unity.Services.Authentication;
+using Unity.Services.Core;
 using Unity.Services.Friends;
 using Unity.Services.Friends.Exceptions;
 using Unity.Services.Friends.Models;
@@ -30,15 +31,23 @@ namespace Unity.Services.Toolkits.Friends
         IManagedRelationshipService m_ManagedRelationshipService;
 
         string LoggedPlayerId => AuthenticationService.Instance.PlayerId;
-
-        public async Task Init(string currentPlayerName, ISocialProfileService profileService)
+        
+        async void Start()
         {
-            m_SocialProfileService = profileService;
+            //If you are using multiple unity services, make sure to initialize it only once before using your services.
+            await UnityServices.InitializeAsync();
+            await AuthenticationService.Instance.SignInAnonymouslyAsync();
+            await Init(AuthenticationService.Instance.PlayerId);
+        }
+        
+        async Task Init(string playerID)
+        {
+            m_SocialProfileService = new DebugSocialProfileService();
             UIInit();
-
+            
+            var currentPlayerName = m_SocialProfileService.GetName(playerID);
             await LogInAsync(currentPlayerName);
 
-            m_LoggedPlayerName = currentPlayerName;
             m_LocalPlayerView.Refresh(m_LoggedPlayerName, LoggedPlayerId, "In Friends Menu",
                 PresenceAvailabilityOptions.ONLINE);
 
@@ -87,14 +96,8 @@ namespace Unity.Services.Toolkits.Friends
             m_LocalPlayerView.onPresenceChanged += SetPresenceAsync;
         }
 
-        public async void LogIn(string playerName)
-        {
-            await LogInAsync(playerName);
-        }
-
         async Task LogInAsync(string playerName)
         {
-            await UnityAuthenticationServicesUtils.SwitchUser(playerName);
             m_LoggedPlayerName = playerName;
             if (m_ManagedRelationshipService != null)
             {
@@ -167,9 +170,9 @@ namespace Unity.Services.Toolkits.Friends
         void RefreshFriends()
         {
             m_FriendsEntryDatas.Clear();
-            
+
             var friends = GetFriends();
-            
+
             foreach (var friend in friends)
             {
                 string activityText;
