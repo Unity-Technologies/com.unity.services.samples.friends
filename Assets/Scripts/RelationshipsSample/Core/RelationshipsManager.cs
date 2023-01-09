@@ -31,9 +31,10 @@ namespace Unity.Services.Toolkits.Friends
         IManagedRelationshipService m_ManagedRelationshipService;
 
         string LoggedPlayerId => AuthenticationService.Instance.PlayerId;
-
+        
         async void Start()
         {
+            //If you are using multiple unity services, make sure to initialize it only once before using your services.
             await UnityServices.InitializeAsync();
             await AuthenticationService.Instance.SignInAnonymouslyAsync();
             await Init(AuthenticationService.Instance.PlayerId);
