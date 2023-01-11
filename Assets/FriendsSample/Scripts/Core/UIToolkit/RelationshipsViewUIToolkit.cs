@@ -3,7 +3,7 @@ using UnityEngine.UIElements;
 
 namespace Unity.Services.Toolkits.Friends.UIToolkit
 {
-    public class RelationshipsUIToolkitController : MonoBehaviour, IRelationshipsView
+    public class RelationshipsViewUIToolkit : MonoBehaviour, IRelationshipsView
     {
         [SerializeField] UIDocument m_SocialUIDoc;
 
