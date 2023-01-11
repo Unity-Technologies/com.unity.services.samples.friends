@@ -115,7 +115,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccfb7ac78d6755d4d84969716b7a2f54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_RelationshipsUIControllerGameObject: {fileID: 1997211734152273003}
+  m_RelationshipsViewGameObject: {fileID: 1997211734152273003}
 --- !u!1 &3715824253382077034
 GameObject:
   m_ObjectHideFlags: 0

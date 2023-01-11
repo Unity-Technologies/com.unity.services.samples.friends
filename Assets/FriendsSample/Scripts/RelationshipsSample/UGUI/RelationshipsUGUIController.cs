@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Unity.Services.Toolkits.Friends.UGUI
 {
-    public class RelationshipsUGUIController : MonoBehaviour, IRelationshipsUIController
+    public class RelationshipsUGUIController : MonoBehaviour, IRelationshipsView
     {
         [SerializeField] LocalPlayerViewUGUI m_LocalPlayerViewUGUI;
         [SerializeField] AddFriendViewUGUI m_AddFriendViewUGUI;

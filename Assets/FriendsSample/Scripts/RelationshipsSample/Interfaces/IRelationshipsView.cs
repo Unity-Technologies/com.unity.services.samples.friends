@@ -1,7 +1,7 @@
 
 namespace Unity.Services.Toolkits.Friends
 {
-    public interface IRelationshipsUIController
+    public interface IRelationshipsView
     {
         ILocalPlayerView LocalPlayerView { get; }
         IRelationshipBarView RelationshipBarView { get; }

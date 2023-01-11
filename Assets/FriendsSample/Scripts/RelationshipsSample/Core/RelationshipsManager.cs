@@ -14,8 +14,8 @@ namespace Unity.Services.Toolkits.Friends
     {
         [Tooltip("Reference a GameObject that has a component extending from IRelationshipsUIController.")]
         [SerializeField]
-        GameObject m_RelationshipsUIControllerGameObject; //This gameObject reference is only needed to get the IRelationshipUIController component from it.
-        IRelationshipsUIController m_RelationshipsUIController;
+        GameObject m_RelationshipsViewGameObject; //This gameObject reference is only needed to get the IRelationshipUIController component from it.
+        IRelationshipsView m_RelationshipsView;
 
         List<FriendsEntryData> m_FriendsEntryDatas = new List<FriendsEntryData>();
         List<PlayerProfile> m_RequestsEntryDatas = new List<PlayerProfile>();
@@ -59,30 +59,30 @@ namespace Unity.Services.Toolkits.Friends
 
         void UIInit()
         {
-            if (m_RelationshipsUIControllerGameObject == null)
+            if (m_RelationshipsViewGameObject == null)
             {
                 Debug.LogError($"Missing GameObject in {name}",gameObject);
                 return;
             }
 
-            m_RelationshipsUIController = m_RelationshipsUIControllerGameObject.GetComponent<IRelationshipsUIController>();
-            if (m_RelationshipsUIController == null)
+            m_RelationshipsView = m_RelationshipsViewGameObject.GetComponent<IRelationshipsView>();
+            if (m_RelationshipsView == null)
             {
-                Debug.LogError($"No Component extending IRelationshipsUIController {m_RelationshipsUIControllerGameObject.name}",
-                    m_RelationshipsUIControllerGameObject );
+                Debug.LogError($"No Component extending IRelationshipsView {m_RelationshipsViewGameObject.name}",
+                    m_RelationshipsViewGameObject );
                 return;
             }
 
-            m_RelationshipsUIController.Init();
-            m_LocalPlayerView = m_RelationshipsUIController.LocalPlayerView;
-            m_AddFriendView = m_RelationshipsUIController.AddFriendView;
+            m_RelationshipsView.Init();
+            m_LocalPlayerView = m_RelationshipsView.LocalPlayerView;
+            m_AddFriendView = m_RelationshipsView.AddFriendView;
 
             //Bind Lists
-            m_FriendsListView = m_RelationshipsUIController.FriendsListView;
+            m_FriendsListView = m_RelationshipsView.FriendsListView;
             m_FriendsListView.BindList(m_FriendsEntryDatas);
-            m_RequestListView = m_RelationshipsUIController.RequestListView;
+            m_RequestListView = m_RelationshipsView.RequestListView;
             m_RequestListView.BindList(m_RequestsEntryDatas);
-            m_BlockListView = m_RelationshipsUIController.BlockListView;
+            m_BlockListView = m_RelationshipsView.BlockListView;
             m_BlockListView.BindList(m_BlockEntryDatas);
 
             //Bind Friends SDK Callbacks
@@ -195,7 +195,7 @@ namespace Unity.Services.Toolkits.Friends
                 };
                 m_FriendsEntryDatas.Add(info);
             }
-            m_RelationshipsUIController.RelationshipBarView.Refresh();
+            m_RelationshipsView.RelationshipBarView.Refresh();
         }
 
         void RefreshRequests()
@@ -207,7 +207,7 @@ namespace Unity.Services.Toolkits.Friends
             {
                 m_RequestsEntryDatas.Add(new PlayerProfile(m_SocialProfileService.GetName(request.Id), request.Id));
             }
-            m_RelationshipsUIController.RelationshipBarView.Refresh();
+            m_RelationshipsView.RelationshipBarView.Refresh();
         }
 
         void RefreshBlocks()
@@ -218,7 +218,7 @@ namespace Unity.Services.Toolkits.Friends
             {
                 m_BlockEntryDatas.Add(new PlayerProfile(m_SocialProfileService.GetName(block.Member.Id), block.Member.Id));
             }
-            m_RelationshipsUIController.RelationshipBarView.Refresh();
+            m_RelationshipsView.RelationshipBarView.Refresh();
         }
 
         async Task<bool> SendFriendRequest(string playerId)
