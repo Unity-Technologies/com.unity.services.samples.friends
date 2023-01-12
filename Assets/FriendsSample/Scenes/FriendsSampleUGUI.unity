@@ -676,6 +676,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: RelationshipsManager
       objectReference: {fileID: 0}
+    - target: {fileID: 3721242166122303521, guid: 624c75379adc16346aa5782c95016b1a, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3721242166122303522, guid: 624c75379adc16346aa5782c95016b1a, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -710,6 +714,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3721242166122303522, guid: 624c75379adc16346aa5782c95016b1a, type: 3}
       propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3721242166122303522, guid: 624c75379adc16346aa5782c95016b1a, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3721242166122303522, guid: 624c75379adc16346aa5782c95016b1a, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3721242166122303522, guid: 624c75379adc16346aa5782c95016b1a, type: 3}
+      propertyPath: m_LocalScale.z
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3721242166122303522, guid: 624c75379adc16346aa5782c95016b1a, type: 3}
