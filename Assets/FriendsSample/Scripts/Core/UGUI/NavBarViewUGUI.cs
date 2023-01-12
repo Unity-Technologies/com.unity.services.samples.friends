@@ -29,13 +29,13 @@ namespace Unity.Services.Toolkits.Friends.UGUI
             foreach (var navBarTab in m_NavBarTabs)
             {
                 navBarTab.NavBarButton.Init();
-                navBarTab.NavBarButton.onSelected += () => { ShowTab(navBarTab); };
+                navBarTab.NavBarButton.button.onClick.AddListener(() => { ShowTab(navBarTab); });
                 navBarTab.ListView.Hide();
             }
 
             //Select the friends tab by default
-            m_NavBarTabs[0].NavBarButton.Select();
-            
+            ShowTab(m_NavBarTabs[0]);
+
             m_AddFriendButton.onClick.AddListener(() => { onShowAddFriend?.Invoke(); });
         }
 
@@ -46,11 +46,7 @@ namespace Unity.Services.Toolkits.Friends.UGUI
 
         void ShowTab(NavBarTab navBarTab)
         {
-            if (m_CurrentSelectedTab != null)
-            {
-                m_CurrentSelectedTab.NavBarButton.Deselect();
-                m_CurrentSelectedTab.ListView.Hide();
-            }
+            m_CurrentSelectedTab?.Deselect();
 
             if (navBarTab == m_CurrentSelectedTab)
             {
@@ -59,13 +55,25 @@ namespace Unity.Services.Toolkits.Friends.UGUI
             }
 
             m_CurrentSelectedTab = navBarTab;
-            m_CurrentSelectedTab.ListView.Show();
+            m_CurrentSelectedTab.Select();
         }
 
-        class NavBarTab
+        private class NavBarTab
         {
             public IListView ListView;
             public NavBarButtonUGUI NavBarButton;
+
+            public void Select()
+            {
+                ListView.Show();
+                NavBarButton.Select();
+            }
+
+            public void Deselect()
+            {
+                ListView.Hide();
+                NavBarButton.Deselect();
+            }
         }
     }
 }
