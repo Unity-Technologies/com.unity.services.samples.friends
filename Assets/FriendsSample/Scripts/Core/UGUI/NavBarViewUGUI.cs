@@ -58,7 +58,7 @@ namespace Unity.Services.Toolkits.Friends.UGUI
             m_CurrentSelectedTab.Select();
         }
 
-        private class NavBarTab
+        class NavBarTab
         {
             public IListView ListView;
             public NavBarButtonUGUI NavBarButton;

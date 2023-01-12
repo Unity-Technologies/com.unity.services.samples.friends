@@ -8,7 +8,7 @@ namespace Unity.Services.Toolkits.Friends.UGUI
     {
         [SerializeField] UnityEvent m_OnSelected = null;
         [SerializeField] UnityEvent m_OnDeselected = null;
-        [field: SerializeField] public Button button { get; set; }
+        [field: SerializeField] public Button button { get; private set; }
 
         public void Init()
         {
