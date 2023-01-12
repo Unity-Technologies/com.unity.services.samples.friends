@@ -49,7 +49,7 @@ namespace Unity.Services.Toolkits.Friends.UIToolkit.Editor
                     uiDocumentComponent.panelSettings = ReplacePanelSettingsPrefab();
                     uiDocumentComponent.visualTreeAsset = GetSocialUIPrefab();
 
-                    var uiToolkitController = toolkitInstance.GetComponent<RelationshipsUIToolkitController>();
+                    var uiToolkitController = toolkitInstance.GetComponent<RelationshipsViewUIToolkit>();
 
                     uiToolkitController.SetUIDocument(uiDocumentComponent);
                     PrefabUtility.ApplyPrefabInstance(toolkitInstance, InteractionMode.AutomatedAction);

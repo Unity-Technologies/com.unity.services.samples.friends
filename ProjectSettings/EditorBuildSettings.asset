@@ -8,7 +8,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/FriendsSample/Scenes/FriendsSampleUGUI.unity
     guid: 2f00008452ed2d14fa2cd9feef30e1bf
-  - enabled: 1
+  - enabled: 0
     path: Assets/FriendsSample/Scenes/FriendsSampleUIToolkit.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   m_configObjects: {}
