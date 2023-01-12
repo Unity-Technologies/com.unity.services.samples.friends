@@ -111,3 +111,35 @@ MonoBehaviour:
       bulletList: []
       linkList: []
     linkList: []
+  - subHeader1: 
+    subHeader2: How to use the sample in your game?
+    subHeader3: 
+    body: 
+    bodyFormat: 0
+    boxCallout: 
+    bulletList:
+    - body: Import the Friends SDK package in your project
+      bodyFormat: 0
+      bulletList: []
+      linkList:
+      - linkText: com.unity.services.friends@0.2.0-preview.6
+        url: 
+    - body: "Drag and drop the RelationshipsManager prefab in your scene\u2019s main
+        UICanvas"
+      bodyFormat: 0
+      bulletList: []
+      linkList: []
+    linkList: []
+  - subHeader1: 
+    subHeader2: Extend, use or modify the sample
+    subHeader3: 
+    body: We implemented this sample with UGUI and with UI Toolkit using an interface.
+      Feel free to  create your own version of the sample by inheriting from that
+      interface. You can of course  start from the existing classes and prefabs and
+      tweak them however you want.  Finally, feel free to simply call the Friends
+      SDK methods that are all centralized in the  RelationshipsManager.cs and to
+      use your custom UI system.
+    bodyFormat: 0
+    boxCallout: 
+    bulletList: []
+    linkList: []

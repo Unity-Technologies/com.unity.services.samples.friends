@@ -265,7 +265,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  m_Button: {fileID: 4432279239858321893}
+  <button>k__BackingField: {fileID: 4432279239858321893}
 --- !u!1 &4432279240489188277
 GameObject:
   m_ObjectHideFlags: 0
