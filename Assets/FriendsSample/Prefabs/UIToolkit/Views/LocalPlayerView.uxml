@@ -1,0 +1,10 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:Template name="PlayerTabLayout" src="project://database/Assets/FriendsSample/Prefabs/UIToolkit/Views/PlayerView.uxml?fileID=9197481963319205126&amp;guid=2e16355644bc145c496372991d4fac4c&amp;type=3#PlayerView" />
+    <Style src="project://database/Assets/FriendsSample/Prefabs/UIToolkit/RelationshipsStyle.uss?fileID=7433441132597879392&amp;guid=947b3ef19af094ccca809ccb7e4ad0b2&amp;type=3#RelationshipsStyle" />
+    <ui:VisualElement picking-mode="Ignore" name="local-player-entry" class="menu-panel" style="flex-direction: column-reverse; width: 100%; height: 100%; justify-content: center; align-items: flex-start; border-top-left-radius: 15px; border-bottom-left-radius: 15px; border-top-right-radius: 15px; border-bottom-right-radius: 15px; padding-left: 5px; padding-right: 5px; padding-top: 5px; padding-bottom: 5px;">
+        <ui:TextField picking-mode="Ignore" label="ID:" value="player-ID" text="player-id" readonly="true" name="id-field" focusable="true" class="social-input-field id-textfield" style="background-color: rgba(0, 0, 0, 0); align-items: center; justify-content: flex-start; flex-shrink: 1; overflow: hidden; width: 80%; color: rgb(125, 125, 125); margin-left: 20px;">
+            <ui:Button name="copy-id-button" enable-rich-text="false" class="icon-button" style="background-image: url(&apos;project://database/Assets/FriendsSample/Art/Icons/file_copy.png?fileID=2800000&amp;guid=97b5a3dfb32d04c4e894ff2c16f87dbb&amp;type=3#file_copy&apos;); -unity-background-scale-mode: scale-to-fit;" />
+        </ui:TextField>
+        <ui:Instance template="PlayerTabLayout" name="PlayerView" class="local-player-panel social-dropdown" style="opacity: 1; display: flex; align-items: center;" />
+    </ui:VisualElement>
+</ui:UXML>
