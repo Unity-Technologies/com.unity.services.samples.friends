@@ -70,7 +70,7 @@ namespace Unity.Services.Toolkits.Friends.UIToolkit
         {
 #if UNITY_2020
             m_BlockedListView.Refresh();
-#elif UNITY_2021
+#elif UNITY_2021_1_OR_NEWER
             m_BlockedListView.RefreshItems();
 #endif
         }

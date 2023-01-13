@@ -365,6 +365,14 @@
     background-color: rgba(0, 0, 0, 0);
 }
 
+.friends-player-panel #player-activity-field > #unity-text-input {
+    display: flex;
+    opacity: 1;
+    background-color: rgba(0, 0, 0, 0);
+    visibility: visible;
+    overflow: visible;
+}
+
 .friends-player-panel #player-activity-field {
     display: flex;
     opacity: 1;

@@ -79,7 +79,7 @@ namespace Unity.Services.Toolkits.Friends.UIToolkit
         {
 #if UNITY_2020
             m_FriendListView.Refresh();
-#elif UNITY_2021_OR_NEWER
+#elif UNITY_2021_1_OR_NEWER
             m_FriendListView.RefreshItems();
 #endif
         }
