@@ -84,7 +84,7 @@ MonoBehaviour:
       linkList: []
     linkList: []
   - subHeader1: 
-    subHeader2: 'Toolkit Quickstart:'
+    subHeader2: 'Quickstart:'
     subHeader3: 
     body: Build a Standalone player to act as a friend.
     bodyFormat: 0
