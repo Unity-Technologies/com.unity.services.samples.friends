@@ -1,6 +1,23 @@
 # README
 
-The Friends Toolkit project demonstrates a basic implementation of the Friends service.
+The Friends Sample Project demonstrates a typical implementation of the Friends service. 
+
+The sample project consists of a simple user interface that allows you to interact with the Friends service and perform actions such as:
+
+- Send a friend request
+- Accept a friend request
+- Ignore a friend request
+- Block a player
+- View your Friend list
+- View your Block list
+- Unblock a player
+- Remove a friend
+- Set your Presence status
+
+## Documentation
+
+- [Onboarding and useage guide.](http://documentation.cloud.unity3d.com/en/articles/6680872-friends-relationship-sample-cb)
+
 
 ## Getting started
 
@@ -11,7 +28,7 @@ Before continuing, [download](https://unity3d.com/get-unity/download) and instal
 
 ### Download the sample project
 
-Download the Friends sample project and open it in a supported version of the Unity Editor. You’ll want to have the sample project open while you [enable the Friends service](https://docs.google.com/document/d/1tP-Zl8aWZ-vVGHecMo-mD7-T_snkQESrWHyFi2MAXlc/edit#heading=h.1s70w5qyvm6l).
+Download the Friends Sample Project and open it in a supported version of the Unity Editor. You’ll want to have the sample project open while you [enable the Friends service](https://docs.google.com/document/d/1tP-Zl8aWZ-vVGHecMo-mD7-T_snkQESrWHyFi2MAXlc/edit#heading=h.1s70w5qyvm6l).
 
 ### Enable the Friends service
 
@@ -96,7 +113,7 @@ It also includes a debugging tool that allows you to:
 | -------------------- | --------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Button name**      | **Description**                               | **Image**                                                                                                                                                                                                                             |
 | Ignore (×)           | Ignore a friend request                       | ![](https://lh5.googleusercontent.com/AQ6mH-CEjbF1Jrv3jnbcjAQGOcBp2Ih-8kji9sWjUjihcjykg0D5NhLtTdBCW8XRiMe-ybxTDRa8qWVe_vyriFxHraaj4m4UhlkejU7T5SWw4V2rFbg1ZYp5vtqmWK7qE28SBAKn7MmnzQap3KgdN0Ctm5vP0nRWRWy4ZsTWiv-S5oGcZVh6qDEZKoTM6w) |
-| Accept (✔)           | Accept a friend request                       | ![](https://lh4.googleusercontent.com/yEQ43uZZ0Q1AYvAywadxQYEZ2go_ClCgkfUZRRfa1Jv3QZgJIJ_em2EYsXPjyQHfK97fIBLtf2mPKa-yKwAzCn0DRD4Uq8xC3Tvx-6d60CwUniutxIOwbP07afQontisk36WHrQqQBncV8LyN-hZL8tsjWve8hc9LXCPJoHKT8aQPpillEx_jrc2p5GOAw) |
+| Accept (✔)          | Accept a friend request                       | ![](https://lh4.googleusercontent.com/yEQ43uZZ0Q1AYvAywadxQYEZ2go_ClCgkfUZRRfa1Jv3QZgJIJ_em2EYsXPjyQHfK97fIBLtf2mPKa-yKwAzCn0DRD4Uq8xC3Tvx-6d60CwUniutxIOwbP07afQontisk36WHrQqQBncV8LyN-hZL8tsjWve8hc9LXCPJoHKT8aQPpillEx_jrc2p5GOAw) |
 | Block (-)            | Block a player                                | ![](https://lh4.googleusercontent.com/DQgIXYPVa8_kPX28qzPNUvfdDOBZ9Zgma4gQLhoqeG7JWBvFmYZOhPd4_NHQ5yC3cvDfVFvnkHPHh7PUKKPdEt4AI4iSx8UnXYtDmdgopncUi9w7TsolNVTLScSHqGa3hxi7OCJOAp3kDmvoYP5x81XUxx-2rbAzRZUl3ogf7KY0RSUBAK4EN5Q5BtXFiQ) |
 | Unblock              | Remove a player from your Block list          | ![](https://lh4.googleusercontent.com/Emo0d-W9Ty_ToZwKDDVzFUOikCIp9JB80-eMpJmUpHQc_eRCvLeTui1yornj5RCpMP0BcKvI9WuGWpw_LqVEqLIHXcrp2mN2TvoCaUNJ4pHOVPFRVHgMUU2YIw8zlRejNl793kH37fyJN1IHzCfkgyZj07R_xZ13gFkc9-wHfqNbPxXaeNQBtJPc6hTLRg) |
 | Remove               | Remove a player from your Friend list         | ![](https://lh6.googleusercontent.com/gzb2vNkmjlekTGPRM7TeAbX14sZINqbRDL3FIZV9_YyGjgdzDmvR1FmcmNWVtk0Mo7PmlYvUpfC2QVerIRU3CDet60JyoSqa6-tI_J-q1a9e4yQKapyC9tbTsmPXwQtCSyuGOIzvZY9Yn0dmFpDDrpGxuCi6tBH_07_IBvqqvO8tLFneHVjjzqONT-t7lA) |
@@ -117,6 +134,7 @@ You must start the Sample Scene before you can interact with the sample user int
 ![](https://lh4.googleusercontent.com/kzxm8R4Lczii3Ea44urd6RuOth5tOwSn4LRemYAnlxU7ueInhjGGvMhrQNSLXC1qnNOcEOxUnPGyVfEi-9uiBlpKOkPqQ1M4tEjL0DYAw3i0xm_v-jwZEvpzvef09Jv8u0TK-q5sF7O_USBjraZ5SK-H-aaDLQ8ZZBqpP9HvBw0hMBPd6M0gCsgGvKal)
 
 After the scene launches, you should see the sample Friends user interface.
+
 
 ### Send a Friend request
 
