@@ -188,7 +188,7 @@ namespace Unity.Services.Toolkits.Friends
 
                 var info = new FriendsEntryData
                 {
-                    Name = m_SocialProfileService.GetName(friend.Id),
+                    Name = friend.Profile.Name,
                     Id = friend.Id,
                     Availability = friend.Presence.Availability,
                     Activity = activityText
@@ -205,7 +205,7 @@ namespace Unity.Services.Toolkits.Friends
 
             foreach (var request in requests)
             {
-                m_RequestsEntryDatas.Add(new PlayerProfile(m_SocialProfileService.GetName(request.Id), request.Id));
+                m_RequestsEntryDatas.Add(new PlayerProfile(request.Profile.Name, request.Id));
             }
             m_RelationshipsView.RelationshipBarView.Refresh();
         }
@@ -216,7 +216,7 @@ namespace Unity.Services.Toolkits.Friends
 
             foreach (var block in m_ManagedRelationshipService.Blocks)
             {
-                m_BlockEntryDatas.Add(new PlayerProfile(m_SocialProfileService.GetName(block.Member.Id), block.Member.Id));
+                m_BlockEntryDatas.Add(new PlayerProfile(block.Member.Profile.Name, block.Member.Id));
             }
             m_RelationshipsView.RelationshipBarView.Refresh();
         }
