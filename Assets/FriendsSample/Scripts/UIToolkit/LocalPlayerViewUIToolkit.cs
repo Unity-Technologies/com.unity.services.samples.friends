@@ -79,7 +79,7 @@ namespace Unity.Services.Toolkits.Friends.UIToolkit
 
         void SetPresence(PresenceAvailabilityOptions presenceStatus)
         {
-            var index = FriendsUtils.RemapEnumIndex(presenceStatus);
+            var index = (int)presenceStatus - 1;
             var dropDownChoice = m_PlayerStatusDropDown.choices[index];
             m_PlayerStatusDropDown.SetValueWithoutNotify(dropDownChoice);
             SetPresenceColor(index);

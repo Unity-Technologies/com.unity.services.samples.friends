@@ -40,7 +40,7 @@ namespace Unity.Services.Toolkits.Friends.UIToolkit
             m_PlayerName.text = name;
             m_PlayerActivity.SetValueWithoutNotify(activity);
 
-            var index = FriendsUtils.RemapEnumIndex(presenceStatus);
+            var index = (int)presenceStatus - 1;
             var presenceColor = ColorUtils.GetPresenceColor(index);
             m_PlayerStatusCircle.style.backgroundColor = presenceColor;
         }
