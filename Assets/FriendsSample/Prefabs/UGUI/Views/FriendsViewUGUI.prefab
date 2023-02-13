@@ -105,7 +105,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3500842071915547135, guid: 99f276fd68647374e8e0c3d1cd6cb0fe, type: 3}
       propertyPath: m_SizeDelta.y
-      value: -50
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3500842071915547135, guid: 99f276fd68647374e8e0c3d1cd6cb0fe, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -115,16 +115,28 @@ PrefabInstance:
       propertyPath: m_text
       value: Friends
       objectReference: {fileID: 0}
+    - target: {fileID: 3763460239453920940, guid: 99f276fd68647374e8e0c3d1cd6cb0fe, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 5a271b00d4c9b204da2fcc7d17f418aa, type: 2}
+    - target: {fileID: 3763460239453920940, guid: 99f276fd68647374e8e0c3d1cd6cb0fe, type: 3}
+      propertyPath: m_fontStyle
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3763460239453920940, guid: 99f276fd68647374e8e0c3d1cd6cb0fe, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -2306789749415193964, guid: 5a271b00d4c9b204da2fcc7d17f418aa, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 99f276fd68647374e8e0c3d1cd6cb0fe, type: 3}
---- !u!1 &8576461554161097830 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2981505979800444273, guid: 99f276fd68647374e8e0c3d1cd6cb0fe, type: 3}
-  m_PrefabInstance: {fileID: 6802082178124759319}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &7994070634913106152 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3500842071915547135, guid: 99f276fd68647374e8e0c3d1cd6cb0fe, type: 3}
+  m_PrefabInstance: {fileID: 6802082178124759319}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8576461554161097830 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2981505979800444273, guid: 99f276fd68647374e8e0c3d1cd6cb0fe, type: 3}
   m_PrefabInstance: {fileID: 6802082178124759319}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &543665512
