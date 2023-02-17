@@ -1,5 +1,5 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <Style src="project://database/Assets/FriendsSample/Prefabs/UIToolkit/RelationshipsStyle.uss?fileID=7433441132597879392&amp;guid=947b3ef19af094ccca809ccb7e4ad0b2&amp;type=3#RelationshipsStyle" />
+    <Style src="project://database/Assets/FriendsSample/Prefabs/UIToolkit/Settings/RelationshipsStyle.uss?fileID=7433441132597879392&amp;guid=947b3ef19af094ccca809ccb7e4ad0b2&amp;type=3#RelationshipsStyle" />
     <ui:VisualElement name="add-friend-bg" style="flex-grow: 1; justify-content: center; align-items: center;">
         <ui:Button display-tooltip-when-elided="true" name="add-friend-clickoff-button" style="position: absolute; flex-grow: 1; justify-content: space-around; height: 100%; width: 100%; border-left-color: rgba(70, 70, 70, 0.12); border-right-color: rgba(70, 70, 70, 0.12); border-top-color: rgba(70, 70, 70, 0.12); border-bottom-color: rgba(70, 70, 70, 0.12); background-color: rgba(38, 38, 38, 0.03); border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0;" />
         <ui:VisualElement name="add-friend-view" class="menu-panel social-font" style="flex-grow: 0; width: 500px; height: 175px;">
@@ -10,7 +10,7 @@
             <ui:VisualElement name="entry-group" style="flex-direction: row; justify-content: space-between; padding-right: 15px; padding-left: 15px; border-top-color: rgb(62, 56, 132); border-top-width: 0; margin-top: 0; padding-top: 5px; border-left-width: 0; border-right-width: 0; border-bottom-width: 0;">
                 <ui:VisualElement name="input-id-field" style="flex-grow: 1;">
                     <ui:TextField text="Add Friend by ID" name="search-field" is-delayed="true" class="social-input-field">
-                        <ui:Button text="Add" display-tooltip-when-elided="true" name="add-button" class="add-friend-button" style="font-size: 20px; position: absolute; right: 0; -unity-font-style: bold; width: 85px; height: 100%; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0;" />
+                        <ui:Button text="Add" display-tooltip-when-elided="true" name="add-button" class="add-friend-button" style="font-size: 20px; position: absolute; right: 0; -unity-font-style: bold; width: 85px; height: 100%; margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; background-image: none;" />
                     </ui:TextField>
                 </ui:VisualElement>
             </ui:VisualElement>
