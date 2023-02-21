@@ -1,4 +1,2 @@
-
-
-## [1.0.0] - 2023-01-19
-- Initial Release
+## [1.0.0] - 2023-02-21
+- Initial release
