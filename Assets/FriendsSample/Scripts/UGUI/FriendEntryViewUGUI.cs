@@ -8,7 +8,6 @@ namespace Unity.Services.Toolkits.Friends.UGUI
     public class FriendEntryViewUGUI : MonoBehaviour
     {
         [SerializeField] TextMeshProUGUI m_NameText = null;
-        [SerializeField] TextMeshProUGUI m_PresenceText = null;
         [SerializeField] TextMeshProUGUI m_ActivityText = null;
         [SerializeField] Image m_PresenceColorImage = null;
 
@@ -18,10 +17,8 @@ namespace Unity.Services.Toolkits.Friends.UGUI
         public void Init(string playerName, PresenceAvailabilityOptions presenceAvailabilityOptions, string activity)
         {
             m_NameText.text = playerName;
-            m_PresenceText.text = presenceAvailabilityOptions.ToString();
             var index = (int)presenceAvailabilityOptions - 1;
             var presenceColor = ColorUtils.GetPresenceColor(index);
-            m_PresenceText.color = presenceColor;
             m_PresenceColorImage.color = presenceColor;
             m_ActivityText.text = activity;
         }

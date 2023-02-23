@@ -90,7 +90,7 @@ GameObject:
   - component: {fileID: 4432279239858321893}
   - component: {fileID: 340995749381633556}
   m_Layer: 5
-  m_Name: NavBarButtonUGUI
+  m_Name: NavBarButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
