@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Unity.Services.Toolkits.Friends
+namespace Unity.Services.Samples.Friends
 {
     public static class ColorUtils
     {

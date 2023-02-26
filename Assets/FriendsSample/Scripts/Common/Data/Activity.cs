@@ -1,7 +1,7 @@
 using System.Runtime.Serialization;
 using UnityEngine.Scripting;
 
-namespace Unity.Services.Toolkits.Friends
+namespace Unity.Services.Samples.Friends
 {
     /// <summary>
     /// Activity represent the activity containing the status of a player.

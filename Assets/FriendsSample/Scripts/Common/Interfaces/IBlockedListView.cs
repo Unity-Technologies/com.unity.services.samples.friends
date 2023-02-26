@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 
 
-namespace Unity.Services.Toolkits.Friends
+namespace Unity.Services.Samples.Friends
 {
     public interface IBlockedListView : IListView
     {

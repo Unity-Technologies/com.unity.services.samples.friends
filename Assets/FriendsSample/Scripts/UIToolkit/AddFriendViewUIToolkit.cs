@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using Button = UnityEngine.UIElements.Button;
 
-namespace Unity.Services.Toolkits.Friends.UIToolkit
+namespace Unity.Services.Samples.Friends.UIToolkit
 {
     public class AddFriendViewUIToolkit : IAddFriendView
     {

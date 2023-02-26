@@ -8,7 +8,7 @@ using Unity.Services.Friends.Exceptions;
 using Unity.Services.Friends.Models;
 using UnityEngine;
 
-namespace Unity.Services.Toolkits.Friends
+namespace Unity.Services.Samples.Friends
 {
     public class RelationshipsManager : MonoBehaviour
     {

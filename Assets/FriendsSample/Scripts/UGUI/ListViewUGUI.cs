@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Unity.Services.Toolkits.Friends.UGUI
+namespace Unity.Services.Samples.Friends.UGUI
 {
     public abstract class ListViewUGUI : MonoBehaviour
     {

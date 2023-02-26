@@ -2,7 +2,7 @@ using System;
 using Unity.Services.Friends.Models;
 using UnityEngine.UIElements;
 
-namespace Unity.Services.Toolkits.Friends.UIToolkit
+namespace Unity.Services.Samples.Friends.UIToolkit
 {
     public class FriendEntryViewUIToolkit
     {

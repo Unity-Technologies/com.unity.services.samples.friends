@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Unity.Services.Toolkits.Friends.UGUI
+namespace Unity.Services.Samples.Friends.UGUI
 {
     public class BlocksViewUGUI : ListViewUGUI, IBlockedListView
     {

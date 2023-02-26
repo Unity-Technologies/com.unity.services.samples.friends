@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace Unity.Services.Toolkits.Friends.UIToolkit
+namespace Unity.Services.Samples.Friends.UIToolkit
 {
     public class RequestListViewUIToolkit : IRequestListView
     {

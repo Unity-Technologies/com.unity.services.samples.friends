@@ -1,4 +1,4 @@
-namespace Unity.Services.Toolkits.Friends
+namespace Unity.Services.Samples.Friends
 {
     /// <summary>
     /// Extend this interface and add to it for your own user profile system, like adding support for user Icons,
