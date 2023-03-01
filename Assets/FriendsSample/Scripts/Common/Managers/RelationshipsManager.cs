@@ -39,6 +39,8 @@ namespace Unity.Services.Samples.Friends
 
             await m_UGSAuth.TryAuthenticate();
             m_LocalPlayer = m_UGSAuth.LocalPlayer;
+            m_LocalPlayer.SetName(m_ProfileService.GetName(m_LocalPlayer.Id));
+            
             await Init();
         }
 
@@ -46,7 +48,7 @@ namespace Unity.Services.Samples.Friends
         {
             UIInit();
 
-            await LogInAsync(m_LocalPlayer.Name);
+            await LogInAsync();
 
             m_LocalPlayerView.Refresh(m_LocalPlayer.Name, m_LocalPlayer.Id, "In Friends Menu",
                 PresenceAvailabilityOptions.ONLINE);
@@ -96,9 +98,8 @@ namespace Unity.Services.Samples.Friends
             m_LocalPlayerView.onPresenceChanged += SetPresenceAsync;
         }
 
-        async Task LogInAsync(string playerName)
+        async Task LogInAsync()
         {
-            m_LocalPlayer.SetName(playerName);
             if (m_ManagedRelationshipService != null)
             {
                 m_ManagedRelationshipService.Dispose();

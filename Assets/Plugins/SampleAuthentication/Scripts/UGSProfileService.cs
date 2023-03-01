@@ -15,13 +15,8 @@ namespace Unity.Services.Samples
     public class UGSAnonymousProfileService : IUGSAuthService
     {
         [field: SerializeField] public IUGSPlayer LocalPlayer { get; private set; }
-        IProfileService m_SocialProfileService;
 
-        public UGSAnonymousProfileService()
-        {
-            m_SocialProfileService = new SampleSocialProfileService();
-        }
-        public async Task TryAuthenticate(string profileName = "player")
+        public async Task TryAuthenticate(string profileName = "Player")
         {
             if (IsSignedIn())
                 return;
@@ -30,8 +25,9 @@ namespace Unity.Services.Samples
             await UnityServices.InitializeAsync(authProfile);
             await AuthenticationService.Instance.SignInAnonymouslyAsync();
 
+            var playerName = profileName;
             var playerID = AuthenticationService.Instance.PlayerId;
-            var playerName = m_SocialProfileService.GetName(playerID);
+
             LocalPlayer = new UGSPlayer(playerName, playerID);
         }
 
