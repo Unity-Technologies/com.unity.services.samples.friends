@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Unity.Services.Samples.Friends
+namespace Unity.Services.Samples
 {
     /// <summary>
     /// There is no Unity Player Profile service available at the time we created this Toolkit.

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
-namespace Unity.Services.Samples.Friends
+namespace Unity.Services.Samples
 {
 
    public interface IUGSAuthService

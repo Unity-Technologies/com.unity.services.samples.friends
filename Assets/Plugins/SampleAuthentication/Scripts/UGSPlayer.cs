@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Unity.Services.Samples.Friends
+namespace Unity.Services.Samples
 {
 
     [System.Serializable]

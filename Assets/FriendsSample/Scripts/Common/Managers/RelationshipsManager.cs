@@ -1,8 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Unity.Services.Authentication;
-using Unity.Services.Core;
 using Unity.Services.Friends;
 using Unity.Services.Friends.Exceptions;
 using Unity.Services.Friends.Models;
@@ -38,7 +36,7 @@ namespace Unity.Services.Samples.Friends
 
             m_UGSAuth = new UGSAnonymousProfileService();
             m_ProfileService = new SampleSocialProfileService();
-            
+
             await m_UGSAuth.TryAuthenticate();
             m_LocalPlayer = m_UGSAuth.LocalPlayer;
             await Init();

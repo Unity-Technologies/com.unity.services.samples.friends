@@ -5,7 +5,7 @@ using Unity.Services.Authentication;
 using Unity.Services.Core;
 using UnityEngine;
 
-namespace Unity.Services.Samples.Friends
+namespace Unity.Services.Samples
 {
 
     /// <summary>
@@ -29,6 +29,7 @@ namespace Unity.Services.Samples.Friends
             //If you are using multiple unity services, make sure to initialize it only once before using your services.
             await UnityServices.InitializeAsync(authProfile);
             await AuthenticationService.Instance.SignInAnonymouslyAsync();
+
             var playerID = AuthenticationService.Instance.PlayerId;
             var playerName = m_SocialProfileService.GetName(playerID);
             LocalPlayer = new UGSPlayer(playerName, playerID);
