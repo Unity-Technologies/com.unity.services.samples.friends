@@ -33,7 +33,7 @@ namespace Unity.Services.Samples.Friends.UIToolkit
             };
         }
 
-        public void BindList(List<PlayerProfile> playerProfiles)
+        public void BindList(List<IUGSPlayer> playerProfiles)
         {
             m_BlockedListView.bindItem = (item, index) =>
             {

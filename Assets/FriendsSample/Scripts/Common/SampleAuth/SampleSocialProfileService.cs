@@ -7,13 +7,14 @@ namespace Unity.Services.Samples.Friends
     /// So, to easily test the friends API, we made this simplified local social profile "Service".
     /// It logs in as various
     /// </summary>
-    public class DebugSocialProfileService : ISocialProfileService
+    public class SampleSocialProfileService : IProfileService
     {
         const string k_PlayerNamePrefix = "Player_";
 
         public string GetName(string id)
         {
-            //This is where we would put in calls to social profile services to match our UAS ID to Profile ID's to get information outside the friends service.
+            //This is where we would put in calls to social profile services to match our UAS ID to Profile ID's
+            //to get player information outside the friends service.
             return $"{k_PlayerNamePrefix}{id}";
         }
 

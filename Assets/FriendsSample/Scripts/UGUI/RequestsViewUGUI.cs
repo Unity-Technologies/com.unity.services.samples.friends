@@ -10,12 +10,12 @@ namespace Unity.Services.Samples.Friends.UGUI
         [SerializeField] RequestEntryViewUGUI m_RequestEntryViewPrefab = null;
 
         List<RequestEntryViewUGUI> m_RequestEntries = new List<RequestEntryViewUGUI>();
-        List<PlayerProfile> m_PlayerProfiles = new List<PlayerProfile>();
+        List<IUGSPlayer> m_PlayerProfiles = new List<IUGSPlayer>();
         public Action<string> onAccept { get; set; }
         public Action<string> onDecline { get; set; }
         public Action<string> onBlock { get; set; }
 
-        public void BindList(List<PlayerProfile> playerProfiles)
+        public void BindList(List<IUGSPlayer> playerProfiles)
         {
             m_PlayerProfiles = playerProfiles;
         }

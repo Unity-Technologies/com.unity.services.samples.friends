@@ -18,37 +18,39 @@ namespace Unity.Services.Samples.Friends
         IRelationshipsView m_RelationshipsView;
 
         List<FriendsEntryData> m_FriendsEntryDatas = new List<FriendsEntryData>();
-        List<PlayerProfile> m_RequestsEntryDatas = new List<PlayerProfile>();
-        List<PlayerProfile> m_BlockEntryDatas = new List<PlayerProfile>();
+        List<IUGSPlayer> m_RequestsEntryDatas = new List<IUGSPlayer>();
+        List<IUGSPlayer> m_BlockEntryDatas = new List<IUGSPlayer>();
 
-        string m_LoggedPlayerName;
         ILocalPlayerView m_LocalPlayerView;
         IAddFriendView m_AddFriendView;
         IFriendsListView m_FriendsListView;
         IRequestListView m_RequestListView;
         IBlockedListView m_BlockListView;
-        ISocialProfileService m_SocialProfileService;
         IManagedRelationshipService m_ManagedRelationshipService;
+        IUGSAuthService m_UGSAuth;
+        IProfileService m_ProfileService;
+        IUGSPlayer m_LocalPlayer;
 
-        string LoggedPlayerId => AuthenticationService.Instance.PlayerId;
-        
+
         async void Start()
         {
-            //If you are using multiple unity services, make sure to initialize it only once before using your services.
-            await UnityServices.InitializeAsync();
-            await AuthenticationService.Instance.SignInAnonymouslyAsync();
-            await Init(AuthenticationService.Instance.PlayerId);
-        }
-        
-        async Task Init(string playerID)
-        {
-            m_SocialProfileService = new DebugSocialProfileService();
-            UIInit();
-            
-            var currentPlayerName = m_SocialProfileService.GetName(playerID);
-            await LogInAsync(currentPlayerName);
+            //We use the samples implementation of the UGS auth service to ensure we sign-in once across multiple drag&drop samples.
 
-            m_LocalPlayerView.Refresh(m_LoggedPlayerName, LoggedPlayerId, "In Friends Menu",
+            m_UGSAuth = new UGSAnonymousProfileService();
+            m_ProfileService = new SampleSocialProfileService();
+            
+            await m_UGSAuth.TryAuthenticate();
+            m_LocalPlayer = m_UGSAuth.LocalPlayer;
+            await Init();
+        }
+
+        async Task Init()
+        {
+            UIInit();
+
+            await LogInAsync(m_LocalPlayer.Name);
+
+            m_LocalPlayerView.Refresh(m_LocalPlayer.Name, m_LocalPlayer.Id, "In Friends Menu",
                 PresenceAvailabilityOptions.ONLINE);
 
             await SetPresence(PresenceAvailabilityOptions.ONLINE);
@@ -98,7 +100,7 @@ namespace Unity.Services.Samples.Friends
 
         async Task LogInAsync(string playerName)
         {
-            m_LoggedPlayerName = playerName;
+            m_LocalPlayer.SetName(playerName);
             if (m_ManagedRelationshipService != null)
             {
                 m_ManagedRelationshipService.Dispose();
@@ -107,10 +109,10 @@ namespace Unity.Services.Samples.Friends
             }
             m_ManagedRelationshipService = await ManagedRelationshipService.CreateManagedRelationshipServiceAsync();
             await SetPresence(PresenceAvailabilityOptions.ONLINE);
-            m_LocalPlayerView.Refresh(m_LoggedPlayerName, LoggedPlayerId, "In Friends Menu",
+            m_LocalPlayerView.Refresh(m_LocalPlayer.Name, m_LocalPlayer.Id, "In Friends Menu",
                 PresenceAvailabilityOptions.ONLINE);
             RefreshAll();
-            Debug.Log($"Logged in as {playerName} id: {LoggedPlayerId}");
+            Debug.Log($"Logged in as {m_LocalPlayer.Name} id: {m_LocalPlayer.Id}");
         }
 
         public void RefreshAll()
@@ -155,7 +157,7 @@ namespace Unity.Services.Samples.Friends
         async void SetPresenceAsync((PresenceAvailabilityOptions presence, string activity) status)
         {
             await SetPresence(status.presence, status.activity);
-            m_LocalPlayerView.Refresh(m_LoggedPlayerName, LoggedPlayerId, status.activity, status.presence);
+            m_LocalPlayerView.Refresh(m_LocalPlayer.Name, m_LocalPlayer.Id, status.activity, status.presence);
         }
 
         async void AddFriendAsync(string id)
@@ -188,7 +190,7 @@ namespace Unity.Services.Samples.Friends
 
                 var info = new FriendsEntryData
                 {
-                    Name = m_SocialProfileService.GetName(friend.Id),
+                    Name = m_ProfileService.GetName(friend.Id),
                     Id = friend.Id,
                     Availability = friend.Presence.Availability,
                     Activity = activityText
@@ -205,7 +207,7 @@ namespace Unity.Services.Samples.Friends
 
             foreach (var request in requests)
             {
-                m_RequestsEntryDatas.Add(new PlayerProfile(m_SocialProfileService.GetName(request.Id), request.Id));
+                m_RequestsEntryDatas.Add(new UGSPlayer(m_ProfileService.GetName(request.Id), request.Id));
             }
             m_RelationshipsView.RelationshipBarView.Refresh();
         }
@@ -216,7 +218,7 @@ namespace Unity.Services.Samples.Friends
 
             foreach (var block in m_ManagedRelationshipService.Blocks)
             {
-                m_BlockEntryDatas.Add(new PlayerProfile(m_SocialProfileService.GetName(block.Member.Id), block.Member.Id));
+                m_BlockEntryDatas.Add(new UGSPlayer(m_ProfileService.GetName(block.Member.Id), block.Member.Id));
             }
             m_RelationshipsView.RelationshipBarView.Refresh();
         }

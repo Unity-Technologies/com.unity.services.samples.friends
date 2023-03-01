@@ -8,6 +8,6 @@ namespace Unity.Services.Samples.Friends
         Action<string> onAccept { get; set; }
         Action<string> onDecline { get; set; }
         Action<string> onBlock { get; set; }
-        void BindList(List<PlayerProfile> playerProfiles);
+        void BindList(List<IUGSPlayer> playerProfiles);
     }
 }

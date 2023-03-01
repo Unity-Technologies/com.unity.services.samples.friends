@@ -10,10 +10,10 @@ namespace Unity.Services.Samples.Friends.UGUI
         [SerializeField] BlockEntryViewUGUI m_BlockEntryViewPrefab = null;
 
         List<BlockEntryViewUGUI> m_BlockEntries = new List<BlockEntryViewUGUI>();
-        List<PlayerProfile> m_PlayerProfiles = new List<PlayerProfile>();
+        List<IUGSPlayer> m_PlayerProfiles = new List<IUGSPlayer>();
         public Action<string> onUnblock { get; set; }
 
-        public void BindList(List<PlayerProfile> playerProfiles)
+        public void BindList(List<IUGSPlayer> playerProfiles)
         {
             m_PlayerProfiles = playerProfiles;
         }
