@@ -1,5 +1,5 @@
 {
-    "name": "FriendsSample",
+    "name": "Unity.Services.Samples.Friends",
     "rootNamespace": "",
     "references": [
         "GUID:c3e847927e5747f9a371134e85820ab3",
