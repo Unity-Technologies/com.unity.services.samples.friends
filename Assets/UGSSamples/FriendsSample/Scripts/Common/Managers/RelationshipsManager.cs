@@ -17,9 +17,9 @@ namespace Unity.Services.Samples.Friends
         GameObject m_RelationshipsViewGameObject; //This gameObject reference is only needed to get the IRelationshipUIController component from it.
         IRelationshipsView m_RelationshipsView;
 
-        List<FriendsEntryData> m_FriendsEntryDatas = new ();
-        List<PlayerProfile> m_RequestsEntryDatas = new ();
-        List<PlayerProfile> m_BlockEntryDatas = new ();
+        List<FriendsEntryData> m_FriendsEntryDatas = new List<FriendsEntryData>();
+        List<PlayerProfile> m_RequestsEntryDatas = new List<PlayerProfile>();
+        List<PlayerProfile> m_BlockEntryDatas = new List<PlayerProfile>();
 
         ILocalPlayerView m_LocalPlayerView;
         IAddFriendView m_AddFriendView;
