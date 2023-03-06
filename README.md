@@ -1,4 +1,4 @@
-# README
+# Friends Sample
 
 The Friends Sample Project demonstrates a typical implementation of the Friends service.
 
