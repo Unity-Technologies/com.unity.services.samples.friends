@@ -21,15 +21,16 @@ namespace Unity.Services.Samples.Friends
         List<PlayerProfile> m_RequestsEntryDatas = new List<PlayerProfile>();
         List<PlayerProfile> m_BlockEntryDatas = new List<PlayerProfile>();
 
-        string m_LoggedPlayerName;
         ILocalPlayerView m_LocalPlayerView;
         IAddFriendView m_AddFriendView;
         IFriendsListView m_FriendsListView;
         IRequestListView m_RequestListView;
         IBlockedListView m_BlockListView;
-        ISocialProfileService m_SocialProfileService;
+        
+        IPlayerProfileService m_SamplePlayerProfileService;
         IManagedRelationshipService m_ManagedRelationshipService;
 
+        string LoggedPlayerName => m_SamplePlayerProfileService.GetName(LoggedPlayerId);
         string LoggedPlayerId => AuthenticationService.Instance.PlayerId;
         
         async void Start()
@@ -40,20 +41,20 @@ namespace Unity.Services.Samples.Friends
             await Init(AuthenticationService.Instance.PlayerId);
         }
         
-        async Task Init(string playerID)
+        async Task Init(string playerId)
         {
-            m_SocialProfileService = new DebugSocialProfileService();
             UIInit();
+            m_SamplePlayerProfileService = new SamplePlayerProfileService();
+            if (m_ManagedRelationshipService != null)
+            {
+                m_ManagedRelationshipService.Dispose();
+                // Want to make sure wire has a chance to shutdown (we need a dispose async method!)
+                await Task.Delay(500);
+            }
+            m_ManagedRelationshipService = await ManagedRelationshipService.CreateManagedRelationshipServiceAsync();
             
-            var currentPlayerName = m_SocialProfileService.GetName(playerID);
-            await LogInAsync(currentPlayerName);
-
-            m_LocalPlayerView.Refresh(m_LoggedPlayerName, LoggedPlayerId, "In Friends Menu",
-                PresenceAvailabilityOptions.ONLINE);
-
-            await SetPresence(PresenceAvailabilityOptions.ONLINE);
+            await LogInAsync(playerId);
             SubscribeToFriendsEventCallbacks();
-
             RefreshAll();
         }
 
@@ -96,21 +97,13 @@ namespace Unity.Services.Samples.Friends
             m_LocalPlayerView.onPresenceChanged += SetPresenceAsync;
         }
 
-        async Task LogInAsync(string playerName)
+        async Task LogInAsync(string playerId)
         {
-            m_LoggedPlayerName = playerName;
-            if (m_ManagedRelationshipService != null)
-            {
-                m_ManagedRelationshipService.Dispose();
-                // Want to make sure wire has a chance to shutdown (we need a dispose async method!)
-                await Task.Delay(500);
-            }
-            m_ManagedRelationshipService = await ManagedRelationshipService.CreateManagedRelationshipServiceAsync();
             await SetPresence(PresenceAvailabilityOptions.ONLINE);
-            m_LocalPlayerView.Refresh(m_LoggedPlayerName, LoggedPlayerId, "In Friends Menu",
+            m_LocalPlayerView.Refresh(LoggedPlayerName, LoggedPlayerId, "In Friends Menu",
                 PresenceAvailabilityOptions.ONLINE);
             RefreshAll();
-            Debug.Log($"Logged in as {playerName} id: {LoggedPlayerId}");
+            Debug.Log($"Logged in as {playerId} id: {LoggedPlayerId}");
         }
 
         public void RefreshAll()
@@ -155,7 +148,7 @@ namespace Unity.Services.Samples.Friends
         async void SetPresenceAsync((PresenceAvailabilityOptions presence, string activity) status)
         {
             await SetPresence(status.presence, status.activity);
-            m_LocalPlayerView.Refresh(m_LoggedPlayerName, LoggedPlayerId, status.activity, status.presence);
+            m_LocalPlayerView.Refresh(LoggedPlayerName, LoggedPlayerId, status.activity, status.presence);
         }
 
         async void AddFriendAsync(string id)
@@ -188,7 +181,7 @@ namespace Unity.Services.Samples.Friends
 
                 var info = new FriendsEntryData
                 {
-                    Name = m_SocialProfileService.GetName(friend.Id),
+                    Name = m_SamplePlayerProfileService.GetName(friend.Id),
                     Id = friend.Id,
                     Availability = friend.Presence.Availability,
                     Activity = activityText
@@ -205,7 +198,7 @@ namespace Unity.Services.Samples.Friends
 
             foreach (var request in requests)
             {
-                m_RequestsEntryDatas.Add(new PlayerProfile(m_SocialProfileService.GetName(request.Id), request.Id));
+                m_RequestsEntryDatas.Add(new PlayerProfile(m_SamplePlayerProfileService.GetName(request.Id), request.Id));
             }
             m_RelationshipsView.RelationshipBarView.Refresh();
         }
@@ -216,7 +209,7 @@ namespace Unity.Services.Samples.Friends
 
             foreach (var block in m_ManagedRelationshipService.Blocks)
             {
-                m_BlockEntryDatas.Add(new PlayerProfile(m_SocialProfileService.GetName(block.Member.Id), block.Member.Id));
+                m_BlockEntryDatas.Add(new PlayerProfile(m_SamplePlayerProfileService.GetName(block.Member.Id), block.Member.Id));
             }
             m_RelationshipsView.RelationshipBarView.Refresh();
         }
