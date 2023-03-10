@@ -30,9 +30,8 @@ namespace Unity.Services.Samples.Friends
         IPlayerProfileService m_SamplePlayerProfileService;
         IManagedRelationshipService m_ManagedRelationshipService;
 
-        string LoggedPlayerName => m_SamplePlayerProfileService.GetName(LoggedPlayerId);
-        string LoggedPlayerId => AuthenticationService.Instance.PlayerId;
-        
+        PlayerProfile m_LoggedPlayerProfile;
+
         async void Start()
         {
             //If you are using multiple unity services, make sure to initialize it only once before using your services.
@@ -99,14 +98,15 @@ namespace Unity.Services.Samples.Friends
 
         async Task LogInAsync(string playerId)
         {
+            m_LoggedPlayerProfile = new PlayerProfile(m_SamplePlayerProfileService.GetName(playerId), playerId);
             await SetPresence(PresenceAvailabilityOptions.ONLINE);
-            m_LocalPlayerView.Refresh(LoggedPlayerName, LoggedPlayerId, "In Friends Menu",
+            m_LocalPlayerView.Refresh(m_LoggedPlayerProfile.Name, m_LoggedPlayerProfile.Id, "In Friends Menu",
                 PresenceAvailabilityOptions.ONLINE);
             RefreshAll();
-            Debug.Log($"Logged in as {playerId} id: {LoggedPlayerId}");
+            Debug.Log($"Logged in as {m_LoggedPlayerProfile}");
         }
 
-        public void RefreshAll()
+        void RefreshAll()
         {
             RefreshFriends();
             RefreshRequests();
@@ -148,7 +148,7 @@ namespace Unity.Services.Samples.Friends
         async void SetPresenceAsync((PresenceAvailabilityOptions presence, string activity) status)
         {
             await SetPresence(status.presence, status.activity);
-            m_LocalPlayerView.Refresh(LoggedPlayerName, LoggedPlayerId, status.activity, status.presence);
+            m_LocalPlayerView.Refresh(m_LoggedPlayerProfile.Name, m_LoggedPlayerProfile.Id, status.activity, status.presence);
         }
 
         async void AddFriendAsync(string id)
