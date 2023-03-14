@@ -1,7 +1,7 @@
 using JetBrains.Annotations;
 using UnityEngine;
 
-namespace Unity.Services.Samples.Friends
+namespace Unity.Services.Samples.Utilities
 {
     public class ApplicationQuit : MonoBehaviour
     {
