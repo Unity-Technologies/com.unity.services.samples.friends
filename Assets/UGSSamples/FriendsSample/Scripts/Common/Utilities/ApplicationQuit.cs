@@ -1,4 +1,5 @@
 using JetBrains.Annotations;
+using UnityEditor;
 using UnityEngine;
 
 namespace Unity.Services.Samples.Utilities
@@ -14,7 +15,11 @@ namespace Unity.Services.Samples.Utilities
         [UsedImplicitly]
         public void Quit()
         {
+#if(UNITY_EDITOR)
+            EditorApplication.ExitPlaymode();
+#else   
             Application.Quit();
+#endif
         }
     }
 }
