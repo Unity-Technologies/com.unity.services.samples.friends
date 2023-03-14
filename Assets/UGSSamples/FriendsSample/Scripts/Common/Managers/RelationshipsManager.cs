@@ -360,7 +360,7 @@ namespace Unity.Services.Samples.Friends
                 FriendsService.Instance.RelationshipDeleted += e =>
                 {
                     RefreshFriends();
-                    Debug.Log($"delete {e.Relationship} EventReceived");
+                    Debug.Log($"Delete {e.Relationship} EventReceived");
                 };
             }
             catch (RelationshipsServiceException e)

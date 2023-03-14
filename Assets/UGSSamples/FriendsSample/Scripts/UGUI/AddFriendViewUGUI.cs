@@ -31,11 +31,12 @@ namespace Unity.Services.Samples.Friends.UGUI
         public void FriendRequestSuccess()
         {
             m_RequestResultText.text = "Friend request sent!";
+            Hide();
         }
 
         public void FriendRequestFailed()
         {
-
+            m_RequestResultText.text = "Friend request Failed!";
         }
 
         public void Show()

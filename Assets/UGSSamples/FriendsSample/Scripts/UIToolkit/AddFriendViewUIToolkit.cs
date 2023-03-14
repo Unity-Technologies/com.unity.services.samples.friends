@@ -56,6 +56,7 @@ namespace Unity.Services.Samples.Friends.UIToolkit
             m_FeedbackLabel.style.opacity = 1;
             await Task.Delay(2000);
             m_FeedbackLabel.style.opacity = 0;
+            Hide();
         }
 
         public async void FriendRequestFailed()
