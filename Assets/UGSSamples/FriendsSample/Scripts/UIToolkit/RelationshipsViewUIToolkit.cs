@@ -40,13 +40,10 @@ namespace Unity.Services.Samples.Friends.UIToolkit
 
             var listViews = new IListView[] { FriendsListView, RequestListView, BlockListView };
             RelationshipBarView = new NavBarViewUIToolkit(root, listViews);
-            RelationshipBarView.onShowAddFriend = ShowAddFriendPopup;
-            AddFriendView.Hide();
-        }
-
-        void ShowAddFriendPopup()
-        {
-            AddFriendView.Show();
+            RelationshipBarView.onShowAddFriend += () =>
+            {
+                AddFriendView.Show();
+            };
         }
     }
 }
