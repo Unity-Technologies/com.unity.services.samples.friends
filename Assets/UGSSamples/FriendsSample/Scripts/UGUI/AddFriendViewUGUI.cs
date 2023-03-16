@@ -36,7 +36,7 @@ namespace Unity.Services.Samples.Friends.UGUI
 
         public void FriendRequestFailed()
         {
-            m_RequestResultText.text = "Friend request Failed!";
+            m_RequestResultText.text = "Friend request failed!";
         }
 
         public void Show()
