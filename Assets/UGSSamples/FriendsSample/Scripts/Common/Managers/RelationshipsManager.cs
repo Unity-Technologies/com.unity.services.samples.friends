@@ -92,7 +92,8 @@ namespace Unity.Services.Samples.Friends
         async Task LogInAsync(string playerId)
         {
             m_LoggedPlayerProfile = new PlayerProfile(m_SamplePlayerProfileService.GetName(playerId), playerId);
-            await SetPresence(PresenceAvailabilityOptions.ONLINE);
+
+            await SetPresence(PresenceAvailabilityOptions.ONLINE,"In Friends Menu");
             m_LocalPlayerView.Refresh(m_LoggedPlayerProfile.Name, m_LoggedPlayerProfile.Id, "In Friends Menu",
                 PresenceAvailabilityOptions.ONLINE);
             RefreshAll();

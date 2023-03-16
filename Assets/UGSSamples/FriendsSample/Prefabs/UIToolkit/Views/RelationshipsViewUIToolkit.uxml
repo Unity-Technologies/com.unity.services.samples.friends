@@ -8,6 +8,6 @@
             <ui:Instance template="NavBarView" name="NavBarView" />
             <ui:Instance template="LocalPlayerView" name="LocalPlayerView" style="margin-bottom: 15px;" />
         </ui:VisualElement>
-        <ui:Instance template="AddFriendView" name="AddFriendView" />
+        <ui:Instance template="AddFriendView" name="AddFriendView" style="display: flex; visibility: visible;" />
     </ui:VisualElement>
 </ui:UXML>
