@@ -14,7 +14,8 @@ namespace Unity.Services.Samples.Friends
     {
         [Tooltip("Reference a GameObject that has a component extending from IRelationshipsUIController.")]
         [SerializeField]
-        GameObject m_RelationshipsViewGameObject; //This gameObject reference is only needed to get the IRelationshipUIController component from it.
+        GameObject
+            m_RelationshipsViewGameObject; //This gameObject reference is only needed to get the IRelationshipUIController component from it.
         IRelationshipsView m_RelationshipsView;
 
         List<FriendsEntryData> m_FriendsEntryDatas = new List<FriendsEntryData>();
@@ -26,7 +27,7 @@ namespace Unity.Services.Samples.Friends
         IFriendsListView m_FriendsListView;
         IRequestListView m_RequestListView;
         IBlockedListView m_BlockListView;
-        
+
         IPlayerProfileService m_SamplePlayerProfileService;
 
         PlayerProfile m_LoggedPlayerProfile;
@@ -38,7 +39,7 @@ namespace Unity.Services.Samples.Friends
             await AuthenticationService.Instance.SignInAnonymouslyAsync();
             await Init(AuthenticationService.Instance.PlayerId);
         }
-        
+
         async Task Init(string playerId)
         {
             await FriendsService.Instance.InitializeAsync();
@@ -53,7 +54,7 @@ namespace Unity.Services.Samples.Friends
         {
             if (m_RelationshipsViewGameObject == null)
             {
-                Debug.LogError($"Missing GameObject in {name}",gameObject);
+                Debug.LogError($"Missing GameObject in {name}", gameObject);
                 return;
             }
 
@@ -61,7 +62,7 @@ namespace Unity.Services.Samples.Friends
             if (m_RelationshipsView == null)
             {
                 Debug.LogError($"No Component extending IRelationshipsView {m_RelationshipsViewGameObject.name}",
-                    m_RelationshipsViewGameObject );
+                    m_RelationshipsViewGameObject);
                 return;
             }
 
@@ -140,13 +141,14 @@ namespace Unity.Services.Samples.Friends
         async void SetPresenceAsync((PresenceAvailabilityOptions presence, string activity) status)
         {
             await SetPresence(status.presence, status.activity);
-            m_LocalPlayerView.Refresh(m_LoggedPlayerProfile.Name, m_LoggedPlayerProfile.Id, status.activity, status.presence);
+            m_LocalPlayerView.Refresh(m_LoggedPlayerProfile.Name, m_LoggedPlayerProfile.Id, status.activity,
+                status.presence);
         }
 
         async void AddFriendAsync(string id)
         {
             var success = await SendFriendRequest(id);
-            if(success)
+            if (success)
                 m_AddFriendView.FriendRequestSuccess();
             else
                 m_AddFriendView.FriendRequestFailed();
@@ -164,11 +166,14 @@ namespace Unity.Services.Samples.Friends
                 if (friend.Presence.Availability == PresenceAvailabilityOptions.OFFLINE ||
                     friend.Presence.Availability == PresenceAvailabilityOptions.INVISIBLE)
                 {
-                    activityText = friend.Presence.LastSeen.ToShortDateString() + " " + friend.Presence.LastSeen.ToLongTimeString();
+                    activityText = friend.Presence.LastSeen.ToShortDateString() + " " +
+                        friend.Presence.LastSeen.ToLongTimeString();
                 }
                 else
                 {
-                    activityText = friend.Presence.GetActivity<Activity>() == null ? "" : friend.Presence.GetActivity<Activity>().Status;
+                    activityText = friend.Presence.GetActivity<Activity>() == null
+                        ? ""
+                        : friend.Presence.GetActivity<Activity>().Status;
                 }
 
                 var info = new FriendsEntryData
@@ -180,6 +185,7 @@ namespace Unity.Services.Samples.Friends
                 };
                 m_FriendsEntryDatas.Add(info);
             }
+
             m_RelationshipsView.RelationshipBarView.Refresh();
         }
 
@@ -190,8 +196,10 @@ namespace Unity.Services.Samples.Friends
 
             foreach (var request in requests)
             {
-                m_RequestsEntryDatas.Add(new PlayerProfile(m_SamplePlayerProfileService.GetName(request.Id), request.Id));
+                m_RequestsEntryDatas.Add(
+                    new PlayerProfile(m_SamplePlayerProfileService.GetName(request.Id), request.Id));
             }
+
             m_RelationshipsView.RelationshipBarView.Refresh();
         }
 
@@ -201,8 +209,10 @@ namespace Unity.Services.Samples.Friends
 
             foreach (var block in FriendsService.Instance.Blocks)
             {
-                m_BlockEntryDatas.Add(new PlayerProfile(m_SamplePlayerProfileService.GetName(block.Member.Id), block.Member.Id));
+                m_BlockEntryDatas.Add(new PlayerProfile(m_SamplePlayerProfileService.GetName(block.Member.Id),
+                    block.Member.Id));
             }
+
             m_RelationshipsView.RelationshipBarView.Refresh();
         }
 
@@ -210,13 +220,13 @@ namespace Unity.Services.Samples.Friends
         {
             try
             {
-                await FriendsService.Instance.AddFriendAsync(playerId);
-                Debug.Log($"{playerId} friend request sent.");
-                return true;
+                var relationship = await FriendsService.Instance.AddFriendAsync(playerId);
+                Debug.Log($"Friend request sent to {playerId}.");
+                return relationship.Type == RelationshipType.FRIEND_REQUEST;
             }
             catch (RelationshipsServiceException e)
             {
-                Debug.Log($"Failed to add {playerId} - {e}.");
+                Debug.Log($"Failed to Request {playerId} - {e}.");
                 return false;
             }
         }
@@ -350,7 +360,7 @@ namespace Unity.Services.Samples.Friends
                 FriendsService.Instance.RelationshipDeleted += e =>
                 {
                     RefreshFriends();
-                    Debug.Log($"delete {e.Relationship} EventReceived");
+                    Debug.Log($"Delete {e.Relationship} EventReceived");
                 };
             }
             catch (RelationshipsServiceException e)
@@ -369,7 +379,8 @@ namespace Unity.Services.Samples.Friends
         {
             var blocks = FriendsService.Instance.Blocks;
             return relationships
-                .Where(relationship => !blocks.Any(blockedRelationship => blockedRelationship.Member.Id == relationship.Member.Id))
+                .Where(relationship =>
+                    !blocks.Any(blockedRelationship => blockedRelationship.Member.Id == relationship.Member.Id))
                 .Select(relationship => relationship.Member)
                 .ToList();
         }

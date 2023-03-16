@@ -22,12 +22,6 @@ namespace Unity.Services.Samples.Friends.UIToolkit
 
         const string k_LocalPlayerViewName = "local-player-entry";
 
-        //Called by the 2020 > 2021 upgrade script
-        public void SetUIDocument(UIDocument doc)
-        {
-            m_SocialUIDoc = doc;
-        }
-
         public void Init()
         {
             if (m_SocialUIDoc == null)
