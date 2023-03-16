@@ -1,7 +1,8 @@
 using JetBrains.Annotations;
+using UnityEditor;
 using UnityEngine;
 
-namespace Unity.Services.Samples.Friends
+namespace Unity.Services.Samples.Utilities
 {
     public class ApplicationQuit : MonoBehaviour
     {
@@ -14,7 +15,11 @@ namespace Unity.Services.Samples.Friends
         [UsedImplicitly]
         public void Quit()
         {
+#if(UNITY_EDITOR)
+            EditorApplication.ExitPlaymode();
+#else   
             Application.Quit();
+#endif
         }
     }
 }
