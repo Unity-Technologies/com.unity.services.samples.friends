@@ -47,6 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_RelationshipsViewGameObject: {fileID: 7278825963339546011}
+  m_PlayerAuthentication: {fileID: 11400000, guid: 5902fa4c5626f41bb94a25665d910e98, type: 2}
 --- !u!114 &505116760147848922
 MonoBehaviour:
   m_ObjectHideFlags: 0
