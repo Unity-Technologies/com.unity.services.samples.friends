@@ -1,15 +1,17 @@
+using System;
 using System.Text;
 using Unity.Services.Friends.Models;
 
 namespace Unity.Services.Samples.Friends
 {
+
     [System.Serializable]
     public struct FriendsEntryData
     {
         public string Name;
         public string Id;
         public PresenceAvailabilityOptions Availability;
-        public string Activity;
+        public Activity Activity;
 
         public override string ToString()
         {
@@ -19,7 +21,7 @@ namespace Unity.Services.Samples.Friends
             sb.AppendLine(Id);
             sb.Append(Availability);
             sb.Append(" : ");
-            sb.AppendLine(Activity);
+            sb.AppendLine(Activity.Status);
             return sb.ToString();
         }
     }

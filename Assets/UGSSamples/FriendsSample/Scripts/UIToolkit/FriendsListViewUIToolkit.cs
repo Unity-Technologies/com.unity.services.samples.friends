@@ -7,6 +7,8 @@ namespace Unity.Services.Samples.Friends.UIToolkit
 {
     public class FriendsListViewUIToolkit : IFriendsListView, IListView
     {
+        public Action<string> onInviteToParty { get; set; }
+        public Action<string> onJoinFriendParty { get; set; }
         public Action<string> onRemove { get; set; }
         public Action<string> onBlock { get; set; }
 
@@ -44,7 +46,7 @@ namespace Unity.Services.Samples.Friends.UIToolkit
                 var friendControl = item.userData as FriendEntryViewUIToolkit;
                 friendControl.Show();
                 var friendData = friendEntryDatas[index];
-                friendControl.Refresh(friendData.Name, friendData.Activity, friendData.Availability);
+                friendControl.Refresh(friendData.Name, friendData.Activity.Status, friendData.Availability);
                 friendControl.onRemoveFriend = () =>
                 {
                     onRemove?.Invoke(friendData.Id);

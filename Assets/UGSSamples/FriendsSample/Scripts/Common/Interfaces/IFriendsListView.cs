@@ -9,7 +9,11 @@ namespace Unity.Services.Samples.Friends
         Action<string> onRemove { get; set; }
         Action<string> onBlock { get; set; }
         void BindList(List<FriendsEntryData> friendEntryDatas);
+
+#if LOBBY_SDK_AVAILABLE
+        Action<string> onInviteToParty { get; set; }
+        Action<string> onJoinFriendParty{ get; set; }
+#endif
     }
 
 }
-

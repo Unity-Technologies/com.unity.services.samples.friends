@@ -12,8 +12,16 @@ namespace Unity.Services.Samples.Friends.UGUI
         List<FriendEntryViewUGUI> m_FriendEntries = new List<FriendEntryViewUGUI>();
         List<FriendsEntryData> m_FriendsEntryDatas = new List<FriendsEntryData>();
 
+
+
         public Action<string> onRemove { get; set; }
         public Action<string> onBlock { get; set; }
+
+        #if LOBBY_SDK_AVAILABLE
+        public Action<string> onInviteToParty { get; set; }
+        public Action<string> onJoinFriendParty { get; set; }
+        #endif
+
 
         public void BindList(List<FriendsEntryData> friendEntryDatas)
         {
@@ -39,6 +47,16 @@ namespace Unity.Services.Samples.Friends.UGUI
                     onBlock?.Invoke(friendsEntryData.Id);
                     entry.gameObject.SetActive(false);
                 });
+            #if LOBBY_SDK_AVAILABLE
+                entry.inviteFriendButton.onClick.AddListener(() =>
+                {
+                    onInviteToParty?.Invoke(friendsEntryData.Id);
+                });
+                entry.joinFriendButton.onClick.AddListener(() =>
+                {
+                    onJoinFriendParty?.Invoke(friendsEntryData.Activity.m_ActivityData);
+                });
+            #endif
                 m_FriendEntries.Add(entry);
             }
         }
