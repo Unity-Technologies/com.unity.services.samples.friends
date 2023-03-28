@@ -1,6 +1,7 @@
 @import url("UnityDefaultRuntimeTheme.tss");
 
-@import url("RelationshipsStyle.uss");
+@import url("Relationships_StyleSheet.uss");
+
 
 
 
