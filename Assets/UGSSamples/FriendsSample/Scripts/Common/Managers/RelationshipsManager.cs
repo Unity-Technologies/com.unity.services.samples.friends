@@ -30,6 +30,7 @@ namespace Unity.Services.Samples.Friends
         PlayerProfile m_LocalPlayer;
         [SerializeField] PlayerAuthentication m_PlayerAuthentication;
 
+        PresenceAvailabilityOptions m_LocalPresence = PresenceAvailabilityOptions.ONLINE;
         Activity m_LocalActivity = new Activity();
         FriendsPartyManager m_PartyManager;
 
@@ -97,7 +98,9 @@ namespace Unity.Services.Samples.Friends
             m_SamplePlayerProfileService = new SamplePlayerProfileService();
             m_LocalPlayer = m_PlayerAuthentication.LocalPlayer;
             m_LocalActivity.m_ActivityType = Activity.ActivityType.Menu;
-            await SetPresence(PresenceAvailabilityOptions.ONLINE, "Chillin");
+            m_LocalActivity.SetStatus("Chilling.");
+            m_LocalPresence = PresenceAvailabilityOptions.ONLINE;
+            await PushLocalPresence();
             m_LocalPlayerView.Refresh(m_LocalPlayer.Name, m_LocalPlayer.Id, "In Friends Menu",
                 PresenceAvailabilityOptions.ONLINE);
             Debug.Log($"Logged in as {m_LocalPlayer}");
@@ -119,18 +122,18 @@ namespace Unity.Services.Samples.Friends
                 m_PartyManager.TryJoinParty(friendPartyCode);
             };
 
-            LobbyEvents.OnLobbyJoined += (partyCode) =>
+            LobbyEvents.OnLobbyJoined += async (partyCode) =>
             {
                 m_LocalActivity.m_ActivityType = Activity.ActivityType.Party;
                 m_LocalActivity.m_ActivityData = partyCode;
-                RefreshFriends();
+                await PushLocalPresence();
             };
 
-            LobbyEvents.OnLobbyLeft += () =>
+            LobbyEvents.OnLobbyLeft += async () =>
             {
                 m_LocalActivity.m_ActivityType = Activity.ActivityType.Menu;
                 m_LocalActivity.m_ActivityData = "";
-                RefreshFriends();
+                await PushLocalPresence();
             };
             #endif
         }
@@ -174,11 +177,14 @@ namespace Unity.Services.Samples.Friends
             RefreshRequests();
         }
 
-        async void SetPresenceAsync((PresenceAvailabilityOptions presence, string activity) status)
+        async void SetPresenceAsync((PresenceAvailabilityOptions availability, string status) presence)
         {
-            await SetPresence(status.presence, status.activity);
-            m_LocalPlayerView.Refresh(m_LocalPlayer.Name, m_LocalPlayer.Id, status.activity,
-                status.presence);
+            m_LocalPresence = presence.availability;
+            m_LocalActivity.SetStatus(presence.status);
+
+            await PushLocalPresence();
+            m_LocalPlayerView.Refresh(m_LocalPlayer.Name, m_LocalPlayer.Id, presence.status,
+                presence.availability);
         }
 
         async void AddFriendAsync(string id)
@@ -363,25 +369,18 @@ namespace Unity.Services.Samples.Friends
             return GetNonBlockedMembers(FriendsService.Instance.IncomingFriendRequests);
         }
 
-        async Task SetPresence(PresenceAvailabilityOptions presenceAvailabilityOptions,
-            string activityStatus = "")
+        async Task PushLocalPresence()
         {
-            string activityTypeString = m_LocalActivity.m_ActivityType.ToString();
-            m_LocalActivity.Status = $"({activityTypeString}) - {activityStatus}";
-
-
             try
             {
-                await FriendsService.Instance.SetPresenceAsync(presenceAvailabilityOptions, m_LocalActivity);
-                Debug.Log($"Availability changed to {presenceAvailabilityOptions}.");
+                await FriendsService.Instance.SetPresenceAsync(m_LocalPresence, m_LocalActivity);
+                Debug.Log($"Presence Pushed {m_LocalPresence} - {m_LocalActivity}");
             }
             catch (RelationshipsServiceException e)
             {
-                Debug.Log($"Failed to set the presence to {presenceAvailabilityOptions}");
                 Debug.LogError(e);
             }
         }
-
 
         void SubscribeToFriendsEventCallbacks()
         {

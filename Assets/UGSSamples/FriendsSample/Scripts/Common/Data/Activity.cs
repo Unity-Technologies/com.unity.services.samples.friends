@@ -49,5 +49,11 @@ namespace Unity.Services.Samples.Friends
         }
 
 
+        public void SetStatus(string status)
+        {
+            string activityTypeString = m_ActivityType.ToString();
+            Status = $"({activityTypeString}) - {status}";
+        }
+
     }
 }
