@@ -16,24 +16,25 @@ namespace Unity.Services.Samples.Friends.UGUI
         public Button inviteFriendButton = null;
         public Button joinFriendButton = null;
 
-
-        public void Init(string playerName, PresenceAvailabilityOptions presenceAvailabilityOptions, Activity activity)
+        public void Init(string playerName, PresenceAvailabilityOptions presenceAvailabilityOptions,
+            Activity friendActivity)
         {
             m_NameText.text = playerName;
             var index = (int)presenceAvailabilityOptions - 1;
             var presenceColor = ColorUtils.GetPresenceColor(index);
             m_PresenceColorImage.color = presenceColor;
-            m_ActivityText.text = activity.Status;
-            InitParty(activity);
-
+            m_ActivityText.text = friendActivity.Status;
         }
-
-        void InitParty(Activity activity)
+#if LOBBY_SDK_AVAILABLE
+        public void UpdateFriendPartyState(string localPlayerPartyCode, Activity friendActivity)
         {
-            #if LOBBY_SDK_AVAILABLE
-            inviteFriendButton.gameObject.SetActive(true);
-            joinFriendButton.gameObject.SetActive(activity.m_ActivityType == Activity.ActivityType.Party);
-            #endif
+            var localPlayerInParty = !string.IsNullOrEmpty(localPlayerPartyCode);
+            var inFriendsParty = localPlayerPartyCode == friendActivity.m_ActivityData;
+            var showInviteButton = localPlayerInParty && !inFriendsParty;
+            var showJoinFriendButton = !inFriendsParty && friendActivity.m_ActivityType == Activity.ActivityType.Party;
+            inviteFriendButton.gameObject.SetActive(showInviteButton);
+            joinFriendButton.gameObject.SetActive(showJoinFriendButton);
         }
+#endif
     }
 }

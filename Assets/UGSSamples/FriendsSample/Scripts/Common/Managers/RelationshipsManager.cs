@@ -11,7 +11,8 @@ namespace Unity.Services.Samples.Friends
 {
     public class RelationshipsManager : MonoBehaviour
     {
-        [Tooltip("Reference a GameObject that has a component extending from IRelationshipsUIController.")] [SerializeField]
+        [Tooltip("Reference a GameObject that has a component extending from IRelationshipsUIController.")]
+        [SerializeField]
         GameObject
             m_RelationshipsViewGameObject; //This gameObject reference is only needed to get the IRelationshipUIController component from it.
         IRelationshipsView m_RelationshipsView;
@@ -32,7 +33,6 @@ namespace Unity.Services.Samples.Friends
 
         PresenceAvailabilityOptions m_LocalPresence = PresenceAvailabilityOptions.ONLINE;
         Activity m_LocalActivity = new Activity();
-        FriendsPartyManager m_PartyManager;
 
         async void Start()
         {
@@ -90,36 +90,40 @@ namespace Unity.Services.Samples.Friends
             m_BlockListView.onUnblock += UnblockFriendAsync;
 
             m_LocalPlayerView.onPresenceChanged += SetPresenceAsync;
-
         }
 
         async Task LogInAsync()
         {
             m_SamplePlayerProfileService = new SamplePlayerProfileService();
             m_LocalPlayer = m_PlayerAuthentication.LocalPlayer;
+
             m_LocalActivity.m_ActivityType = Activity.ActivityType.Menu;
             m_LocalActivity.SetStatus("Chilling.");
             m_LocalPresence = PresenceAvailabilityOptions.ONLINE;
+
             await PushLocalPresence();
             m_LocalPlayerView.Refresh(m_LocalPlayer.Name, m_LocalPlayer.Id, "In Friends Menu",
                 PresenceAvailabilityOptions.ONLINE);
             Debug.Log($"Logged in as {m_LocalPlayer}");
         }
 
-
+        /// <summary>
+        /// Interoperable Setup for the Parties Sample
+        /// Enables Inviting and Joining Friends.
+        /// </summary>
         void InitParty()
         {
-            #if LOBBY_SDK_AVAILABLE
-            m_PartyManager = new FriendsPartyManager(m_LocalPlayer);
+#if LOBBY_SDK_AVAILABLE
+           FriendsPartyManager partyManager = new FriendsPartyManager(m_LocalPlayer);
+
             m_FriendsListView.onInviteToParty += (friendID) =>
             {
-                if (m_LocalActivity.m_ActivityType == Activity.ActivityType.Party)
-                    m_PartyManager.SendPartyInvite(friendID, m_LocalActivity.m_ActivityData);
+                partyManager.SendPartyInvite(friendID, m_LocalActivity.m_ActivityData);
             };
 
             m_FriendsListView.onJoinFriendParty += (friendPartyCode) =>
             {
-                m_PartyManager.TryJoinParty(friendPartyCode);
+                partyManager.TryJoinParty(friendPartyCode);
             };
 
             LobbyEvents.OnLobbyJoined += async (partyCode) =>
@@ -127,6 +131,7 @@ namespace Unity.Services.Samples.Friends
                 m_LocalActivity.m_ActivityType = Activity.ActivityType.Party;
                 m_LocalActivity.m_ActivityData = partyCode;
                 await PushLocalPresence();
+                RefreshFriends();
             };
 
             LobbyEvents.OnLobbyLeft += async () =>
@@ -134,8 +139,9 @@ namespace Unity.Services.Samples.Friends
                 m_LocalActivity.m_ActivityType = Activity.ActivityType.Menu;
                 m_LocalActivity.m_ActivityData = "";
                 await PushLocalPresence();
+                RefreshFriends();
             };
-            #endif
+#endif
         }
 
         void RefreshAll()
@@ -209,7 +215,7 @@ namespace Unity.Services.Samples.Friends
                     friend.Presence.Availability == PresenceAvailabilityOptions.INVISIBLE)
                 {
                     friendsActivity.Status = friend.Presence.LastSeen.ToShortDateString() + " " +
-                                             friend.Presence.LastSeen.ToLongTimeString();
+                        friend.Presence.LastSeen.ToLongTimeString();
                     friendsActivity.m_ActivityType = Activity.ActivityType.Offline;
                 }
                 else
@@ -222,7 +228,6 @@ namespace Unity.Services.Samples.Friends
                     {
                         Debug.LogWarning($"{friend.Id} had no activity Set!\n {ex}");
                     }
-
                 }
 
                 var info = new FriendsEntryData
@@ -394,7 +399,6 @@ namespace Unity.Services.Samples.Friends
                 };
                 FriendsService.Instance.MessageReceived += e =>
                 {
-                    m_PartyManager?.ProcessPartyInvite(e);
                     RefreshRequests();
                     Debug.Log("MessageReceived EventReceived");
                 };
@@ -426,11 +430,10 @@ namespace Unity.Services.Samples.Friends
         {
             var blocks = FriendsService.Instance.Blocks;
             return relationships
-                   .Where(relationship =>
-                       !blocks.Any(blockedRelationship => blockedRelationship.Member.Id == relationship.Member.Id))
-                   .Select(relationship => relationship.Member)
-                   .ToList();
+                .Where(relationship =>
+                    !blocks.Any(blockedRelationship => blockedRelationship.Member.Id == relationship.Member.Id))
+                .Select(relationship => relationship.Member)
+                .ToList();
         }
-
     }
 }

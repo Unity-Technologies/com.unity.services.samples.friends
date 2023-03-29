@@ -12,16 +12,36 @@ namespace Unity.Services.Samples.Friends.UGUI
         List<FriendEntryViewUGUI> m_FriendEntries = new List<FriendEntryViewUGUI>();
         List<FriendsEntryData> m_FriendsEntryDatas = new List<FriendsEntryData>();
 
-
-
         public Action<string> onRemove { get; set; }
         public Action<string> onBlock { get; set; }
 
-        #if LOBBY_SDK_AVAILABLE
+#if LOBBY_SDK_AVAILABLE
+        string m_LobbyCode = "";
         public Action<string> onInviteToParty { get; set; }
         public Action<string> onJoinFriendParty { get; set; }
-        #endif
 
+        void Start()
+        {
+            LobbyEvents.OnLobbyJoined += OnLobbyJoined;
+            LobbyEvents.OnLobbyLeft += OnLobbyLeft;
+        }
+
+        void OnLobbyJoined(string lobbyCode)
+        {
+            m_LobbyCode = lobbyCode;
+        }
+
+        void OnLobbyLeft()
+        {
+            m_LobbyCode = "";
+        }
+
+        void OnDestroy()
+        {
+            LobbyEvents.OnLobbyJoined -= OnLobbyJoined;
+            LobbyEvents.OnLobbyLeft -= OnLobbyLeft;
+        }
+#endif
 
         public void BindList(List<FriendsEntryData> friendEntryDatas)
         {
@@ -47,7 +67,10 @@ namespace Unity.Services.Samples.Friends.UGUI
                     onBlock?.Invoke(friendsEntryData.Id);
                     entry.gameObject.SetActive(false);
                 });
-            #if LOBBY_SDK_AVAILABLE
+
+#if LOBBY_SDK_AVAILABLE
+
+                entry.UpdateFriendPartyState(m_LobbyCode, friendsEntryData.Activity);
                 entry.inviteFriendButton.onClick.AddListener(() =>
                 {
                     onInviteToParty?.Invoke(friendsEntryData.Id);
@@ -56,7 +79,7 @@ namespace Unity.Services.Samples.Friends.UGUI
                 {
                     onJoinFriendParty?.Invoke(friendsEntryData.Activity.m_ActivityData);
                 });
-            #endif
+#endif
                 m_FriendEntries.Add(entry);
             }
         }
