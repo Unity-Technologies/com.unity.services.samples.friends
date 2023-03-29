@@ -42,7 +42,11 @@ namespace Unity.Services.Samples
         public async Task SignIn(string profileName = null)
         {
             await Init(profileName);
-            if (IsSignedIn || m_SigningIn)
+            while (m_SigningIn)
+            {
+                await Task.Delay(100);
+            }
+            if (IsSignedIn)
                 return;
             m_SigningIn = true;
             await AuthenticationService.Instance.SignInAnonymouslyAsync();
