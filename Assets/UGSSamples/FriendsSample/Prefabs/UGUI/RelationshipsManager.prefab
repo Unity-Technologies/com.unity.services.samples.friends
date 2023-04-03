@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3721242166122303520}
   - component: {fileID: 3721242166122303519}
   - component: {fileID: 3721242166122303523}
+  - component: {fileID: 3721242167056227330}
   m_Layer: 5
   m_Name: RelationshipsManager
   m_TagString: Untagged
@@ -115,6 +116,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_RelationshipsViewGameObject: {fileID: 3721242166326456972}
+  m_SampleAuthenticator: {fileID: 3721242167056227330}
+--- !u!114 &3721242167056227330
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3721242166122303518}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdb00cdb81c9f456aad3a915e3297607, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1627657702770552445
 PrefabInstance:
   m_ObjectHideFlags: 0
