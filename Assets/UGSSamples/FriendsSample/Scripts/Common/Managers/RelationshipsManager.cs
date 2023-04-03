@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Unity.Services.Authentication;
-using Unity.Services.Core;
 using Unity.Services.Friends;
 using Unity.Services.Friends.Exceptions;
 using Unity.Services.Friends.Models;
@@ -12,10 +11,10 @@ namespace Unity.Services.Samples.Friends
 {
     public class RelationshipsManager : MonoBehaviour
     {
-        [Tooltip("Reference a GameObject that has a component extending from IRelationshipsUIController.")] [SerializeField]
-        GameObject
-            m_RelationshipsViewGameObject; //This gameObject reference is only needed to get the IRelationshipUIController component from it.
-        [SerializeField] SampleAuthenticator m_SampleAuthenticator; //Replace this when you control the services Init flow.
+        //This gameObject reference is only needed to get the IRelationshipUIController component from it.
+        [Tooltip("Reference a GameObject that has a component extending from IRelationshipsUIController."), SerializeField]
+        GameObject m_RelationshipsViewGameObject;
+
         IRelationshipsView m_RelationshipsView;
 
         List<FriendsEntryData> m_FriendsEntryDatas = new List<FriendsEntryData>();
@@ -33,8 +32,8 @@ namespace Unity.Services.Samples.Friends
 
         async void Start()
         {
-            //If this is added to a larger project, the service init flow should be controlled centrally, and replace this.
-            await m_SampleAuthenticator.SignIn();
+            //If this is added to a larger project, the service init order should be controlled from one place, and replace this.
+            await SampleAuthenticator.SignIn();
             await Init();
         }
 

@@ -8,14 +8,13 @@ using UnityEngine;
 namespace Unity.Services.Samples
 {
     /// <summary>
-    /// The Samples Plugins implementation of the Unity Authentication Service
-    /// Prevents erros when combining samples
+    /// The Drag & Drop Samples shared implementation of the Unity Authentication Service
     /// </summary>
-    public class SampleAuthenticator : MonoBehaviour
+    public static class SampleAuthenticator
     {
-        public async Task<bool> InitServices(string profileName = null)
+        public static async Task<bool> InitServices(string profileName = null)
         {
-            if (!UnInitialized)
+            if (UnityServices.State != ServicesInitializationState.Uninitialized)
                 return false;
 
             if (profileName != null)
@@ -31,11 +30,10 @@ namespace Unity.Services.Samples
             else
                 await UnityServices.InitializeAsync();
 
-            return IsInitialized;
-
+            return  UnityServices.State == ServicesInitializationState.Initialized;
         }
 
-        public async Task SignIn(string profileName = null)
+        public static async Task SignIn(string profileName = null)
         {
             if (!await InitServices(profileName))
                 return;
@@ -43,10 +41,5 @@ namespace Unity.Services.Samples
             await AuthenticationService.Instance.SignInAnonymouslyAsync();
 
         }
-
-        bool IsInitialized => UnityServices.State == ServicesInitializationState.Initialized;
-        bool UnInitialized => UnityServices.State == ServicesInitializationState.Uninitialized;
-
     }
-
 }
