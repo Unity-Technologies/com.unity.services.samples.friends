@@ -10,7 +10,7 @@ namespace Unity.Services.Samples.Friends
         {
             foreach (var importedAsset in importedAssets)
             {
-                if (importedAsset != "Packages/com.unity.services.friends")
+                if (importedAsset != $"Packages/{FriendsSampleInstaller.k_FriendsSDKName}")
                     continue;
 
                 FriendsSampleInstaller.InstallFriendsSampleUnityPackage();

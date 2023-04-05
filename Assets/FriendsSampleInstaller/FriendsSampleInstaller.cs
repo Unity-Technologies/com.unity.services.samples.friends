@@ -8,6 +8,9 @@ namespace Unity.Services.Samples.Friends
 {
     public static class FriendsSampleInstaller
     {
+        public const string k_FriendsSDKName = "com.unity.services.friends";
+        private const string k_FriendsSDKVersion = "0.2.0-preview.9";
+
         [MenuItem("Tools/FriendsSampleInstaller/Install")]
         public static async void Install()
         {
@@ -16,14 +19,14 @@ namespace Unity.Services.Samples.Friends
             while (!packages.IsCompleted)
                 await Task.Delay(100);
 
-            if (IsPackageInstalled(packages, "com.unity.services.friends"))
+            if (IsPackageInstalled(packages, k_FriendsSDKName))
             {
                 //Then we can install the friends sample package safely
                 InstallFriendsSampleUnityPackage();
                 return;
             }
 
-            Client.Add("com.unity.services.friends@0.2.0-preview.9");
+            Client.Add($"{k_FriendsSDKName}@{k_FriendsSDKVersion}");
         }
 
         private static bool IsPackageInstalled(ListRequest packages, string packageName)
