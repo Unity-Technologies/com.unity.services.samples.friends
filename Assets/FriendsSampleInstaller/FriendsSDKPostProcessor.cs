@@ -1,6 +1,6 @@
 using UnityEditor;
 
-namespace Unity.Services.Friends
+namespace Unity.Services.Samples.Friends
 {
     public class FriendsSDKPostProcessor : AssetPostprocessor
     {

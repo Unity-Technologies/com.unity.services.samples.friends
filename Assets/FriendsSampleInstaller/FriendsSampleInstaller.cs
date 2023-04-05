@@ -4,7 +4,7 @@ using UnityEditor;
 using UnityEditor.PackageManager;
 using UnityEditor.PackageManager.Requests;
 
-namespace Unity.Services.Friends
+namespace Unity.Services.Samples.Friends
 {
     public static class FriendsSampleInstaller
     {
