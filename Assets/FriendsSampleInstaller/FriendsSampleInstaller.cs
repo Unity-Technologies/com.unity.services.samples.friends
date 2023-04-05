@@ -6,7 +6,7 @@ using UnityEditor.PackageManager.Requests;
 
 public static class FriendsSampleInstaller
 {
-    [MenuItem("Tools/UGSSamples/FriendsSample/Install")]
+    [MenuItem("Tools/FriendsSampleInstaller/Install")]
     public static async void Install()
     {
         var packages = Client.List();
