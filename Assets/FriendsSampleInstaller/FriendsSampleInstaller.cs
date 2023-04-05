@@ -1,12 +1,10 @@
 using System.Threading.Tasks;
 using UnityEditor;
 using UnityEditor.PackageManager;
-using UnityEngine;
-
 
 public static class FriendsSampleInstaller
 {
-    [MenuItem("Tools/FriendsSample")]
+    [MenuItem("Tools/UGSSamples/FriendsSample/Install")]
     public static async void Install()
     {
         var addAndRemoveRequest = Client.AddAndRemove(new[]
@@ -16,8 +14,5 @@ public static class FriendsSampleInstaller
 
         while (!addAndRemoveRequest.IsCompleted)
             await Task.Delay(100);
-
-        var path = "Assets/UGSSamples/FriendsSampleInstaller/Friends.unitypackage";
-        AssetDatabase.ImportPackage(path, true);
     }
 }
