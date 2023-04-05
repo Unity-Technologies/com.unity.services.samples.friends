@@ -2,7 +2,7 @@ using UnityEditor;
 
 namespace Unity.Services.Samples.Friends
 {
-    public class FriendsSDKPostProcessor : AssetPostprocessor
+    public class FriendsSDKAssetPostProcessor : AssetPostprocessor
     {
         private static void OnPostprocessAllAssets(string[] importedAssets, string[] deletedAssets,
             string[] movedAssets,
