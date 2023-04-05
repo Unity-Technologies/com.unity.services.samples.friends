@@ -23,7 +23,7 @@ namespace Unity.Services.Samples.Friends
                 return;
             }
 
-            Client.AddAndRemove(new[] { "com.unity.services.friends@0.2.0-preview.9" });
+            Client.Add("com.unity.services.friends@0.2.0-preview.9");
         }
 
         private static bool IsPackageInstalled(ListRequest packages, string packageName)
