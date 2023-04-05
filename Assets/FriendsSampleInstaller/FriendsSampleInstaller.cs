@@ -4,34 +4,37 @@ using UnityEditor;
 using UnityEditor.PackageManager;
 using UnityEditor.PackageManager.Requests;
 
-public static class FriendsSampleInstaller
+namespace Unity.Services.Friends
 {
-    [MenuItem("Tools/FriendsSampleInstaller/Install")]
-    public static async void Install()
+    public static class FriendsSampleInstaller
     {
-        var packages = Client.List();
-
-        while (!packages.IsCompleted)
-            await Task.Delay(100);
-
-        if (IsPackageInstalled(packages, "com.unity.services.friends"))
+        [MenuItem("Tools/FriendsSampleInstaller/Install")]
+        public static async void Install()
         {
-            //Then we can install the friends sample package safely
-            InstallFriendsSampleUnityPackage();
-            return;
+            var packages = Client.List();
+
+            while (!packages.IsCompleted)
+                await Task.Delay(100);
+
+            if (IsPackageInstalled(packages, "com.unity.services.friends"))
+            {
+                //Then we can install the friends sample package safely
+                InstallFriendsSampleUnityPackage();
+                return;
+            }
+
+            Client.AddAndRemove(new[] { "com.unity.services.friends@0.2.0-preview.9" });
         }
 
-        Client.AddAndRemove(new[] { "com.unity.services.friends@0.2.0-preview.9" });
-    }
+        private static bool IsPackageInstalled(ListRequest packages, string packageName)
+        {
+            return packages.Result.Any(package => package.name.Equals(packageName));
+        }
 
-    private static bool IsPackageInstalled(ListRequest packages, string packageName)
-    {
-        return packages.Result.Any(package => package.name.Equals(packageName));
-    }
-
-    public static void InstallFriendsSampleUnityPackage()
-    {
-        var friendsSamplePackagePath = "Assets/FriendsSampleInstaller/Package/FriendsSample.unitypackage";
-        AssetDatabase.ImportPackage(friendsSamplePackagePath, true);
+        public static void InstallFriendsSampleUnityPackage()
+        {
+            var friendsSamplePackagePath = "Assets/FriendsSampleInstaller/Package/FriendsSample.unitypackage";
+            AssetDatabase.ImportPackage(friendsSamplePackagePath, true);
+        }
     }
 }

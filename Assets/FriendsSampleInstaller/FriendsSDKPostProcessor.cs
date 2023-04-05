@@ -1,16 +1,20 @@
 using UnityEditor;
 
-public class FriendsSDKPostProcessor : AssetPostprocessor
+namespace Unity.Services.Friends
 {
-    private static void OnPostprocessAllAssets(string[] importedAssets, string[] deletedAssets, string[] movedAssets,
-        string[] movedFromAssetPaths)
+    public class FriendsSDKPostProcessor : AssetPostprocessor
     {
-        foreach (var importedAsset in importedAssets)
+        private static void OnPostprocessAllAssets(string[] importedAssets, string[] deletedAssets,
+            string[] movedAssets,
+            string[] movedFromAssetPaths)
         {
-            if (importedAsset != "Packages/com.unity.services.friends") 
-                continue;
-            
-            FriendsSampleInstaller.InstallFriendsSampleUnityPackage();
+            foreach (var importedAsset in importedAssets)
+            {
+                if (importedAsset != "Packages/com.unity.services.friends")
+                    continue;
+
+                FriendsSampleInstaller.InstallFriendsSampleUnityPackage();
+            }
         }
     }
 }
