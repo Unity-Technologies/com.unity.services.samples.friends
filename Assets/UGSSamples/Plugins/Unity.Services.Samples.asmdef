@@ -1,5 +1,5 @@
 {
-    "name": "Unity.Service.Samples",
+    "name": "Unity.Services.Samples",
     "rootNamespace": "",
     "references": [
         "Unity.Services.Authentication",

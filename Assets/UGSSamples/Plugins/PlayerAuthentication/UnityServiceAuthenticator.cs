@@ -1,4 +1,3 @@
-
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Unity.Services.Authentication;
@@ -8,9 +7,9 @@ using UnityEngine;
 namespace Unity.Services.Samples
 {
     /// <summary>
-    /// The Drag & Drop Samples shared implementation of the Unity Authentication Service
+    /// Sample implementation of the Unity Authentication Service.
     /// </summary>
-    public static class SampleAuthenticator
+    public static class UnityServiceAuthenticator
     {
         public static async Task<bool> InitServices(string profileName = null)
         {
@@ -20,7 +19,7 @@ namespace Unity.Services.Samples
             if (profileName != null)
             {
                 //ProfileNames can't contain non-alphanumeric characters
-                Regex rgx = new Regex("[^a-zA-Z0-9 -]");
+                var rgx = new Regex("[^a-zA-Z0-9 -]");
                 profileName = rgx.Replace(profileName, "");
                 var authProfile = new InitializationOptions().SetProfile(profileName);
 
@@ -30,7 +29,7 @@ namespace Unity.Services.Samples
             else
                 await UnityServices.InitializeAsync();
 
-            return  UnityServices.State == ServicesInitializationState.Initialized;
+            return UnityServices.State == ServicesInitializationState.Initialized;
         }
 
         public static async Task SignIn(string profileName = null)
@@ -39,7 +38,6 @@ namespace Unity.Services.Samples
                 return;
 
             await AuthenticationService.Instance.SignInAnonymouslyAsync();
-
         }
     }
 }

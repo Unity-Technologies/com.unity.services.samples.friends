@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 3721242166122303520}
   - component: {fileID: 3721242166122303519}
   - component: {fileID: 3721242166122303523}
-  - component: {fileID: 3721242167056227330}
   m_Layer: 5
   m_Name: RelationshipsManager
   m_TagString: Untagged
@@ -116,19 +115,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_RelationshipsViewGameObject: {fileID: 3721242166326456972}
-  m_SampleAuthenticator: {fileID: 3721242167056227330}
---- !u!114 &3721242167056227330
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3721242166122303518}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fdb00cdb81c9f456aad3a915e3297607, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1627657702770552445
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -344,9 +330,17 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4788157258588749260, guid: dd589dfd007ef194cbf569df013661a4, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 239.20255
+      objectReference: {fileID: 0}
     - target: {fileID: 4793158682040805395, guid: dd589dfd007ef194cbf569df013661a4, type: 3}
       propertyPath: m_SizeDelta.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4793158682040805395, guid: dd589dfd007ef194cbf569df013661a4, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 239.20279
       objectReference: {fileID: 0}
     - target: {fileID: 5106503485798623903, guid: dd589dfd007ef194cbf569df013661a4, type: 3}
       propertyPath: m_fontAsset
@@ -467,6 +461,10 @@ PrefabInstance:
     - target: {fileID: 7526666235365672148, guid: dd589dfd007ef194cbf569df013661a4, type: 3}
       propertyPath: m_SizeDelta.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7526666235365672148, guid: dd589dfd007ef194cbf569df013661a4, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 239.20279
       objectReference: {fileID: 0}
     - target: {fileID: 8283569920513784351, guid: dd589dfd007ef194cbf569df013661a4, type: 3}
       propertyPath: m_hasFontAssetChanged
