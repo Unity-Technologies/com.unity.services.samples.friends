@@ -1,0 +1,22 @@
+{
+  "name": "com.unity.services.samples.friends",
+  "version": "1.0.0",
+  "displayName": "Friends Sample",
+  "description": "This sample showcases the Friends Service",
+  "unity": "2021.3",
+  "documentationUrl": "https://example.com/",
+  "changelogUrl": "https://docs.unity.com/friends/en/manual/samples/friends-sample,
+  "dependencies": {
+    "com.unity.services.friends": "0.2.0-preview.9"
+ },
+ "keywords": [
+    "Friends",
+    "UGS",
+    "Sample"
+  ],
+  "author": {
+    "name": "Unity",
+    "email": "unity@example.com",
+    "url": "https://www.unity3d.com"
+  }
+}
