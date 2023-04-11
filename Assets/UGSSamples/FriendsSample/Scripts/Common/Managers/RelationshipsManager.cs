@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Unity.Services.Authentication;
-using Unity.Services.Core;
 using Unity.Services.Friends;
 using Unity.Services.Friends.Exceptions;
 using Unity.Services.Friends.Models;
@@ -12,10 +11,10 @@ namespace Unity.Services.Samples.Friends
 {
     public class RelationshipsManager : MonoBehaviour
     {
-        [Tooltip("Reference a GameObject that has a component extending from IRelationshipsUIController.")]
-        [SerializeField]
-        GameObject
-            m_RelationshipsViewGameObject; //This gameObject reference is only needed to get the IRelationshipUIController component from it.
+        //This gameObject reference is only needed to get the IRelationshipUIController component from it.
+        [Tooltip("Reference a GameObject that has a component extending from IRelationshipsUIController."), SerializeField]
+        GameObject m_RelationshipsViewGameObject;
+
         IRelationshipsView m_RelationshipsView;
 
         List<FriendsEntryData> m_FriendsEntryDatas = new List<FriendsEntryData>();
@@ -29,23 +28,20 @@ namespace Unity.Services.Samples.Friends
         IBlockedListView m_BlockListView;
 
         IPlayerProfileService m_SamplePlayerProfileService;
-
         PlayerProfile m_LoggedPlayerProfile;
 
         async void Start()
         {
-            //If you are using multiple unity services, make sure to initialize it only once before using your services.
-            await UnityServices.InitializeAsync();
-            await AuthenticationService.Instance.SignInAnonymouslyAsync();
-            await Init(AuthenticationService.Instance.PlayerId);
+            //If this is added to a larger project, the service init order should be controlled from one place, and replace this.
+            await UnityServiceAuthenticator.SignIn();
+            await Init();
         }
 
-        async Task Init(string playerId)
+        async Task Init()
         {
             await FriendsService.Instance.InitializeAsync();
             UIInit();
-            m_SamplePlayerProfileService = new SamplePlayerProfileService();
-            await LogInAsync(playerId);
+            await LogInAsync();
             SubscribeToFriendsEventCallbacks();
             RefreshAll();
         }
@@ -89,12 +85,17 @@ namespace Unity.Services.Samples.Friends
             m_LocalPlayerView.onPresenceChanged += SetPresenceAsync;
         }
 
-        async Task LogInAsync(string playerId)
+        async Task LogInAsync()
         {
-            m_LoggedPlayerProfile = new PlayerProfile(m_SamplePlayerProfileService.GetName(playerId), playerId);
+            var playerID = AuthenticationService.Instance.PlayerId;
+            m_SamplePlayerProfileService = new SamplePlayerProfileService();
+            m_LoggedPlayerProfile = new PlayerProfile(m_SamplePlayerProfileService.GetName(playerID), playerID);
 
-            await SetPresence(PresenceAvailabilityOptions.ONLINE,"In Friends Menu");
-            m_LocalPlayerView.Refresh(m_LoggedPlayerProfile.Name, m_LoggedPlayerProfile.Id, "In Friends Menu",
+            await SetPresence(PresenceAvailabilityOptions.ONLINE, "In Friends Menu");
+            m_LocalPlayerView.Refresh(
+                m_LoggedPlayerProfile.Name,
+                m_LoggedPlayerProfile.Id,
+                "In Friends Menu",
                 PresenceAvailabilityOptions.ONLINE);
             RefreshAll();
             Debug.Log($"Logged in as {m_LoggedPlayerProfile}");
@@ -168,7 +169,7 @@ namespace Unity.Services.Samples.Friends
                     friend.Presence.Availability == PresenceAvailabilityOptions.INVISIBLE)
                 {
                     activityText = friend.Presence.LastSeen.ToShortDateString() + " " +
-                        friend.Presence.LastSeen.ToLongTimeString();
+                                   friend.Presence.LastSeen.ToLongTimeString();
                 }
                 else
                 {
@@ -380,10 +381,10 @@ namespace Unity.Services.Samples.Friends
         {
             var blocks = FriendsService.Instance.Blocks;
             return relationships
-                .Where(relationship =>
-                    !blocks.Any(blockedRelationship => blockedRelationship.Member.Id == relationship.Member.Id))
-                .Select(relationship => relationship.Member)
-                .ToList();
+                   .Where(relationship =>
+                       !blocks.Any(blockedRelationship => blockedRelationship.Member.Id == relationship.Member.Id))
+                   .Select(relationship => relationship.Member)
+                   .ToList();
         }
     }
 }
