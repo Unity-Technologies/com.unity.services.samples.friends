@@ -27,7 +27,6 @@ namespace Unity.Services.Samples.Friends
         IRequestListView m_RequestListView;
         IBlockedListView m_BlockListView;
 
-        IPlayerProfileService m_SamplePlayerProfileService;
         PlayerProfile m_LoggedPlayerProfile;
 
         async void Start()
@@ -88,8 +87,8 @@ namespace Unity.Services.Samples.Friends
         async Task LogInAsync()
         {
             var playerID = AuthenticationService.Instance.PlayerId;
-            m_SamplePlayerProfileService = new SamplePlayerProfileService();
-            m_LoggedPlayerProfile = new PlayerProfile(m_SamplePlayerProfileService.GetName(playerID), playerID);
+            var playerName = await AuthenticationService.Instance.GetPlayerNameAsync();
+            m_LoggedPlayerProfile = new PlayerProfile(playerName, playerID);
 
             await SetPresence(PresenceAvailabilityOptions.ONLINE, "In Friends Menu");
             m_LocalPlayerView.Refresh(
@@ -180,7 +179,7 @@ namespace Unity.Services.Samples.Friends
 
                 var info = new FriendsEntryData
                 {
-                    Name = m_SamplePlayerProfileService.GetName(friend.Id),
+                    Name = friend.Profile.Name,
                     Id = friend.Id,
                     Availability = friend.Presence.Availability,
                     Activity = activityText
@@ -198,8 +197,7 @@ namespace Unity.Services.Samples.Friends
 
             foreach (var request in requests)
             {
-                m_RequestsEntryDatas.Add(
-                    new PlayerProfile(m_SamplePlayerProfileService.GetName(request.Id), request.Id));
+                m_RequestsEntryDatas.Add(new PlayerProfile(request.Profile.Name, request.Id));
             }
 
             m_RelationshipsView.RelationshipBarView.Refresh();
@@ -211,8 +209,7 @@ namespace Unity.Services.Samples.Friends
 
             foreach (var block in FriendsService.Instance.Blocks)
             {
-                m_BlockEntryDatas.Add(new PlayerProfile(m_SamplePlayerProfileService.GetName(block.Member.Id),
-                    block.Member.Id));
+                m_BlockEntryDatas.Add(new PlayerProfile(block.Member.Profile.Name, block.Member.Id));
             }
 
             m_RelationshipsView.RelationshipBarView.Refresh();
