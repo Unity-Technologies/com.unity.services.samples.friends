@@ -30,7 +30,6 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
-  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3721242166326456973}
   m_Father: {fileID: 0}
@@ -77,7 +76,7 @@ MonoBehaviour:
   m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 1920, y: 1080}
+  m_ReferenceResolution: {x: 1600, y: 800}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -122,6 +121,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3721242166122303522}
     m_Modifications:
+    - target: {fileID: 384105520687344017, guid: dd589dfd007ef194cbf569df013661a4, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 819504630941269782, guid: dd589dfd007ef194cbf569df013661a4, type: 3}
       propertyPath: m_fontSize
       value: 26.85
