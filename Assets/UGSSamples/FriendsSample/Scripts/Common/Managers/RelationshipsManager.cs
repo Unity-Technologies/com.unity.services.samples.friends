@@ -33,7 +33,7 @@ namespace Unity.Services.Samples.Friends
         async void Start()
         {
             //If this is added to a larger project, the service init order should be controlled from one place, and replace this.
-            await UnityServiceAuthenticator.SignIn();
+            await UnityServiceAuthenticator.TrySignInAsync();
             await Init();
         }
 
@@ -89,13 +89,12 @@ namespace Unity.Services.Samples.Friends
         {
             var playerID = AuthenticationService.Instance.PlayerId;
             m_SamplePlayerProfileService = new SamplePlayerProfileService();
+
             m_LoggedPlayerProfile = new PlayerProfile(m_SamplePlayerProfileService.GetName(playerID), playerID);
 
+
             await SetPresence(PresenceAvailabilityOptions.ONLINE, "In Friends Menu");
-            m_LocalPlayerView.Refresh(
-                m_LoggedPlayerProfile.Name,
-                m_LoggedPlayerProfile.Id,
-                "In Friends Menu",
+            m_LocalPlayerView.Refresh(m_LoggedPlayerProfile.Name, m_LoggedPlayerProfile.Id, "In Friends Menu",
                 PresenceAvailabilityOptions.ONLINE);
             RefreshAll();
             Debug.Log($"Logged in as {m_LoggedPlayerProfile}");
