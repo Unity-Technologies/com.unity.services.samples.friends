@@ -395,7 +395,7 @@ MonoBehaviour:
   m_AddFriendButton: {fileID: 8799174262554854285}
   m_CloseButton: {fileID: 6360138539803238208}
   m_BackgroundButton: {fileID: 4593130544501286793}
-  m_IdInputField: {fileID: 5766720031395101877}
+  m_NameInputField: {fileID: 5766720031395101877}
   m_RequestResultText: {fileID: 8194958340358931754}
 --- !u!1 &4593130545112082050
 GameObject:
@@ -486,7 +486,7 @@ GameObject:
   - component: {fileID: 4593130545330024233}
   - component: {fileID: 4593130545330024231}
   m_Layer: 5
-  m_Name: IDAdd
+  m_Name: NameAdd
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1113,9 +1113,13 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4593130545330024233}
     m_Modifications:
+    - target: {fileID: 8639434144123899264, guid: 25c7ec8e5f91fb9479a3c21d73e190e6, type: 3}
+      propertyPath: m_text
+      value: Input Player Name
+      objectReference: {fileID: 0}
     - target: {fileID: 8639434145880774915, guid: 25c7ec8e5f91fb9479a3c21d73e190e6, type: 3}
       propertyPath: m_Name
-      value: FriendIDField
+      value: FriendNameField
       objectReference: {fileID: 0}
     - target: {fileID: 8639434145880774924, guid: 25c7ec8e5f91fb9479a3c21d73e190e6, type: 3}
       propertyPath: m_Pivot.x

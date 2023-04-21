@@ -12,11 +12,9 @@ namespace Unity.Services.Samples.Friends.UGUI
         public Action<(PresenceAvailabilityOptions, string)> onPresenceChanged { get; set; }
 
         [SerializeField] TextMeshProUGUI m_NameText = null;
-        [SerializeField] TMP_InputField m_Id = null;
         [SerializeField] TMP_InputField m_Activity = null;
         [SerializeField] TMP_Dropdown m_PresenceSelector = null;
         [SerializeField] Image m_PresenceColor = null;
-        [SerializeField] Button m_CopyButton = null;
 
         void Awake()
         {
@@ -31,7 +29,6 @@ namespace Unity.Services.Samples.Friends.UGUI
             m_PresenceSelector.AddOptions(names);
             m_PresenceSelector.onValueChanged.AddListener((value) => { OnStatusChanged(value, m_Activity.text); });
             m_Activity.onEndEdit.AddListener((value) => { OnStatusChanged(m_PresenceSelector.value, value); });
-            m_CopyButton.onClick.AddListener(() => { GUIUtility.systemCopyBuffer = m_Id.text; });
         }
 
         void OnStatusChanged(int value, string activity)
@@ -42,10 +39,9 @@ namespace Unity.Services.Samples.Friends.UGUI
             onPresenceChanged?.Invoke((presence, activity));
         }
 
-        public void Refresh(string name, string id, string activity, PresenceAvailabilityOptions presenceAvailabilityOptions)
+        public void Refresh(string name, string activity, PresenceAvailabilityOptions presenceAvailabilityOptions)
         {
             m_NameText.text = name;
-            m_Id.text = id;
 
             //Presence
             var index = (int)presenceAvailabilityOptions - 1;
