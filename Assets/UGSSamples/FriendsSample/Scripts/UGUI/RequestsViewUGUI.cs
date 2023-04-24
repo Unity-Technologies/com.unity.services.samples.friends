@@ -32,7 +32,7 @@ namespace Unity.Services.Samples.Friends.UGUI
                 entry.acceptButton.onClick.AddListener(() =>
                 {
                     entry.gameObject.SetActive(false);
-                    onAccept?.Invoke(playerProfile.Id);
+                    onAccept?.Invoke(playerProfile.Name);
                 });
                 entry.declineButton.onClick.AddListener(() =>
                 {

@@ -18,9 +18,7 @@ namespace Unity.Services.Samples.Friends.UIToolkit
         DropdownField m_PlayerStatusDropDown;
         Label m_PlayerName;
         TextField m_PlayerActivity;
-        TextField m_PlayerId;
         VisualElement m_PlayerStatusCircle;
-        Button m_CopyButton;
         Button m_AcceptChangeButton;
         Button m_CancelChangeButton;
         string m_LastActivityString;
@@ -30,18 +28,11 @@ namespace Unity.Services.Samples.Friends.UIToolkit
             var playerEntryView = viewParent.Q(k_PlayerEntryRootName);
             m_PlayerStatusDropDown = playerEntryView.Q<DropdownField>("player-status-dropdown");
             m_PlayerName = playerEntryView.Q<Label>("player-name-label");
-            m_PlayerId = playerEntryView.Q<TextField>("id-field");
             m_PlayerStatusCircle = playerEntryView.Q<VisualElement>("player-status-circle");
             m_PlayerActivity = playerEntryView.Q<TextField>("player-activity-field");
 
-            m_CopyButton = playerEntryView.Q<Button>("copy-id-button");
             m_AcceptChangeButton = m_PlayerActivity.Q<Button>("player-accept");
             m_CancelChangeButton = m_PlayerActivity.Q<Button>("player-cancel");
-
-            m_CopyButton.RegisterCallback<ClickEvent>((_) =>
-            {
-                GUIUtility.systemCopyBuffer = m_PlayerId.text;
-            });
 
             m_AcceptChangeButton.RegisterCallback<ClickEvent>((_) =>
             {
@@ -68,11 +59,10 @@ namespace Unity.Services.Samples.Friends.UIToolkit
         }
 
         //Keeping these setters seperate in case we wan to support name and activity changes`
-        public void Refresh(string name, string id, string activity,
+        public void Refresh(string name, string activity,
             PresenceAvailabilityOptions presenceAvailabilityOptions)
         {
             m_PlayerName.text = name;
-            m_PlayerId.SetValueWithoutNotify(id);
             m_PlayerActivity.SetValueWithoutNotify(activity);
             SetPresence(presenceAvailabilityOptions);
         }
