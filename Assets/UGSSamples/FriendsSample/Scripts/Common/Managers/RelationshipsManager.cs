@@ -27,7 +27,6 @@ namespace Unity.Services.Samples.Friends
         IRequestListView m_RequestListView;
         IBlockedListView m_BlockListView;
 
-        IPlayerProfileService m_SamplePlayerProfileService;
         PlayerProfile m_LoggedPlayerProfile;
 
         async void Start()
@@ -88,13 +87,12 @@ namespace Unity.Services.Samples.Friends
         async Task LogInAsync()
         {
             var playerID = AuthenticationService.Instance.PlayerId;
-            m_SamplePlayerProfileService = new SamplePlayerProfileService();
-            m_LoggedPlayerProfile = new PlayerProfile(m_SamplePlayerProfileService.GetName(playerID), playerID);
+            var playerName = await AuthenticationService.Instance.GetPlayerNameAsync();
+            m_LoggedPlayerProfile = new PlayerProfile(playerName, playerID);
 
             await SetPresence(PresenceAvailabilityOptions.ONLINE, "In Friends Menu");
             m_LocalPlayerView.Refresh(
                 m_LoggedPlayerProfile.Name,
-                m_LoggedPlayerProfile.Id,
                 "In Friends Menu",
                 PresenceAvailabilityOptions.ONLINE);
             RefreshAll();
@@ -127,9 +125,9 @@ namespace Unity.Services.Samples.Friends
             RefreshFriends();
         }
 
-        async void AcceptRequestAsync(string id)
+        async void AcceptRequestAsync(string name)
         {
-            await AcceptRequest(id);
+            await AcceptRequest(name);
             RefreshRequests();
             RefreshFriends();
         }
@@ -143,13 +141,12 @@ namespace Unity.Services.Samples.Friends
         async void SetPresenceAsync((PresenceAvailabilityOptions presence, string activity) status)
         {
             await SetPresence(status.presence, status.activity);
-            m_LocalPlayerView.Refresh(m_LoggedPlayerProfile.Name, m_LoggedPlayerProfile.Id, status.activity,
-                status.presence);
+            m_LocalPlayerView.Refresh(m_LoggedPlayerProfile.Name, status.activity, status.presence);
         }
 
-        async void AddFriendAsync(string id)
+        async void AddFriendAsync(string name)
         {
-            var success = await SendFriendRequest(id);
+            var success = await SendFriendRequest(name);
             if (success)
                 m_AddFriendView.FriendRequestSuccess();
             else
@@ -180,7 +177,7 @@ namespace Unity.Services.Samples.Friends
 
                 var info = new FriendsEntryData
                 {
-                    Name = m_SamplePlayerProfileService.GetName(friend.Id),
+                    Name = friend.Profile.Name,
                     Id = friend.Id,
                     Availability = friend.Presence.Availability,
                     Activity = activityText
@@ -197,10 +194,7 @@ namespace Unity.Services.Samples.Friends
             var requests = GetRequests();
 
             foreach (var request in requests)
-            {
-                m_RequestsEntryDatas.Add(
-                    new PlayerProfile(m_SamplePlayerProfileService.GetName(request.Id), request.Id));
-            }
+                m_RequestsEntryDatas.Add(new PlayerProfile(request.Profile.Name, request.Id));
 
             m_RelationshipsView.RelationshipBarView.Refresh();
         }
@@ -210,25 +204,23 @@ namespace Unity.Services.Samples.Friends
             m_BlockEntryDatas.Clear();
 
             foreach (var block in FriendsService.Instance.Blocks)
-            {
-                m_BlockEntryDatas.Add(new PlayerProfile(m_SamplePlayerProfileService.GetName(block.Member.Id),
-                    block.Member.Id));
-            }
+                m_BlockEntryDatas.Add(new PlayerProfile(block.Member.Profile.Name, block.Member.Id));
 
             m_RelationshipsView.RelationshipBarView.Refresh();
         }
 
-        async Task<bool> SendFriendRequest(string playerId)
+        async Task<bool> SendFriendRequest(string playerName)
         {
             try
             {
-                var relationship = await FriendsService.Instance.AddFriendAsync(playerId);
-                Debug.Log($"Friend request sent to {playerId}.");
+                //We add the friend by name in this sample but you can also add a friend by ID using AddFriendAsync
+                var relationship = await FriendsService.Instance.AddFriendByNameAsync(playerName);
+                Debug.Log($"Friend request sent to {playerName}.");
                 return relationship.Type == RelationshipType.FRIEND_REQUEST;
             }
             catch (RelationshipsServiceException e)
             {
-                Debug.Log($"Failed to Request {playerId} - {e}.");
+                Debug.Log($"Failed to Request {playerName} - {e}.");
                 return false;
             }
         }
@@ -275,16 +267,16 @@ namespace Unity.Services.Samples.Friends
             }
         }
 
-        async Task AcceptRequest(string playerId)
+        async Task AcceptRequest(string playerName)
         {
             try
             {
-                await SendFriendRequest(playerId);
-                Debug.Log($"Friend request from {playerId} was accepted.");
+                await SendFriendRequest(playerName);
+                Debug.Log($"Friend request from {playerName} was accepted.");
             }
             catch (RelationshipsServiceException e)
             {
-                Debug.Log($"Failed to accept request from {playerId}.");
+                Debug.Log($"Failed to accept request from {playerName}.");
                 Debug.LogError(e);
             }
         }
