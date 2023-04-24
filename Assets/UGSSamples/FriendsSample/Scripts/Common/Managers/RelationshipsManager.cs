@@ -194,9 +194,7 @@ namespace Unity.Services.Samples.Friends
             var requests = GetRequests();
 
             foreach (var request in requests)
-            {
                 m_RequestsEntryDatas.Add(new PlayerProfile(request.Profile.Name, request.Id));
-            }
 
             m_RelationshipsView.RelationshipBarView.Refresh();
         }
@@ -206,9 +204,7 @@ namespace Unity.Services.Samples.Friends
             m_BlockEntryDatas.Clear();
 
             foreach (var block in FriendsService.Instance.Blocks)
-            {
                 m_BlockEntryDatas.Add(new PlayerProfile(block.Member.Profile.Name, block.Member.Id));
-            }
 
             m_RelationshipsView.RelationshipBarView.Refresh();
         }
@@ -217,6 +213,7 @@ namespace Unity.Services.Samples.Friends
         {
             try
             {
+                //We add the friend by name in this sample but you can also add a friend by ID using AddFriendAsync
                 var relationship = await FriendsService.Instance.AddFriendByNameAsync(playerName);
                 Debug.Log($"Friend request sent to {playerName}.");
                 return relationship.Type == RelationshipType.FRIEND_REQUEST;
