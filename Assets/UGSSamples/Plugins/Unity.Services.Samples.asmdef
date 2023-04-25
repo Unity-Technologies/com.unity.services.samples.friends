@@ -1,7 +1,10 @@
 {
-    "name": "Unity.Service.Samples",
+    "name": "Unity.Services.Samples",
     "rootNamespace": "",
-    "references": [],
+    "references": [
+        "Unity.Services.Authentication",
+        "Unity.Services.Core"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

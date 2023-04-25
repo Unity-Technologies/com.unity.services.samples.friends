@@ -7,9 +7,8 @@ namespace Unity.Services.Samples.Friends
     {
         Action<(PresenceAvailabilityOptions, string)> onPresenceChanged { get; set; }
 
-        void Refresh(string name, string id, string activity,
+        void Refresh(string name, string activity,
             PresenceAvailabilityOptions presenceAvailabilityOptions);
     }
 
 }
-
