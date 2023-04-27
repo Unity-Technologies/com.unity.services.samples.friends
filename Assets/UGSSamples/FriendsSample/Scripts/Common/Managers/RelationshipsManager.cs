@@ -6,13 +6,16 @@ using Unity.Services.Friends;
 using Unity.Services.Friends.Exceptions;
 using Unity.Services.Friends.Models;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 
 namespace Unity.Services.Samples.Friends
 {
     public class RelationshipsManager : MonoBehaviour
     {
         //This gameObject reference is only needed to get the IRelationshipUIController component from it.
-        [Tooltip("Reference a GameObject that has a component extending from IRelationshipsUIController."), SerializeField]
+        [Tooltip("Reference a GameObject that has a component extending from IRelationshipsUIController."),
+         SerializeField]
         GameObject m_RelationshipsViewGameObject;
 
         IRelationshipsView m_RelationshipsView;
@@ -31,6 +34,9 @@ namespace Unity.Services.Samples.Friends
 
         async void Start()
         {
+            var isUITK = m_RelationshipsViewGameObject.GetComponent<UIDocument>() != null;
+            FriendSampleEditorAnalytics.SendRelationshipManagerStarted(SceneManager.GetActiveScene().name, isUITK);
+
             //If this is added to a larger project, the service init order should be controlled from one place, and replace this.
             await UnityServiceAuthenticator.SignIn();
             await Init();
@@ -166,7 +172,7 @@ namespace Unity.Services.Samples.Friends
                     friend.Presence.Availability == PresenceAvailabilityOptions.INVISIBLE)
                 {
                     activityText = friend.Presence.LastSeen.ToShortDateString() + " " +
-                                   friend.Presence.LastSeen.ToLongTimeString();
+                        friend.Presence.LastSeen.ToLongTimeString();
                 }
                 else
                 {
@@ -373,10 +379,10 @@ namespace Unity.Services.Samples.Friends
         {
             var blocks = FriendsService.Instance.Blocks;
             return relationships
-                   .Where(relationship =>
-                       !blocks.Any(blockedRelationship => blockedRelationship.Member.Id == relationship.Member.Id))
-                   .Select(relationship => relationship.Member)
-                   .ToList();
+                .Where(relationship =>
+                    !blocks.Any(blockedRelationship => blockedRelationship.Member.Id == relationship.Member.Id))
+                .Select(relationship => relationship.Member)
+                .ToList();
         }
     }
 }
