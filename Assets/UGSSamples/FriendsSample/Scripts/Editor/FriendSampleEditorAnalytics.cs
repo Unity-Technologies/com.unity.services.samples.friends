@@ -27,13 +27,6 @@ namespace Unity.Services.Samples
             public bool IsUITK;
         }
 
-        [Serializable]
-        struct SceneTotalSessionLengthData
-        {
-            public string sceneName;
-            public int sessionLengthSeconds;
-        }
-
         const int k_WaitForEnabledMilliseconds = 500;
 
         const int k_MaxEventsPerHour = 3600;
@@ -48,16 +41,8 @@ namespace Unity.Services.Samples
         const string k_PrefabStartedEvent = k_Prefix + "FriendsManagerStarted";
         const int k_PrefabStartedVersion = 1;
 
-        static string m_CurrentSceneName;
-        static DateTime m_CurrentSceneSessionCheckpoint;
-
         static FriendSampleEditorAnalytics()
         {
-            m_CurrentSceneName = SceneManager.GetActiveScene().name;
-            m_CurrentSceneSessionCheckpoint = DateTime.Now;
-
-            EditorApplication.wantsToQuit += OnEditorWantsToQuit;
-
 // disable the warning that we aren't awaiting this call
 #pragma warning disable 4014
 
@@ -89,11 +74,6 @@ namespace Unity.Services.Samples
                 k_PrefabStartedEvent,
                 new RelationshipManagerStartedData { SceneName = sceneName, IsUITK = isUITK },
                 k_PrefabStartedVersion);
-        }
-
-        static bool OnEditorWantsToQuit()
-        {
-            return true;
         }
     }
 }
