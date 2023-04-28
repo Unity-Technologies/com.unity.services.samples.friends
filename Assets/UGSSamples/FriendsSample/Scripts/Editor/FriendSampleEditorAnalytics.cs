@@ -66,6 +66,13 @@ namespace Unity.Services.Samples
                     return;
                 }
             }
+
+            EditorAnalytics.RegisterEventWithLimit(
+                k_PrefabStartedEvent,
+                k_MaxEventsPerHour,
+                k_MaxItems,
+                k_VendorKey,
+                k_PrefabStartedVersion);
         }
 
         public static void SendRelationshipManagerStarted(string sceneName, bool isUITK)
