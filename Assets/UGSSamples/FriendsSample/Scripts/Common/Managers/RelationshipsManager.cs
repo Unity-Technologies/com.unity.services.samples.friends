@@ -148,9 +148,18 @@ namespace Unity.Services.Samples.Friends
         {
             var success = await SendFriendRequest(name);
             if (success)
+            {
                 m_AddFriendView.FriendRequestSuccess();
+                if (m_RequestsEntryDatas.Find(entry => entry.Name == name) != null)
+                {
+                    RefreshFriends();
+                    RefreshRequests();
+                }
+            }
             else
+            {
                 m_AddFriendView.FriendRequestFailed();
+            }
         }
 
         void RefreshFriends()
@@ -216,7 +225,7 @@ namespace Unity.Services.Samples.Friends
                 //We add the friend by name in this sample but you can also add a friend by ID using AddFriendAsync
                 var relationship = await FriendsService.Instance.AddFriendByNameAsync(playerName);
                 Debug.Log($"Friend request sent to {playerName}.");
-                return relationship.Type == RelationshipType.FRIEND_REQUEST;
+                return relationship.Type == RelationshipType.FRIEND_REQUEST || relationship.Type == RelationshipType.FRIEND;
             }
             catch (RelationshipsServiceException e)
             {
