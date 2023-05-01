@@ -824,11 +824,11 @@ PlayerSettings:
   apiCompatibilityLevel: 6
   activeInputHandler: 0
   windowsGamepadBackendHint: 0
-  cloudProjectId: 
+  cloudProjectId: 856e1437-f42a-4270-9fad-4f811825f6db
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: 
-  organizationId: 
+  projectName: FriendsSample
+  organizationId: ugs-samples
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   playerDataPath: 
