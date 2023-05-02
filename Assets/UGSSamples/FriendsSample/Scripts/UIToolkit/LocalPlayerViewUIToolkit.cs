@@ -21,6 +21,7 @@ namespace Unity.Services.Samples.Friends.UIToolkit
         VisualElement m_PlayerStatusCircle;
         Button m_AcceptChangeButton;
         Button m_CancelChangeButton;
+        Button m_CopyButton;
         string m_LastActivityString;
 
         public LocalPlayerViewUIToolkit(VisualElement viewParent)
@@ -30,10 +31,14 @@ namespace Unity.Services.Samples.Friends.UIToolkit
             m_PlayerName = playerEntryView.Q<Label>("player-name-label");
             m_PlayerStatusCircle = playerEntryView.Q<VisualElement>("player-status-circle");
             m_PlayerActivity = playerEntryView.Q<TextField>("player-activity-field");
-
             m_AcceptChangeButton = m_PlayerActivity.Q<Button>("player-accept");
             m_CancelChangeButton = m_PlayerActivity.Q<Button>("player-cancel");
-
+            m_CopyButton = playerEntryView.Q<Button>("copy-name-button");
+            m_CopyButton.RegisterCallback<ClickEvent>((_) =>
+            {
+                GUIUtility.systemCopyBuffer = m_PlayerName.text;
+            });
+            
             m_AcceptChangeButton.RegisterCallback<ClickEvent>((_) =>
             {
                 var currentOption = ParseStatus(m_PlayerStatusDropDown.value);
