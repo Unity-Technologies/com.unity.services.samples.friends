@@ -150,11 +150,9 @@ namespace Unity.Services.Samples.Friends
             if (success)
             {
                 m_AddFriendView.FriendRequestSuccess();
+                //If the added friend has also requested friendship, he is already a friend, just refresh the views.
                 if (m_RequestsEntryDatas.Find(entry => entry.Name == name) != null)
-                {
-                    RefreshFriends();
-                    RefreshRequests();
-                }
+                    RefreshAll();
             }
             else
             {
@@ -225,7 +223,8 @@ namespace Unity.Services.Samples.Friends
                 //We add the friend by name in this sample but you can also add a friend by ID using AddFriendAsync
                 var relationship = await FriendsService.Instance.AddFriendByNameAsync(playerName);
                 Debug.Log($"Friend request sent to {playerName}.");
-                return relationship.Type == RelationshipType.FRIEND_REQUEST || relationship.Type == RelationshipType.FRIEND;
+                //If both players send friend request to each other, their relationship is changed to Friend.
+                return relationship.Type is RelationshipType.FRIEND_REQUEST or RelationshipType.FRIEND;
             }
             catch (RelationshipsServiceException e)
             {
@@ -243,8 +242,7 @@ namespace Unity.Services.Samples.Friends
             }
             catch (RelationshipsServiceException e)
             {
-                Debug.Log($"Failed to remove {playerId}.");
-                Debug.LogError(e);
+                Debug.Log($"Failed to remove {playerId}. - {e}");
             }
         }
 
@@ -257,8 +255,7 @@ namespace Unity.Services.Samples.Friends
             }
             catch (RelationshipsServiceException e)
             {
-                Debug.Log($"Failed to block {playerId}.");
-                Debug.LogError(e);
+                Debug.Log($"Failed to block {playerId}. - {e}");
             }
         }
 
@@ -271,8 +268,7 @@ namespace Unity.Services.Samples.Friends
             }
             catch (RelationshipsServiceException e)
             {
-                Debug.Log($"Failed to unblock {playerId}.");
-                Debug.LogError(e);
+                Debug.Log($"Failed to unblock {playerId} - {e}.");
             }
         }
 
@@ -285,8 +281,7 @@ namespace Unity.Services.Samples.Friends
             }
             catch (RelationshipsServiceException e)
             {
-                Debug.Log($"Failed to accept request from {playerName}.");
-                Debug.LogError(e);
+                Debug.Log($"Failed to accept request from {playerName}. - {e}");
             }
         }
 
@@ -299,8 +294,7 @@ namespace Unity.Services.Samples.Friends
             }
             catch (RelationshipsServiceException e)
             {
-                Debug.Log($"Failed to decline request from {playerId}.");
-                Debug.LogError(e);
+                Debug.Log($"Failed to decline request from {playerId}. - {e}");
             }
         }
 
@@ -327,7 +321,6 @@ namespace Unity.Services.Samples.Friends
             string activityStatus = "")
         {
             var activity = new Activity { Status = activityStatus };
-
             try
             {
                 await FriendsService.Instance.SetPresenceAsync(presenceAvailabilityOptions, activity);
@@ -335,8 +328,7 @@ namespace Unity.Services.Samples.Friends
             }
             catch (RelationshipsServiceException e)
             {
-                Debug.Log($"Failed to set the presence to {presenceAvailabilityOptions}");
-                Debug.LogError(e);
+                Debug.Log($"Failed to set the presence to {presenceAvailabilityOptions} - {e}");
             }
         }
 

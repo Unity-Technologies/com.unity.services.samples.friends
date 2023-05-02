@@ -15,7 +15,8 @@ namespace Unity.Services.Samples.Friends.UGUI
         [SerializeField] TMP_InputField m_Activity = null;
         [SerializeField] TMP_Dropdown m_PresenceSelector = null;
         [SerializeField] Image m_PresenceColor = null;
-
+        [SerializeField] Button m_CopyButton = null;
+        
         void Awake()
         {
             var names = new List<string>
@@ -29,6 +30,7 @@ namespace Unity.Services.Samples.Friends.UGUI
             m_PresenceSelector.AddOptions(names);
             m_PresenceSelector.onValueChanged.AddListener((value) => { OnStatusChanged(value, m_Activity.text); });
             m_Activity.onEndEdit.AddListener((value) => { OnStatusChanged(m_PresenceSelector.value, value); });
+            m_CopyButton.onClick.AddListener(() => { GUIUtility.systemCopyBuffer = m_NameText.text; });
         }
 
         void OnStatusChanged(int value, string activity)
