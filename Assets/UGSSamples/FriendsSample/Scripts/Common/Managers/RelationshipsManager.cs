@@ -242,8 +242,7 @@ namespace Unity.Services.Samples.Friends
             }
             catch (RelationshipsServiceException e)
             {
-                Debug.Log($"Failed to remove {playerId}.");
-                Debug.LogError(e);
+                Debug.Log($"Failed to remove {playerId}. - {e}");
             }
         }
 
@@ -256,8 +255,7 @@ namespace Unity.Services.Samples.Friends
             }
             catch (RelationshipsServiceException e)
             {
-                Debug.Log($"Failed to block {playerId}.");
-                Debug.LogError(e);
+                Debug.Log($"Failed to block {playerId}. - {e}");
             }
         }
 
@@ -270,8 +268,7 @@ namespace Unity.Services.Samples.Friends
             }
             catch (RelationshipsServiceException e)
             {
-                Debug.Log($"Failed to unblock {playerId}.");
-                Debug.LogError(e);
+                Debug.Log($"Failed to unblock {playerId} - {e}.");
             }
         }
 
@@ -284,8 +281,7 @@ namespace Unity.Services.Samples.Friends
             }
             catch (RelationshipsServiceException e)
             {
-                Debug.Log($"Failed to accept request from {playerName}.");
-                Debug.LogError(e);
+                Debug.Log($"Failed to accept request from {playerName}. - {e}");
             }
         }
 
@@ -298,8 +294,7 @@ namespace Unity.Services.Samples.Friends
             }
             catch (RelationshipsServiceException e)
             {
-                Debug.Log($"Failed to decline request from {playerId}.");
-                Debug.LogError(e);
+                Debug.Log($"Failed to decline request from {playerId}. - {e}");
             }
         }
 
@@ -326,7 +321,6 @@ namespace Unity.Services.Samples.Friends
             string activityStatus = "")
         {
             var activity = new Activity { Status = activityStatus };
-
             try
             {
                 await FriendsService.Instance.SetPresenceAsync(presenceAvailabilityOptions, activity);
@@ -334,8 +328,7 @@ namespace Unity.Services.Samples.Friends
             }
             catch (RelationshipsServiceException e)
             {
-                Debug.Log($"Failed to set the presence to {presenceAvailabilityOptions}");
-                Debug.LogError(e);
+                Debug.Log($"Failed to set the presence to {presenceAvailabilityOptions} - {e}");
             }
         }
 
