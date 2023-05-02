@@ -150,11 +150,9 @@ namespace Unity.Services.Samples.Friends
             if (success)
             {
                 m_AddFriendView.FriendRequestSuccess();
+                //If the added friend has also requested friendship, he is already a friend, just refresh the views.
                 if (m_RequestsEntryDatas.Find(entry => entry.Name == name) != null)
-                {
-                    RefreshFriends();
-                    RefreshRequests();
-                }
+                    RefreshAll();
             }
             else
             {
@@ -225,7 +223,8 @@ namespace Unity.Services.Samples.Friends
                 //We add the friend by name in this sample but you can also add a friend by ID using AddFriendAsync
                 var relationship = await FriendsService.Instance.AddFriendByNameAsync(playerName);
                 Debug.Log($"Friend request sent to {playerName}.");
-                return relationship.Type == RelationshipType.FRIEND_REQUEST || relationship.Type == RelationshipType.FRIEND;
+                //If both players send friend request to each other, their relationship is changed to Friend.
+                return relationship.Type is RelationshipType.FRIEND_REQUEST or RelationshipType.FRIEND;
             }
             catch (RelationshipsServiceException e)
             {
