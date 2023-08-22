@@ -13,7 +13,7 @@ namespace Unity.Services.Samples.Friends.UIToolkit
         //We dont support the player selecting OFFLINE or UNKNOWN with the UI
         static readonly string[] k_LocalPlayerChoices = { "Online", "Busy", "Away", "Invisible" };
 
-        public Action<(PresenceAvailabilityOptions, string)> onPresenceChanged { get; set; }
+        public Action<(Availability, string)> onPresenceChanged { get; set; }
 
         DropdownField m_PlayerStatusDropDown;
         Label m_PlayerName;
@@ -60,19 +60,19 @@ namespace Unity.Services.Samples.Friends.UIToolkit
                 onPresenceChanged?.Invoke((option, m_PlayerActivity.text));
             });
 
-            SetPresence(PresenceAvailabilityOptions.INVISIBLE);
+            SetPresence(Availability.Invisible);
         }
 
         //Keeping these setters seperate in case we wan to support name and activity changes`
         public void Refresh(string name, string activity,
-            PresenceAvailabilityOptions presenceAvailabilityOptions)
+            Availability availability)
         {
             m_PlayerName.text = name;
             m_PlayerActivity.SetValueWithoutNotify(activity);
-            SetPresence(presenceAvailabilityOptions);
+            SetPresence(availability);
         }
 
-        void SetPresence(PresenceAvailabilityOptions presenceStatus)
+        void SetPresence(Availability presenceStatus)
         {
             var index = (int)presenceStatus - 1;
             var dropDownChoice = m_PlayerStatusDropDown.choices[index];
@@ -86,15 +86,15 @@ namespace Unity.Services.Samples.Friends.UIToolkit
             m_PlayerStatusCircle.style.backgroundColor = presenceColor;
         }
 
-        PresenceAvailabilityOptions ParseStatus(string status)
+        Availability ParseStatus(string status)
         {
             var capsStatus = status.ToUpper();
-            if (Enum.TryParse(capsStatus, out PresenceAvailabilityOptions parsedOption))
+            if (Enum.TryParse(capsStatus, out Availability parsedOption))
             {
                 return parsedOption;
             }
 
-            return PresenceAvailabilityOptions.UNKNOWN;
+            return Availability.Unknown;
         }
     }
 }

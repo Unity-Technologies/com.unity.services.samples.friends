@@ -9,7 +9,7 @@ namespace Unity.Services.Samples.Friends.UGUI
 {
     public class LocalPlayerViewUGUI : MonoBehaviour, ILocalPlayerView
     {
-        public Action<(PresenceAvailabilityOptions, string)> onPresenceChanged { get; set; }
+        public Action<(Availability, string)> onPresenceChanged { get; set; }
 
         [SerializeField] TextMeshProUGUI m_NameText = null;
         [SerializeField] TMP_InputField m_Activity = null;
@@ -35,18 +35,18 @@ namespace Unity.Services.Samples.Friends.UGUI
 
         void OnStatusChanged(int value, string activity)
         {
-            var presence = (PresenceAvailabilityOptions)Enum.Parse(typeof(PresenceAvailabilityOptions),
+            var presence = (Availability)Enum.Parse(typeof(Availability),
                 m_PresenceSelector.options[value].text, true);
 
             onPresenceChanged?.Invoke((presence, activity));
         }
 
-        public void Refresh(string name, string activity, PresenceAvailabilityOptions presenceAvailabilityOptions)
+        public void Refresh(string name, string activity, Availability availability)
         {
             m_NameText.text = name;
 
             //Presence
-            var index = (int)presenceAvailabilityOptions - 1;
+            var index = (int)availability - 1;
             m_PresenceSelector.SetValueWithoutNotify(index);
             var presenceColor = ColorUtils.GetPresenceColor(index);
             m_PresenceColor.color = presenceColor;

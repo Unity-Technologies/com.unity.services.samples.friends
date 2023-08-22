@@ -10,7 +10,7 @@ namespace Unity.Services.Samples.Friends
             return s_PresenceUIColors[colorIndex];
         }
 
-        //Mapping of colors to PresenceAvailabilityOptions
+        //Mapping of colors to Availability
         static Color[] s_PresenceUIColors =
         {
             GreenColor, //ONLINE

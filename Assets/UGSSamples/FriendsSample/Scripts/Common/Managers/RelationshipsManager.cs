@@ -90,11 +90,11 @@ namespace Unity.Services.Samples.Friends
             var playerName = await AuthenticationService.Instance.GetPlayerNameAsync();
             m_LoggedPlayerProfile = new PlayerProfile(playerName, playerID);
 
-            await SetPresence(PresenceAvailabilityOptions.ONLINE, "In Friends Menu");
+            await SetPresence(Availability.Online, "In Friends Menu");
             m_LocalPlayerView.Refresh(
                 m_LoggedPlayerProfile.Name,
                 "In Friends Menu",
-                PresenceAvailabilityOptions.ONLINE);
+                Availability.Online);
             RefreshAll();
             Debug.Log($"Logged in as {m_LoggedPlayerProfile}");
         }
@@ -138,10 +138,10 @@ namespace Unity.Services.Samples.Friends
             RefreshRequests();
         }
 
-        async void SetPresenceAsync((PresenceAvailabilityOptions presence, string activity) status)
+        async void SetPresenceAsync((Availability availability, string activity) status)
         {
-            await SetPresence(status.presence, status.activity);
-            m_LocalPlayerView.Refresh(m_LoggedPlayerProfile.Name, status.activity, status.presence);
+            await SetPresence(status.availability, status.activity);
+            m_LocalPlayerView.Refresh(m_LoggedPlayerProfile.Name, status.activity, status.availability);
         }
 
         async void AddFriendAsync(string name)
@@ -169,8 +169,8 @@ namespace Unity.Services.Samples.Friends
             foreach (var friend in friends)
             {
                 string activityText;
-                if (friend.Presence.Availability == PresenceAvailabilityOptions.OFFLINE ||
-                    friend.Presence.Availability == PresenceAvailabilityOptions.INVISIBLE)
+                if (friend.Presence.Availability == Availability.Offline ||
+                    friend.Presence.Availability == Availability.Invisible)
                 {
                     activityText = friend.Presence.LastSeen.ToShortDateString() + " " +
                                    friend.Presence.LastSeen.ToLongTimeString();
@@ -224,9 +224,9 @@ namespace Unity.Services.Samples.Friends
                 var relationship = await FriendsService.Instance.AddFriendByNameAsync(playerName);
                 Debug.Log($"Friend request sent to {playerName}.");
                 //If both players send friend request to each other, their relationship is changed to Friend.
-                return relationship.Type is RelationshipType.FRIEND_REQUEST or RelationshipType.FRIEND;
+                return relationship.Type is RelationshipType.FriendRequest or RelationshipType.Friend;
             }
-            catch (RelationshipsServiceException e)
+            catch (FriendsServiceException e)
             {
                 Debug.Log($"Failed to Request {playerName} - {e}.");
                 return false;
@@ -240,7 +240,7 @@ namespace Unity.Services.Samples.Friends
                 await FriendsService.Instance.DeleteFriendAsync(playerId);
                 Debug.Log($"{playerId} was removed from the friends list.");
             }
-            catch (RelationshipsServiceException e)
+            catch (FriendsServiceException e)
             {
                 Debug.Log($"Failed to remove {playerId}. - {e}");
             }
@@ -253,7 +253,7 @@ namespace Unity.Services.Samples.Friends
                 await FriendsService.Instance.AddBlockAsync(playerId);
                 Debug.Log($"{playerId} was blocked.");
             }
-            catch (RelationshipsServiceException e)
+            catch (FriendsServiceException e)
             {
                 Debug.Log($"Failed to block {playerId}. - {e}");
             }
@@ -266,7 +266,7 @@ namespace Unity.Services.Samples.Friends
                 await FriendsService.Instance.DeleteBlockAsync(playerId);
                 Debug.Log($"{playerId} was unblocked.");
             }
-            catch (RelationshipsServiceException e)
+            catch (FriendsServiceException e)
             {
                 Debug.Log($"Failed to unblock {playerId} - {e}.");
             }
@@ -279,7 +279,7 @@ namespace Unity.Services.Samples.Friends
                 await SendFriendRequest(playerName);
                 Debug.Log($"Friend request from {playerName} was accepted.");
             }
-            catch (RelationshipsServiceException e)
+            catch (FriendsServiceException e)
             {
                 Debug.Log($"Failed to accept request from {playerName}. - {e}");
             }
@@ -292,7 +292,7 @@ namespace Unity.Services.Samples.Friends
                 await FriendsService.Instance.DeleteIncomingFriendRequestAsync(playerId);
                 Debug.Log($"Friend request from {playerId} was declined.");
             }
-            catch (RelationshipsServiceException e)
+            catch (FriendsServiceException e)
             {
                 Debug.Log($"Failed to decline request from {playerId}. - {e}");
             }
@@ -317,18 +317,18 @@ namespace Unity.Services.Samples.Friends
             return GetNonBlockedMembers(FriendsService.Instance.IncomingFriendRequests);
         }
 
-        async Task SetPresence(PresenceAvailabilityOptions presenceAvailabilityOptions,
+        async Task SetPresence(Availability availability,
             string activityStatus = "")
         {
             var activity = new Activity { Status = activityStatus };
             try
             {
-                await FriendsService.Instance.SetPresenceAsync(presenceAvailabilityOptions, activity);
-                Debug.Log($"Availability changed to {presenceAvailabilityOptions}.");
+                await FriendsService.Instance.SetPresenceAsync(availability, activity);
+                Debug.Log($"Availability changed to {availability}.");
             }
-            catch (RelationshipsServiceException e)
+            catch (FriendsServiceException e)
             {
-                Debug.Log($"Failed to set the presence to {presenceAvailabilityOptions} - {e}");
+                Debug.Log($"Failed to set the presence to {availability} - {e}");
             }
         }
 
@@ -358,10 +358,10 @@ namespace Unity.Services.Samples.Friends
                     Debug.Log($"Delete {e.Relationship} EventReceived");
                 };
             }
-            catch (RelationshipsServiceException e)
+            catch (FriendsServiceException e)
             {
                 Debug.Log(
-                    "An error occurred while performing the action. Code: " + e.Reason + ", Message: " + e.Message);
+                    "An error occurred while performing the action. Code: " + e.ErrorCode + ", Message: " + e.Message);
             }
         }
 
