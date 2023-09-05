@@ -14,10 +14,10 @@ namespace Unity.Services.Samples.Friends.UGUI
         public Button removeFriendButton = null;
         public Button blockFriendButton = null;
 
-        public void Init(string playerName, Availability availability, string activity)
+        public void Init(string playerName, Availability presenceAvailabilityOptions, string activity)
         {
             m_NameText.text = playerName;
-            var index = (int)availability - 1;
+            var index = (int)presenceAvailabilityOptions - 1;
             var presenceColor = ColorUtils.GetPresenceColor(index);
             m_PresenceColorImage.color = presenceColor;
             m_ActivityText.text = activity;

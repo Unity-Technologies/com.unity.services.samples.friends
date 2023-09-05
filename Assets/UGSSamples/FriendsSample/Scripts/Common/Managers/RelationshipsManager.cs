@@ -138,10 +138,10 @@ namespace Unity.Services.Samples.Friends
             RefreshRequests();
         }
 
-        async void SetPresenceAsync((Availability availability, string activity) status)
+        async void SetPresenceAsync((Availability presence, string activity) status)
         {
-            await SetPresence(status.availability, status.activity);
-            m_LocalPlayerView.Refresh(m_LoggedPlayerProfile.Name, status.activity, status.availability);
+            await SetPresence(status.presence, status.activity);
+            m_LocalPlayerView.Refresh(m_LoggedPlayerProfile.Name, status.activity, status.presence);
         }
 
         async void AddFriendAsync(string name)
@@ -317,18 +317,18 @@ namespace Unity.Services.Samples.Friends
             return GetNonBlockedMembers(FriendsService.Instance.IncomingFriendRequests);
         }
 
-        async Task SetPresence(Availability availability,
+        async Task SetPresence(Availability presenceAvailabilityOptions,
             string activityStatus = "")
         {
             var activity = new Activity { Status = activityStatus };
             try
             {
-                await FriendsService.Instance.SetPresenceAsync(availability, activity);
-                Debug.Log($"Availability changed to {availability}.");
+                await FriendsService.Instance.SetPresenceAsync(presenceAvailabilityOptions, activity);
+                Debug.Log($"Availability changed to {presenceAvailabilityOptions}.");
             }
             catch (FriendsServiceException e)
             {
-                Debug.Log($"Failed to set the presence to {availability} - {e}");
+                Debug.Log($"Failed to set the presence to {presenceAvailabilityOptions} - {e}");
             }
         }
 
@@ -361,7 +361,7 @@ namespace Unity.Services.Samples.Friends
             catch (FriendsServiceException e)
             {
                 Debug.Log(
-                    "An error occurred while performing the action. Code: " + e.ErrorCode + ", Message: " + e.Message);
+                    "An error occurred while performing the action. HttpCode: " + e.StatusCode + ", FriendsErrorCode: " + e.ErrorCode +  ", Message: " + e.Message);
             }
         }
 
