@@ -8,7 +8,7 @@ namespace Unity.Services.Samples.Friends
     {
         public string Name;
         public string Id;
-        public PresenceAvailabilityOptions Availability;
+        public Availability Availability;
         public string Activity;
 
         public override string ToString()

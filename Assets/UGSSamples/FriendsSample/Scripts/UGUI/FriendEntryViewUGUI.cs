@@ -14,7 +14,7 @@ namespace Unity.Services.Samples.Friends.UGUI
         public Button removeFriendButton = null;
         public Button blockFriendButton = null;
 
-        public void Init(string playerName, PresenceAvailabilityOptions presenceAvailabilityOptions, string activity)
+        public void Init(string playerName, Availability presenceAvailabilityOptions, string activity)
         {
             m_NameText.text = playerName;
             var index = (int)presenceAvailabilityOptions - 1;

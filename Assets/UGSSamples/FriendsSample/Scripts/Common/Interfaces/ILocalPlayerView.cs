@@ -5,10 +5,10 @@ namespace Unity.Services.Samples.Friends
 {
     public interface ILocalPlayerView
     {
-        Action<(PresenceAvailabilityOptions, string)> onPresenceChanged { get; set; }
+        Action<(Availability, string)> onPresenceChanged { get; set; }
 
         void Refresh(string name, string activity,
-            PresenceAvailabilityOptions presenceAvailabilityOptions);
+            Availability presenceAvailabilityOptions);
     }
 
 }

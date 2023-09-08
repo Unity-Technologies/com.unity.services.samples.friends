@@ -35,7 +35,7 @@ namespace Unity.Services.Samples.Friends.UIToolkit
             });
         }
 
-        public void Refresh(string name, string activity, PresenceAvailabilityOptions presenceStatus)
+        public void Refresh(string name, string activity, Availability presenceStatus)
         {
             m_PlayerName.text = name;
             m_PlayerActivity.SetValueWithoutNotify(activity);
