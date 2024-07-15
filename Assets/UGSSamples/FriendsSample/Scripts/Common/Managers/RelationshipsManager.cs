@@ -5,6 +5,7 @@ using Unity.Services.Authentication;
 using Unity.Services.Friends;
 using Unity.Services.Friends.Exceptions;
 using Unity.Services.Friends.Models;
+using Unity.Services.Friends.Notifications;
 using UnityEngine;
 
 namespace Unity.Services.Samples.Friends
@@ -29,6 +30,8 @@ namespace Unity.Services.Samples.Friends
 
         PlayerProfile m_LoggedPlayerProfile;
 
+        private FriendsEventConnectionState m_current_state;
+
         async void Start()
         {
             //If this is added to a larger project, the service init order should be controlled from one place, and replace this.
@@ -38,10 +41,13 @@ namespace Unity.Services.Samples.Friends
 
         async Task Init()
         {
+            // Registering callbacks before Friends Initializing to ensure the receiving of all
+            // `NotificationsConnectivityChanged` events.
+            RegisterFriendsEventCallbacks(); 
+            
             await FriendsService.Instance.InitializeAsync();
             UIInit();
             await LogInAsync();
-            SubscribeToFriendsEventCallbacks();
             RefreshAll();
         }
 
@@ -215,7 +221,7 @@ namespace Unity.Services.Samples.Friends
 
             m_RelationshipsView.RelationshipBarView.Refresh();
         }
-
+        
         async Task<bool> SendFriendRequest(string playerName)
         {
             try
@@ -332,7 +338,7 @@ namespace Unity.Services.Samples.Friends
             }
         }
 
-        void SubscribeToFriendsEventCallbacks()
+        void RegisterFriendsEventCallbacks()
         {
             try
             {
@@ -356,6 +362,23 @@ namespace Unity.Services.Samples.Friends
                 {
                     RefreshFriends();
                     Debug.Log($"Delete {e.Relationship} EventReceived");
+                };
+                FriendsService.Instance.NotificationsConnectivityChanged += e =>
+                {
+                    if (m_current_state == FriendsEventConnectionState.Subscribed && m_current_state != e.State)
+                    {
+                        m_LocalPlayerView.Refresh(m_LoggedPlayerProfile.Name,
+                            "Connectivity Problems",
+                            Availability.Offline);
+                    }
+
+                    if (m_current_state == FriendsEventConnectionState.Unsynced &&
+                        e.State == FriendsEventConnectionState.Subscribed)
+                    {
+                        SetPresenceAsync((Availability.Online, "Back Online"));
+                    }
+                    Debug.Log($"Change of state in notification system from {m_current_state} to {e.State}");
+                    m_current_state = e.State;
                 };
             }
             catch (FriendsServiceException e)
