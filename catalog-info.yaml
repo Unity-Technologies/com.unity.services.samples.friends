@@ -11,4 +11,4 @@ metadata:
 spec:
   type: other
   lifecycle: pre-production
-  owner: unity-technologies/mps-persistent-worlds
+  owner: unity-technologies/multiplayer-starfleet
